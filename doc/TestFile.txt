@@ -1,12 +1,5 @@
 First edit Yizhou W.
-<<<<<<< HEAD
 second edit by zheyu
-=======
-Second edit Yuan F.
-<<<<<<< HEAD
+Third edit Yuan F.
 Edit by Bingqi W.
-=======
->>>>>>> 2f7e377e5d87da17129565cf3e8fa758c65553dd
-
-third edit zheyu
->>>>>>> f7531ee8bf471eed43845f95b28c404b85629743
+edit by Bowei Li
