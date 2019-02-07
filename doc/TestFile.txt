@@ -1,2 +1,8 @@
 First edit Yizhou W.
+<<<<<<< HEAD
 second edit by zheyu
+=======
+Second edit Yuan F.
+>>>>>>> 2f7e377e5d87da17129565cf3e8fa758c65553dd
+
+third edit zheyu
