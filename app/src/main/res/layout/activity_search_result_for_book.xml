@@ -128,15 +128,17 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/buttonBookNewSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="newSearch"
             android:text="@string/bookResultNewSearch" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/buttonBookBack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onClick="backHome"
             android:text="@string/boolResultBack" />
     </LinearLayout>
 
