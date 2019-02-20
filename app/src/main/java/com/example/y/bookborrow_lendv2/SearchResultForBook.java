@@ -19,6 +19,7 @@ public class SearchResultForBook extends AppCompatActivity {
 
     public void backHome(View view){
 
+
     }
 
     public void displayBookName(View view){
@@ -29,6 +30,10 @@ public class SearchResultForBook extends AppCompatActivity {
 
     public void displayBookDetail(View view){
 
-        
+
+    }
+
+    public void displayBookImage(View view){
+
     }
 }
