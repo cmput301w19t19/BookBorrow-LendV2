@@ -12,7 +12,9 @@ public class EditBookDetail extends AppCompatActivity {
         setContentView(R.layout.activity_edit_book_detail);
     }
 
-    public void displayISBN(View view){
+    public View displayISBN(View view){
+
+        return view;
 
     }
 
