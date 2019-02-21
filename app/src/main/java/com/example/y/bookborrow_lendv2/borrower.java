@@ -44,7 +44,4 @@ public class borrower extends user {
     public float getBorrowerRating() {
         return borrowerRating;
     }
-
-
-
 }
