@@ -1,12 +1,14 @@
 package com.example.y.bookborrow_lendv2;
 
 import android.media.Image;
+import android.provider.ContactsContract;
 
 public abstract class user {
     private String name;
     private Image photo;
     private String password;
     private Integer phone;
+    private String email;
 
     user(){};
 
@@ -42,6 +44,12 @@ public abstract class user {
         return photo;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
 
