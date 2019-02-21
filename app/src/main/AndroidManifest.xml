@@ -27,6 +27,13 @@
         <activity android:name=".BorrowerRequest" />
         <activity android:name=".RateToOwner" />
         <activity android:name=".RateToBorrower"></activity>
+        <activity android:name=".BorrowBookList" />
+        <activity android:name=".PrivateBookDetails" />
+        <activity android:name=".PublicBookDetails" />
+        <activity
+            android:name=".Search"
+            android:label="@string/title_activity_search"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -43,19 +43,10 @@ public class BorrowerMenu extends AppCompatActivity {
 
         requested.setOnClickListener(new View.OnClickListener() {
 
-            /**
-             * save the message by load the message from the editText
-             * and painted on the screen by using ListView
-             * notify the update of the list
-             * update and repainted the message on the screen
-             * @see Tweet
-             * @param v
-             */
-
             public void onClick(View v) {
-                Intent intent = new Intent(BorrowerMenu.this, RequestMenu.class);
-                startActivity(intent);
-                BorrowerMenu.this.finish();
+                //Intent intent = new Intent(BorrowerMenu.this, RequestMenu.class);
+                //startActivity(intent);
+                //BorrowerMenu.this.finish();
 
 
             }
@@ -63,19 +54,10 @@ public class BorrowerMenu extends AppCompatActivity {
 
         bookList.setOnClickListener(new View.OnClickListener() {
 
-            /**
-             * save the message by load the message from the editText
-             * and painted on the screen by using ListView
-             * notify the update of the list
-             * update and repainted the message on the screen
-             * @see Tweet
-             * @param v
-             */
-
             public void onClick(View v) {
-                Intent intent = new Intent(BorrowerMenu.this, MyBookList.class);
-                startActivity(intent);
-                BorrowerMenu.this.finish();
+                //Intent intent = new Intent(BorrowerMenu.this, MyBookList.class);
+                //startActivity(intent);
+                //BorrowerMenu.this.finish();
 
 
             }
@@ -83,19 +65,10 @@ public class BorrowerMenu extends AppCompatActivity {
 
         search.setOnClickListener(new View.OnClickListener() {
 
-            /**
-             * save the message by load the message from the editText
-             * and painted on the screen by using ListView
-             * notify the update of the list
-             * update and repainted the message on the screen
-             * @see Tweet
-             * @param v
-             */
-
             public void onClick(View v) {
-                Intent intent = new Intent(BorrowerMenu.this, Search.class);
-                startActivity(intent);
-                BorrowerMenu.this.finish();
+                //Intent intent = new Intent(BorrowerMenu.this, Search.class);
+                //startActivity(intent);
+                //BorrowerMenu.this.finish();
 
 
             }
@@ -103,19 +76,10 @@ public class BorrowerMenu extends AppCompatActivity {
 
         scan.setOnClickListener(new View.OnClickListener() {
 
-            /**
-             * save the message by load the message from the editText
-             * and painted on the screen by using ListView
-             * notify the update of the list
-             * update and repainted the message on the screen
-             * @see Tweet
-             * @param v
-             */
-
             public void onClick(View v) {
-                Intent intent = new Intent(BorrowerMenu.this, Scan.class);
-                startActivity(intent);
-                BorrowerMenu.this.finish();
+                //Intent intent = new Intent(BorrowerMenu.this, Scan.class);
+                //startActivity(intent);
+                //BorrowerMenu.this.finish();
 
 
             }
