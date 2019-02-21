@@ -28,28 +28,81 @@
     android:layout_height="match_parent"
     tools:context=".Search">
 
-    <android.support.design.widget.AppBarLayout
+    <LinearLayout
+        android:id="@+id/LL"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <Space
+            android:id="@+id/space1"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="88dp" />
 
-    </android.support.design.widget.AppBarLayout>
+        <TextView
+            android:id="@+id/searchPrompt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="@string/searchPrompt"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
-    <include layout="@layout/content_search" />
+        <Space
+            android:id="@+id/space2"
+            android:layout_width="match_parent"
+            android:layout_height="88dp" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        <EditText
+            android:id="@+id/SearchKeyWord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/SearchHint"
+            android:inputType="text"
+            android:paddingLeft="36dp"
+            android:paddingTop="8dp"
+            android:paddingRight="36dp"
+            android:paddingBottom="8dp" />
+
+        <Space
+            android:id="@+id/space3"
+            android:layout_width="match_parent"
+            android:layout_height="88dp" />
+
+        <Button
+            android:id="@+id/SearchForPeople"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="8sp"
+            android:paddingBottom="8sp"
+            android:text="@string/SearchForPeople"
+            android:textSize="18sp" />
+
+        <Space
+            android:id="@+id/space4"
+            android:layout_width="match_parent"
+            android:layout_height="18dp" />
+
+        <Button
+            android:id="@+id/SearchForBook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal|center"
+            android:paddingTop="8sp"
+            android:paddingBottom="8sp"
+            android:text="@string/SearchForBooks"
+            android:textSize="18sp" />
+
+        <Space
+            android:id="@+id/space4"
+            android:layout_width="match_parent"
+            android:layout_height="88dp" />
+
+    </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
