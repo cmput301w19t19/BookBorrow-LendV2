@@ -31,10 +31,12 @@ public class borrowerTest {
         borrower1.deleteBorrowedBook(book1);
 
 
-        assertEquals(0,borrower1.getRequestedBookList().size());
+        assertEquals((Boolean)true,borrower1.getRequestedBookList().isEmpty());
 
 
     }
+
+
 
 
 
