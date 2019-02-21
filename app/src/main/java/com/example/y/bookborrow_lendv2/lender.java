@@ -12,6 +12,8 @@ public class lender extends user {
         this.lenderRating = rating;
     }
 
+    public float getLenderRating(){return lenderRating;}
+
 
     public void addBorrowedBook(book book){
         lendedBook.add(book);
@@ -21,8 +23,5 @@ public class lender extends user {
         requestedBookList.add(book);
     }
 
-    public void setLenderRating(float lenderRating) {
-        this.lenderRating = lenderRating;
-    }
 }
 
