@@ -22,25 +22,18 @@
 
 package com.example.y.bookborrow_lendv2;
 
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.widget.EditText;
 
-public class BorrowerRequest extends AppCompatActivity {
+import org.junit.Test;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_borrower_request);
+public class RateTest {
 
-        showAcceptRequest();
-        showWatchList();
-    }
+    //@Test
+    //public void setRate(){
+        // RateToBorrower B = new RateToBorrower();
 
-    public void showAcceptRequest(){
-
-    }
-
-    public void showWatchList(){
-
-    }
+     //   EditText edit = (EditText)findViewById(R.id.edit_borrower_rate);
+       // Float result = edit.getText.ToFloat();
+       // tview.setText(result);
+    //}
 }

@@ -24,7 +24,7 @@
     <string name="menu_string_4_1">Click to scan your Book</string>
     <string name="borrower_request_view">Borrower Request View</string>
     <string name="request_accept">Request Accept</string>
-    <string name="request_unaccept">Request Unaccept</string>
+    <string name="request_unaccept">Watch List</string>
     <string name="rate_info">"Enter the rate(1 - 10): "</string>
     <string name="rate_comment">"Enter the comment: "</string>
     <string name="rate_to_owner">Rate To Owner and Book</string>
