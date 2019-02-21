@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         writeNewLender("Anna");
         writeNewLender("Lily");
-        writeNewLender("Jack");
+        writeNewLender("Yale");
 
 
 

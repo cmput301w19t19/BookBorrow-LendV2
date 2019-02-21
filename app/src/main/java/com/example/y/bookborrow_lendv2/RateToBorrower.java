@@ -24,6 +24,8 @@ package com.example.y.bookborrow_lendv2;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class RateToBorrower extends AppCompatActivity {
 
@@ -31,5 +33,22 @@ public class RateToBorrower extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_to_borrower);
+
+        TextView username = (TextView) findViewById(R.id.Borrower_username);
+        TextView description = (TextView) findViewById(R.id.Borrower_description);
+
+        EditText rate_borrower = (EditText) findViewById(R.id.edit_borrower_rate);
+        EditText com_borrower = (EditText) findViewById(R.id.edit_borrower_comment);
+
+        setUsernameAndDescription();
+        setRateAndComment();
+    }
+
+    public void setUsernameAndDescription(){
+
+    }
+
+    public void setRateAndComment(){
+
     }
 }

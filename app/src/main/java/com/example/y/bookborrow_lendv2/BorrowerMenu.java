@@ -77,10 +77,9 @@ public class BorrowerMenu extends AppCompatActivity {
         scan.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                //Intent intent = new Intent(BorrowerMenu.this, Scan.class);
-                //startActivity(intent);
-                //BorrowerMenu.this.finish();
-
+                // Intent intent = new Intent(BorrowerMenu.this, Scan.class);
+                // startActivity(intent);
+                // BorrowerMenu.this.finish();
 
             }
         });
