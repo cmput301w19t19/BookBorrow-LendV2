@@ -19,7 +19,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,19 +28,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
-import static android.content.ContentValues.TAG;
 
 /**
  * A login screen that offers login via email/password.
@@ -70,61 +60,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private DatabaseReference mDatabase;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        myRef.setValue("Hello, World!");
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-
-        DatabaseReference lenderRef = FirebaseDatabase.getInstance().getReference("lenders");
-
-
-
-        /** writeNewLender("Bob") is wrote for test to see if the addNewLender function works*/
-
-        writeNewLender("Anna");
-        writeNewLender("Lily");
-        writeNewLender("Yale");
-
-
-
-
-        /** the foolowing lines are to test if system read infomation of lender from firebase*/
-
-        /** String name = "Bob";
-         lenderRef.child(name).
-
-         addValueEventListener(new ValueEventListener() {
-
-         public void onDataChange (DataSnapshot dataSnapshot){
-
-         lender lenderFetched = dataSnapshot.getValue(lender.class);
-         String Name = lenderFetched.getName();
-         Toast.makeText(getBaseContext(), Name, Toast.LENGTH_LONG).show();
-
-
-
-         }
-
-         public void onCancelled (DatabaseError databaseError){
-         Log.w(TAG, "onCancelled", databaseError.toException());
-         }
-         });*/
-
-
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -148,7 +91,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-
     }
 
     private void populateAutoComplete() {
@@ -193,28 +135,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         }
     }
-
-
-    /**
-     * this method is called when we want to add a new user to firebase
-     */
-
-    public void writeNewLender(String userName) {
-        //FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //String key = database.getReference("tweets").push().getKey();
-        lender lender1 = new lender();
-        lender1.setName(userName);
-        lender1.setPhone(1234567);
-
-        lender1.setLenderRating((float)5.5);
-        //set userName as a key to retrieve lender's information
-        String key = userName;
-        mDatabase.child("lenders").child(key).setValue(lender1);
-
-    }
-
-
-
 
 
     /**
@@ -324,7 +244,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 // Select only email addresses.
                 ContactsContract.Contacts.Data.MIMETYPE +
                         " = ?", new String[]{ContactsContract.CommonDataKinds.Email
-                .CONTENT_ITEM_TYPE},
+                                                                     .CONTENT_ITEM_TYPE},
 
                 // Show primary email addresses first. Note that there won't be
                 // a primary email address if the user hasn't specified one.
