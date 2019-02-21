@@ -57,4 +57,32 @@
     <string name="pBookRate">No current rating</string>
     <string name="requestTheBook">Request It!</string>
     <string name="BookDetailRequestTheBook">Request It!</string>
+
+
+    <string name="bookDetailSave">Save</string>
+    <string name="BookDetailReturn">Return</string>
+    <string name="bookDetailRequestList">Request List:</string>
+    <string name="bookDetailLocation">Location:</string>
+    <string name="bookDetailDescribtion">Describtion:</string>
+    <string name="bookDetailStatus">Status:</string>
+    <string name="bookDetailBookName">Book Name:</string>
+    <string name="bookDetailISBN">ISBN:</string>
+    <string name="bookDetailAuthor">Author:</string>
+    <string name="plaintext1">default</string>
+    <string name="plaintext2">default</string>
+    <string name="plaintext3">default</string>
+    <string name="plaintext4">default</string>
+    <string name="PeopleResult">Search Result On People</string>
+    <string name="personName1">Personname</string>
+    <string name="personName2">Person Name</string>
+    <string name="personName3">Person Name</string>
+    <string name="peopleResultNewSearch">New Search</string>
+    <string name="peopleResultBack">Back</string>
+    <string name="bookResultNewSearch">New Search</string>
+    <string name="boolResultBack">Back to home</string>
+    <string name="bookResult">Search Result For Book</string>
+    <string name="bookName1">book Name1</string>
+    <string name="bookName2">book Name2</string>
+    <string name="bookName3">Book Name3</string>
+    <string name="title_activity_location">Location</string>
 </resources>
