@@ -131,14 +131,12 @@
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="peopleNewSearch"
             android:text="@string/peopleResultNewSearch" />
 
         <Button
             android:id="@+id/button3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="peopleBackHome"
             android:text="@string/peopleResultBack" />
     </LinearLayout>
 

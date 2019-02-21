@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.y.bookborrow_lendv2">
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 =======
@@ -11,6 +12,8 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+>>>>>>> zheyu
+=======
 >>>>>>> zheyu
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -24,6 +27,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 
@@ -42,6 +46,9 @@
         <activity
             android:name=".LocationActivity"
             android:label="@string/title_activity_location"></activity>
+=======
+        <activity android:name=".location"></activity>
+>>>>>>> zheyu
         <activity android:name=".EditBookDetail" />
         <activity android:name=".SearchResultForBook" />
         <activity android:name=".SearchResultForPeople" />

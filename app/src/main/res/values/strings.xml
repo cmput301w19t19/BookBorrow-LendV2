@@ -88,6 +88,11 @@
     <string name="bookName1">book Name1</string>
     <string name="bookName2">book Name2</string>
     <string name="bookName3">Book Name3</string>
+<<<<<<< HEAD
     <string name="title_activity_location">Location</string>
+>>>>>>> zheyu
+=======
+    <string name="locationsavebutton">save</string>
+    <string name="locationdeletebutton">delete</string>
 >>>>>>> zheyu
 </resources>
