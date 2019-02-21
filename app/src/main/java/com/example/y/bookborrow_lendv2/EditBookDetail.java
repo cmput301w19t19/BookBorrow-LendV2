@@ -18,6 +18,7 @@ public class EditBookDetail extends AppCompatActivity {
 
     }
 
+    //show the textview by search
     public void displayDescribtion(View view){
 
     }
