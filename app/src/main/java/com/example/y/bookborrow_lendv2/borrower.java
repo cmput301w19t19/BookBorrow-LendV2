@@ -20,4 +20,8 @@ public class borrower extends user {
     public void addRequestedBook(book book){
         requestedBookList.add(book);
     }
+
+    public float getBorrowerRating() {
+        return borrowerRating;
+    }
 }
