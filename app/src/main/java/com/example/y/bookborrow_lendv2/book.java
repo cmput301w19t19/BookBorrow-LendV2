@@ -15,7 +15,7 @@ public class book {
     private String description;
     private String title;
     private float bookRating;
-    private ArrayList<borrower> requestedList = = new ArrayList<String>();;
+    private ArrayList<borrower> requestedList = new ArrayList<borrower>();
     private String borrower;
     private String owner;
     private String status;
