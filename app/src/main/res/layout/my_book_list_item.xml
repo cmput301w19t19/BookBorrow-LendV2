@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/BookImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/BookName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@id/BookImage"
+        android:layout_toEndOf="@id/BookImage"
+        android:textSize="20sp"
+        android:text="Book name" />
+
+    <TextView
+        android:id="@+id/CurrentBorrower"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/BookImage"
+        android:layout_toEndOf="@id/BookImage"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/BookName"
+        android:text="Current borrower:" />
+
+    <TextView
+        android:id="@+id/descrip"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/CurrentBorrower"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@id/BookImage"
+        android:layout_toRightOf="@id/BookImage"
+        android:singleLine="false"
+        android:text="Description" />
+
+    <TextView
+        android:id="@+id/rating_on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="50dp"
+        android:layout_toRightOf="@id/BookName"
+        android:text="Rating" />
+
+    <TextView
+        android:id="@+id/Stat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/CurrentBorrower"
+        android:layout_alignLeft="@id/rating_on"
+        android:layout_below="@id/rating_on"
+        android:layout_alignTop="@id/CurrentBorrower"
+        android:text="Status" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/BookImage"
+        android:layout_alignParentRight="true"
+        android:layout_margin="5dp"
+        app:srcCompat="@android:drawable/ic_menu_info_details" />
+
+</RelativeLayout>

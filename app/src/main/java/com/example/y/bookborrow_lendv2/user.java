@@ -3,6 +3,7 @@ package com.example.y.bookborrow_lendv2;
 import android.media.Image;
 import android.provider.ContactsContract;
 
+
 public abstract class user {
     private String name;
     private Image photo;
@@ -10,7 +11,8 @@ public abstract class user {
     private Integer phone;
     private String email;
 
-    user(){};
+
+    user(){}
 
     public void setPhoto(Image photo) {
         this.photo = photo;

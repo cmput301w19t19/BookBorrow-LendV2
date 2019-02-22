@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class lender extends user {
     private float lenderRating;
-    private ArrayList<book> lendedBook;
-    private ArrayList<book> requestedBookList;
+    private ArrayList<book> lentBook = new ArrayList<>();
+    private ArrayList<book> requestedBookList = new ArrayList<>();
 
     lender() {
     }
@@ -23,20 +23,20 @@ public class lender extends user {
         requestedBookList = list;
     }
 
-    public void setLendedBook(ArrayList<book> list) {
-        lendedBook = list;
+    public void setLentBook(ArrayList<book> list) {
+        lentBook = list;
     }
 
-    public ArrayList<book> getLendededBook() {
-        return lendedBook;
+    public ArrayList<book> getLentBook() {
+        return lentBook;
     }
 
     public ArrayList<book> getRequestedBookList() {
         return requestedBookList;
     }
 
-    public void addlendedBook(book book) {
-        lendedBook.add(book);
+    public void addLentBook(book book) {
+        lentBook.add(book);
     }
 
     public void addRequestedBook(book book) {
@@ -47,12 +47,10 @@ public class lender extends user {
         requestedBookList.remove(book);
     }
 
-    public void deleteBorrowedBook(book book) {
-        lendedBook.remove(book);
+    public void deleteLentBook(book book) {
+        lentBook.remove(book);
     }
 
-    public float getBorrowerRating() {
-        return lenderRating;
 
-    }
 }
+
