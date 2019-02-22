@@ -7,6 +7,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class bookTests {
@@ -14,7 +15,8 @@ public class bookTests {
     @Test
     public void getBookRatinf(){
         book book1 = new book("name","author", "ISBN",(float)100.1, (float)100.2 ,"description"
-                ,"title", (float)2.5, "borrowerName", "ownerName", "status" );
+                ,"title", (float)2.5, "borrowerName", "ownerName", "status" ,null);
+
 
         assertEquals(book1.getBookRating(),(float)2.5,0.00001);
     }
@@ -42,7 +44,8 @@ public class bookTests {
     @Test
     public void getBorrowerName(){
         book book1 = new book("name","author", "ISBN",(float)100.1, (float)100.2 ,"description"
-                ,"title", (float)2.5, "borrowerName", "ownerName", "status" );
+                ,"title", (float)2.5, "borrowerName", "ownerName", "status" ,null);
+
 
         assertEquals(book1.getBorrowerName(),"borrowerName");
 
@@ -65,7 +68,8 @@ public class bookTests {
     @Test
     public void getISBN(){
         book book1 = new book("name","author", "ISBN",(float)100.1, (float)100.2 ,"description"
-                ,"title", (float)2.5, "borrowerName", "ownerName", "status" );
+                ,"title", (float)2.5, "borrowerName", "ownerName", "status" ,null);
+
 
         assertEquals(book1.getISBN(),"ISBN");
 
@@ -84,7 +88,8 @@ public class bookTests {
     @Test
     public void getDescription(){
         book book1 = new book("name","author", "ISBN",(float)100.1, (float)100.2 ,"description"
-                ,"title", (float)2.5, "borrowerName", "ownerName", "status" );
+                ,"title", (float)2.5, "borrowerName", "ownerName", "status" ,null);
+
         assertEquals(book1.getDescription(),"description");
 
     }
@@ -103,7 +108,8 @@ public class bookTests {
     @Test
     public void getLongitude(){
         book book1 = new book("name","author", "ISBN",(float)100.1, (float)100.2 ,"description"
-                ,"title", (float)2.5, "borrowerName", "ownerName", "status" );
+                ,"title", (float)2.5, "borrowerName", "ownerName", "status" ,null);
+
 
         assertEquals(book1.getLongitude(),(float)100.1,0.0001);
     }
@@ -123,7 +129,8 @@ public class bookTests {
     @Test
     public void getLatitude(){
         book book1 = new book("name","author", "ISBN",(float)100.1, (float)100.2 ,"description"
-                ,"title", (float)2.5, "borrowerName", "ownerName", "status" );
+                ,"title", (float)2.5, "borrowerName", "ownerName", "status" ,null);
+
 
         assertEquals(book1.getLatitude(),(float)100.2,0.000001);
     }
@@ -142,7 +149,8 @@ public class bookTests {
     @Test
     public void getOwnerName(){
         book book1 = new book("name","author", "ISBN",(float)100.1, (float)100.2 ,"description"
-                ,"title", (float)2.5, "borrowerName", "ownerName", "status" );
+                ,"title", (float)2.5, "borrowerName", "ownerName", "status" ,null);
+
 
         assertEquals(book1.getOwnerName(),"ownerName");
     }
@@ -158,7 +166,8 @@ public class bookTests {
     @Test
     public void getTitle(){
         book book1 = new book("name","author", "ISBN",(float)100.1, (float)100.2 ,"description"
-                ,"title", (float)2.5, "borrowerName", "ownerName", "status" );
+                ,"title", (float)2.5, "borrowerName", "ownerName", "status" ,null);
+
 
         assertEquals(book1.getTitle(),"title");
     }
@@ -174,7 +183,8 @@ public class bookTests {
     @Test
     public void getStatus(){
         book book1 = new book("name","author", "ISBN",(float)100.1, (float)100.2 ,"description"
-                ,"title", (float)2.5, "borrowerName", "ownerName", "status" );
+                ,"title", (float)2.5, "borrowerName", "ownerName", "status" ,null);
+
 
         assertEquals(book1.getStatus(),"status");
     }
@@ -191,7 +201,7 @@ public class bookTests {
     @Test
     public void getAuthor(){
         book book1 = new book("name","author", "ISBN",(float)100.1, (float)100.2 ,"description"
-                ,"title", (float)2.5, "borrowerName", "ownerName", "status" );
+                ,"title", (float)2.5, "borrowerName", "ownerName", "status" ,null);
 
         assertEquals(book1.getAuthor(),"author");
     }
@@ -202,6 +212,49 @@ public class bookTests {
         book1.setAuthor("a");
 
         assertEquals(book1.getAuthor(),"a");
+    }
+
+    @Test
+    public void getPhoto(){
+        book book1 = new book("name","author", "ISBN",(float)100.1, (float)100.2 ,"description"
+                ,"title", (float)2.5, "borrowerName", "ownerName", "status" ,null);
+
+        assertEquals(book1.getPhoto(),null);
+    }
+
+
+    @Test
+    public void setPhoto(){
+        Image image1 = null;
+        book book1 = new book();
+        book1.setPhoto(image1);
+
+        assertEquals(book1.getPhoto(),image1);
+
+    }
+
+    @Test
+    public void getRequestedList(){
+        borrower borrower1 = new borrower();
+        ArrayList<borrower> requests= new ArrayList<borrower>();
+        book book1 = new book();
+        book1.addRequested(borrower1);
+        book1.setRequestedList(requests);
+
+        assertEquals(book1.getRequestedList(),requests);
+
+
+    }
+
+
+
+    @Test
+    public void addRequested(){
+        borrower borrower1 = new borrower();
+        book book1 = new book();
+        book1.addRequested(borrower1);
+
+        assertFalse(book1.getRequestedList().isEmpty());
     }
 
 

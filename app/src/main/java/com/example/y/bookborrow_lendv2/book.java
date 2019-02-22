@@ -31,7 +31,7 @@ public class book {
      * since there are too many parameters in this constructor
      */
     book(String name, String author, String ISBN, float longitude, float latitude, String description
-    ,String title, float bookRating, String borrowerName, String ownerName, String status ) {
+    ,String title, float bookRating, String borrowerName, String ownerName, String status ,Image photo) {
         this.name = name;
         this.photo = photo;
         this.author = author;
@@ -44,6 +44,7 @@ public class book {
         this.borrowerName = borrowerName;
         this.ownerName = ownerName;
         this.status = status;
+        this.photo = photo;
     }
 
     public void setBookRating(Float rating) {
