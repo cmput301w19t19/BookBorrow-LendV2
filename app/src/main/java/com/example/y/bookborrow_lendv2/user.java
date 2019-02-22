@@ -10,9 +10,18 @@ public abstract class user {
     private String password;
     private Integer phone;
     private String email;
-
-
+    /** A constructor with no parameters*/
     user(){}
+
+    /** another constructoer with parameters*/
+    user(String name, Image photo, String password, Integer phone, String email){
+        this.name = name;
+        this.photo = photo;
+        this.password =password;
+        this.phone = phone;
+        this.email = email;
+    }
+
 
     public void setPhoto(Image photo) {
         this.photo = photo;

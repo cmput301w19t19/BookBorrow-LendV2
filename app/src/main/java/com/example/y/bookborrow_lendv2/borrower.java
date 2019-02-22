@@ -9,8 +9,20 @@ public class borrower extends user {
     private ArrayList<book> borrowedBook = new ArrayList<book>();
     private ArrayList<book> requestedBookList = new ArrayList<book>();
 
+
+    /** A constructor with no parameters*/
     borrower() {
     }
+
+    /**
+     * another constructor with parameter "rating"
+     * @param rating
+     */
+    borrower(float rating){
+        this.borrowerRating = rating;
+    }
+
+
 
     public void setBorrowerRating(Float rating) {
         this.borrowerRating = rating;
