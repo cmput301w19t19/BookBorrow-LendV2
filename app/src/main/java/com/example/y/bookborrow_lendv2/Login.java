@@ -1,26 +1,14 @@
 package com.example.y.bookborrow_lendv2;
 
-public class Login {
-    protected String username;
-    protected String passwords;
+public class Login extends lender {
+    private String name;
+    private String password;
 
-    public Login (String user_name, String user_passwords ){
-        this.username= user_name;
-        this.passwords=user_passwords;
-    }
+    lender lender1= new lender();
+    public Login(){
+        this.name= lender1.getName();
+        this.password= lender1.getPassword();
 
-    public void setUsername(String text){
-        this.username=text;
-    }
-
-    public String getUsername(){
-        return this.username;
-    }
-    public String getPasswords(){
-        return this.passwords;
-    }
-    public void setPasswords (String passwords){
-        this.passwords= passwords;
     }
 
 }

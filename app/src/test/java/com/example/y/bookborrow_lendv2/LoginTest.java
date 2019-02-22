@@ -4,21 +4,19 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class LoginTest {
-    public String test_username= "username";
-    public String test_passwords= "12344565";
-
-    public LoginTest(){}
+    NormalUser user1 = new NormalUser("name", null, "password",(Integer)12345, "email@some.com");
 
     @Test
-    public void testuserName(){
-        lender lender1= new lender();
-        assertEquals(lender1.getName(),test_username);
+    public void getName(){
+        assertEquals(user1.getName(),"name");
+
+    }
+    @Test
+    public void getPassword(){
+        assertEquals(user1.getPassword(),"password");
+
     }
 
-    @Test
-    public void testgetPasswords(){
-        lender lender1= new lender();
-        assertEquals(lender1.getPassword(),test_username);
-    }
+
 
 }
