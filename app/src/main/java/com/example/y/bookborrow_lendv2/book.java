@@ -16,12 +16,34 @@ public class book {
     private String title;
     private float bookRating;
     private ArrayList<borrower> requestedList = new ArrayList<borrower>();
-    private String borrower;
-    private String owner;
+    private String borrowerName;
+    private String ownerName;
     private String status;
 
+    /**
+     * A constructor with no parameters
+     */
+    book(){};
 
-    book() {
+
+    /**
+     * This constructor is built for writing unit tests, we will use another constructor which doesn't have parameters
+     * since there are too many parameters in this constructor
+     */
+    book(String name, String author, String ISBN, float longitude, float latitude, String description
+    ,String title, float bookRating, String borrowerName, String ownerName, String status ) {
+        this.name = name;
+        this.photo = photo;
+        this.author = author;
+        this.ISBN = ISBN;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.description = description;
+        this.title = title;
+        this.bookRating = bookRating;
+        this.borrowerName = borrowerName;
+        this.ownerName = ownerName;
+        this.status = status;
     }
 
     public void setBookRating(Float rating) {
@@ -32,12 +54,12 @@ public class book {
         requestedList = list;
     }
 
-    public void setBorrower(String name) {
-        borrower = name;
+    public void setBorrowerName(String name) {
+        borrowerName = name;
     }
 
-    public String getBorrower() {
-        return borrower;
+    public String getBorrowerName() {
+        return borrowerName;
     }
 
     public void setISBN(String ISBN_code) {
@@ -80,12 +102,12 @@ public class book {
         return bookRating;
     }
 
-    public void setOwner(String name) {
-        owner = name;
+    public void setOwnerName(String name) {
+        ownerName = name;
     }
 
-    public String getOwner() {
-        return owner;
+    public String getOwnerName() {
+        return ownerName;
     }
 
     public void setTitle(String string) {
@@ -131,5 +153,7 @@ public class book {
     public Image getPhoto() {
         return photo;
     }
+
+
 }
 
