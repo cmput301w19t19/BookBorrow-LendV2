@@ -1,0 +1,11 @@
+1.Addressing Feedback:
+Wow feature and use case ID changed in wiki.
+Page name added, each at the top of each page.
+Story point estimation added for release planning.
+
+2.Object-Oriented Analysis and Design:
+UML diagram in wiki.
+
+3.Unit Testing:
+Model Classes: book, user, borrower, lender
+Unit tests: bookTest, userTest, borrowerTest, lenderTest
