@@ -1,12 +1,33 @@
 package com.example.y.bookborrow_lendv2;
 
-import java.util.ArrayList;
+/**
+ * This activity handles home_page
+ */
+import android.util.Log;
 
-public class home_page extends user{
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+public class home_page {
     public ArrayList<lender> Owner;
-    public ArrayList<borrower> Borrower;
+    //public class home_page extends user
+    //private static home_page instance;
+    //public ArrayList<borrower> Borrower;
     public ArrayList<profile> profile;
+    private LinkedList<Object> objectQueue = new LinkedList<>();
+    private LinkedList<String> objectAction = new LinkedList<>();
+
 
     public home_page(){super ();}
 
+   /** public static home_page getInstance(){
+        if (instance==null){
+            instance= new home_page();
+        }
+        return instance;
+    }
+
+   /* public void synchronizeWithSearch(){
+        Log.d("synchRecord", "synchronizeWithSearch: begin"+ String.valueOf(objectQueue.size())+""+String.valueOf(objectAction.size()));
+    }*/
 }
