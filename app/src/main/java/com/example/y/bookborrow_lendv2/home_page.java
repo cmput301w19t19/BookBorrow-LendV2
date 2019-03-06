@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class home_page {
-    public ArrayList<lender> Owner;
+    private ArrayList<lender> Owner;
     //public class home_page extends user
     //private static home_page instance;
     //public ArrayList<borrower> Borrower;
-    public ArrayList<profile> profile;
+    private ArrayList<profile> profile;
     private LinkedList<Object> objectQueue = new LinkedList<>();
     private LinkedList<String> objectAction = new LinkedList<>();
 
