@@ -86,4 +86,5 @@
     <string name="bookName2">book Name2</string>
     <string name="bookName3">Book Name3</string>
     <string name="title_activity_location">Location</string>
+    <string name="title_activity_empty">emptyActivity</string>
 </resources>
