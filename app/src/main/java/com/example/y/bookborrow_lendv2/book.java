@@ -19,6 +19,7 @@ public class book {
     private String borrowerName;
     private String ownerName;
     private String status;
+    private float rating;
 
     /**
      * A constructor with no parameters
@@ -151,6 +152,7 @@ public class book {
         return photo;
     }
 
+    public float getBookRating(){return rating; }
 
 }
 
