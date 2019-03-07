@@ -1,5 +1,6 @@
 package com.example.y.bookborrow_lendv2;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -34,6 +35,7 @@ public class signOutActivity extends AppCompatActivity {
 
 
                 signOut();
+                startActivity(new Intent( signOutActivity.this,loginAct.class));
 
 
             }

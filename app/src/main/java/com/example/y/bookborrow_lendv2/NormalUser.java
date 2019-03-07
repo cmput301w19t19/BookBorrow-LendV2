@@ -2,7 +2,12 @@ package com.example.y.bookborrow_lendv2;
 
 import android.media.Image;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class NormalUser extends user {
+
+
 
 
     public NormalUser(String name, Image photo, String password, Integer phone, String email){
@@ -13,4 +18,6 @@ public class NormalUser extends user {
     public NormalUser(){
         super();
     }
+
+
 }

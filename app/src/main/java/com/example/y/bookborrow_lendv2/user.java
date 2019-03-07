@@ -10,6 +10,7 @@ public abstract class user {
     private String password;
     private Integer phone;
     private String email;
+    private String Uid;
     /** A constructor with no parameters*/
     user(){}
 
@@ -62,5 +63,10 @@ public abstract class user {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public void setUid(String id){this.Uid = id;}
+
+
+
 }
 
