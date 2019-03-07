@@ -2,10 +2,11 @@ package com.example.y.bookborrow_lendv2;
 
 
 import android.media.Image;
-
+import java.util.UUID;
 import java.util.ArrayList;
 
 public class book {
+    private UUID ID;
     private String name;
     private Image photo;
     private String author;
@@ -14,7 +15,6 @@ public class book {
     private float latitude;
     private String description;
     private String title;
-    private float bookRating;
     private ArrayList<borrower> requestedList = new ArrayList<borrower>();
     private String borrowerName;
     private String ownerName;
@@ -23,7 +23,9 @@ public class book {
     /**
      * A constructor with no parameters
      */
-    book(){};
+    book(){
+        this.ID = UUID.randomUUID();
+    };
 
 
     /**
@@ -40,16 +42,14 @@ public class book {
         this.latitude = latitude;
         this.description = description;
         this.title = title;
-        this.bookRating = bookRating;
+        //this.bookRating = bookRating;
         this.borrowerName = borrowerName;
         this.ownerName = ownerName;
         this.status = status;
         this.photo = photo;
     }
 
-    public void setBookRating(Float rating) {
-        this.bookRating = rating;
-    }
+
 
     public void setRequestedList(ArrayList<borrower> list) {
         requestedList = list;
@@ -97,10 +97,6 @@ public class book {
 
     public ArrayList<borrower> getRequestedList() {
         return requestedList;
-    }
-
-    public float getBookRating() {
-        return bookRating;
     }
 
     public void setOwnerName(String name) {

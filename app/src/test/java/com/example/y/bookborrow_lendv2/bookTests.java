@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 public class bookTests {
     book book1 = new book("name","author", "ISBN",(float)100.1, (float)100.2 ,"description"
             ,"title", (float)2.5, "borrowerName", "ownerName", "status" ,null);
-
+/*
     @Test
     public void getBookRatinf(){
 
@@ -31,7 +31,7 @@ public class bookTests {
         assertEquals(book2.getBookRating(),(float)1.1,0.00001);
 
 
-    }
+    }*/
 
     @Test
     public void setRequestedList(){
