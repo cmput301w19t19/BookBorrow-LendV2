@@ -45,8 +45,11 @@ public class loginAct extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
 
 
+
                 @Override
                 public void onClick(View v) {
+                    //Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+
 
                     final String email = inputEmail.getText().toString().trim();
                     final String password = inputPassword.getText().toString().trim();
@@ -85,22 +88,30 @@ public class loginAct extends AppCompatActivity {
                                                 Toast.LENGTH_SHORT).show();
                                     }
                                     else{
+                                        //Create a user and store it in firebase database
                                         FirebaseUser user = auth.getCurrentUser();
                                         String uid = user.getUid();
 
                                         NormalUser newUser = new NormalUser();
-                                        //Create a user and store it in database
-                                        mDatabase = FirebaseDatabase.getInstance().getReference();
+                                        borrower newBorrower = new borrower();
+                                        lender newLender = new lender();
 
-                                        //String Email = inputEmail.getText().toString();
-                                       // String Password = inputPassword.getText().toString();
+                                        mDatabase = FirebaseDatabase.getInstance().getReference();
 
                                         newUser.setEmail(email);
                                         newUser.setUid(uid);
+                                        newBorrower.setEmail(email);
+                                        newBorrower.setUid(uid);
+                                        newLender.setEmail(email);
+                                        newBorrower.setUid(uid);
+
 
                                         newUser.setPassword(password);
                                         String key = uid;
                                         mDatabase.child("users").child(key).setValue(newUser);
+                                        mDatabase.child("borrowers").child(key).setValue(newBorrower);
+                                        mDatabase.child("lenders").child(key).setValue(newLender);
+
                                         Toast.makeText(loginAct.this, "Authentication success!" + task.getException(),
                                                 Toast.LENGTH_SHORT).show();
                                     }
@@ -147,10 +158,11 @@ public class loginAct extends AppCompatActivity {
                                     FirebaseUser user = auth.getCurrentUser();
                                     String uid = user.getUid();
 
+
                                     Toast.makeText(getApplicationContext(), "userID:"+uid, Toast.LENGTH_SHORT).show();
 
-                                    //Intent intent = new Intent(loginAct.this, signOutActivity.class);
-                                    //startActivity(intent);
+                                    Intent intent = new Intent(loginAct.this, signOutActivity.class);
+                                    startActivity(intent);
                                     finish();
                                 }
                             }
