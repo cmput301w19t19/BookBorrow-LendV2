@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,6 +51,39 @@ public class loginAct extends AppCompatActivity {
                 public void onClick(View v) {
                     //Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
 
+                    ///
+                    //FirebaseDatabase
+
+                    /*
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+                    String bookname = "The Elements of Statistical Learning";
+                    book b = new book();
+                    b.setAuthor("Trevor Hastie Robert Tibshirani Jerome Friedman");
+                    b.setDescription("statistic machine learning");
+                    b.setName(bookname);
+
+                    b.setToFirebase();
+                    b.setStatusToRequested();*/
+                    
+
+                    //DatabaseReference ref = database.getReference("book");
+                    //ref.child("book").child(b.getID()).setValue(b);
+
+
+                    Toast.makeText(getApplicationContext(),"create a book",Toast.LENGTH_LONG);
+                    Log.i("testnnn",b.getID());
+                    Toast.makeText(getApplicationContext(),b.getID(),Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(),b.getName(),Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(),b.getAuthor(),Toast.LENGTH_LONG);
+
+
+
+
+
+
+                    ///
+
 
                     final String email = inputEmail.getText().toString().trim();
                     final String password = inputPassword.getText().toString().trim();
@@ -69,6 +103,7 @@ public class loginAct extends AppCompatActivity {
                                 Toast.LENGTH_SHORT).show();
                         return;
                     }
+
 
                     //create user
                     auth.createUserWithEmailAndPassword(email, password)

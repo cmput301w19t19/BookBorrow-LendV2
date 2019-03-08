@@ -2,24 +2,30 @@ package com.example.y.bookborrow_lendv2;
 
 
 import android.media.Image;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.UUID;
 import java.util.ArrayList;
 
 public class book {
     private UUID ID;
-    private String name;
-    private Image photo;
-    private String author;
-    private String ISBN;
-    private float longitude;
-    private float latitude;
-    private String description;
-    private String title;
+    private String name = null;
+    private Image photo = null;
+    private String author = null;
+    private String ISBN = null;
+    private float longitude = 0;
+    private float latitude = 0;
+    private String description = null;
+    private String title = null;
     private ArrayList<borrower> requestedList = new ArrayList<borrower>();
-    private String borrowerName;
-    private String ownerName;
-    private String status;
-    private float rating;
+    private String borrowerName = null;
+    private String ownerName = null;
+    private String status = "avaliable";
+    private float rating = -1;
+    private FirebaseDatabase m;
+    private DatabaseReference r;
 
     /**
      * A constructor with no parameters
@@ -50,7 +56,14 @@ public class book {
         this.photo = photo;
     }
 
+    public void setToFirebase(){
+        m = FirebaseDatabase.getInstance();
+        r = m.getReference("book");
+        r.child(this.getID()).setValue(this);
 
+    }
+
+    public String getID(){return this.ID.toString();}
 
     public void setRequestedList(ArrayList<borrower> list) {
         requestedList = list;
@@ -116,8 +129,24 @@ public class book {
         return title;
     }
 
-    public void setStatus(String t_status) {
-        status = t_status;
+    public void setStatusToRequested(){
+        this.status = "Requested";
+        this.setToFirebase();
+    }
+
+    public void setStatusToAvailable(){
+        this.status = "Request";
+        this.setToFirebase();
+    }
+
+    public void setStatusToAccepted(){
+        this.status = "Available";
+        this.setToFirebase();
+    }
+
+    public void setStatusToborrowed(){
+        this.status = "borrowed";
+        this.setToFirebase();
     }
 
     public String getStatus() {
