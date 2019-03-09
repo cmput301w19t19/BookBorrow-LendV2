@@ -180,11 +180,14 @@ public class loginAct extends AppCompatActivity {
                 }
 
 
+
                 //authenticate user
                 auth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(loginAct.this,new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+                                Toast.makeText(getApplicationContext(), "login ", Toast.LENGTH_SHORT).show();
+
                                 // If sign in fails, display a message to the user. If sign in succeeds
                                 // the auth state listener will be notified and logic to handle the
                                 // signed in user can be handled in the listener.
@@ -198,8 +201,13 @@ public class loginAct extends AppCompatActivity {
                                     FirebaseUser user = auth.getCurrentUser();
                                     String uid = user.getUid();
 
+                                    // On login button click, storing our username into normalUser,lender borrower classes.
+                                    NormalUser.Instance().setUid(uid);
+                                    borrower.Instance().setUid(uid);
+                                    lender.Instance().setUid(uid);
 
-                                    Toast.makeText(getApplicationContext(), "userID:"+uid, Toast.LENGTH_SHORT).show();
+
+                                    Toast.makeText(getApplicationContext(), "userID:"+lender.Instance().getUid(), Toast.LENGTH_SHORT).show();
 
                                     Intent intent = new Intent(loginAct.this, signOutActivity.class);
                                     startActivity(intent);

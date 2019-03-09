@@ -11,16 +11,17 @@ public abstract class user {
     private String name;
     private Image photo;
     private String password;
-    private Integer phone;
+    private String phone;
     private String email;
     private String Uid;
+
 
 
     /** A constructor with no parameters*/
     user(){}
 
     /** another constructoer with parameters*/
-    user(String name, Image photo, String password, Integer phone, String email){
+    user(String name, Image photo, String password, String phone, String email){
         this.name = name;
         this.photo = photo;
         this.password =password;
@@ -33,7 +34,7 @@ public abstract class user {
         this.photo = photo;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -49,7 +50,7 @@ public abstract class user {
         return password;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
@@ -70,6 +71,12 @@ public abstract class user {
     }
 
     public void setUid(String id){this.Uid = id;}
+
+    public String getUid(){
+        return this.Uid;
+    }
+
+
 
 
 

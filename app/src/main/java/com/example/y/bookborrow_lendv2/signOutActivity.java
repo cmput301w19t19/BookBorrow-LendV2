@@ -27,12 +27,11 @@ public class signOutActivity extends AppCompatActivity {
 
 
 
+        Toast.makeText(getApplicationContext(), "currentUser logout userID:"+lender.Instance().getUid(), Toast.LENGTH_SHORT).show();
 
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
 
                 signOut();
                 startActivity(new Intent( signOutActivity.this,loginAct.class));
