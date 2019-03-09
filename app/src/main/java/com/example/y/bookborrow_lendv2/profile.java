@@ -49,7 +49,7 @@ public class profile extends AppCompatActivity {
         inputPhone = (EditText) findViewById(R.id.InputPhone);
         //inputMessage = (EditText) findViewById(R.id.InputMessage);
 
-
+        //line 53-78: load data from firebase and update UI
         DbRef = database.getReference("users/"+uid);
         ValueEventListener postListener = new ValueEventListener() {
             @Override
