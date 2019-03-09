@@ -46,15 +46,15 @@ public class loginAct extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
 
 
-        //hello
-                @Override
-                public void onClick(View v) {
-                    //Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+            //hello
+            @Override
+            public void onClick(View v) {
+                //Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
 
-                    ///
-                    //FirebaseDatabase
+                ///
+                //FirebaseDatabase
 
-                    /*
+
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
                     String bookname = "The Elements of Statistical Learning";
@@ -65,16 +65,16 @@ public class loginAct extends AppCompatActivity {
 
                     b.setToFirebase();
                     b.setStatusToRequested();
-                    
+
 
                     //DatabaseReference ref = database.getReference("book");
                     //ref.child("book").child(b.getID()).setValue(b);
 
 
 
-                    book b = new book();
+                    //book b = new book();
 
-/*
+
 
                     Toast.makeText(getApplicationContext(),"create a book",Toast.LENGTH_LONG);
                     Log.i("testnnn",b.getID());
@@ -84,78 +84,82 @@ public class loginAct extends AppCompatActivity {
 
 
 
-*/
-
-
-                    /// */
-
-
-                    final String email = inputEmail.getText().toString().trim();
-                    final String password = inputPassword.getText().toString().trim();
-
-                    if (TextUtils.isEmpty(email)) {
-                        Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    if (TextUtils.isEmpty(password)) {
-                        Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    if (password.length() < 6) {
-                        Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!",
-                                Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-
-                    //create user
-                    auth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(loginAct.this, new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    Toast.makeText(loginAct.this, "createUserWithEmail:onComplete:"
-                                            + task.isSuccessful(), Toast.LENGTH_SHORT).show();
 
 
 
-                                            // If sign in fails, display a message to the user. If sign in succeeds
-                                    // the auth state listener will be notified and logic to handle the
-                                    // signed in user can be handled in the listener.
-                                    if (!task.isSuccessful()) {
-                                        Toast.makeText(loginAct.this, "Authentication failed." + task.getException(),
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                    else{
-                                        //Create a user and store it in firebase database
-                                        FirebaseUser user = auth.getCurrentUser();
-                                        String uid = user.getUid();
-
-                                        NormalUser newUser = new NormalUser();
-                                        borrower newBorrower = new borrower();
-                                        lender newLender = new lender();
-
-                                        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-                                        newUser.setEmail(email);
-                                        newUser.setUid(uid);
-                                        newBorrower.setEmail(email);
-                                        newBorrower.setUid(uid);
-                                        newLender.setEmail(email);
-                                        newBorrower.setUid(uid);
+                /// */
 
 
-                                        newUser.setPassword(password);
-                                        String key = uid;
-                                        mDatabase.child("users").child(key).setValue(newUser);
-                                        mDatabase.child("borrowers").child(key).setValue(newBorrower);
-                                        mDatabase.child("lenders").child(key).setValue(newLender);
+                final String email = inputEmail.getText().toString().trim();
+                final String password = inputPassword.getText().toString().trim();
 
-                                        Toast.makeText(loginAct.this, "Authentication success!" + task.getException(),
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                }});
+                if (TextUtils.isEmpty(email)) {
+                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (TextUtils.isEmpty(password)) {
+                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (password.length() < 6) {
+                    Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                //create user
+                auth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(loginAct.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                Toast.makeText(loginAct.this, "createUserWithEmail:onComplete:"
+                                        + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+
+
+
+                                // If sign in fails, display a message to the user. If sign in succeeds
+                                // the auth state listener will be notified and logic to handle the
+                                // signed in user can be handled in the listener.
+                                if (!task.isSuccessful()) {
+                                    Toast.makeText(loginAct.this, "Authentication failed." + task.getException(),
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    //Create a user and store it in firebase database
+                                    FirebaseUser user = auth.getCurrentUser();
+                                    String uid = user.getUid();
+
+                                    NormalUser newUser = new NormalUser();
+                                    borrower newBorrower = new borrower();
+                                    lender newLender = new lender();
+
+                                    mDatabase = FirebaseDatabase.getInstance().getReference();
+
+                                    newUser.setEmail(email);
+                                    newUser.setUid(uid);
+                                    newUser.setPassword(password);
+                                    newBorrower.setEmail(email);
+                                    newBorrower.setUid(uid);
+                                    newUser.setPassword(password);
+                                    newLender.setEmail(email);
+                                    newLender.setUid(uid);
+                                    newUser.setPassword(password);
+
+
+
+                                    newUser.setPassword(password);
+                                    String key = uid;
+                                    mDatabase.child("users").child(key).setValue(newUser);
+                                    mDatabase.child("borrowers").child(key).setValue(newBorrower);
+                                    mDatabase.child("lenders").child(key).setValue(newLender);
+
+                                    Toast.makeText(loginAct.this, "Authentication success!" + task.getException(),
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }});
 
                 //startActivity(new Intent(loginAct.this, signOutActivity.class));
             }
@@ -166,7 +170,7 @@ public class loginAct extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                String email = inputEmail.getText().toString();
+                final String email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
@@ -202,9 +206,11 @@ public class loginAct extends AppCompatActivity {
                                     String uid = user.getUid();
 
                                     // On login button click, storing our username into normalUser,lender borrower classes.
+                                    //Singleton Pattern implemented here
                                     NormalUser.Instance().setUid(uid);
                                     borrower.Instance().setUid(uid);
                                     lender.Instance().setUid(uid);
+
 
 
                                     Toast.makeText(getApplicationContext(), "userID:"+lender.Instance().getUid(), Toast.LENGTH_SHORT).show();
