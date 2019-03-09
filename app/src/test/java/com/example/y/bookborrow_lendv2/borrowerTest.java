@@ -71,10 +71,17 @@ public class borrowerTest {
 
     }
     @Test
-    public void getGet_SetRating() {
+    public void SetRating() {
         borrower borrower1 = new borrower();
         borrower1.setBorrowerRating((float) 3.3);
         assertEquals((float) 3.3, borrower1.getBorrowerRating(), (float) 0.0001);
     }
+
+    @Test
+    public void getRating(){
+       borrower borrower1 = new borrower((float)5.5);
+        assertEquals( borrower1.getBorrowerRating(), (float)5.5, 0.0001);
+    }
+
 
 }

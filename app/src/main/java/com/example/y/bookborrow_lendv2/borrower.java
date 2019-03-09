@@ -8,9 +8,22 @@ public class borrower extends user {
 
     private ArrayList<book> borrowedBook = new ArrayList<book>();
     private ArrayList<book> requestedBookList = new ArrayList<book>();
+    private String uid;
 
+
+    /** A constructor with no parameters*/
     borrower() {
     }
+
+    /**
+     * another constructor with parameter "rating"
+     * @param rating
+     */
+    borrower(float rating){
+        this.borrowerRating = rating;
+    }
+
+
 
     public void setBorrowerRating(Float rating) {
         this.borrowerRating = rating;
@@ -52,4 +65,6 @@ public class borrower extends user {
     public float getBorrowerRating() {
         return borrowerRating;
     }
+
+    public void setUid(String id){this.uid = id;}
 }
