@@ -11,17 +11,48 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:layout_toRightOf="@id/filter"
+        android:layout_toRightOf="@id/filterBy"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
         android:text="MyBookList" />
 
     <Button
-        android:id="@+id/filter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="Filter" />
+        android:id="@+id/availableFilter"
+        android:layout_width="79dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/MyBookList"
+        android:layout_marginTop="20dp"
+        android:text="available" />
+
+    <Button
+        android:id="@+id/requestedFilter"
+        android:layout_width="79dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/MyBookList"
+        android:layout_toRightOf="@+id/availableFilter"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:text="requested" />
+
+    <Button
+        android:id="@+id/acceptedFilter"
+        android:layout_width="79dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/MyBookList"
+        android:layout_toRightOf="@+id/requestedFilter"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:text="accepted" />
+
+    <Button
+        android:id="@+id/borrowedFilter"
+        android:layout_width="79dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/MyBookList"
+        android:layout_toRightOf="@+id/acceptedFilter"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:text="requested" />
 
     <ImageButton
         android:id="@+id/addBook"
@@ -36,9 +67,17 @@
         android:id="@+id/BookList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/MyBookList"
+        android:layout_below="@id/availableFilter"
         android:layout_margin="10dp"
         />
+
+    <TextView
+        android:id="@+id/filterBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="40dp"
+        android:text="Filter by:" />
 
 
 </RelativeLayout>

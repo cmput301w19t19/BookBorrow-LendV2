@@ -15,7 +15,7 @@ public class book {
     private String description;
     private String title;
     private float bookRating;
-    private ArrayList<borrower> requestedList = = new ArrayList<String>();;
+    private ArrayList<borrower> requestedList = new ArrayList<>();;
     private String borrower;
     private String owner;
     private String status;
@@ -88,13 +88,14 @@ public class book {
         return owner;
     }
 
-    public void setTitle(String string) {
+    /*public void setTitle(String string) {
         title = string;
     }
 
     public String getTitle() {
         return title;
     }
+    */
 
     public void setStatus(String t_status) {
         status = t_status;
