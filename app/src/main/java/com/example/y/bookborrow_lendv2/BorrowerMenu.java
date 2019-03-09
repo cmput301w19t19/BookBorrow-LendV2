@@ -55,8 +55,8 @@ public class BorrowerMenu extends AppCompatActivity {
         bookList.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                //Intent intent = new Intent(BorrowerMenu.this, MyBookList.class);
-                //startActivity(intent);
+                Intent intent = new Intent(BorrowerMenu.this, MyBookList.class);
+                startActivity(intent);
                 //BorrowerMenu.this.finish();
 
 

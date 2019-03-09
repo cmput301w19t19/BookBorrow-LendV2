@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "450283695299-pfngcg00fmg5oa2vhffh7ijn7qdq9l1d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.y.bookborrow_lendv2",
+            "certificate_hash": "ad50c74d2a33bdcad7ed98d9152afa72d278930a"
+          }
+        },
+        {
           "client_id": "450283695299-rq9qrciqsbv8sd8jlb6c5lt53nub03ef.apps.googleusercontent.com",
           "client_type": 3
         }

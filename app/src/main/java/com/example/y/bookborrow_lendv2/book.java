@@ -22,7 +22,7 @@ public class book {
     private ArrayList<borrower> requestedList = new ArrayList<borrower>();
     private String borrowerName = null;
     private String ownerName = null;
-    private String status = "avaliable";
+    private String status = "available";
     private float rating = -1;
     private FirebaseDatabase m;
     private DatabaseReference r;
@@ -32,7 +32,7 @@ public class book {
      */
     book(){
         this.ID = UUID.randomUUID();
-    };
+    }
 
 
     /**
@@ -121,13 +121,14 @@ public class book {
         return ownerName;
     }
 
-    public void setTitle(String string) {
+    /*public void setTitle(String string) {
         title = string;
     }
 
     public String getTitle() {
         return title;
     }
+    */
 
     public void setStatusToRequested(){
         this.status = "Requested";
@@ -135,17 +136,17 @@ public class book {
     }
 
     public void setStatusToAvailable(){
-        this.status = "Request";
-        this.setToFirebase();
-    }
-
-    public void setStatusToAccepted(){
         this.status = "Available";
         this.setToFirebase();
     }
 
+    public void setStatusToAccepted(){
+        this.status = "Accepted";
+        this.setToFirebase();
+    }
+
     public void setStatusToborrowed(){
-        this.status = "borrowed";
+        this.status = "Borrowed";
         this.setToFirebase();
     }
 
