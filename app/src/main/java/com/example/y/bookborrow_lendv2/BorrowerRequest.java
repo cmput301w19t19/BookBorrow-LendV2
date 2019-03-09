@@ -24,16 +24,46 @@ package com.example.y.bookborrow_lendv2;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class BorrowerRequest extends AppCompatActivity {
+
+    private ArrayList<book> requestedBookList = new ArrayList<book>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_borrower_request);
 
-        showAcceptRequest();
-        showWatchList();
+        ListView acceptListView = (ListView)findViewById(R.id.acceptListView);
+        ListView requestListView = (ListView)findViewById(R.id.requestListView);
+
+        //how to pass a specify brrower object that is current login borrower
+        borrower thisborrower = new borrower();
+        requestedBookList = thisborrower.getRequestedBookList();
+
+        ArrayAdapter<book> arrayAdapter = new ArrayAdapter<book>(this,android.R.layout.simple_list_item_1
+        ,requestedBookList);
+
+        requestListView.setAdapter(arrayAdapter);
+
+
+
+
+
+
+
+
+
+
+        //showAcceptRequest();
+        //showWatchList();
     }
 
     public void showAcceptRequest(){

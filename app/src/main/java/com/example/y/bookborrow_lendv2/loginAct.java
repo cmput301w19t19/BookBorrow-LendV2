@@ -71,6 +71,7 @@ public class loginAct extends AppCompatActivity {
                     //ref.child("book").child(b.getID()).setValue(b);
 
 
+                    book b = new book();
                     Toast.makeText(getApplicationContext(),"create a book",Toast.LENGTH_LONG);
                     Log.i("testnnn",b.getID());
                     Toast.makeText(getApplicationContext(),b.getID(),Toast.LENGTH_LONG);
