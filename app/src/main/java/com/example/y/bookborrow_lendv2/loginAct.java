@@ -64,7 +64,7 @@ public class loginAct extends AppCompatActivity {
                     b.setName(bookname);
 
                     b.setToFirebase();
-                    b.setStatusToRequested();*/
+                    b.setStatusToRequested();
                     
 
                     //DatabaseReference ref = database.getReference("book");
@@ -82,7 +82,7 @@ public class loginAct extends AppCompatActivity {
 */
 
 
-                    ///
+                    /// */
 
 
                     final String email = inputEmail.getText().toString().trim();
