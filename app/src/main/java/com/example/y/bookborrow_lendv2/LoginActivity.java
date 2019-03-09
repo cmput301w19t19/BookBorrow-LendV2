@@ -205,7 +205,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         //String key = database.getReference("tweets").push().getKey();
         lender lender1 = new lender();
         lender1.setName(userName);
-        lender1.setPhone(1234567);
+        lender1.setPhone("1234567");
 
         lender1.setLenderRating((float)5.5);
         //set userName as a key to retrieve lender's information

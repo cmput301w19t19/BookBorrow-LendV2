@@ -84,7 +84,7 @@
         android:layout_marginRight="100dp"
         android:layout_marginBottom="79dp"
         android:ems="10"
-        android:hint="emial"
+        android:hint="email"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/password_editText"
         app:layout_constraintEnd_toEndOf="parent"
