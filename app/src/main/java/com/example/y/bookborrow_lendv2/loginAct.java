@@ -140,10 +140,14 @@ public class loginAct extends AppCompatActivity {
 
                                     newUser.setEmail(email);
                                     newUser.setUid(uid);
+                                    newUser.setPassword(password);
                                     newBorrower.setEmail(email);
                                     newBorrower.setUid(uid);
+                                    newUser.setPassword(password);
                                     newLender.setEmail(email);
-                                    newBorrower.setUid(uid);
+                                    newLender.setUid(uid);
+                                    newUser.setPassword(password);
+
 
 
                                     newUser.setPassword(password);
@@ -166,7 +170,7 @@ public class loginAct extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                String email = inputEmail.getText().toString();
+                final String email = inputEmail.getText().toString();
                 final String password = inputPassword.getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
@@ -202,9 +206,11 @@ public class loginAct extends AppCompatActivity {
                                     String uid = user.getUid();
 
                                     // On login button click, storing our username into normalUser,lender borrower classes.
+                                    //Singleton Pattern implemented here
                                     NormalUser.Instance().setUid(uid);
                                     borrower.Instance().setUid(uid);
                                     lender.Instance().setUid(uid);
+
 
 
                                     Toast.makeText(getApplicationContext(), "userID:"+lender.Instance().getUid(), Toast.LENGTH_SHORT).show();
