@@ -6,6 +6,8 @@ public class lender extends user {
     private float lenderRating;
     private ArrayList<book> lentBook = new ArrayList<>();
     private ArrayList<book> requestedBookList = new ArrayList<>();
+    private static lender instance;
+
 
     lender() {
     }
@@ -49,6 +51,17 @@ public class lender extends user {
 
     public void deleteLentBook(book book) {
         lentBook.remove(book);
+    }
+
+    public static lender Instance()
+    {
+        //if no instance is initialized yet then create new instance
+        //else return stored instance
+        if (instance == null)
+        {
+            instance = new lender();
+        }
+        return instance;
     }
 
 

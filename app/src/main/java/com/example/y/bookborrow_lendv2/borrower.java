@@ -9,6 +9,8 @@ public class borrower extends user {
     private ArrayList<book> borrowedBook = new ArrayList<book>();
     private ArrayList<book> requestedBookList = new ArrayList<book>();
     private String uid;
+    private static borrower instance;
+
 
 
     /** A constructor with no parameters*/
@@ -67,4 +69,15 @@ public class borrower extends user {
     }
 
     public void setUid(String id){this.uid = id;}
+
+    public static borrower Instance()
+    {
+        //if no instance is initialized yet then create new instance
+        //else return stored instance
+        if (instance == null)
+        {
+            instance = new borrower();
+        }
+        return instance;
+    }
 }
