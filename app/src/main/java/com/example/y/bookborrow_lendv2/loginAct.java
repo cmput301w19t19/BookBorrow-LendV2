@@ -54,7 +54,7 @@ public class loginAct extends AppCompatActivity {
                 ///
                 //FirebaseDatabase
 
-                    /*
+
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
                     String bookname = "The Elements of Statistical Learning";
@@ -72,9 +72,9 @@ public class loginAct extends AppCompatActivity {
 
 
 
-                    book b = new book();
+                    //book b = new book();
 
-/*
+
 
                     Toast.makeText(getApplicationContext(),"create a book",Toast.LENGTH_LONG);
                     Log.i("testnnn",b.getID());
@@ -84,7 +84,7 @@ public class loginAct extends AppCompatActivity {
 
 
 
-*/
+
 
 
                 /// */

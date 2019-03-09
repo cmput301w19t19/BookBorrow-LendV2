@@ -34,6 +34,10 @@ public class book {
         this.ID = UUID.randomUUID();
     }
 
+    book(String id){
+        this.ID = UUID.fromString(id);
+    };
+
 
     /**
      * This constructor is built for writing unit tests, we will use another constructor which doesn't have parameters
@@ -60,7 +64,7 @@ public class book {
         m = FirebaseDatabase.getInstance();
         r = m.getReference("book");
         r.child(this.getID()).setValue(this);
-
+        //sd
     }
 
     public String getID(){return this.ID.toString();}
@@ -184,5 +188,12 @@ public class book {
 
     public float getBookRating(){return rating; }
 
+    public String getDescriptionBundle(){
+        return this.getAuthor()+"\n"+this.getName()+"\n"+this.getISBN();
+    }
+
+    public boolean deleteFromFirebase(){
+        return true;
+    }
 }
 

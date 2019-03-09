@@ -25,6 +25,7 @@ package com.example.y.bookborrow_lendv2;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -35,12 +36,11 @@ public class PrivateBookDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_book_details);
 
-
         Intent intent = getIntent();
 
         //Bundle bundle = intent.getExtras();
-        String bookName = intent.getDataString();
-        book bookx = new book();
+        String bookid = intent.getDataString();
+        final book bookx = new book(bookid);
 
 
         TextView bookNameTV = (TextView)findViewById(R.id.pBookName);
@@ -50,7 +50,11 @@ public class PrivateBookDetails extends AppCompatActivity {
         TextView bookRateTV = (TextView)findViewById(R.id.pBookRate);
         TextView bookDescriptionTV = (TextView)findViewById(R.id.pBookDescription);
 
-        bookNameTV.setText(bookName);
+        Button deleteButton = (Button)findViewById(R.id.BookDetailDelete);
+        Button editButton = (Button)findViewById(R.id.bookDetailEdit);
+        Button requestButton = (Button)findViewById(R.id.bookDetailRequest);
+
+        bookNameTV.setText(bookx.getName());
 
         String ISBN = bookx.getISBN();
         if (ISBN != null){
@@ -76,6 +80,25 @@ public class PrivateBookDetails extends AppCompatActivity {
             bookDescriptionTV.setText(ISBN);
         }
 
-        Button deleteButton = (Button)findViewById(R.id.BookDetailDelete);
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bookx.deleteFromFirebase();
+            }
+        });
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PrivateBookDetails.this,EditBookDetail.class);
+                i.putExtra("bookID",bookx.getID());
+                startActivityForResult(i,2);
+            }
+        });
+
+
+
+
     }
 }
