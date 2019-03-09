@@ -46,7 +46,7 @@ public class loginAct extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
 
 
-
+        //hello
                 @Override
                 public void onClick(View v) {
                     //Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
