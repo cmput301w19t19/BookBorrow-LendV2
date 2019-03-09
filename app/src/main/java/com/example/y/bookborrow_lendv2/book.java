@@ -184,5 +184,8 @@ public class book {
 
     public float getBookRating(){return rating; }
 
+    public String getDescriptionBundle(){
+        return this.getAuthor()+"\n"+this.getName()+"\n"+this.getISBN();
+    }
 }
 
