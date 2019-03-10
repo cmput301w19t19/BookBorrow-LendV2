@@ -2,9 +2,13 @@ package com.example.y.bookborrow_lendv2;
 
 
 import android.media.Image;
+import android.support.annotation.NonNull;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.UUID;
 import java.util.ArrayList;
@@ -19,13 +23,14 @@ public class book {
     private Double latitude = 0.0;
     private String description = null;
     private String title = null;
-    private ArrayList<borrower> requestedList = new ArrayList<borrower>();
+    private ArrayList<String> requestedList = new ArrayList<String>();
     private String borrowerName = null;
     private String ownerName = null;
     private String status = "available";
     private Double rating = -1.0;
     private FirebaseDatabase m;
     private DatabaseReference r;
+    private ArrayList<String> requestList;
 
     /**
      * A constructor with no parameters
@@ -35,6 +40,7 @@ public class book {
     }
 
     book(String id){
+
         this.ID = UUID.fromString(id);
     };
 
@@ -63,12 +69,16 @@ public class book {
         m = FirebaseDatabase.getInstance();
         r = m.getReference("book");
         r.child(this.getID()).setValue(this);
-        //sd
+
+    }
+
+    public void setID(String s) {
+        this.ID = UUID.fromString(s);
     }
 
     public String getID(){return this.ID.toString();}
 
-    public void setRequestedList(ArrayList<borrower> list) {
+    public void setRequestedList(ArrayList<String> list) {
         requestedList = list;
     }
 
@@ -112,9 +122,10 @@ public class book {
         return latitude;
     }
 
-    public ArrayList<borrower> getRequestedList() {
+    public ArrayList<String> getRequestedList() {
         return requestedList;
     }
+
 
     public void setOwnerName(String name) {
         ownerName = name;
@@ -123,15 +134,6 @@ public class book {
     public String getOwnerName() {
         return ownerName;
     }
-
-    /*public void setTitle(String string) {
-        title = string;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-    */
 
     public void setStatusToRequested(){
         this.status = "Requested";
@@ -157,7 +159,7 @@ public class book {
         return status;
     }
 
-    public void addRequested(borrower name) {
+    public void addRequested(String name) {
         requestedList.add(name);
     }
 
@@ -192,6 +194,10 @@ public class book {
     }
 
     public boolean deleteFromFirebase(){
+        m = FirebaseDatabase.getInstance();
+        r = m.getReference("book").child(this.getID());
+        r.removeValue();
+
         return true;
     }
 }
