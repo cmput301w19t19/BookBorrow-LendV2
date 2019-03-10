@@ -2,9 +2,13 @@ package com.example.y.bookborrow_lendv2;
 
 
 import android.media.Image;
+import android.support.annotation.NonNull;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.UUID;
 import java.util.ArrayList;
@@ -26,6 +30,7 @@ public class book {
     private float rating = -1;
     private FirebaseDatabase m;
     private DatabaseReference r;
+    private ArrayList<String> requestList;
 
     /**
      * A constructor with no parameters
@@ -35,6 +40,7 @@ public class book {
     }
 
     book(String id){
+
         this.ID = UUID.fromString(id);
     };
 
@@ -64,7 +70,11 @@ public class book {
         m = FirebaseDatabase.getInstance();
         r = m.getReference("book");
         r.child(this.getID()).setValue(this);
-        //sd
+
+    }
+
+    public void setID(String s) {
+        this.ID = UUID.fromString(s);
     }
 
     public String getID(){return this.ID.toString();}
