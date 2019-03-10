@@ -33,6 +33,8 @@ public class book {
     private DatabaseReference r;
     private Map<String,Boolean> requestList;
 
+
+
     /**
      * A constructor with no parameters
      */
@@ -43,6 +45,7 @@ public class book {
     book(String id){
         this.ID = UUID.fromString(id);
     };
+
 
 
     /**
@@ -64,6 +67,7 @@ public class book {
         this.ownerName = ownerName;
         this.status = status;
     }
+
 
     public void setToFirebase(){
         m = FirebaseDatabase.getInstance();

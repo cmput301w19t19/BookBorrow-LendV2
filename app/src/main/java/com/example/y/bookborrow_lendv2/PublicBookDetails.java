@@ -76,7 +76,6 @@ public class PublicBookDetails extends AppCompatActivity {
         bookid = intent.getStringExtra("Id");
 
 
-
         bookNameTV = (TextView)findViewById(R.id.puBookName);
         ISBNTV = (TextView)findViewById(R.id.puBookISBN);
         bookAuthorTV = (TextView)findViewById(R.id.puBookAuthor);
