@@ -22,14 +22,104 @@
 
 package com.example.y.bookborrow_lendv2;
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class PublicBookDetails extends AppCompatActivity {
+
+    String bookid;
+
+    TextView bookNameTV;
+
+    TextView ISBNTV;
+
+    TextView bookAuthorTV;
+
+    TextView bookStateTV;
+
+    TextView bookRateTV;
+
+    TextView bookOwnerTV;
+
+    TextView bookDescriptionTV;
+
+    Button requestButton;
+
+    book b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_public_book_details);
+
+        Intent intent = getIntent();
+        bookid = intent.getDataString();
+
+        bookNameTV = (TextView)findViewById(R.id.puBookName);
+        ISBNTV = (TextView)findViewById(R.id.puBookISBN);
+        bookAuthorTV = (TextView)findViewById(R.id.puBookAuthor);
+        bookStateTV = (TextView)findViewById(R.id.puBookState);
+        bookRateTV = (TextView)findViewById(R.id.puBookRate);
+        bookOwnerTV = (TextView)findViewById(R.id.puBookOwner);
+        bookDescriptionTV = (TextView)findViewById(R.id.puBookDescription);
+
+        requestButton = (Button)findViewById(R.id.requestTheBook);
+
+        FirebaseDatabase m = FirebaseDatabase.getInstance();
+        bookid = "eea36b36-f7a4-498a-9165-ca1389464ff7"; ///for testing
+        DatabaseReference r = m.getReference("book/"+bookid);
+        ValueEventListener bookListner = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    b = dataSnapshot.getValue(book.class);
+                    bookNameTV.setText(b.getName());
+
+                    String ISBN = b.getISBN();
+                    if (ISBN != null) {
+                        ISBNTV.setText(ISBN);
+                    }
+
+                    String author = b.getAuthor();
+                    if (author != null) {
+                        bookAuthorTV.setText(author);
+                    }
+
+                    String state = b.getStatus();
+                    if (state != null) {
+                        bookStateTV.setText(state);
+                    }
+
+                    Double rate = b.getBookRating();
+                    String srate = Double.toString(rate);
+                    bookRateTV.setText(srate);
+
+                    String description = b.getDescription();
+                    if (description != null) {
+                        bookDescriptionTV.setText(description);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(),"Fail to get data from database",Toast.LENGTH_SHORT).show();
+
+            }
+        };
+        r.addListenerForSingleValueEvent(bookListner);
+
     }
 }

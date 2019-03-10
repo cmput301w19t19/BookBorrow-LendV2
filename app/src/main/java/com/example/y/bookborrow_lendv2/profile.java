@@ -24,7 +24,8 @@ import java.util.Map;
 
 public class profile extends AppCompatActivity {
     private Button updateButton;
-    private EditText inputEmail, inputUserName, inputPhone,inputMessage;
+    private TextView inputEmail;
+    private EditText inputUserName, inputPhone,inputMessage;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference dbRef = database.getReference();
     DatabaseReference DbRef = database.getReference();
@@ -44,7 +45,7 @@ public class profile extends AppCompatActivity {
         String uid = user.getUid();
 
         updateButton = (Button) findViewById(R.id.UpdateButton);
-        inputEmail = (EditText) findViewById(R.id.InputEmail);
+        inputEmail = (TextView) findViewById(R.id.InputEmail);
         inputUserName = (EditText) findViewById(R.id.InputName);
         inputPhone = (EditText) findViewById(R.id.InputPhone);
         //inputMessage = (EditText) findViewById(R.id.InputMessage);
@@ -92,7 +93,7 @@ public class profile extends AppCompatActivity {
                 String uid = user.getUid();
                 dbRef = database.getReference();
                 //dbRef.child("users").child(uid).child("email").setValue("Goodbye");
-               dbRef = database.getReference("users");
+                dbRef = database.getReference("users");
 
                 Map<String, Object> childUpdates = new HashMap<>();
 

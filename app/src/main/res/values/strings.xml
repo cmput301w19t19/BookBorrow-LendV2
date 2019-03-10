@@ -88,4 +88,10 @@
     <string name="bookName3">Book Name3</string>
     <string name="title_activity_location">Location</string>
     <string name="title_activity_empty">emptyActivity</string>
+    <string name="EditBookDetailBookName">Please enter the title</string>
+    <string name="EditBookDetailISBN">Please enter the ISBN</string>
+    <string name="EditBookDetailAuthor">Please enter the author</string>
+    <string name="EditBookDetailDescription">Please enter comment of the book from your prospective ~</string>
+    <string name="EditBookDetailDecriptionTitile">Description</string>
+    <string name="EditBookDetailUpload">Upload Photo</string>
 </resources>

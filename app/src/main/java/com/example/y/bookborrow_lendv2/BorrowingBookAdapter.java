@@ -8,16 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
-public class bookAdapter extends BaseAdapter {
+public class BorrowingBookAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private ArrayList<book> myBook;
-    public bookAdapter(Context context, ArrayList<book> data) {
+    public BorrowingBookAdapter(Context context, ArrayList<book> data) {
         mInflater = LayoutInflater.from(context);
         myBook = data;
     }
@@ -42,27 +38,26 @@ public class bookAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent){
         ViewHolder holder = null;
         if(convertView == null){
-            convertView = mInflater.inflate(R.layout.my_book_list_item, parent, false);
-            holder = new ViewHolder();
+            convertView = mInflater.inflate(R.layout.borrow_book_item, parent, false);
+            holder = new BorrowingBookAdapter.ViewHolder();
 
-            holder.image = (ImageView) convertView.findViewById(R.id.BookImage);
-            holder.bookName = (TextView) convertView.findViewById(R.id.BookName);
-            //holder.info = (ImageButton) convertView.findViewById(R.id.infoButton);
-            holder.currentBorrower = (TextView) convertView.findViewById(R.id.CurrentBorrower);
-            holder.description = (TextView) convertView.findViewById(R.id.descrip);
-            holder.status = (TextView) convertView.findViewById(R.id.Stat);
+            holder.image = (ImageView) convertView.findViewById(R.id.BorBookImage);
+            holder.bookName = (TextView) convertView.findViewById(R.id.BorBookName);
+            holder.OwnerName = (TextView) convertView.findViewById(R.id.OwnerName);
+            holder.description = (TextView) convertView.findViewById(R.id.BorBookDescrip);
+            holder.rating = (TextView) convertView.findViewById(R.id.BorRating_on);
 
             convertView.setTag(holder);
         }
         else{
-            holder = (ViewHolder) convertView.getTag();
+            holder = (BorrowingBookAdapter.ViewHolder) convertView.getTag();
         }
 
         book book = myBook.get(position);
         holder.bookName.setText(book.getName());
-        holder.status.setText(book.getStatus());
+        holder.OwnerName.setText(book.getOwnerName());
         //holder.image.setImageDrawable();
-        holder.currentBorrower.setText(book.getBorrowerName());
+        holder.rating.setText(book.getBookRating().toString());
         holder.description.setText(book.getDescription());
         //holder.info.set
         return convertView;
@@ -72,10 +67,9 @@ public class bookAdapter extends BaseAdapter {
     private class ViewHolder{
         ImageView image;
         TextView bookName;
-        TextView status;
-        TextView currentBorrower;
+        TextView OwnerName;
         TextView description;
-        //ImageButton info;
+        TextView rating;
     }
 
 
