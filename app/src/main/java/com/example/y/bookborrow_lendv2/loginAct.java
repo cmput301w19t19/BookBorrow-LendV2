@@ -214,8 +214,8 @@ public class loginAct extends AppCompatActivity {
 
                                     Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_SHORT).show();
 
-                                    //Intent intent = new Intent(loginAct.this, signOutActivity.class);
-                                    //startActivity(intent);
+                                    Intent intent = new Intent(loginAct.this, MyBookList.class);
+                                    startActivity(intent);
                                     //finish();
                                 }
                             }
@@ -228,5 +228,18 @@ public class loginAct extends AppCompatActivity {
             }
 
         });
+
+    }
+
+    /**
+     * this method is defined for intent test
+     * @return loggedin user id
+     */
+    public String returnCurrentUser(){
+        auth = FirebaseAuth.getInstance();
+
+        FirebaseUser user = auth.getCurrentUser();
+        String uid = user.getUid();
+        return uid;
     }
 }

@@ -49,6 +49,7 @@ public class PrivateBookDetails extends AppCompatActivity {
     Button deleteButton;
     Button editButton;
     Button requestButton;
+    Button returnButton;
     book bookx;
 
     @Override
@@ -57,7 +58,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         setContentView(R.layout.activity_private_book_details);
 
         Intent intent = getIntent();
-        bookid = intent.getDataString();
+        bookid = intent.getStringExtra("Id");
 
         bookNameTV = (TextView)findViewById(R.id.pBookName);
         ISBNTV = (TextView)findViewById(R.id.pBookISBN);
@@ -68,6 +69,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         deleteButton = (Button)findViewById(R.id.BookDetailDelete);
         editButton = (Button)findViewById(R.id.bookDetailEdit);
         requestButton = (Button)findViewById(R.id.bookDetailRequest);
+        returnButton = (Button)findViewById(R.id.ReturnButton);
 
 
         /*
@@ -84,7 +86,8 @@ public class PrivateBookDetails extends AppCompatActivity {
 
 
         FirebaseDatabase m = FirebaseDatabase.getInstance();
-        bookid = "eea36b36-f7a4-498a-9165-ca1389464ff7"; ///for testing
+        //bookid = "c10dee3e-c475-4fee-9a7f-aa111675825c"; ///for testing
+
         DatabaseReference r = m.getReference("book/"+bookid);
         ValueEventListener bookListner = new ValueEventListener() {
             @Override
@@ -153,7 +156,13 @@ public class PrivateBookDetails extends AppCompatActivity {
             }
         });
 
-
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PrivateBookDetails.this,MyBookList.class);
+                startActivity(i);
+            }
+        });
     }
 
 

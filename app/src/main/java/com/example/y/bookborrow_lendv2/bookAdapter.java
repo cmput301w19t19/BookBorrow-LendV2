@@ -45,9 +45,9 @@ public class bookAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.my_book_list_item, parent, false);
             holder = new ViewHolder();
 
-            holder.image = (ImageButton) convertView.findViewById(R.id.BookImage);
+            holder.image = (ImageView) convertView.findViewById(R.id.BookImage);
             holder.bookName = (TextView) convertView.findViewById(R.id.BookName);
-            holder.info = (ImageButton) convertView.findViewById(R.id.infoButton);
+            //holder.info = (ImageButton) convertView.findViewById(R.id.infoButton);
             holder.currentBorrower = (TextView) convertView.findViewById(R.id.CurrentBorrower);
             holder.description = (TextView) convertView.findViewById(R.id.descrip);
             holder.status = (TextView) convertView.findViewById(R.id.Stat);
@@ -70,12 +70,12 @@ public class bookAdapter extends BaseAdapter {
     }
 
     private class ViewHolder{
-        ImageButton image;
+        ImageView image;
         TextView bookName;
         TextView status;
         TextView currentBorrower;
         TextView description;
-        ImageButton info;
+        //ImageButton info;
     }
 
 
