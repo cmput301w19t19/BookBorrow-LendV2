@@ -92,7 +92,7 @@ public class profile extends AppCompatActivity {
                 String uid = user.getUid();
                 dbRef = database.getReference();
                 //dbRef.child("users").child(uid).child("email").setValue("Goodbye");
-               dbRef = database.getReference("users");
+                dbRef = database.getReference("users");
 
                 Map<String, Object> childUpdates = new HashMap<>();
 
