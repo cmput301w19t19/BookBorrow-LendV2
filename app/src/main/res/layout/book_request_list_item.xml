@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/R_L_username"
+        android:layout_width="97dp"
+        android:layout_height="36dp"
+        android:layout_alignTop="@+id/R_L_user_image"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_toEndOf="@id/R_L_user_image"
+        android:layout_toRightOf="@id/R_L_user_image"
+        android:text="username"
+        android:textSize="18sp" />
+
+    <CheckBox
+        android:id="@+id/cb_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
+        android:clickable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        />
+
+    <ImageButton
+        android:id="@+id/R_L_user_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/R_L_borrower_rating"
+        android:layout_width="81dp"
+        android:layout_height="49dp"
+        android:layout_alignTop="@id/R_L_username"
+        android:layout_marginLeft="31dp"
+        android:layout_marginTop="-6dp"
+        android:layout_toRightOf="@id/R_L_username"
+        android:text="Rating:"
+        android:textSize="20sp" />
+</RelativeLayout>
+

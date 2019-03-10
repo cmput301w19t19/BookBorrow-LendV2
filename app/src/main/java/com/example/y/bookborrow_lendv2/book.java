@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Map;
 import java.util.UUID;
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ public class book {
     private Double rating = -1.0;
     private FirebaseDatabase m;
     private DatabaseReference r;
-    private ArrayList<String> requestList;
+    private Map<String, Boolean> requestList;
 
     /**
      * A constructor with no parameters
@@ -123,6 +124,7 @@ public class book {
     }
 
     public ArrayList<String> getRequestedList() {
+        requestedList = new ArrayList<String>(requestList.keySet());
         return requestedList;
     }
 

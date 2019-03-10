@@ -68,7 +68,6 @@ public class borrower extends user {
         return borrowerRating;
     }
 
-    public void setUid(String id){this.uid = id;}
 
     public static borrower Instance()
     {

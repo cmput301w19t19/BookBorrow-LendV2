@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
@@ -19,20 +19,32 @@
     <ListView
         android:id="@+id/requestList"
         android:layout_width="match_parent"
-        android:layout_height="453dp" />
+        android:layout_height="257dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/request" />
 
 
     <Button
-        android:id="@+id/acceptButton"
+        android:id="@+id/B_R_acceptButton"
         android:layout_width="match_parent"
         android:layout_height="90dp"
+        android:layout_marginTop="8dp"
+        android:text="accept"
         android:textSize="20sp"
-        android:text="accept" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/requestList" />
 
     <Button
-        android:id="@+id/declineButton"
+        android:id="@+id/B_R_declineButton"
         android:layout_width="match_parent"
         android:layout_height="90dp"
+        android:layout_marginTop="8dp"
+        android:text="decline"
         android:textSize="20sp"
-        android:text="decline" />
-</LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/B_R_acceptButton" />
+
+</android.support.constraint.ConstraintLayout>

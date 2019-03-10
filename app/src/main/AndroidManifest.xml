@@ -22,10 +22,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".check_to_scan" />
         <activity android:name=".profile" />
-        <activity android:name=".RequestToOwner" />
+        <activity android:name=".PrivateBookDetails" />
         <activity android:name=".OwnerHomeActivity" />
         <activity
-            android:name=".PrivateBookDetails"
+            android:name=".RequestToOwner"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
