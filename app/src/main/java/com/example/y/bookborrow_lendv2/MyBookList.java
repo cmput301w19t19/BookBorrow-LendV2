@@ -35,7 +35,7 @@ public class MyBookList extends AppCompatActivity {
     private ArrayList<book> acceptedBookList = new ArrayList<>();
     private ArrayList<book> borrowedBookList = new ArrayList<>();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference dbRef = database.getReference();
+    DatabaseReference DbRef = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class MyBookList extends AppCompatActivity {
         setContentView(R.layout.activity_my_book_list);
 
         ImageButton addBook = (ImageButton) findViewById(R.id.addBook);
+        addBook.setFocusable(false);
         final Button available = (Button) findViewById(R.id.availableFilter);
         Button requested = (Button) findViewById(R.id.requestedFilter);
         Button accepted = (Button) findViewById(R.id.acceptedFilter);
@@ -53,9 +54,9 @@ public class MyBookList extends AppCompatActivity {
         addBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MyBookList.this,EditBookDetail.class);
-                intent.putExtra("0","0");
-                startActivityForResult(intent,0);
+                Intent intent = new Intent(MyBookList.this, EditBookDetail.class);
+                intent.putExtra("0", "0");
+                startActivityForResult(intent, 0);
             }
         });
 
@@ -68,10 +69,10 @@ public class MyBookList extends AppCompatActivity {
                     if (bookItem.getStatus().equals("available")) {
                         availableBookList.add(bookItem);
                         //Integer
-                        Toast.makeText(MyBookList.this,"hello", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MyBookList.this, "hello", Toast.LENGTH_SHORT).show();
                     }
                 }
-                availableBookAdapter = new bookAdapter(MyBookList.this,availableBookList);
+                availableBookAdapter = new bookAdapter(MyBookList.this, availableBookList);
                 myBookList.setAdapter(availableBookAdapter);
             }
         });
@@ -85,7 +86,7 @@ public class MyBookList extends AppCompatActivity {
                         requestedBookList.add(bookItem);
                     }
                 }
-                requestedBookAdapter = new bookAdapter(MyBookList.this,requestedBookList);
+                requestedBookAdapter = new bookAdapter(MyBookList.this, requestedBookList);
                 myBookList.setAdapter(requestedBookAdapter);
 
 
@@ -102,7 +103,7 @@ public class MyBookList extends AppCompatActivity {
 
                     }
                 }
-                acceptedBookAdapter = new bookAdapter(MyBookList.this,acceptedBookList);
+                acceptedBookAdapter = new bookAdapter(MyBookList.this, acceptedBookList);
                 myBookList.setAdapter(acceptedBookAdapter);
 
             }
@@ -117,7 +118,7 @@ public class MyBookList extends AppCompatActivity {
                         borrowedBookList.add(bookItem);
                     }
                 }
-                borrowedBookAdapter = new bookAdapter(MyBookList.this,borrowedBookList);
+                borrowedBookAdapter = new bookAdapter(MyBookList.this, borrowedBookList);
                 myBookList.setAdapter(borrowedBookAdapter);
 
             }
@@ -137,12 +138,14 @@ public class MyBookList extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //TODO: Implement this method
                 book bookItem = bookList.get(position);
+                Toast.makeText(MyBookList.this,bookItem.getAuthor(),Toast.LENGTH_SHORT).show();
                 String bookId = bookItem.getID();
-                Intent intent = new Intent(MyBookList.this,PrivateBookDetails.class);
-                intent.putExtra("Id",bookId);
+                Intent intent = new Intent(MyBookList.this, PrivateBookDetails.class);
+                intent.putExtra("Id", bookId);
                 startActivity(intent);
             }
         });
+
 
         /*String name = "111";
         String author = "Bowei";
@@ -162,47 +165,12 @@ public class MyBookList extends AppCompatActivity {
         myBookAdapter = new bookAdapter(this, bookList);
         myBookList.setAdapter(myBookAdapter);
         */
+
         bookList = new ArrayList<>();
         myBookAdapter = new bookAdapter(this, bookList);
         myBookList.setAdapter(myBookAdapter);
-        String BookID = "0f45b9af-ebc7-4449-a6db-f88f9589a7c0";
-        dbRef = database.getReference("book/"+BookID);
-        ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                book targetBook = dataSnapshot.getValue(book.class);
-                   /* String bookName = targetBook.getName();
-                    String currentBorrower = targetBook.getBorrowerName();
-                    String description = targetBook.getDescriptionBundle();
-                    String status = targetBook.getStatus();
-                    String rating = targetBook.getBookRating().toString(); */
-                bookList.add(targetBook);
-                myBookAdapter.notifyDataSetChanged();
 
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w( "loadPost:onCancelled", databaseError.toException());
-            }
-        };
-        dbRef.addValueEventListener(postListener);
     }
-
-
-
-   //book book1 = new book(name, author, ISBN, longitude, latitude, description,title,rating,borrowerName,ownerName,status);
-/*
-    @Override
-    protected void onStart(){
-        // TODO Auto-generated method stub
-        super.onStart();
-        bookList = new ArrayList<>();
-        myBookAdapter = new bookAdapter(this, bookList);
-        myBookList.setAdapter(myBookAdapter);
-
-    } */
 
     @Override
     protected void onActivityResult(int requestCode,int resultCode ,Intent data){
@@ -210,18 +178,13 @@ public class MyBookList extends AppCompatActivity {
         if(requestCode==0&&resultCode==1){
             String bookID = data.getStringExtra("ID");
             String BookID = "0f45b9af-ebc7-4449-a6db-f88f9589a7c0";
-            dbRef = database.getReference("book/"+BookID);
+            DbRef = database.getReference("book/"+bookID);
             ValueEventListener postListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     book targetBook = dataSnapshot.getValue(book.class);
-                   /* String bookName = targetBook.getName();
-                    String currentBorrower = targetBook.getBorrowerName();
-                    String description = targetBook.getDescriptionBundle();
-                    String status = targetBook.getStatus();
-                    String rating = targetBook.getBookRating().toString(); */
-                   bookList.add(targetBook);
-                   myBookAdapter.notifyDataSetChanged();
+                    bookList.add(targetBook);
+                    myBookAdapter.notifyDataSetChanged();
 
                 }
 
@@ -231,9 +194,10 @@ public class MyBookList extends AppCompatActivity {
                     Log.w( "loadPost:onCancelled", databaseError.toException());
                 }
             };
-            dbRef.addValueEventListener(postListener);
+            DbRef.addValueEventListener(postListener);
             //bookList.add(book1);
             //adapter.notifyDataSetChanged();
         }
+
     }
 }
