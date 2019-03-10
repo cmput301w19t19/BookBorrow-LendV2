@@ -57,7 +57,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         setContentView(R.layout.activity_private_book_details);
 
         Intent intent = getIntent();
-        bookid = intent.getDataString();
+        bookid = intent.getStringExtra("Id");
 
         //final TextView
         bookNameTV = (TextView)findViewById(R.id.pBookName);
@@ -82,7 +82,7 @@ public class PrivateBookDetails extends AppCompatActivity {
 
 
         FirebaseDatabase m = FirebaseDatabase.getInstance();
-        bookid = "c10dee3e-c475-4fee-9a7f-aa111675825c"; ///for testing
+        //bookid = "c10dee3e-c475-4fee-9a7f-aa111675825c"; ///for testing
         DatabaseReference r = m.getReference("book/"+bookid);
         ValueEventListener bookListner = new ValueEventListener() {
             @Override
