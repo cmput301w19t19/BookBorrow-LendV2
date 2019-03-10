@@ -27,6 +27,8 @@ public class book {
     private FirebaseDatabase m;
     private DatabaseReference r;
 
+
+
     /**
      * A constructor with no parameters
      */
@@ -37,6 +39,7 @@ public class book {
     book(String id){
         this.ID = UUID.fromString(id);
     };
+
 
 
     /**
@@ -59,6 +62,7 @@ public class book {
         this.status = status;
         this.photo = photo;
     }
+
 
     public void setToFirebase(){
         m = FirebaseDatabase.getInstance();
