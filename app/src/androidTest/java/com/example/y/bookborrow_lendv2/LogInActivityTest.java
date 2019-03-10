@@ -53,7 +53,6 @@ public class LogInActivityTest  extends ActivityTestRule<loginAct> {
 
     @Test
     public void EnterEmail(){
-        signOutActivity activity = (signOutActivity) solo.getCurrentActivity();
 
         /**there is a user signed in, we will sign out the user
          * first, then got to the log in activity
@@ -63,16 +62,15 @@ public class LogInActivityTest  extends ActivityTestRule<loginAct> {
         //String uid = user.getUid();
 
         //if (uid!=null){
-        activity.signOut();
 
         //}
 
         solo.assertCurrentActivity("Wrong Activity",loginAct.class);
-        solo.enterText((EditText)solo.getView(R.id.loginEmail),"555@ualberta.ca!");
+        solo.enterText((EditText)solo.getView(R.id.loginEmail),"555@ualberta.ca");
 
-        solo.clickOnButton("login_button");
+       // solo.clickOnButton("login_button");
 
-        assertTrue(solo.waitForText("555@ualberta.ca!"));
+        assertTrue(solo.waitForText("555@ualberta.ca"));
 
 
     }
@@ -82,7 +80,7 @@ public class LogInActivityTest  extends ActivityTestRule<loginAct> {
 
         solo.enterText((EditText)solo.getView(R.id.password_editText),"123456");
 
-        solo.clickOnButton("password_editText");
+      //  solo.clickOnButton("password_editText");
 
         assertTrue(solo.waitForText("123456"));
 
@@ -90,16 +88,17 @@ public class LogInActivityTest  extends ActivityTestRule<loginAct> {
     }
     @Test
     public void LogIn(){
-        //get the current logged in usesr ID
-        auth = FirebaseAuth.getInstance();
-        FirebaseUser user = auth.getCurrentUser();
+        loginAct activity = (loginAct) solo.getCurrentActivity();
+
         solo.assertCurrentActivity("Wrong Activity",loginAct.class);
-        solo.enterText((EditText)solo.getView(R.id.loginEmail),"555@ualberta.ca!");
+        solo.enterText((EditText)solo.getView(R.id.loginEmail),"555@ualberta.ca");
 
         solo.enterText((EditText)solo.getView(R.id.password_editText),"123456");
 
-        solo.clickOnButton("login");
-        String uid = user.getUid();
+        solo.clickOnButton("log in");
+
+
+        String uid = activity.returnCurrentUser();
 
         assertEquals(uid,"v1rSbJgp2uPgAxf4ZJXcclTgDyv2");
 
