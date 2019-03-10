@@ -228,5 +228,18 @@ public class loginAct extends AppCompatActivity {
             }
 
         });
+
+    }
+
+    /**
+     * this method is defined for intent test
+     * @return loggedin user id
+     */
+    public String returnCurrentUser(){
+        auth = FirebaseAuth.getInstance();
+
+        FirebaseUser user = auth.getCurrentUser();
+        String uid = user.getUid();
+        return uid;
     }
 }

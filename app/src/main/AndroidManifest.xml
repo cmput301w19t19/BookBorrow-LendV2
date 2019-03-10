@@ -21,7 +21,7 @@
             android:label="@string/title_activity_empty"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".check_to_scan" />
-        <activity android:name=".profile" />
+        <activity android:name=".EditBookDetail" />
         <activity android:name=".RequestToOwner" />
         <activity android:name=".OwnerHomeActivity" />
         <activity
@@ -34,7 +34,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".BorrowerMenu" />
-        <activity android:name=".EditBookDetail"/>
+        <activity android:name=".loginAct" />
+        <activity android:name=".profile"/>
         <activity android:name=".BorrowerRequest" />
         <activity android:name=".RateToOwner" />
         <activity android:name=".RateToBorrower" />

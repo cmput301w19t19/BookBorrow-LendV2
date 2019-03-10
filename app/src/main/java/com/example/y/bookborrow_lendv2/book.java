@@ -23,7 +23,7 @@ public class book {
     private Double latitude = 0.0;
     private String description = null;
     private String title = null;
-    private ArrayList<borrower> requestedList = new ArrayList<borrower>();
+    private ArrayList<String> requestedList = new ArrayList<String>();
     private String borrowerName = null;
     private String ownerName = null;
     private String status = "available";
@@ -78,7 +78,7 @@ public class book {
 
     public String getID(){return this.ID.toString();}
 
-    public void setRequestedList(ArrayList<borrower> list) {
+    public void setRequestedList(ArrayList<String> list) {
         requestedList = list;
     }
 
@@ -122,9 +122,10 @@ public class book {
         return latitude;
     }
 
-    public ArrayList<borrower> getRequestedList() {
+    public ArrayList<String> getRequestedList() {
         return requestedList;
     }
+
 
     public void setOwnerName(String name) {
         ownerName = name;
@@ -133,15 +134,6 @@ public class book {
     public String getOwnerName() {
         return ownerName;
     }
-
-    /*public void setTitle(String string) {
-        title = string;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-    */
 
     public void setStatusToRequested(){
         this.status = "Requested";
@@ -167,7 +159,7 @@ public class book {
         return status;
     }
 
-    public void addRequested(borrower name) {
+    public void addRequested(String name) {
         requestedList.add(name);
     }
 
@@ -202,6 +194,10 @@ public class book {
     }
 
     public boolean deleteFromFirebase(){
+        m = FirebaseDatabase.getInstance();
+        r = m.getReference("book").child(this.getID());
+        r.removeValue();
+
         return true;
     }
 }
