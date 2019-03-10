@@ -31,6 +31,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,6 +53,7 @@ public class PrivateBookDetails extends AppCompatActivity {
     Button requestButton;
     Button returnButton;
     book bookx;
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +146,14 @@ public class PrivateBookDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 bookx.deleteFromFirebase();
-                finish();
+                auth = FirebaseAuth.getInstance();
+                FirebaseUser user = auth.getCurrentUser();
+                DatabaseReference r = FirebaseDatabase.getInstance().getReference();
+                String uid = user.getUid();
+                r.child("lenders").child(uid).child("MyBookList").child(bookid).setValue(null,null);
+                Intent i = new Intent(PrivateBookDetails.this,MyBookList.class);
+                startActivity(i);
+
             }
         });
 
