@@ -33,8 +33,7 @@ public class loginAct extends AppCompatActivity {
 
         if (auth.getCurrentUser() != null) {
 
-            startActivity(new Intent(loginAct.this, signOutActivity.class));
-            finish();
+            auth.signOut();
         }
 
         inputEmail = (EditText) findViewById(R.id.loginEmail);
@@ -213,11 +212,11 @@ public class loginAct extends AppCompatActivity {
 
 
 
-                                    Toast.makeText(getApplicationContext(), "userID:"+lender.Instance().getUid(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_SHORT).show();
 
-                                    Intent intent = new Intent(loginAct.this, signOutActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                    //Intent intent = new Intent(loginAct.this, signOutActivity.class);
+                                    //startActivity(intent);
+                                    //finish();
                                 }
                             }
 
