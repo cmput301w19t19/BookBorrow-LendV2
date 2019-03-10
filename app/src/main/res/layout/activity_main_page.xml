@@ -21,6 +21,7 @@
                 tools:srcCompat="@tools:sample/avatars[0]" />
 
             <TextView
+                android:id="@+id/UserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -39,11 +40,13 @@
         android:orientation="vertical"
         android:layout_gravity="center"
         android:layout_marginTop="35dp">
+
         <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="25dp"
+            android:id="@+id/OwnerLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="25dp">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -52,6 +55,7 @@
                 android:src="@drawable/ic_book_black_24dp" />
 
             <TextView
+                android:id="@+id/Owner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -59,16 +63,19 @@
                 android:text="Owner"
                 android:textStyle="bold" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/BorrowerLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:paddingLeft="25dp">
+
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_bookmark_black_24dp"/>
+                android:src="@drawable/ic_bookmark_black_24dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -79,16 +86,19 @@
                 android:text="Borrower"
                 android:textStyle="bold" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/ProfileLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:paddingLeft="25dp">
+
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_info_black_24dp"/>
+                android:src="@drawable/ic_info_black_24dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -99,16 +109,19 @@
                 android:text="Profile"
                 android:textStyle="bold" />
         </LinearLayout>
+
         <LinearLayout
+            android:id="@+id/SignOutlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:paddingLeft="25dp">
+
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:src="@drawable/ic_lock_open_black_24dp"/>
+                android:src="@drawable/ic_lock_open_black_24dp" />
 
             <TextView
                 android:layout_width="match_parent"
