@@ -149,7 +149,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/pBookName"
+                        android:id="@+id/puBookName"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
@@ -176,7 +176,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/pBookISBN"
+                        android:id="@+id/puBookISBN"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
@@ -203,7 +203,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/pBookAuthor"
+                        android:id="@+id/puBookAuthor"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
@@ -230,7 +230,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/pBookState"
+                        android:id="@+id/puBookState"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
@@ -257,7 +257,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/pBookRate"
+                        android:id="@+id/puBookRate"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
@@ -284,7 +284,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/pBookOwner"
+                        android:id="@+id/puBookOwner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="2"
@@ -323,7 +323,7 @@
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/pBookDescription"
+                android:id="@+id/puBookDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="16dp"
@@ -362,7 +362,7 @@
 
         <Button
             android:id="@+id/requestTheBook"
-            android:layout_width="0dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
@@ -374,9 +374,26 @@
             android:paddingBottom="4dp"
             android:text="@string/BookDetailRequestTheBook"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/puReturnButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ListViewForComment" />
+
+        <Button
+            android:id="@+id/puReturnButton"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="8dp"
+            android:text="puReturnBu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
     </android.support.constraint.ConstraintLayout>
