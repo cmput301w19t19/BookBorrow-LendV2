@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,7 +65,7 @@ public class PublicBookDetails extends AppCompatActivity {
         setContentView(R.layout.activity_public_book_details);
 
         Intent intent = getIntent();
-        bookid = intent.getDataString();
+        bookid = intent.getStringExtra("Id");
 
         bookNameTV = (TextView)findViewById(R.id.puBookName);
         ISBNTV = (TextView)findViewById(R.id.puBookISBN);
@@ -120,6 +121,16 @@ public class PublicBookDetails extends AppCompatActivity {
             }
         };
         r.addListenerForSingleValueEvent(bookListner);
+
+        requestButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+
+            }
+
+        });
 
     }
 }
