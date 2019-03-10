@@ -3,12 +3,13 @@ package com.example.y.bookborrow_lendv2;
 /**
  * This activity handles home_page
  */
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class home_page {
+public class home_page extends AppCompatActivity {
     private ArrayList<lender> Owner;
     //public class home_page extends user
     //private static home_page instance;

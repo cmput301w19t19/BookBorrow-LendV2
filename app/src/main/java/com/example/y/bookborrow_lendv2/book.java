@@ -12,18 +12,18 @@ import java.util.ArrayList;
 public class book {
     private UUID ID;
     private String name = null;
-    private Image photo = null;
+    //private Image photo = null;
     private String author = null;
     private String ISBN = null;
-    private float longitude = 0;
-    private float latitude = 0;
+    private Double longitude = 0.0;
+    private Double latitude = 0.0;
     private String description = null;
     private String title = null;
     private ArrayList<borrower> requestedList = new ArrayList<borrower>();
     private String borrowerName = null;
     private String ownerName = null;
     private String status = "available";
-    private float rating = -1;
+    private Double rating = -1.0;
     private FirebaseDatabase m;
     private DatabaseReference r;
 
@@ -43,10 +43,10 @@ public class book {
      * This constructor is built for writing unit tests, we will use another constructor which doesn't have parameters
      * since there are too many parameters in this constructor
      */
-    book(String name, String author, String ISBN, float longitude, float latitude, String description
-    ,String title, float bookRating, String borrowerName, String ownerName, String status ,Image photo) {
+    book(String name, String author, String ISBN, Double longitude, Double latitude, String description
+    ,String title, Double bookRating, String borrowerName, String ownerName, String status ) {
         this.name = name;
-        this.photo = photo;
+        //this.photo = photo;
         this.author = author;
         this.ISBN = ISBN;
         this.longitude = longitude;
@@ -57,7 +57,6 @@ public class book {
         this.borrowerName = borrowerName;
         this.ownerName = ownerName;
         this.status = status;
-        this.photo = photo;
     }
 
     public void setToFirebase(){
@@ -97,19 +96,19 @@ public class book {
         return description;
     }
 
-    public void setLongitude(float longi) {
+    public void setLongitude(Double longi) {
         longitude = longi;
     }
 
-    public float getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLatitude(float lati) {
+    public void setLatitude(Double lati) {
         latitude = lati;
     }
 
-    public float getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
@@ -162,9 +161,9 @@ public class book {
         requestedList.add(name);
     }
 
-    public void setPhoto(Image photo) {
+    /*public void setPhoto(Image photo) {
         this.photo = photo;
-    }
+    } */
 
     public void setName(String name) {
         this.name = name;
@@ -182,14 +181,14 @@ public class book {
         return author;
     }
 
-    public Image getPhoto() {
+   /* public Image getPhoto() {
         return photo;
-    }
+    } */
 
-    public float getBookRating(){return rating; }
+    public Double getBookRating(){return rating; }
 
     public String getDescriptionBundle(){
-        return this.getAuthor()+"\n"+this.getName()+"\n"+this.getISBN();
+        return this.getAuthor()+"\n"+this.getName()+"\n";//+this.getISBN();
     }
 
     public boolean deleteFromFirebase(){
