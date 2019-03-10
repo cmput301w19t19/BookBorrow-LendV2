@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,7 +39,9 @@ public class profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile_page);
 
         //get the current logged in usesr ID
-        String uid = NormalUser.Instance().getUid();
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        String uid = user.getUid();
 
         updateButton = (Button) findViewById(R.id.UpdateButton);
         inputEmail = (EditText) findViewById(R.id.InputEmail);
@@ -46,7 +49,7 @@ public class profile extends AppCompatActivity {
         inputPhone = (EditText) findViewById(R.id.InputPhone);
         //inputMessage = (EditText) findViewById(R.id.InputMessage);
 
-
+        //line 53-78: load data from firebase and update UI
         DbRef = database.getReference("users/"+uid);
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -54,6 +57,7 @@ public class profile extends AppCompatActivity {
                 // Get Post object and use the values to update the UI
                 NormalUser currentUser = dataSnapshot.getValue(NormalUser.class);
                 String email = currentUser.getEmail();
+
                 String UserName = currentUser.getName();
                 String Phone = currentUser.getPhone();
                 inputEmail.setText(email, TextView.BufferType.EDITABLE);
@@ -76,6 +80,7 @@ public class profile extends AppCompatActivity {
 
 
 
+
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +92,7 @@ public class profile extends AppCompatActivity {
                 String uid = user.getUid();
                 dbRef = database.getReference();
                 //dbRef.child("users").child(uid).child("email").setValue("Goodbye");
-               dbRef = database.getReference("users");
+                dbRef = database.getReference("users");
 
                 Map<String, Object> childUpdates = new HashMap<>();
 

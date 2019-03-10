@@ -34,7 +34,7 @@ public class signOutActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 signOut();
-                startActivity(new Intent( signOutActivity.this,loginAct.class));
+               // startActivity(new Intent( signOutActivity.this,loginAct.class));
 
 
             }
@@ -47,5 +47,8 @@ public class signOutActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         auth.signOut();
+        startActivity(new Intent( signOutActivity.this,loginAct.class));
+
+
     }
 }

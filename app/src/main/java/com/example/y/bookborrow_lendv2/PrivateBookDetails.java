@@ -106,8 +106,8 @@ public class PrivateBookDetails extends AppCompatActivity {
                         bookStateTV.setText(state);
                     }
 
-                    float rate = bookx.getBookRating();
-                    String srate = Float.toString(rate);
+                    Double rate = bookx.getBookRating();
+                    String srate = Double.toString(rate);
                     bookRateTV.setText(srate);
 
                     String description = bookx.getDescription();
@@ -143,9 +143,8 @@ public class PrivateBookDetails extends AppCompatActivity {
         });
 
 
-
-
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent Data){
@@ -184,8 +183,8 @@ public class PrivateBookDetails extends AppCompatActivity {
                     bookStateTV.setText(state);
                 }
 
-                float rate = bookx.getBookRating();
-                String srate = Float.toString(rate);
+                Double rate = bookx.getBookRating();
+                String srate = Double.toString(rate);
                 bookRateTV.setText(srate);
 
                 String description = bookx.getDescription();

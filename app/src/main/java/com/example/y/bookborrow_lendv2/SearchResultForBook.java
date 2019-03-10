@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.security.KeyStore;
 
 public class SearchResultForBook extends AppCompatActivity {
@@ -15,7 +17,7 @@ public class SearchResultForBook extends AppCompatActivity {
     }
 
     public void newSearch(View view){
-
+        //BookDatabase= FirebaseDatabase.getInstance().getReference("books");
 
 
 
