@@ -42,11 +42,16 @@ public class MyBookList extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference DbRef = database.getReference();
     private FirebaseAuth auth;
+    private book targetBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_book_list);
+
+        Log.i("testnn","111");
+
+
 
         ImageView addBook = findViewById(R.id.addBook);
         final Button available = (Button) findViewById(R.id.availableFilter);
@@ -61,9 +66,14 @@ public class MyBookList extends AppCompatActivity {
         String uid = user.getUid();
         booksID = new ArrayList<>();
         DatabaseReference rootRef = database.getReference("lenders").child(uid).child("MyBookList");
+
+        Log.i("testnn","222");
+
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Log.i("testnn","333");
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     String bookID = ds.getKey();
@@ -71,9 +81,11 @@ public class MyBookList extends AppCompatActivity {
                     ValueEventListener eventListener1 = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
-                            book targetBook = dataSnapshot1.getValue(book.class);
+                            Log.i("test22","hello");
+                            targetBook = dataSnapshot1.getValue(book.class);
+                            Log.i("test22",targetBook.getName());
                             bookList.add(targetBook);
-                            Log.i("test22",targetBook.getID());
+
                             myBookAdapter.notifyDataSetChanged();
                         }
 
@@ -96,6 +108,9 @@ public class MyBookList extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         };
+
+        Log.i("testnn","444");
+
         rootRef.addListenerForSingleValueEvent(eventListener);
         /*Log.i("testsize1",Integer.toString(booksID.size()));
         booksID.add("hello");
@@ -122,7 +137,10 @@ public class MyBookList extends AppCompatActivity {
             };
             DbRef.addValueEventListener(postListener);
         }
+
+
 */
+        Log.i("testnn","555");
         addBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -272,4 +290,5 @@ public class MyBookList extends AppCompatActivity {
         }
 
     }
+
 }

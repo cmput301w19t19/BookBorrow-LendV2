@@ -215,7 +215,7 @@ public class loginAct extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_SHORT).show();
 
 
-                                    Intent intent = new Intent(loginAct.this, MyBookList.class);
+                                    Intent intent = new Intent(loginAct.this, PublicBookDetails.class);
                                     startActivity(intent);
                                     //finish();
 

@@ -75,19 +75,6 @@ public class PrivateBookDetails extends AppCompatActivity {
         returnButton = (Button)findViewById(R.id.ReturnButton);
 
 
-        /*
-        book v = new book();
-        v.setAuthor("Yizhou Wen");
-        v.setISBN("778887787887887");
-        v.setDescription("test for request list");
-        v.setName("How to forget important things");
-        v.setStatusToAccepted();
-        v.addRequested("v1rSbJgp2uPgAxf4ZJXcclTgDyv2");
-        v.setToFirebase();
-        */
-
-
-
         FirebaseDatabase m = FirebaseDatabase.getInstance();
         //bookid = "c10dee3e-c475-4fee-9a7f-aa111675825c"; ///for testing
 

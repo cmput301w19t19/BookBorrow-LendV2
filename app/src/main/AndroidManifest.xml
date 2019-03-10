@@ -42,10 +42,10 @@
         <activity android:name=".RateToOwner" />
         <activity android:name=".PrivateBookDetails" />
         <activity android:name=".home_page" />
+        <activity android:name=".PublicBookDetails" />
 
         <activity android:name=".RateToBorrower" />
         <activity android:name=".BorrowBookList" />s
-        <activity android:name=".PublicBookDetails" />
         <activity
             android:name=".Search"
             android:label="@string/title_activity_search"
