@@ -84,7 +84,7 @@ public class PrivateBookDetails extends AppCompatActivity {
 
 
         FirebaseDatabase m = FirebaseDatabase.getInstance();
-        bookid = "f0ae545f-58d4-4a33-9de7-eb761e621b5e"; ///for testing
+        bookid = "eea36b36-f7a4-498a-9165-ca1389464ff7"; ///for testing
         DatabaseReference r = m.getReference("book/"+bookid);
         ValueEventListener bookListner = new ValueEventListener() {
             @Override
@@ -142,7 +142,6 @@ public class PrivateBookDetails extends AppCompatActivity {
                 bookx.deleteFromFirebase();
                 finish();
             }
-
         });
 
         requestButton.setOnClickListener(new View.OnClickListener(){
