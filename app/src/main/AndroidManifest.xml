@@ -38,7 +38,7 @@
         <activity android:name=".BorrowerMenu" />
         <activity android:name=".MyBookList" />
         <activity android:name=".profile"/>
-        <activity android:name=".BorrowerRequest" />
+        <activity android:name=".BorrowerRequest"/>
         <activity android:name=".RateToOwner" />
         <activity android:name=".PrivateBookDetails" />
         <activity android:name=".home_page" />

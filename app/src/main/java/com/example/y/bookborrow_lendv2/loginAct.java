@@ -182,13 +182,14 @@ public class loginAct extends AppCompatActivity {
                     return;
                 }
 
-
+                Log.i("test11","user11");
 
                 //authenticate user
                 auth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(loginAct.this,new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+                                Log.i("test11","user2222");
                                 Toast.makeText(getApplicationContext(), "login ", Toast.LENGTH_SHORT).show();
 
                                 // If sign in fails, display a message to the user. If sign in succeeds
@@ -215,7 +216,7 @@ public class loginAct extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_SHORT).show();
 
 
-                                    Intent intent = new Intent(loginAct.this, MyBookList.class);
+                                    Intent intent = new Intent(loginAct.this, BorrowerRequest.class);
                                     startActivity(intent);
                                     //finish();
 
