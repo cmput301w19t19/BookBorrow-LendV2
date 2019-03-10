@@ -31,7 +31,11 @@ public class book {
     private Double rating = -1.0;
     private FirebaseDatabase m;
     private DatabaseReference r;
+
     private Map<String, Boolean> requestList;
+
+
+
 
     /**
      * A constructor with no parameters
@@ -41,9 +45,9 @@ public class book {
     }
 
     book(String id){
-
         this.ID = UUID.fromString(id);
     };
+
 
 
     /**
@@ -66,12 +70,24 @@ public class book {
         this.status = status;
     }
 
+
     public void setToFirebase(){
         m = FirebaseDatabase.getInstance();
-        r = m.getReference("book");
-        r.child(this.getID()).setValue(this);
-
+        r = m.getReference("book/"+this.getID());
+        r.child("id").setValue(this.getID());
+        r.child("bookRating").setValue(Double.toString(this.rating));
+        r.child("name").setValue(this.name);
+        r.child("author").setValue(this.author);
+        r.child("ISBN").setValue(this.ISBN);
+        r.child("longitude").setValue(this.longitude);
+        r.child("latitude").setValue(this.latitude);
+        r.child("description").setValue(this.description);
+        r.child("title").setValue(this.title);
+        r.child("borrowerName").setValue(this.borrowerName);
+        r.child("ownerName").setValue(this.ownerName);
+        r.child("status").setValue(this.status);
     }
+
 
     public void setID(String s) {
         this.ID = UUID.fromString(s);

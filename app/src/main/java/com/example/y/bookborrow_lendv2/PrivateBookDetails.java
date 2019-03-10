@@ -31,6 +31,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,7 +51,9 @@ public class PrivateBookDetails extends AppCompatActivity {
     Button deleteButton;
     Button editButton;
     Button requestButton;
+    Button returnButton;
     book bookx;
+    FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +61,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         setContentView(R.layout.activity_private_book_details);
 
         Intent intent = getIntent();
-        bookid = intent.getDataString();
+        bookid = intent.getStringExtra("Id");
 
         bookNameTV = (TextView)findViewById(R.id.pBookName);
         ISBNTV = (TextView)findViewById(R.id.pBookISBN);
@@ -68,23 +72,12 @@ public class PrivateBookDetails extends AppCompatActivity {
         deleteButton = (Button)findViewById(R.id.BookDetailDelete);
         editButton = (Button)findViewById(R.id.bookDetailEdit);
         requestButton = (Button)findViewById(R.id.bookDetailRequest);
-
-
-        /*
-        book v = new book();
-        v.setAuthor("Yizhou Wen");
-        v.setISBN("778887787887887");
-        v.setDescription("test for request list");
-        v.setName("How to forget important things");
-        v.setStatusToAccepted();
-        v.addRequested("v1rSbJgp2uPgAxf4ZJXcclTgDyv2");
-        v.setToFirebase();
-        */
-
+        returnButton = (Button)findViewById(R.id.ReturnButton);
 
 
         FirebaseDatabase m = FirebaseDatabase.getInstance();
-        bookid = "f0ae545f-58d4-4a33-9de7-eb761e621b5e"; ///for testing
+        //bookid = "c10dee3e-c475-4fee-9a7f-aa111675825c"; ///for testing
+
         DatabaseReference r = m.getReference("book/"+bookid);
         ValueEventListener bookListner = new ValueEventListener() {
             @Override
@@ -140,9 +133,15 @@ public class PrivateBookDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 bookx.deleteFromFirebase();
-                finish();
-            }
+                auth = FirebaseAuth.getInstance();
+                FirebaseUser user = auth.getCurrentUser();
+                DatabaseReference r = FirebaseDatabase.getInstance().getReference();
+                String uid = user.getUid();
+                r.child("lenders").child(uid).child("MyBookList").child(bookid).setValue(null,null);
+                Intent i = new Intent(PrivateBookDetails.this,MyBookList.class);
+                startActivity(i);
 
+            }
         });
 
         requestButton.setOnClickListener(new View.OnClickListener(){
@@ -154,7 +153,13 @@ public class PrivateBookDetails extends AppCompatActivity {
             }
         });
 
-
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(PrivateBookDetails.this,MyBookList.class);
+                startActivity(i);
+            }
+        });
     }
 
 

@@ -4,8 +4,9 @@ import java.util.ArrayList;
 
 public class lender extends user {
     private float lenderRating;
-    private ArrayList<book> lentBook = new ArrayList<>();
-    private ArrayList<book> requestedBookList = new ArrayList<>();
+    private ArrayList<String> lentBook = new ArrayList<>();
+    private ArrayList<String> requestedBookList = new ArrayList<>();
+    private ArrayList<String> MyBookList = new ArrayList<>();
     private static lender instance;
 
 
@@ -20,36 +21,45 @@ public class lender extends user {
         return lenderRating;
     }
 
+    //public void getMyBookList
 
-    public void setRequestedBookList(ArrayList<book> list) {
+    public void addToMyBookList(String s){
+        MyBookList.add(s);
+    }
+
+    public void removeFromMyBookList(String s){
+        MyBookList.remove(s);
+    }
+
+    public void setRequestedBookList(ArrayList<String> list) {
         requestedBookList = list;
     }
 
-    public void setLentBook(ArrayList<book> list) {
+    public void setLentBook(ArrayList<String> list) {
         lentBook = list;
     }
 
-    public ArrayList<book> getLentBook() {
+    public ArrayList<String> getLentBook() {
         return lentBook;
     }
 
-    public ArrayList<book> getRequestedBookList() {
+    public ArrayList<String> getRequestedBookList() {
         return requestedBookList;
     }
 
-    public void addLentBook(book book) {
+    public void addLentBook(String book) {
         lentBook.add(book);
     }
 
-    public void addRequestedBook(book book) {
+    public void addRequestedBook(String book) {
         requestedBookList.add(book);
     }
 
-    public void deleteRequestedBook(book book) {
+    public void deleteRequestedBook(String book) {
         requestedBookList.remove(book);
     }
 
-    public void deleteLentBook(book book) {
+    public void deleteLentBook(String book) {
         lentBook.remove(book);
     }
 

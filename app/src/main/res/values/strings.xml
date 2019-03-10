@@ -94,4 +94,6 @@
     <string name="EditBookDetailDescription">Please enter comment of the book from your prospective ~</string>
     <string name="EditBookDetailDecriptionTitile">Description</string>
     <string name="EditBookDetailUpload">Upload Photo</string>
+    <string name="requestViewRequestB">show requested</string>
+    <string name="requestViewAcceptB">show accepted</string>
 </resources>
