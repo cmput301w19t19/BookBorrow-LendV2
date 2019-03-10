@@ -59,30 +59,32 @@ public class PrivateBookDetails extends AppCompatActivity {
         Intent intent = getIntent();
         bookid = intent.getDataString();
 
-        //final TextView
         bookNameTV = (TextView)findViewById(R.id.pBookName);
         ISBNTV = (TextView)findViewById(R.id.pBookISBN);
-        //final TextView
         bookAuthorTV = (TextView)findViewById(R.id.pBookAuthor);
-        //final TextView;
         bookStateTV = (TextView)findViewById(R.id.pBookState);
-        //final TextView;
         bookRateTV = (TextView)findViewById(R.id.pBookRate);
-        //final TextView;
         bookDescriptionTV = (TextView)findViewById(R.id.pBookDescription);
-
-        //final Button ;
         deleteButton = (Button)findViewById(R.id.BookDetailDelete);
-        //final Button;
         editButton = (Button)findViewById(R.id.bookDetailEdit);
-        //final Button;
         requestButton = (Button)findViewById(R.id.bookDetailRequest);
 
+
+        /*
+        book v = new book();
+        v.setAuthor("Yizhou Wen");
+        v.setISBN("778887787887887");
+        v.setDescription("test for request list");
+        v.setName("How to forget important things");
+        v.setStatusToAccepted();
+        v.addRequested("v1rSbJgp2uPgAxf4ZJXcclTgDyv2");
+        v.setToFirebase();
+        */
 
 
 
         FirebaseDatabase m = FirebaseDatabase.getInstance();
-        bookid = "c10dee3e-c475-4fee-9a7f-aa111675825c"; ///for testing
+        bookid = "f0ae545f-58d4-4a33-9de7-eb761e621b5e"; ///for testing
         DatabaseReference r = m.getReference("book/"+bookid);
         ValueEventListener bookListner = new ValueEventListener() {
             @Override
@@ -138,8 +140,18 @@ public class PrivateBookDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 bookx.deleteFromFirebase();
+                finish();
             }
 
+        });
+
+        requestButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent i = new Intent(PrivateBookDetails.this,RequestToOwner.class);
+                i.putExtra("request",bookid);
+                startActivityForResult(i,3);
+            }
         });
 
 
@@ -152,6 +164,11 @@ public class PrivateBookDetails extends AppCompatActivity {
         if (requestCode == 2 && resultCode == 1){
             bookid = Data.getStringExtra("ID");
             Toast.makeText(getApplicationContext(),bookid,Toast.LENGTH_SHORT).show();
+        }
+
+        if (requestCode == 3){
+            Toast.makeText(getApplicationContext(),"Return from FengYuan",Toast.LENGTH_SHORT).show();
+
         }
 
 
