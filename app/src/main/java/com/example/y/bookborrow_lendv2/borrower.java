@@ -121,7 +121,7 @@ public class borrower extends user {
     }
 
     /**
-     * create a sttic instance of borrower, singleton pattern has implemented
+     * create a static instance of borrower, singleton pattern has implemented
      * @return instance of borrower
      */
 
