@@ -15,23 +15,17 @@
         android:theme="@style/AppTheme">
         <activity android:name=".SignOutActivity" />
         <activity android:name=".SignupActivity" />
-        <activity android:name=".LoginActivity" />
+        <activity android:name=".EditBookDetail" />
         <activity
             android:name=".emptyActivity"
             android:label="@string/title_activity_empty"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".check_to_scan" />
-
-
         <activity android:name=".PrivateBookDetails" />
         <activity android:name=".OwnerHomeActivity" />
-
         <activity android:name=".RequestToOwner" />
-
         <activity
-
-            android:name=".loginAct"
-
+            android:name=".Search"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,16 +35,17 @@
         </activity>
         <activity android:name=".BorrowerMenu" />
         <activity android:name=".MyBookList" />
-        <activity android:name=".profile"/>
-        <activity android:name=".BorrowerRequest"/>
+        <activity android:name=".profile" />
+        <activity android:name=".BorrowerRequest" />
         <activity android:name=".RateToOwner" />
         <activity android:name=".home_page" />
+        <activity android:name=".loginAct" />
+        <activity android:name=".SearchResultForBook" />
         <activity android:name=".PublicBookDetails" />
-
         <activity android:name=".RateToBorrower" />
-        <activity android:name=".BorrowBookList" />s
+        <activity android:name=".BorrowBookList" />
         <activity
-            android:name=".Search"
+            android:name=".SearchResultForPeople"
             android:label="@string/title_activity_search"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

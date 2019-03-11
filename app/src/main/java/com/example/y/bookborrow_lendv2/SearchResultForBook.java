@@ -1,32 +1,42 @@
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
 import android.media.Image;
+
+import java.util.ArrayList;
 
 public class SearchResultForBook extends AppCompatActivity {
 
-    private EditText mSearchWord;
-    private Button mSearchButton;
-
-    private RecyclerView mResultList;
+    private ListView mResultList;
+    private ArrayList<book> books = new ArrayList<>();
+    private SearchBookAdapter adapter;
     private DatabaseReference mBookDatabase;
 
 
@@ -37,20 +47,104 @@ public class SearchResultForBook extends AppCompatActivity {
         setContentView(R.layout.activity_search_result_for_book);
 
         mBookDatabase = FirebaseDatabase.getInstance().getReference("book");
-        mSearchWord = (EditText) findViewById(R.id.editText);
-        mSearchButton = (Button) findViewById(R.id.See_Result_of_BookButton);
+        //mSearchWord = (EditText) findViewById(R.id.editText);
+        Button newSearch = (Button) findViewById(R.id.NewSearch1);
+        Button backHome = (Button) findViewById(R.id.HomeButton1);
 
-        mResultList = (RecyclerView) findViewById(R.id.result_list);
-        mResultList.setHasFixedSize(true);
-        mResultList.setLayoutManager(new LinearLayoutManager(this));
+        mResultList = findViewById(R.id.ListBook);
+
+        Intent intent = getIntent();
+        final String Keyword = intent.getStringExtra("key");
 
 
-        mSearchButton.setOnClickListener(new View.OnClickListener() {
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference booksRef = rootRef.child("book");
+        //final ArrayList<book> bookLists = new ArrayList<>();
+
+
+        // eventListener for searching book title's keyword
+
+        ValueEventListener eventListener = new ValueEventListener() {
+
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Boolean found;
+                // String search = "Elements";
+                String search = Keyword;
+
+                //String search = "Trevor Hastie Robert Tibshirani Jerome Friedman";
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    book bookdFound = ds.getValue(book.class);
+                    String title = bookdFound.getName();
+                    String author = bookdFound.getAuthor();
+                    String stat = bookdFound.getStatus();
+                    //check if title contains keyword
+                    found = title.contains(search);
+
+                    if (found && !stat.equals("accepted") && !stat.equals("borrowed") ) {
+                        books.add(bookdFound);
+                    }
+
+
+                    //check if author contains keyword
+
+                    found = author.contains(search);
+
+                    if (found && !stat.equals("accepted") && !stat.equals("borrowed")) {
+                        books.add(bookdFound);
+                    }
+
+
+
+                    String size = Integer.toString(books.size());
+                    adapter.notifyDataSetChanged();
+                    Log.i("bbbbbbbbb", size);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        };
+        booksRef.addListenerForSingleValueEvent(eventListener);
+
+
+
+
+
+
+
+
+        newSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String searchText = mSearchWord.getText().toString();
+                Intent intent = new Intent(SearchResultForBook.this, Search.class);
+                startActivity(intent);
+            }
+        });
 
-                firebaseBookSearch(searchText);
+        backHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchResultForBook.this,home_page.class);
+                startActivity(intent);
+            }
+        });
+        books = new ArrayList<>();
+        adapter = new SearchBookAdapter(this, books);
+        mResultList.setAdapter(adapter);
+
+        mResultList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                book bookItem = books.get(position);
+                String bookId = bookItem.getID();
+                Intent intent = new Intent(SearchResultForBook.this, PublicBookDetails.class);
+                intent.putExtra("Id",bookId);
+                startActivity(intent);
             }
         });
     }
@@ -60,7 +154,7 @@ public class SearchResultForBook extends AppCompatActivity {
 
 
 
-
+/*
     private void firebaseBookSearch (String searchText) {
         Toast.makeText(SearchResultForBook.this, "Start Search", Toast.LENGTH_LONG).show();
 
@@ -141,7 +235,7 @@ public class SearchResultForBook extends AppCompatActivity {
 
 
     // view book Class
-
+/*
     public static class BookViewHolder extends RecyclerView.ViewHolder{
         View mView;
         TextView book_name, book_status, book_description;
@@ -199,4 +293,5 @@ public class SearchResultForBook extends AppCompatActivity {
     public void displayBookImage(View view){
 
     }
+    */
 }

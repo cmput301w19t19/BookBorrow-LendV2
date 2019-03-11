@@ -37,7 +37,6 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.7'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
 
-
     //Glide Library
     implementation 'com.github.bumptech.glide:glide:4.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
@@ -47,7 +46,6 @@ dependencies {
     implementation('com.facebook.android:audience-network-sdk:4.28.0', {
         exclude group: 'com.google.android.gms'
     })
-
 
 
 }

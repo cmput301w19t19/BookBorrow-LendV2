@@ -30,6 +30,10 @@ public class profile extends AppCompatActivity {
     DatabaseReference DbRef = database.getReference();
 
     private FirebaseAuth auth;
+    private NormalUser currentU = new NormalUser();
+    private lender currentL = new lender();
+    private borrower currentB = new borrower();
+
 
 
     @Override
@@ -56,8 +60,12 @@ public class profile extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 NormalUser currentUser = dataSnapshot.getValue(NormalUser.class);
+                lender currentLender = dataSnapshot.getValue(lender.class);
+                currentL = currentLender;
+                borrower currentBorrower =dataSnapshot.getValue(borrower.class);
+                currentB = currentBorrower;
                 String email = currentUser.getEmail();
-
+                currentU = currentUser;
                 String UserName = currentUser.getName();
                 String Phone = currentUser.getPhone();
                 inputEmail.setText(email, TextView.BufferType.EDITABLE);
@@ -92,15 +100,29 @@ public class profile extends AppCompatActivity {
                 String uid = user.getUid();
                 dbRef = database.getReference();
                 //dbRef.child("users").child(uid).child("email").setValue("Goodbye");
-                dbRef = database.getReference("users");
+                dbRef = database.getReference();
+
+
+                currentU.setName(userName);
+                currentU.setPhone(phone);
+                currentU.setEmail(email);
+
+                currentB.setName(userName);
+                currentL.setName(userName);
+
 
                 Map<String, Object> childUpdates = new HashMap<>();
 
-                childUpdates.put(uid+"/email", email);
-                childUpdates.put(uid+"/name", userName);
-                childUpdates.put(uid+"/phone", phone);
+               // childUpdates.put(uid+"/email", email);
+               // childUpdates.put(uid+"/name", userName);
+                //childUpdates.put(uid+"/phone", phone);
 
-                dbRef.updateChildren(childUpdates);
+               // dbRef.updateChildren(childUpdates);
+                dbRef.child("users").child(uid).setValue(currentU);
+                dbRef.child("lenders").child(uid).setValue(currentL);
+                dbRef.child("borrowers").child(uid).setValue(currentB);
+
+
 
                 //Update the static object as well
                 Intent intent = new Intent(profile.this, home_page.class);

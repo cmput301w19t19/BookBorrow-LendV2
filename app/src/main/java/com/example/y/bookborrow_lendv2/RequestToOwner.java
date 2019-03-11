@@ -139,7 +139,7 @@ public class RequestToOwner extends AppCompatActivity {
                 for(int j = 0; j < mDatas.size();j++){
                     if(mDatas.get(j).isSelected() == true){
                         dbBook.child("book").child(book_ID).child("status").setValue("accepted");
-                        dbBorrower.child("borrowers").child(mDatas.get(j).getUserID()).child("BorrowerRequest").push().setValue(book_ID, "true");
+                        dbBorrower.child("borrowers").child(mDatas.get(j).getUserID()).child("BorrowerRequest").child(book_ID).setValue("true");
                         for(int i = 0; i < mDatas.size();i++)
                         {
                             mDatas.get(i).selected = true;

@@ -65,11 +65,14 @@
 
     <ListView
         android:id="@+id/BookList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="390dp"
+        android:layout_height="512dp"
         android:layout_below="@id/availableFilter"
-        android:layout_margin="10dp"
-        />
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp" />
 
     <TextView
         android:id="@+id/filterBy"
@@ -84,6 +87,13 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text="Show All" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/BookList"
+        android:text="Back" />
 
 
 </RelativeLayout>

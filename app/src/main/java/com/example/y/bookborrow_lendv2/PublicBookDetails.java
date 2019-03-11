@@ -146,6 +146,7 @@ public class PublicBookDetails extends AppCompatActivity {
                 String uid = user.getUid();
                 r2.child("book").child(bookid).child("requestList").child(uid).setValue(true);
                 r2.child("borrowers").child(uid).child("requestList").child(bookid).setValue(true);
+
                 //set book status to requested
             }
         });

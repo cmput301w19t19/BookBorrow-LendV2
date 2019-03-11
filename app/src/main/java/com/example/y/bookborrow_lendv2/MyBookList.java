@@ -51,6 +51,7 @@ public class MyBookList extends AppCompatActivity {
 
         ImageButton addBook = findViewById(R.id.addBook);
         final Button available = (Button) findViewById(R.id.availableFilter);
+        Button backButton = findViewById(R.id.backButton);
         Button requested = (Button) findViewById(R.id.requestedFilter);
         Button accepted = (Button) findViewById(R.id.acceptedFilter);
         Button borrowed = (Button) findViewById(R.id.borrowedFilter);
@@ -142,6 +143,7 @@ public class MyBookList extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MyBookList.this, EditBookDetail.class);
                 intent.putExtra("0", "0");
+                Log.i("testlala","555");
                 startActivityForResult(intent, 0);
             }
         });
@@ -160,6 +162,14 @@ public class MyBookList extends AppCompatActivity {
                 }
                 availableBookAdapter = new bookAdapter(MyBookList.this, availableBookList);
                 myBookList.setAdapter(availableBookAdapter);
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyBookList.this,OwnerHomeActivity.class);
+                startActivity(intent);
             }
         });
 

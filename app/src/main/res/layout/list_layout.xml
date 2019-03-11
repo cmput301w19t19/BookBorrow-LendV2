@@ -9,6 +9,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
@@ -23,6 +24,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
         android:layout_toEndOf="@+id/book_image"
+        android:layout_toRightOf="@+id/book_image"
         android:text="Book Title"
         android:textColor="#555555"
         android:textSize="16sp" />
@@ -36,6 +38,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/book_image"
+        android:layout_toRightOf="@+id/book_image"
         android:textColor="#555555"
         android:text="Status"
         android:textSize="14sp" />
@@ -49,7 +52,17 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="30dp"
         android:layout_toEndOf="@+id/book_image"
+        android:layout_toRightOf="@+id/book_image"
         android:textColor="#555555"
         android:text="Description Detail"
         android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/owner_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/status_text"
+        android:layout_alignTop="@id/status_text"
+        android:layout_marginLeft="50dp"
+        android:text="Owner" />
 </RelativeLayout>

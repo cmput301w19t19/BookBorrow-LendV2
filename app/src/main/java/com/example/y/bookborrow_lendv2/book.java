@@ -154,22 +154,22 @@ public class book {
     }
 
     public void setStatusToRequested(){
-        this.status = "Requested";
+        this.status = "requested";
         this.setToFirebase();
     }
 
     public void setStatusToAvailable(){
-        this.status = "Available";
+        this.status = "available";
         this.setToFirebase();
     }
 
     public void setStatusToAccepted(){
-        this.status = "Accepted";
+        this.status = "accepted";
         this.setToFirebase();
     }
 
     public void setStatusToborrowed(){
-        this.status = "Borrowed";
+        this.status = "borrowed";
         this.setToFirebase();
     }
 

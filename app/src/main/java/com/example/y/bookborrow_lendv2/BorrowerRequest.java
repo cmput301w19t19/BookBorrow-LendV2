@@ -130,7 +130,7 @@ public class BorrowerRequest extends AppCompatActivity {
 
                 for (book bookItem : defaultBookList) {
 
-                    if (bookItem.getStatus().equals("Accepted")) {
+                    if (bookItem.getStatus().equals("accepted")) {
                         acceptedBookList.add(bookItem);
 
                     }
@@ -162,7 +162,7 @@ public class BorrowerRequest extends AppCompatActivity {
             public void onClick(View v) {
                 requestedBookList = new ArrayList<>();
                 for (book bookItem : defaultBookList) {
-                    if (bookItem.getStatus().equals("Requested")) {
+                    if (bookItem.getStatus().equals("requested")) {
                         requestedBookList.add(bookItem);
                     }
                 }

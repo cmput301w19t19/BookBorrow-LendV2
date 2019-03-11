@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,13 +39,14 @@ public class SearchBookAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent){
         SearchBookAdapter.ViewHolder holder = null;
         if(convertView == null){
-            convertView = mInflater.inflate(R.layout.activity_search_result_for_book, parent, false);
+            convertView = mInflater.inflate(R.layout.list_layout, parent, false);
             holder = new SearchBookAdapter.ViewHolder();
 
-            holder.image = (ImageButton) convertView.findViewById(R.id.BookImage);
-            holder.bookName = (TextView) convertView.findViewById(R.id.BookName);
-            holder.description = (TextView) convertView.findViewById(R.id.descrip);
-            holder.status = (TextView) convertView.findViewById(R.id.Stat);
+            holder.image = (ImageView) convertView.findViewById(R.id.book_image);
+            holder.bookName = (TextView) convertView.findViewById(R.id.name_text);
+            holder.description = (TextView) convertView.findViewById(R.id.description_text);
+            holder.status = (TextView) convertView.findViewById(R.id.status_text);
+            holder.owner = (TextView) convertView.findViewById(R.id.owner_text);
 
             convertView.setTag(holder);
         }
@@ -55,6 +57,7 @@ public class SearchBookAdapter extends BaseAdapter {
         book book = myBook.get(position);
         holder.bookName.setText(book.getName());
         holder.status.setText(book.getStatus());
+        holder.owner.setText(book.getOwnerName());
         //holder.image.setImageDrawable();
         holder.description.setText(book.getDescription());
         return convertView;
@@ -62,10 +65,11 @@ public class SearchBookAdapter extends BaseAdapter {
     }
 
     private class ViewHolder{
-        ImageButton image;
+        ImageView image;
         TextView bookName;
         TextView status;
         TextView description;
+        TextView owner;
     }
 
 

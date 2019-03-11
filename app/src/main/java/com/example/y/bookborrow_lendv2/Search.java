@@ -31,11 +31,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 /**
  * This is our search pages "can look for the result by person and books"
  */
 public class Search extends AppCompatActivity {
-
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference DbRef;
+    private FirebaseAuth auth;
     private EditText inputKeyword;
     private Button sPersonButton, sBookButton;
 
@@ -45,9 +51,12 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        inputKeyword = (EditText) findViewById(R.id.editText);
+        inputKeyword = (EditText) findViewById(R.id.keyword);
         sBookButton= (Button) findViewById(R.id.See_Result_of_BookButton);
         sPersonButton= (Button) findViewById(R.id.See_Result_of_PersonButton);
+
+
+
 
         sBookButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -57,11 +66,16 @@ public class Search extends AppCompatActivity {
                 if (TextUtils.isEmpty(Keyword)) {
                     Toast.makeText(getApplicationContext(), "Please enter a Keyword!", Toast.LENGTH_SHORT).show();
                     return;
+                } else {
+                    //DbRef = database.getReference("book");
+                    //DbRef.addListenerForSingleValueEvent();
+                    Intent intent= new Intent();
+                    intent.setClass(Search.this, SearchResultForBook.class);
+                    intent.putExtra("key",Keyword);
+                    startActivity(intent);
                 }
 
-                Intent intent= new Intent();
-                intent.setClass(Search.this, SearchResultForBook.class);
-                startActivity(intent);
+
 
             }
         });
@@ -74,11 +88,14 @@ public class Search extends AppCompatActivity {
                 if (TextUtils.isEmpty(Person)) {
                     Toast.makeText(getApplicationContext(), "Please enter a Keyword!", Toast.LENGTH_SHORT).show();
                     return;
+                } else {
+                    Intent intent= new Intent();
+                    intent.setClass(Search.this, SearchResultForPeople.class);
+                    intent.putExtra("key",Person);
+                    startActivity(intent);
+
                 }
 
-                Intent intent= new Intent();
-                intent.setClass(Search.this, SearchResultForPeople.class);
-                startActivity(intent);
 
 
             }

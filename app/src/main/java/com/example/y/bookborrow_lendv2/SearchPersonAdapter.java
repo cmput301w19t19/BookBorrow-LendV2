@@ -38,12 +38,12 @@ public class SearchPersonAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent){
         SearchPersonAdapter.ViewHolder holder = null;
         if(convertView == null){
-            convertView = mInflater.inflate(R.layout.activity_search_result_for_people, parent, false);
+            convertView = mInflater.inflate(R.layout.list_layout_for_person, parent, false);
             holder = new SearchPersonAdapter.ViewHolder();
 
             //holder.image = (ImageButton) convertView.findViewById(R.id.userImage);
-            holder.userName = (TextView) convertView.findViewById(R.id.InputName);
-            holder.userEmail = (TextView) convertView.findViewById(R.id.InputEmail);
+            holder.userName = (TextView) convertView.findViewById(R.id.UserName);
+            holder.userEmail = (TextView) convertView.findViewById(R.id.Email);
 
             convertView.setTag(holder);
         }
