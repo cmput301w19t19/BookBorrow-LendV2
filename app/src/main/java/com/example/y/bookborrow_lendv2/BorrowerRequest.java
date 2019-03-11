@@ -42,6 +42,14 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+/**
+ * Borrower Request activity
+ * when user login in as a borrower, there is a bookRequested button
+ * and this class be able to let user to view the book he/she requested, and the accepted books
+ *
+ * @param  uid, user id that pass by login to search book
+ * @return none
+ */
 public class BorrowerRequest extends AppCompatActivity {
 
     //private ArrayList<book> mainBookList = new ArrayList<book>();
@@ -78,7 +86,7 @@ public class BorrowerRequest extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        Log.i("Info","I am here");
+        //Log.i("Info","I am here");
         String uid = user.getUid();
 
         booksID = new ArrayList<>();
@@ -121,7 +129,7 @@ public class BorrowerRequest extends AppCompatActivity {
         rootRef.addListenerForSingleValueEvent(eventListener);
 
 
-        //
+
         // user click showaccept button, book cahnge to accepted books
         showAccepted.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +143,7 @@ public class BorrowerRequest extends AppCompatActivity {
 
                     }
                 }
-                acceptAdapter = new com.example.y.bookborrow_lendv2.BorrowerRequestAdapter(BorrowerRequest.this, acceptedBookList);
+                acceptAdapter = new BorrowerRequestAdapter(BorrowerRequest.this, acceptedBookList);
                 //acceptAdapter = new BorrowingBookAdapter(BorrowerRequest.this,acceptedBookList);
                 borrowerRequestbookList.setAdapter(acceptAdapter);
 
@@ -156,7 +164,7 @@ public class BorrowerRequest extends AppCompatActivity {
             }
         });
 
-        //button for ashow all request
+        //button for show all request
         showRequested.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,7 +174,7 @@ public class BorrowerRequest extends AppCompatActivity {
                         requestedBookList.add(bookItem);
                     }
                 }
-                requestAdapter = new com.example.y.bookborrow_lendv2.BorrowerRequestAdapter(BorrowerRequest.this, requestedBookList);
+                requestAdapter = new BorrowerRequestAdapter(BorrowerRequest.this, requestedBookList);
                 //requestAdapter = new BorrowingBookAdapter(BorrowerRequest.this,requestedBookList);
                 borrowerRequestbookList.setAdapter(requestAdapter);
 
@@ -175,7 +183,7 @@ public class BorrowerRequest extends AppCompatActivity {
 
         //these three lines what to do?
         defaultBookList = new ArrayList<>();
-        myBookAdapter = new com.example.y.bookborrow_lendv2.BorrowerRequestAdapter(this, defaultBookList);
+        myBookAdapter = new BorrowerRequestAdapter(this, defaultBookList);
         //myBookAdapter = new BorrowingBookAdapter(this,defaultBookList);
         borrowerRequestbookList.setAdapter(myBookAdapter);
 

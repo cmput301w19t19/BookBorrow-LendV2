@@ -14,6 +14,11 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.ArrayList;
 
+/**
+ * book object class
+ * contain all book related attributes
+ * setter and getter for the  
+ */
 public class book {
     private UUID ID;
     private String name = null;
