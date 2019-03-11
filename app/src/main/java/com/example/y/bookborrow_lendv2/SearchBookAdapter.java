@@ -1,3 +1,25 @@
+/*
+ * Copyright 2019 TEAM19
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Context;
@@ -11,6 +33,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * @author: Bowei Li
+ * @see: BaseAdapter
+ * @version 1.0
+ */
 public class SearchBookAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private ArrayList<book> myBook;
@@ -19,22 +46,43 @@ public class SearchBookAdapter extends BaseAdapter {
         myBook = data;
     }
 
+    /**
+     * get the size of the arraylist myBook
+     * @return myBook.size()
+     */
     // get the length of the data
     @Override
     public int getCount(){
         return myBook.size();
     }
 
+    /**
+     * return the book at the given position in myBook.
+     * @param position
+     * @return myBook.get(position)
+     */
     @Override
     public Object getItem(int position){
         return myBook.get(position);
     }
 
+    /**
+     * return the given position
+     * @param position
+     * @return position
+     */
     @Override
     public long getItemId(int position){
         return position;
     }
 
+    /**
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         SearchBookAdapter.ViewHolder holder = null;

@@ -233,7 +233,7 @@ public class loginAct extends AppCompatActivity {
 
 
 
-                                    Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "login Success!", Toast.LENGTH_SHORT).show();
 
 
                                     Intent intent = new Intent(loginAct.this, home_page.class);

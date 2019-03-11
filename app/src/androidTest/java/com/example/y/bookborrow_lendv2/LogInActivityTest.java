@@ -27,7 +27,6 @@ public class LogInActivityTest  extends ActivityTestRule<loginAct> {
 
     public LogInActivityTest(){
         super(loginAct.class);
-
     }
 
     @Rule
