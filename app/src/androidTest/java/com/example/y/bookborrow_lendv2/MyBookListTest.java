@@ -25,8 +25,12 @@ public class MyBookListTest extends ActivityTestRule<MyBookList> {
     public ActivityTestRule<MyBookList> rule = new ActivityTestRule<>(MyBookList.class,true,true);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @Before
 =======
+=======
+
+>>>>>>> e510bf5385007ddf5cc69cd042424ba13b7fa4b0
     //@Before
 >>>>>>> a7b5efdf3e81dcae3592392501e9ba65a5de1c42
     //public void setUp() throws
