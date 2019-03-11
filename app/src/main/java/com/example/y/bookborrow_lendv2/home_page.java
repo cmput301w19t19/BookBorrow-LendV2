@@ -159,13 +159,6 @@ public class home_page extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
     }
 
 

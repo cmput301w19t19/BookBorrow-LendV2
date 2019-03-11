@@ -24,11 +24,15 @@ import java.util.Map;
 
 public class profile extends AppCompatActivity {
     private Button updateButton;
-    private TextView inputEmail;
+    private TextView inputEmail,uneditableUserName;
     private EditText inputUserName, inputPhone,inputMessage;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference dbRef = database.getReference();
     DatabaseReference DbRef = database.getReference();
+    DatabaseReference borrowerRef = database.getReference();
+    DatabaseReference lenderRef = database.getReference();
+
+
 
     private FirebaseAuth auth;
 
@@ -48,6 +52,7 @@ public class profile extends AppCompatActivity {
         inputEmail = (TextView) findViewById(R.id.InputEmail);
         inputUserName = (EditText) findViewById(R.id.InputName);
         inputPhone = (EditText) findViewById(R.id.InputPhone);
+        uneditableUserName = (TextView) findViewById(R.id.UserName) ;
         //inputMessage = (EditText) findViewById(R.id.InputMessage);
 
         //line 53-78: load data from firebase and update UI
@@ -64,6 +69,7 @@ public class profile extends AppCompatActivity {
                 inputEmail.setText(email, TextView.BufferType.EDITABLE);
                 inputUserName.setText(UserName, TextView.BufferType.EDITABLE);
                 inputPhone.setText(Phone, TextView.BufferType.EDITABLE);
+                uneditableUserName.setText(UserName);
 
                 // ...
             }
@@ -92,8 +98,12 @@ public class profile extends AppCompatActivity {
                 FirebaseUser user = auth.getCurrentUser();
                 String uid = user.getUid();
                 dbRef = database.getReference();
+                borrowerRef = database.getReference();
+                lenderRef = database.getReference();
                 //dbRef.child("users").child(uid).child("email").setValue("Goodbye");
                 dbRef = database.getReference("users");
+                borrowerRef = database.getReference("borrowers" );
+                lenderRef = database.getReference("lenders");
 
                 Map<String, Object> childUpdates = new HashMap<>();
 
@@ -101,7 +111,17 @@ public class profile extends AppCompatActivity {
                 childUpdates.put(uid+"/name", userName);
                 childUpdates.put(uid+"/phone", phone);
 
+
                 dbRef.updateChildren(childUpdates);
+
+                childUpdates.put(uid+"/name", userName);
+                borrowerRef.updateChildren(childUpdates);
+
+                childUpdates.put(uid+"/name", userName);
+                lenderRef.updateChildren(childUpdates);
+
+
+
 
                 //Update the static object as well
 

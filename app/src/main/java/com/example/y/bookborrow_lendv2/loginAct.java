@@ -142,10 +142,9 @@ public class loginAct extends AppCompatActivity {
                                     newUser.setPassword(password);
                                     newBorrower.setEmail(email);
                                     newBorrower.setUid(uid);
-                                    newUser.setPassword(password);
                                     newLender.setEmail(email);
                                     newLender.setUid(uid);
-                                    newUser.setPassword(password);
+
 
 
 
