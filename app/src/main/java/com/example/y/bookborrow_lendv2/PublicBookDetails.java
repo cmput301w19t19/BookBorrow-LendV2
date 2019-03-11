@@ -167,7 +167,6 @@ public class PublicBookDetails extends AppCompatActivity {
                     back.putExtra("key",Keyword);
                     startActivity(back);
                 } else {
-                    //setResult(1,back);
                     finish();
                }
             }
