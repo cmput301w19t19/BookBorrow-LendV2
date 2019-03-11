@@ -19,6 +19,7 @@ public class BorrowerMenuTest extends ActivityTestRule<BorrowerMenu> {
     private Solo solo;
 
     public BorrowerMenuTest(){
+
         super(BorrowerMenu.class);
     }
 
