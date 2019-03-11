@@ -39,6 +39,8 @@ public class SearchResultForBook extends AppCompatActivity {
     private SearchBookAdapter adapter;
     private DatabaseReference mBookDatabase;
 
+    public String Keyword;
+
 
 
     @Override
@@ -54,14 +56,14 @@ public class SearchResultForBook extends AppCompatActivity {
         mResultList = findViewById(R.id.ListBook);
 
         Intent intent = getIntent();
-        final String Keyword = intent.getStringExtra("key");
+        Keyword = intent.getStringExtra("key");
 
 
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference booksRef = rootRef.child("book");
         //final ArrayList<book> bookLists = new ArrayList<>();
-
+        Log.i("bbbbbb","hello1");
 
         // eventListener for searching book title's keyword
 
@@ -70,39 +72,49 @@ public class SearchResultForBook extends AppCompatActivity {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Boolean found;
+                Boolean found1;
+                Boolean found2;
                 // String search = "Elements";
                 String search = Keyword;
-
+                Log.i("bbbbbb","wode"+search);
                 //String search = "Trevor Hastie Robert Tibshirani Jerome Friedman";
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-
+                    Log.i("bbbbbb","hello3");
                     book bookdFound = ds.getValue(book.class);
+                    Log.i("bbbbbb","hello4");
                     String title = bookdFound.getName();
+                    Log.i("bbbbbb",title);
                     String author = bookdFound.getAuthor();
+                    Log.i("bbbbbb",author);
                     String stat = bookdFound.getStatus();
+                    Log.i("bbbbbb",stat);
                     //check if title contains keyword
-                    found = title.contains(search);
-
-                    if (found && !stat.equals("accepted") && !stat.equals("borrowed") ) {
+                    found1 = title.contains(search);
+                    found2 = author.contains(search);
+                    Log.i("bbbbbb","hello8");
+                    if (found1 && !stat.equals("accepted") && !stat.equals("borrowed") ) {
+                        books.add(bookdFound);
+                    } else if ( found2 && !stat.equals("accepted") && !stat.equals("borrowed")) {
                         books.add(bookdFound);
                     }
 
 
                     //check if author contains keyword
-
+/*
                     found = author.contains(search);
 
                     if (found && !stat.equals("accepted") && !stat.equals("borrowed")) {
                         books.add(bookdFound);
                     }
 
+*/
 
-
-                    String size = Integer.toString(books.size());
                     adapter.notifyDataSetChanged();
-                    Log.i("bbbbbbbbb", size);
+
                 }
+                String size = Integer.toString(books.size());
+
+                Log.i("bbbbbbbbb", size);
             }
 
             @Override
@@ -111,7 +123,7 @@ public class SearchResultForBook extends AppCompatActivity {
         };
         booksRef.addListenerForSingleValueEvent(eventListener);
 
-
+        Log.i("bbbbbb","hello2");
 
 
 
@@ -144,154 +156,21 @@ public class SearchResultForBook extends AppCompatActivity {
                 String bookId = bookItem.getID();
                 Intent intent = new Intent(SearchResultForBook.this, PublicBookDetails.class);
                 intent.putExtra("Id",bookId);
+                intent.putExtra("Keyword",Keyword);
                 startActivity(intent);
             }
         });
     }
-
-
-
-
-
-
 /*
-    private void firebaseBookSearch (String searchText) {
-        Toast.makeText(SearchResultForBook.this, "Start Search", Toast.LENGTH_LONG).show();
-
-        Query firebaseSearchQuery = mBookDatabase.orderByChild("name").startAt(searchText).endAt(searchText + "\uf8ff");
-
-        FirebaseRecyclerOptions<book> options = new FirebaseRecyclerOptions.Builder<book>().setQuery(firebaseSearchQuery, book.class).setLifecycleOwner(this).build();
-        FirebaseRecyclerAdapter<book, BookViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<book, BookViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull BookViewHolder holder, int position, @NonNull book model) {
-                holder.book_name.setText(model.getName());
-                holder.book_status.setText(model.getStatus());
-                //holder.image.setImageDrawable();
-                holder.book_description.setText(model.getDescription());
-
-                //Picasso.get().load(model.getPhoto()).into(holder.Photo)
-            }
-
-            @NonNull
-            @Override
-            public BookViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-                //return null;
-                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.activity_search_result_for_book, viewGroup, false);
-                BookViewHolder viewHolder = new BookViewHolder(view);
-                return viewHolder;
-
-            }
-        };
-
-        mResultList.setAdapter(firebaseRecyclerAdapter);
-
-
-
-    }
-
     @Override
-    protected void onStart(){
-        super.onStart();
-       // SearchBookAdapter.startListening();
-
-
-    }
-
-    /*@Override
-    protected void onStart() {
-        super.onStart();
-
-
-        FirebaseRecyclerOptions<book> options= new FirebaseRecyclerOptions.Builder<book>().setQuery(firebaseSearchQuery, book.class).setLifecycleOwner(this).build();
-        FirebaseRecyclerAdapter<book, BookViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<book, BookViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull BookViewHolder holder, int position, @NonNull book model) {
-                holder.book_name.setText(model.getName());
-                holder.book_status.setText(model.getStatus());
-                //holder.image.setImageDrawable();
-                holder.book_description.setText(model.getDescription());
-
-
-                //Picasso.get().load(model.getPhoto()).into(holder.Photo)
-            }
-
-            @NonNull
-            @Override
-            public BookViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-                //return null;
-                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.activity_search_result_for_book, viewGroup, false);
-                BookViewHolder viewHolder = new BookViewHolder(view);
-                return viewHolder;
-
-            }
-        };
-
-        mResultList.setAdapter(firebaseRecyclerAdapter);
-
-        firebaseRecyclerAdapter.startListening();
-
-
-    }*/
-
-
-    // view book Class
-/*
-    public static class BookViewHolder extends RecyclerView.ViewHolder{
-        View mView;
-        TextView book_name, book_status, book_description;
-        public BookViewHolder(View itemView){
-            super(itemView);
-            mView= itemView;
-
-            book_name= (TextView) itemView.findViewById(R.id.BookName) ;
-            book_status = (TextView) itemView.findViewById(R.id.Stat);
-            book_description = (TextView) itemView.findViewById(R.id.descrip);
-        }
-
-        public void setDetails(Context ctx, String bookName, String bookStatus, String bookDescription, Image bookImage){
-
-            TextView book_name= (TextView) mView.findViewById(R.id.BookName) ;
-            TextView book_status = (TextView) mView.findViewById(R.id.Stat);
-            TextView book_description = (TextView) mView.findViewById(R.id.descrip);
-            //ImageView book_image = (ImageView) mView.findViewById(R.id.BookImage);
-
-
-            book_name.setText(bookName);
-            book_status.setText(bookStatus);
-            book_description.setText(bookDescription);
-
-            //Glide.with(ctx).load(bookImage).into(book_image);
-
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode==1&&resultCode==1){
+            adapter.notifyDataSetChanged();
         }
     }
+*/
 
 
 
-    public void newSearch(View view){
-        //BookDatabase= FirebaseDatabase.getInstance().getReference("books");
-
-
-
-    }
-
-    public void backHome(View view){
-
-
-    }
-
-    public void displayBookName(View view){
-
-
-    }
-
-
-    public void displayBookDetail(View view){
-
-
-    }
-
-    public void displayBookImage(View view){
-
-    }
-    */
 }
