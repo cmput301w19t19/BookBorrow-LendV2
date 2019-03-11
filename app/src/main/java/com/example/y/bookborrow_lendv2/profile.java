@@ -1,3 +1,24 @@
+/*
+ * Copyright 2019 TEAM19
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package com.example.y.bookborrow_lendv2;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +42,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *
+ *the page that shows the user's profile and allow logged in usesr to edit profile
+ * @author  Yuan
+ * @see user
+ * @since 1.0
+ */
+
 public class profile extends AppCompatActivity {
     private Button updateButton;
     private TextView inputEmail,uneditableUserName;
@@ -39,6 +68,7 @@ public class profile extends AppCompatActivity {
     private borrower currentB = new borrower();
 
 
+    /** Called when the activity is first created. */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +86,6 @@ public class profile extends AppCompatActivity {
         inputUserName = (EditText) findViewById(R.id.InputName);
         inputPhone = (EditText) findViewById(R.id.InputPhone);
         uneditableUserName = (TextView) findViewById(R.id.UserName) ;
-        //inputMessage = (EditText) findViewById(R.id.InputMessage);
 
         //line 53-78: load data from firebase and update UI
         DbRef = database.getReference("users/"+uid);
@@ -121,11 +150,7 @@ public class profile extends AppCompatActivity {
 
                 Map<String, Object> childUpdates = new HashMap<>();
 
-               // childUpdates.put(uid+"/email", email);
-               // childUpdates.put(uid+"/name", userName);
-                //childUpdates.put(uid+"/phone", phone);
 
-               // dbRef.updateChildren(childUpdates);
                 dbRef.child("users").child(uid).setValue(currentU);
                 dbRef.child("lenders").child(uid).setValue(currentL);
                 dbRef.child("borrowers").child(uid).setValue(currentB);
