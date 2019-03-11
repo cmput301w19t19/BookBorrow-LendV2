@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".signOutActivity" />
+        <activity android:name=".SignOutActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".LoginActivity" />
         <activity
@@ -21,9 +21,13 @@
             android:label="@string/title_activity_empty"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".check_to_scan" />
-        <activity android:name=".EditBookDetail" />
-        <activity android:name=".RequestToOwner" />
+
+
+        <activity android:name=".PrivateBookDetails" />
         <activity android:name=".OwnerHomeActivity" />
+
+        <activity android:name=".RequestToOwner" />
+
         <activity
 
             android:name=".profile"
@@ -40,7 +44,6 @@
         <activity android:name=".loginAct"/>
         <activity android:name=".BorrowerRequest"/>
         <activity android:name=".RateToOwner" />
-        <activity android:name=".PrivateBookDetails" />
         <activity android:name=".home_page" />
         <activity android:name=".PublicBookDetails" />
 

@@ -67,7 +67,7 @@
         android:layout_alignLeft="@+id/editText"
         android:layout_marginLeft="25dp"
         android:layout_marginTop="129dp"
-        android:text="Search For Books" />
+        android:text="Search For books" />
 
     <Button
         android:id="@+id/See_Result_of_PersonButton"

@@ -1,18 +1,12 @@
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ListView;
-
-import com.example.y.bookborrow_lendv2.R;
-import com.example.y.bookborrow_lendv2.book;
-import com.example.y.bookborrow_lendv2.bookAdapter;
 
 import java.util.ArrayList;
 

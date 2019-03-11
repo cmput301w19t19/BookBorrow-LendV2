@@ -1,15 +1,14 @@
 package com.example.y.bookborrow_lendv2;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -124,7 +123,8 @@ public class profile extends AppCompatActivity {
 
 
                 //Update the static object as well
-
+                Intent intent = new Intent(profile.this, home_page.class);
+                startActivity(intent);
 
 
             }});

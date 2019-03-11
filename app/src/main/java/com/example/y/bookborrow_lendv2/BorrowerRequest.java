@@ -29,10 +29,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -57,9 +55,9 @@ public class BorrowerRequest extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private FirebaseUser user;
-    private com.example.y.bookborrow_lendv2.BorrowerRequestAdapter myBookAdapter;
-    private com.example.y.bookborrow_lendv2.BorrowerRequestAdapter requestAdapter;
-    private com.example.y.bookborrow_lendv2.BorrowerRequestAdapter acceptAdapter;
+    private BorrowerRequestAdapter myBookAdapter;
+    private BorrowerRequestAdapter requestAdapter;
+    private BorrowerRequestAdapter acceptAdapter;
     //private BorrowingBookAdapter myBookAdapter;
     //private BorrowingBookAdapter requestAdapter;
     ///private BorrowingBookAdapter acceptAdapter;

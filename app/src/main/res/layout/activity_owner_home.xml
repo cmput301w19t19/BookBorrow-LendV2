@@ -7,132 +7,166 @@
     tools:context=".OwnerHomeActivity">
 
     <TextView
-        android:id="@+id/ScanPrompt"
-        android:layout_width="304dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="168dp"
-        android:text="Click to scan your book"
-        app:layout_constraintStart_toEndOf="@+id/BookListButton"
-        app:layout_constraintTop_toBottomOf="@+id/MyBookList" />
-
-    <TextView
-        android:id="@+id/Scan"
-        android:layout_width="304dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="192dp"
-        android:text="Scan"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/BookListButton"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-    <TextView
-        android:id="@+id/SearchPrompt"
-        android:layout_width="304dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="80dp"
-        android:text="Click to search book"
-        app:layout_constraintStart_toEndOf="@+id/BookListButton"
-        app:layout_constraintTop_toBottomOf="@+id/MyBookList" />
-
-    <TextView
-        android:id="@+id/Owner"
-        android:layout_width="156dp"
-        android:layout_height="28dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="24dp"
+        android:id="@+id/textView_Owner"
+        android:layout_width="383dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="462dp"
         android:text="Owner"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="395dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:background="?android:attr/listDivider"
-        android:visibility="visible"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Owner" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@android:color/darker_gray" />
 
     <TextView
-        android:id="@+id/MyBookList"
-        android:layout_width="304dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="28dp"
+        android:id="@+id/myBooks"
+        android:layout_width="233dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="16dp"
         android:text="My Book List"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/BookListButton"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
+        app:layout_constraintStart_toStartOf="@+id/image_1"
+        app:layout_constraintTop_toBottomOf="@+id/textView_Owner" />
 
     <TextView
-        android:id="@+id/Seach"
-        android:layout_width="304dp"
-        android:layout_height="25dp"
+        android:id="@+id/string_1_1"
+        android:layout_width="236dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="32dp"
+        android:text="Click here to check your books"
+        app:layout_constraintStart_toStartOf="@+id/image_1"
+        app:layout_constraintTop_toTopOf="@+id/myBooks" />
+
+    <ImageView
+        android:id="@+id/image_1"
+        android:layout_width="74dp"
+        android:layout_height="61dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="300dp"
+        android:layout_marginRight="300dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_Owner"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/select_owner_menu_1"
+        android:layout_width="381dp"
+        android:layout_height="80dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/empty"
+        app:layout_constraintBottom_toBottomOf="@+id/string_1_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_Owner" />
+
+    <TextView
+        android:id="@+id/string_2_0"
+        android:layout_width="233dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="16dp"
         android:text="Search"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/BookListButton"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-    <ImageButton
-        android:id="@+id/BookListButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        app:srcCompat="@android:drawable/ic_menu_gallery" />
+        app:layout_constraintStart_toStartOf="@+id/image_2"
+        app:layout_constraintTop_toBottomOf="@+id/string_1_1" />
 
     <TextView
-        android:id="@+id/BookListPrompt"
-        android:layout_width="304dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/string_2_1"
+        android:layout_width="236dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="32dp"
+        android:text="Click to search"
+        app:layout_constraintStart_toStartOf="@+id/image_2"
+        app:layout_constraintTop_toTopOf="@+id/string_2_0" />
+
+    <ImageView
+        android:id="@+id/image_2"
+        android:layout_width="74dp"
+        android:layout_height="61dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="4dp"
-        android:text="Click to check your book list"
-        app:layout_constraintStart_toEndOf="@+id/BookListButton"
-        app:layout_constraintTop_toBottomOf="@+id/MyBookList" />
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="300dp"
+        android:layout_marginRight="300dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_1"
+        app:srcCompat="@mipmap/ic_launcher" />
 
-    <ImageButton
-        android:id="@+id/SearchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_menu_search"
-        tools:layout_editor_absoluteX="15dp"
-        tools:layout_editor_absoluteY="173dp" />
+    <TextView
+        android:id="@+id/select_owner_menu_2"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="381dp"
+        android:layout_height="80dp"
+        android:text="@string/empty"
+        app:layout_constraintBottom_toBottomOf="@+id/string_2_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/string_1_1" />
 
-    <ImageButton
-        android:id="@+id/ScanButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@android:drawable/ic_menu_camera"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="261dp" />
+    <TextView
+        android:id="@+id/string_3_0"
+        android:layout_width="233dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="16dp"
+        android:text="Scan"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/image_3"
+        app:layout_constraintTop_toBottomOf="@+id/string_2_1" />
+
+    <TextView
+        android:id="@+id/string_3_1"
+        android:layout_width="236dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="32dp"
+        android:text="Click to scan a book"
+        app:layout_constraintStart_toStartOf="@+id/image_3"
+        app:layout_constraintTop_toTopOf="@+id/string_3_0" />
+
+    <ImageView
+        android:id="@+id/image_3"
+        android:layout_width="74dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="300dp"
+        android:layout_marginRight="300dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image_2"
+        app:srcCompat="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/select_owner_menu_3"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="381dp"
+        android:layout_height="80dp"
+        android:text="@string/empty"
+        app:layout_constraintBottom_toBottomOf="@+id/string_3_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/string_2_1" />
+
+
 
 </android.support.constraint.ConstraintLayout>

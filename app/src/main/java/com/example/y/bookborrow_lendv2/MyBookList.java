@@ -1,17 +1,14 @@
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Intent;
-import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MyBookList extends AppCompatActivity {
     private ListView myBookList;
@@ -53,7 +49,7 @@ public class MyBookList extends AppCompatActivity {
 
 
 
-        ImageView addBook = findViewById(R.id.addBook);
+        ImageButton addBook = findViewById(R.id.addBook);
         final Button available = (Button) findViewById(R.id.availableFilter);
         Button requested = (Button) findViewById(R.id.requestedFilter);
         Button accepted = (Button) findViewById(R.id.acceptedFilter);

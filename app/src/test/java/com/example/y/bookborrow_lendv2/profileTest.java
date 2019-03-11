@@ -1,8 +1,5 @@
 package com.example.y.bookborrow_lendv2;
 
-import android.media.Image;
-import android.provider.ContactsContract;
-
 import org.junit.Test;
 import static org.junit.Assert.*;
 

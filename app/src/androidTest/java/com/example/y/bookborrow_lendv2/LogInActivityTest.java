@@ -2,14 +2,9 @@ package com.example.y.bookborrow_lendv2;
 import android.app.Activity;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.robotium.solo.Solo;
 
 import org.junit.After;
@@ -65,7 +60,7 @@ public class LogInActivityTest  extends ActivityTestRule<loginAct> {
 
         //}
 
-        solo.assertCurrentActivity("Wrong Activity",loginAct.class);
+        solo.assertCurrentActivity("Wrong Activity", loginAct.class);
         solo.enterText((EditText)solo.getView(R.id.loginEmail),"555@ualberta.ca");
 
        // solo.clickOnButton("login_button");
@@ -76,7 +71,7 @@ public class LogInActivityTest  extends ActivityTestRule<loginAct> {
     }
     @Test
     public void EnterPassword(){
-        solo.assertCurrentActivity("Wrong Activity",loginAct.class);
+        solo.assertCurrentActivity("Wrong Activity", loginAct.class);
 
         solo.enterText((EditText)solo.getView(R.id.password_editText),"123456");
 
@@ -90,7 +85,7 @@ public class LogInActivityTest  extends ActivityTestRule<loginAct> {
     public void LogIn(){
         loginAct activity = (loginAct) solo.getCurrentActivity();
 
-        solo.assertCurrentActivity("Wrong Activity",loginAct.class);
+        solo.assertCurrentActivity("Wrong Activity", loginAct.class);
         solo.enterText((EditText)solo.getView(R.id.loginEmail),"555@ualberta.ca");
 
         solo.enterText((EditText)solo.getView(R.id.password_editText),"123456");

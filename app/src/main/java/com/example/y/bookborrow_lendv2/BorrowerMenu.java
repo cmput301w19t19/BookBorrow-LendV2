@@ -44,8 +44,8 @@ public class BorrowerMenu extends AppCompatActivity {
         requested.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                //Intent intent = new Intent(BorrowerMenu.this, RequestMenu.class);
-                //startActivity(intent);
+                Intent intent = new Intent(BorrowerMenu.this, BorrowerRequest.class);
+                startActivity(intent);
                 //BorrowerMenu.this.finish();
 
 
@@ -55,7 +55,7 @@ public class BorrowerMenu extends AppCompatActivity {
         bookList.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                Intent intent = new Intent(BorrowerMenu.this, MyBookList.class);
+                Intent intent = new Intent(BorrowerMenu.this, BorrowBookList.class);
                 startActivity(intent);
                 //BorrowerMenu.this.finish();
 
@@ -66,8 +66,8 @@ public class BorrowerMenu extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
-                //Intent intent = new Intent(BorrowerMenu.this, Search.class);
-                //startActivity(intent);
+                Intent intent = new Intent(BorrowerMenu.this, Search.class);
+                startActivity(intent);
                 //BorrowerMenu.this.finish();
 
 
