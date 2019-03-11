@@ -1,4 +1,24 @@
-
+/*
+ * Copyright 2019 TEAM19
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Intent;
@@ -10,6 +30,10 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+/**
+ * @author: Bowei Li
+ * @version 1.0
+ */
 public class OwnerHomeActivity extends AppCompatActivity {
 
     @Override
@@ -23,6 +47,10 @@ public class OwnerHomeActivity extends AppCompatActivity {
         Button backButton = findViewById(R.id.back_button);
 
         myBooks.setOnClickListener(new View.OnClickListener() {
+            /**
+             * jump to MybookList class after click
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OwnerHomeActivity.this,MyBookList.class);
@@ -31,6 +59,10 @@ public class OwnerHomeActivity extends AppCompatActivity {
         });
 
         mySearch.setOnClickListener(new View.OnClickListener() {
+            /**
+             * jump to Search class after click
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OwnerHomeActivity.this, Search.class);
@@ -38,15 +70,20 @@ public class OwnerHomeActivity extends AppCompatActivity {
             }
         });
 
-        myScan.setOnClickListener(new View.OnClickListener() {
+        /*myScan.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 //Intent intent = new Intent(OwnerHomeActivity.this, Scan.class);
                 //startActivity(intent);
             }
-        });
+        });*/
 
         backButton.setOnClickListener(new View.OnClickListener() {
+            /**
+             * jump to homepage class after click
+             * @param v
+             */
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OwnerHomeActivity.this, home_page.class);
