@@ -6,6 +6,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.robotium.solo.Solo;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -61,6 +62,12 @@ public class BorrowerMenuTest extends ActivityTestRule<BorrowerMenu> {
         //solo.assertCurrentActivity("login page",loginAct.class);
         //solo.goBack();
 
+    }
+
+    @After
+    public void tearDown() throws Exception{
+
+        solo.finishOpenedActivities();
     }
 
 
