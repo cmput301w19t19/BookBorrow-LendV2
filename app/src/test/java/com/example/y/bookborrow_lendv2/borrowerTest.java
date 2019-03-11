@@ -17,25 +17,25 @@ public class borrowerTest {
 
    @Test
     public void set_getRequestedBookList() {
-        borrower borrower1 = new borrower();
-        ArrayList<book> books = new ArrayList<book>();
-        borrower1.setRequestedBookList(books);
-        assertEquals(books,borrower1.getRequestedBookList());
+        Borrower borrower1 = new Borrower();
+        ArrayList<Book> Books = new ArrayList<Book>();
+        borrower1.setRequestedBookList(Books);
+        assertEquals(Books,borrower1.getRequestedBookList());
     }
 
     @Test
     public void set_getBorrowedBook() {
-        borrower borrower1 = new borrower();
-        ArrayList<book> books = new ArrayList<book>();
-        borrower1.setBorrowedBook(books);
-        assertEquals(books,borrower1.getBorrowedBook());
+        Borrower borrower1 = new Borrower();
+        ArrayList<Book> Books = new ArrayList<Book>();
+        borrower1.setBorrowedBook(Books);
+        assertEquals(Books,borrower1.getBorrowedBook());
     }
 
 
     @Test
     public void addBorrowedBook() {
-        book book1 = new book();
-        borrower borrower1 = new borrower();
+        Book book1 = new Book();
+        Borrower borrower1 = new Borrower();
 
         borrower1.addBorrowedBook(book1);
         assertTrue(borrower1.getBorrowedBook().contains(book1));
@@ -43,8 +43,8 @@ public class borrowerTest {
 
     @Test
     public void addRequestedBook() {
-        book book1 = new book();
-        borrower borrower1 = new borrower();
+        Book book1 = new Book();
+        Borrower borrower1 = new Borrower();
 
         borrower1.addRequestedBook(book1);
 
@@ -53,8 +53,8 @@ public class borrowerTest {
 
     @Test
     public void deleteRequestedBook() {
-        book book1 = new book();
-        borrower borrower1 = new borrower();
+        Book book1 = new Book();
+        Borrower borrower1 = new Borrower();
         borrower1.addRequestedBook(book1);
         borrower1.deleteRequestedBook(book1);
         assertTrue(borrower1.getRequestedBookList().isEmpty());
@@ -63,8 +63,8 @@ public class borrowerTest {
     @Test
     public void deleteBorrowedBook() {
 
-        borrower borrower1 = new borrower();
-        book book1 = new book();
+        Borrower borrower1 = new Borrower();
+        Book book1 = new Book();
 
         borrower1.deleteBorrowedBook(book1);
         assertEquals((Boolean) true, borrower1.getRequestedBookList().isEmpty());
@@ -72,14 +72,14 @@ public class borrowerTest {
     }
     @Test
     public void SetRating() {
-        borrower borrower1 = new borrower();
+        Borrower borrower1 = new Borrower();
         borrower1.setBorrowerRating((float) 3.3);
         assertEquals((float) 3.3, borrower1.getBorrowerRating(), (float) 0.0001);
     }
 
     @Test
     public void getRating(){
-       borrower borrower1 = new borrower((float)5.5);
+       Borrower borrower1 = new Borrower((float)5.5);
         assertEquals( borrower1.getBorrowerRating(), (float)5.5, 0.0001);
     }
 

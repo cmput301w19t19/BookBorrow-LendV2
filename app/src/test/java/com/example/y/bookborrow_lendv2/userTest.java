@@ -7,7 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 /**
- * since user is an abstract class, we create another class "NormalUser" which extends user class
+ * since User is an abstract class, we create another class "NormalUser" which extends User class
  * and we are going to write unit tests for methods in NormalUser
  */
 

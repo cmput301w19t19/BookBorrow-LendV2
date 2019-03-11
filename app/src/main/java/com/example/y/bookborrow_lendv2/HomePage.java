@@ -1,24 +1,17 @@
 package com.example.y.bookborrow_lendv2;
 
 /**
- * This activity handles home_page
+ * This activity handles HomePage
  */
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,10 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
-public class home_page extends AppCompatActivity {
+public class HomePage extends AppCompatActivity {
     private FirebaseAuth auth;
     private TextView username;
     private DatabaseReference mDatabase;
@@ -54,7 +44,7 @@ public class home_page extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Enter email address!"+uid, Toast.LENGTH_SHORT).show();
 
 
-        //get current logged in user name
+        //get current logged in User name
 
         DbRef = database.getReference("users/"+uid);
         username = (TextView) findViewById(R.id.UserName);
@@ -106,7 +96,7 @@ public class home_page extends AppCompatActivity {
             //hello
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(home_page.this, OwnerHomeActivity.class);
+                Intent intent = new Intent(HomePage.this, OwnerHomeActivity.class);
                 startActivity(intent);
                 //finish();
 
@@ -120,7 +110,7 @@ public class home_page extends AppCompatActivity {
             //hello
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(home_page.this, BorrowerMenu.class);
+                Intent intent = new Intent(HomePage.this, BorrowerMenu.class);
                 startActivity(intent);
                 //finish();
 
@@ -134,7 +124,7 @@ public class home_page extends AppCompatActivity {
             //hello
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(home_page.this, profile.class);
+                Intent intent = new Intent(HomePage.this, Profile.class);
                 startActivity(intent);
                 //finish();
 
@@ -148,7 +138,7 @@ public class home_page extends AppCompatActivity {
             //hello
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(home_page.this, loginAct.class);
+                Intent intent = new Intent(HomePage.this, LoginAct.class);
                 startActivity(intent);
                 //finish();
 

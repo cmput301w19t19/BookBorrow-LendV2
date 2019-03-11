@@ -1,7 +1,6 @@
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Context;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.LayoutInflater;
@@ -12,8 +11,8 @@ import java.util.ArrayList;
 
 public class BorrowingBookAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
-    private ArrayList<book> myBook;
-    public BorrowingBookAdapter(Context context, ArrayList<book> data) {
+    private ArrayList<Book> myBook;
+    public BorrowingBookAdapter(Context context, ArrayList<Book> data) {
         mInflater = LayoutInflater.from(context);
         myBook = data;
     }
@@ -53,7 +52,7 @@ public class BorrowingBookAdapter extends BaseAdapter {
             holder = (BorrowingBookAdapter.ViewHolder) convertView.getTag();
         }
 
-        book book = myBook.get(position);
+        Book book = myBook.get(position);
         holder.bookName.setText(book.getName());
         holder.OwnerName.setText(book.getOwnerName());
         //holder.image.setImageDrawable();

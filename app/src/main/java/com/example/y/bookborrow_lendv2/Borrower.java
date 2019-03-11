@@ -3,25 +3,25 @@ package com.example.y.bookborrow_lendv2;
 
 import java.util.ArrayList;
 
-public class borrower extends user {
+public class Borrower extends User {
     private float borrowerRating;
 
-    private ArrayList<book> borrowedBook = new ArrayList<book>();
-    private ArrayList<book> requestedBookList = new ArrayList<book>();
+    private ArrayList<Book> borrowedBook = new ArrayList<Book>();
+    private ArrayList<Book> requestedBookList = new ArrayList<Book>();
     private String uid;
-    private static borrower instance;
+    private static Borrower instance;
 
 
 
     /** A constructor with no parameters*/
-    borrower() {
+    Borrower() {
     }
 
     /**
      * another constructor with parameter "rating"
      * @param rating
      */
-    borrower(float rating){
+    Borrower(float rating){
         this.borrowerRating = rating;
     }
 
@@ -31,36 +31,36 @@ public class borrower extends user {
         this.borrowerRating = rating;
     }
 
-    public void setRequestedBookList(ArrayList<book> list) {
+    public void setRequestedBookList(ArrayList<Book> list) {
         requestedBookList = list;
     }
 
-    public void setBorrowedBook(ArrayList<book> list) {
+    public void setBorrowedBook(ArrayList<Book> list) {
         borrowedBook = list;
     }
 
-    public ArrayList<book> getBorrowedBook() {
+    public ArrayList<Book> getBorrowedBook() {
         return borrowedBook;
     }
 
 
-    public ArrayList<book> getRequestedBookList() {
+    public ArrayList<Book> getRequestedBookList() {
         return requestedBookList;
     }
 
-    public void addBorrowedBook(book book) {
+    public void addBorrowedBook(Book book) {
         borrowedBook.add(book);
     }
 
-    public void addRequestedBook(book book) {
+    public void addRequestedBook(Book book) {
         requestedBookList.add(book);
     }
 
-    public void deleteRequestedBook(book book) {
+    public void deleteRequestedBook(Book book) {
         requestedBookList.remove(book);
     }
 
-    public void deleteBorrowedBook(book book) {
+    public void deleteBorrowedBook(Book book) {
         borrowedBook.remove(book);
     }
 
@@ -69,13 +69,13 @@ public class borrower extends user {
     }
 
 
-    public static borrower Instance()
+    public static Borrower Instance()
     {
         //if no instance is initialized yet then create new instance
         //else return stored instance
         if (instance == null)
         {
-            instance = new borrower();
+            instance = new Borrower();
         }
         return instance;
     }

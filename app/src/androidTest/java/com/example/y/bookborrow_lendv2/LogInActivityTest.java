@@ -2,14 +2,9 @@ package com.example.y.bookborrow_lendv2;
 import android.app.Activity;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.util.Log;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.robotium.solo.Solo;
 
 import org.junit.After;
@@ -24,20 +19,20 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
-public class LogInActivityTest  extends ActivityTestRule<loginAct> {
+public class LogInActivityTest  extends ActivityTestRule<LoginAct> {
 
     private Solo solo;
     private FirebaseAuth auth;
 
 
     public LogInActivityTest(){
-        super(loginAct.class);
+        super(LoginAct.class);
 
     }
 
     @Rule
-    public ActivityTestRule<loginAct> rule =
-            new ActivityTestRule<>(loginAct.class,true,true);
+    public ActivityTestRule<LoginAct> rule =
+            new ActivityTestRule<>(LoginAct.class,true,true);
 
     @Before
     public void setUp(){
@@ -54,18 +49,18 @@ public class LogInActivityTest  extends ActivityTestRule<loginAct> {
     @Test
     public void EnterEmail(){
 
-        /**there is a user signed in, we will sign out the user
+        /**there is a User signed in, we will sign out the User
          * first, then got to the log in activity
         */
         //auth = FirebaseAuth.getInstance();
-        //FirebaseUser user = auth.getCurrentUser();
-        //String uid = user.getUid();
+        //FirebaseUser User = auth.getCurrentUser();
+        //String uid = User.getUid();
 
         //if (uid!=null){
 
         //}
 
-        solo.assertCurrentActivity("Wrong Activity",loginAct.class);
+        solo.assertCurrentActivity("Wrong Activity", LoginAct.class);
         solo.enterText((EditText)solo.getView(R.id.loginEmail),"555@ualberta.ca");
 
        // solo.clickOnButton("login_button");
@@ -76,7 +71,7 @@ public class LogInActivityTest  extends ActivityTestRule<loginAct> {
     }
     @Test
     public void EnterPassword(){
-        solo.assertCurrentActivity("Wrong Activity",loginAct.class);
+        solo.assertCurrentActivity("Wrong Activity", LoginAct.class);
 
         solo.enterText((EditText)solo.getView(R.id.password_editText),"123456");
 
@@ -88,9 +83,9 @@ public class LogInActivityTest  extends ActivityTestRule<loginAct> {
     }
     @Test
     public void LogIn(){
-        loginAct activity = (loginAct) solo.getCurrentActivity();
+        LoginAct activity = (LoginAct) solo.getCurrentActivity();
 
-        solo.assertCurrentActivity("Wrong Activity",loginAct.class);
+        solo.assertCurrentActivity("Wrong Activity", LoginAct.class);
         solo.enterText((EditText)solo.getView(R.id.loginEmail),"555@ualberta.ca");
 
         solo.enterText((EditText)solo.getView(R.id.password_editText),"123456");

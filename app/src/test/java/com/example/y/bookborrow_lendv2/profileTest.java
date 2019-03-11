@@ -1,8 +1,5 @@
 package com.example.y.bookborrow_lendv2;
 
-import android.media.Image;
-import android.provider.ContactsContract;
-
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -22,7 +19,7 @@ public class profileTest {
 
     @Test
     public void testsetPhone(){
-        lender lender1= new lender();
+        Lender lender1= new Lender();
         Integer new_number= 992238201;
         lender1.setPhone(new_number);
         assertEquals(lender1.getPhone(),new_number);
@@ -32,7 +29,7 @@ public class profileTest {
 
     @Test
     public void testsetEmail(){
-        lender lender1= new lender();
+        Lender lender1= new Lender();
         String new_email= "hahah2GM@gmail.com";
         lender1.setEmail(new_email);
         assertEquals(lender1.getEmail(),new_email);

@@ -3,14 +3,13 @@ package com.example.y.bookborrow_lendv2;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class signOutActivity extends AppCompatActivity {
+public class SignOutActivity extends AppCompatActivity {
 
 
     private Button signOutButton;
@@ -27,14 +26,14 @@ public class signOutActivity extends AppCompatActivity {
 
 
 
-        Toast.makeText(getApplicationContext(), "currentUser logout userID:"+lender.Instance().getUid(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "currentUser logout userID:"+ Lender.Instance().getUid(), Toast.LENGTH_SHORT).show();
 
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 signOut();
-               // startActivity(new Intent( signOutActivity.this,loginAct.class));
+               // startActivity(new Intent( SignOutActivity.this,LoginAct.class));
 
 
             }
@@ -47,7 +46,7 @@ public class signOutActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         auth.signOut();
-        startActivity(new Intent( signOutActivity.this,loginAct.class));
+        startActivity(new Intent( SignOutActivity.this, LoginAct.class));
 
 
     }

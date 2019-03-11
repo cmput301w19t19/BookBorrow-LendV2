@@ -11,21 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import android.media.Image;
-import java.security.KeyStore;
-import java.util.ArrayList;
 
 public class SearchResultForBook extends AppCompatActivity {
 
@@ -42,7 +36,7 @@ public class SearchResultForBook extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_result_for_book);
 
-        mBookDatabase = FirebaseDatabase.getInstance().getReference("book");
+        mBookDatabase = FirebaseDatabase.getInstance().getReference("Book");
         mSearchWord = (EditText) findViewById(R.id.editText);
         mSearchButton = (Button) findViewById(R.id.See_Result_of_BookButton);
 
@@ -72,10 +66,10 @@ public class SearchResultForBook extends AppCompatActivity {
 
         Query firebaseSearchQuery = mBookDatabase.orderByChild("name").startAt(searchText).endAt(searchText + "\uf8ff");
 
-        FirebaseRecyclerOptions<book> options = new FirebaseRecyclerOptions.Builder<book>().setQuery(firebaseSearchQuery, book.class).setLifecycleOwner(this).build();
-        FirebaseRecyclerAdapter<book, BookViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<book, BookViewHolder>(options) {
+        FirebaseRecyclerOptions<Book> options = new FirebaseRecyclerOptions.Builder<Book>().setQuery(firebaseSearchQuery, Book.class).setLifecycleOwner(this).build();
+        FirebaseRecyclerAdapter<Book, BookViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Book, BookViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull BookViewHolder holder, int position, @NonNull book model) {
+            protected void onBindViewHolder(@NonNull BookViewHolder holder, int position, @NonNull Book model) {
                 holder.book_name.setText(model.getName());
                 holder.book_status.setText(model.getStatus());
                 //holder.image.setImageDrawable();
@@ -114,10 +108,10 @@ public class SearchResultForBook extends AppCompatActivity {
         super.onStart();
 
 
-        FirebaseRecyclerOptions<book> options= new FirebaseRecyclerOptions.Builder<book>().setQuery(firebaseSearchQuery, book.class).setLifecycleOwner(this).build();
-        FirebaseRecyclerAdapter<book, BookViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<book, BookViewHolder>(options) {
+        FirebaseRecyclerOptions<Book> options= new FirebaseRecyclerOptions.Builder<Book>().setQuery(firebaseSearchQuery, Book.class).setLifecycleOwner(this).build();
+        FirebaseRecyclerAdapter<Book, BookViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Book, BookViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull BookViewHolder holder, int position, @NonNull book model) {
+            protected void onBindViewHolder(@NonNull BookViewHolder holder, int position, @NonNull Book model) {
                 holder.book_name.setText(model.getName());
                 holder.book_status.setText(model.getStatus());
                 //holder.image.setImageDrawable();
@@ -146,7 +140,7 @@ public class SearchResultForBook extends AppCompatActivity {
     }*/
 
 
-    // view book Class
+    // view Book Class
 
     public static class BookViewHolder extends RecyclerView.ViewHolder{
         View mView;

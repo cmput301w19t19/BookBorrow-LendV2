@@ -18,12 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 
 public class EditBookDetail extends AppCompatActivity {
-    book b;
+    Book b;
     EditText bookNamkeEditText;
     EditText authorEditText;
     EditText ISBNEditText;
@@ -57,16 +54,16 @@ public class EditBookDetail extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
 
         if (id.equals("0")){
-            b = new book();
+            b = new Book();
             id = b.getID();
         }else{
             FirebaseDatabase m = FirebaseDatabase.getInstance();
-            DatabaseReference r = m.getReference("book/"+id);
+            DatabaseReference r = m.getReference("Book/"+id);
             ValueEventListener bookLister = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if (dataSnapshot.exists()) {
-                        b = dataSnapshot.getValue(book.class);
+                        b = dataSnapshot.getValue(Book.class);
                         b.setID(id);
 
                         String bookName = b.getName();

@@ -4,13 +4,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class profile extends AppCompatActivity {
+public class Profile extends AppCompatActivity {
     private Button updateButton;
     private TextView inputEmail;
     private EditText inputUserName, inputPhone,inputMessage;
@@ -105,7 +103,7 @@ public class profile extends AppCompatActivity {
                 dbRef.updateChildren(childUpdates);
 
                 //Update the static object as well
-                Intent intent = new Intent(profile.this,home_page.class);
+                Intent intent = new Intent(Profile.this, HomePage.class);
                 startActivity(intent);
 
 

@@ -52,7 +52,7 @@ public class PrivateBookDetails extends AppCompatActivity {
     Button editButton;
     Button requestButton;
     Button returnButton;
-    book bookx;
+    Book bookx;
     FirebaseAuth auth;
 
     @Override
@@ -78,12 +78,12 @@ public class PrivateBookDetails extends AppCompatActivity {
         FirebaseDatabase m = FirebaseDatabase.getInstance();
         //bookid = "c10dee3e-c475-4fee-9a7f-aa111675825c"; ///for testing
 
-        DatabaseReference r = m.getReference("book/"+bookid);
+        DatabaseReference r = m.getReference("Book/"+bookid);
         ValueEventListener bookListner = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    bookx = dataSnapshot.getValue(book.class);
+                    bookx = dataSnapshot.getValue(Book.class);
                     bookNameTV.setText(bookx.getName());
 
                     String ISBN = bookx.getISBN();
@@ -178,13 +178,13 @@ public class PrivateBookDetails extends AppCompatActivity {
 
 
         FirebaseDatabase m = FirebaseDatabase.getInstance();
-        DatabaseReference r = m.getReference("book/"+bookid);
+        DatabaseReference r = m.getReference("Book/"+bookid);
 
         ValueEventListener bookListner = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                bookx = dataSnapshot.getValue(book.class);
+                bookx = dataSnapshot.getValue(Book.class);
 
                 String bookName;
                 if (bookx.getName() != null){

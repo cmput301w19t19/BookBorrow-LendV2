@@ -2,15 +2,15 @@ package com.example.y.bookborrow_lendv2;
 
 import java.util.ArrayList;
 
-public class lender extends user {
+public class Lender extends User {
     private float lenderRating;
     private ArrayList<String> lentBook = new ArrayList<>();
     private ArrayList<String> requestedBookList = new ArrayList<>();
     private ArrayList<String> MyBookList = new ArrayList<>();
-    private static lender instance;
+    private static Lender instance;
 
 
-    lender() {
+    Lender() {
     }
 
     public void setLenderRating(Float rating) {
@@ -63,13 +63,13 @@ public class lender extends user {
         lentBook.remove(book);
     }
 
-    public static lender Instance()
+    public static Lender Instance()
     {
         //if no instance is initialized yet then create new instance
         //else return stored instance
         if (instance == null)
         {
-            instance = new lender();
+            instance = new Lender();
         }
         return instance;
     }

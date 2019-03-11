@@ -10,7 +10,7 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-public class emptyActivity extends AppCompatActivity {
+public class EmptyActivity extends AppCompatActivity {
 
     private Button signOutButton;
     private FirebaseAuth auth;

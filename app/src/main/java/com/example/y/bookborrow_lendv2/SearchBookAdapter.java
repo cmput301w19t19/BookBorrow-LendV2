@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 public class SearchBookAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
-    private ArrayList<book> myBook;
-    public SearchBookAdapter(Context context, ArrayList<book> data) {
+    private ArrayList<Book> myBook;
+    public SearchBookAdapter(Context context, ArrayList<Book> data) {
         mInflater = LayoutInflater.from(context);
         myBook = data;
     }
@@ -52,7 +52,7 @@ public class SearchBookAdapter extends BaseAdapter {
             holder = (SearchBookAdapter.ViewHolder) convertView.getTag();
         }
 
-        book book = myBook.get(position);
+        Book book = myBook.get(position);
         holder.bookName.setText(book.getName());
         holder.status.setText(book.getStatus());
         //holder.image.setImageDrawable();

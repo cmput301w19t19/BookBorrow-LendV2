@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class loginAct extends AppCompatActivity {
+public class LoginAct extends AppCompatActivity {
     private FirebaseAuth auth;
     private EditText inputEmail, inputPassword;
     private Button  loginButton, registerButton;
@@ -57,7 +57,7 @@ public class loginAct extends AppCompatActivity {
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
                     String bookname = "The Elements of Statistical Learning";
-                    book b = new book();
+                    Book b = new Book();
                     b.setAuthor("Trevor Hastie Robert Tibshirani Jerome Friedman");
                     b.setDescription("statistic machine learning");
                     b.setName(bookname);
@@ -66,16 +66,16 @@ public class loginAct extends AppCompatActivity {
                     b.setStatusToRequested();
 
 
-                    //DatabaseReference ref = database.getReference("book");
-                    //ref.child("book").child(b.getID()).setValue(b);
+                    //DatabaseReference ref = database.getReference("Book");
+                    //ref.child("Book").child(b.getID()).setValue(b);
 
 
 
-                    //book b = new book();
+                    //Book b = new Book();
 
 
 
-                    Toast.makeText(getApplicationContext(),"create a book",Toast.LENGTH_LONG);
+                    Toast.makeText(getApplicationContext(),"create a Book",Toast.LENGTH_LONG);
                     Log.i("testnnn",b.getID());
                     Toast.makeText(getApplicationContext(),b.getID(),Toast.LENGTH_LONG);
                     Toast.makeText(getApplicationContext(),b.getName(),Toast.LENGTH_LONG);
@@ -109,31 +109,31 @@ public class loginAct extends AppCompatActivity {
                 }
 
 
-                //create user
+                //create User
                 auth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(loginAct.this, new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(LoginAct.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(loginAct.this, "createUserWithEmail:onComplete:"
+                                Toast.makeText(LoginAct.this, "createUserWithEmail:onComplete:"
                                         + task.isSuccessful(), Toast.LENGTH_SHORT).show();
 
 
 
-                                // If sign in fails, display a message to the user. If sign in succeeds
+                                // If sign in fails, display a message to the User. If sign in succeeds
                                 // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
+                                // signed in User can be handled in the listener.
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(loginAct.this, "Authentication failed." + task.getException(),
+                                    Toast.makeText(LoginAct.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 }
                                 else{
-                                    //Create a user and store it in firebase database
+                                    //Create a User and store it in firebase database
                                     FirebaseUser user = auth.getCurrentUser();
                                     String uid = user.getUid();
 
                                     NormalUser newUser = new NormalUser();
-                                    borrower newBorrower = new borrower();
-                                    lender newLender = new lender();
+                                    Borrower newBorrower = new Borrower();
+                                    Lender newLender = new Lender();
 
                                     mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -155,12 +155,12 @@ public class loginAct extends AppCompatActivity {
                                     mDatabase.child("borrowers").child(key).setValue(newBorrower);
                                     mDatabase.child("lenders").child(key).setValue(newLender);
 
-                                    Toast.makeText(loginAct.this, "Authentication success!" + task.getException(),
+                                    Toast.makeText(LoginAct.this, "Authentication success!" + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 }
                             }});
 
-                //startActivity(new Intent(loginAct.this, signOutActivity.class));
+                //startActivity(new Intent(LoginAct.this, SignOutActivity.class));
             }
         });
 
@@ -173,7 +173,7 @@ public class loginAct extends AppCompatActivity {
                 final String password = inputPassword.getText().toString();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Please enter user name!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Please enter User name!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -184,17 +184,17 @@ public class loginAct extends AppCompatActivity {
 
                 Log.i("test11","user11");
 
-                //authenticate user
+                //authenticate User
                 auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(loginAct.this,new OnCompleteListener<AuthResult>() {
+                        .addOnCompleteListener(LoginAct.this,new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 Log.i("test11","user2222");
                                 Toast.makeText(getApplicationContext(), "login ", Toast.LENGTH_SHORT).show();
 
-                                // If sign in fails, display a message to the user. If sign in succeeds
+                                // If sign in fails, display a message to the User. If sign in succeeds
                                 // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
+                                // signed in User can be handled in the listener.
                                 //progressBar.setVisibility(View.GONE);
                                 if (!task.isSuccessful()) {
                                     // there was an error
@@ -205,22 +205,22 @@ public class loginAct extends AppCompatActivity {
                                     FirebaseUser user = auth.getCurrentUser();
                                     String uid = user.getUid();
 
-                                    // On login button click, storing our username into normalUser,lender borrower classes.
+                                    // On login button click, storing our username into normalUser,Lender Borrower classes.
                                     //Singleton Pattern implemented here
                                     NormalUser.Instance().setUid(uid);
-                                    borrower.Instance().setUid(uid);
-                                    lender.Instance().setUid(uid);
+                                    Borrower.Instance().setUid(uid);
+                                    Lender.Instance().setUid(uid);
 
 
 
                                     Toast.makeText(getApplicationContext(), "Login Success!", Toast.LENGTH_SHORT).show();
 
 
-                                    Intent intent = new Intent(loginAct.this, home_page.class);
+                                    Intent intent = new Intent(LoginAct.this, HomePage.class);
                                     startActivity(intent);
                                     //finish();
 
-                                    //Intent intent = new Intent(loginAct.this, home_page.class);
+                                    //Intent intent = new Intent(LoginAct.this, HomePage.class);
                                     //startActivity(intent);
                                     //finish();
 
@@ -240,7 +240,7 @@ public class loginAct extends AppCompatActivity {
 
     /**
      * this method is defined for intent test
-     * @return loggedin user id
+     * @return loggedin User id
      */
     public String returnCurrentUser(){
         auth = FirebaseAuth.getInstance();

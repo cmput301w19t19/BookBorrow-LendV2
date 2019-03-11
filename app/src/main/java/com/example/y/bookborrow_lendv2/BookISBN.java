@@ -22,11 +22,11 @@
 
 package com.example.y.bookborrow_lendv2;
 
-public class bookISBN {
+public class BookISBN {
     private String ISBN;
     private String bookRating;
 
-    bookISBN(int ISBN){
+    BookISBN(int ISBN){
         String sISBN = Integer.toString(ISBN);
         this.ISBN = sISBN;
     }

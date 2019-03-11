@@ -2,18 +2,12 @@ package com.example.y.bookborrow_lendv2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,8 +17,6 @@ import com.google.firebase.database.DatabaseError;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class RequestToOwner extends AppCompatActivity {
 
@@ -36,7 +28,7 @@ public class RequestToOwner extends AppCompatActivity {
     DatabaseReference Holder;
     DatabaseReference dbBorrower;
     DatabaseReference dbBook;
-    book b;
+    Book b;
     private ArrayList<String> borrowerID = new ArrayList<String>();
     private String borrower_username;
     private Button accept, delete;
@@ -49,13 +41,13 @@ public class RequestToOwner extends AppCompatActivity {
         setContentView(R.layout.activity_request_to_owner);
 
 
-        // get the book ID by intent
+        // get the Book ID by intent
 
         Intent intent = getIntent();
         final String book_ID = intent.getStringExtra("request");
         //final String book_ID = "45d11887-6961-41c0-916b-92b78c68dead";
         // gain a databaseReference
-        dbHolder = m.getReference("book").child(book_ID).child("requestList") ;
+        dbHolder = m.getReference("Book").child(book_ID).child("requestList") ;
         Log.i("test22", book_ID);
 
         //borrowerID.add("3abc1a17-0fec-427a-a103-d00283826755");
@@ -72,7 +64,7 @@ public class RequestToOwner extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
                                 if (dataSnapshot2.exists()) {
                                     Log.i("test22", "fdsuifsiudauisd");
-                                    borrower bor = dataSnapshot2.getValue(borrower.class);
+                                    Borrower bor = dataSnapshot2.getValue(Borrower.class);
                                     String b_user = bor.getName();
                                     String userID = bor.getUid();
                                     //Float b_rating = bor.getBorrowerRating();
@@ -84,7 +76,7 @@ public class RequestToOwner extends AppCompatActivity {
                                     mAdapter.notifyDataSetChanged();
                                     //Log.i("Yuanproblem2", mDatas.get(0).getUserID());
                                 }
-                                // get the username and rating from the borrower ID
+                                // get the username and rating from the Borrower ID
                             }
 
 
@@ -109,7 +101,7 @@ public class RequestToOwner extends AppCompatActivity {
             }
         };
 
-        // take the request list of the book
+        // take the request list of the Book
         dbHolder.addValueEventListener(postListener);
 
         // initial view layout and data
@@ -146,7 +138,7 @@ public class RequestToOwner extends AppCompatActivity {
                 Log.i("Accept", mDatas.get(0).toString());
                 for(int j = 0; j < mDatas.size();j++){
                     if(mDatas.get(j).isSelected() == true){
-                        dbBook.child("book").child(book_ID).child("status").setValue("accepted");
+                        dbBook.child("Book").child(book_ID).child("status").setValue("accepted");
                         dbBorrower.child("borrowers").child(mDatas.get(j).getUserID()).child("BorrowerRequest").push().setValue(book_ID, "true");
                         for(int i = 0; i < mDatas.size();i++)
                         {

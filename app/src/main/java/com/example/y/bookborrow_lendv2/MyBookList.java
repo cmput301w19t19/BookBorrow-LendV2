@@ -1,17 +1,14 @@
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Intent;
-import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,25 +21,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MyBookList extends AppCompatActivity {
     private ListView myBookList;
-    private ArrayList<book> bookList = new ArrayList<>();
-    private bookAdapter myBookAdapter;
-    private bookAdapter availableBookAdapter;
-    private bookAdapter requestedBookAdapter;
-    private bookAdapter borrowedBookAdapter;
-    private bookAdapter acceptedBookAdapter;
-    private ArrayList<book> requestedBookList = new ArrayList<>();
-    private ArrayList<book> acceptedBookList = new ArrayList<>();
-    private ArrayList<book> borrowedBookList = new ArrayList<>();
-    private ArrayList<book> availableBookList = new ArrayList<>();
+    private ArrayList<Book> bookList = new ArrayList<>();
+    private BookAdapter myBookAdapter;
+    private BookAdapter availableBookAdapter;
+    private BookAdapter requestedBookAdapter;
+    private BookAdapter borrowedBookAdapter;
+    private BookAdapter acceptedBookAdapter;
+    private ArrayList<Book> requestedBookList = new ArrayList<>();
+    private ArrayList<Book> acceptedBookList = new ArrayList<>();
+    private ArrayList<Book> borrowedBookList = new ArrayList<>();
+    private ArrayList<Book> availableBookList = new ArrayList<>();
     private ArrayList<String> booksID;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference DbRef = database.getReference();
     private FirebaseAuth auth;
-    private book targetBook;
+    private Book targetBook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,12 +73,12 @@ public class MyBookList extends AppCompatActivity {
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     String bookID = ds.getKey();
-                    DbRef = database.getReference("book/"+bookID);
+                    DbRef = database.getReference("Book/"+bookID);
                     ValueEventListener eventListener1 = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
                             Log.i("test22","hello");
-                            targetBook = dataSnapshot1.getValue(book.class);
+                            targetBook = dataSnapshot1.getValue(Book.class);
                             Log.i("test22",targetBook.getName());
                             bookList.add(targetBook);
 
@@ -96,9 +92,9 @@ public class MyBookList extends AppCompatActivity {
                     };
                     DbRef.addValueEventListener(eventListener1);
 
-                    //booksID.add(book);
-                    //boolean a = booksID.contains(book);
-                    //Toast.makeText(MyBookList.this,book,Toast.LENGTH_SHORT).show();
+                    //booksID.add(Book);
+                    //boolean a = booksID.contains(Book);
+                    //Toast.makeText(MyBookList.this,Book,Toast.LENGTH_SHORT).show();
                     //Log.i("testnn",Boolean.toString(a));
                 }
                 Log.i("testsize3",Integer.toString(booksID.size()));
@@ -116,13 +112,13 @@ public class MyBookList extends AppCompatActivity {
         booksID.add("hello");
         Log.i("testsize2",Integer.toString(booksID.size()));
         for(String bookID:booksID){
-            DbRef = database.getReference("book/"+bookID);
+            DbRef = database.getReference("Book/"+bookID);
             Log.i("test11",bookID);
             Toast.makeText(MyBookList.this,"test11",Toast.LENGTH_SHORT).show();
             ValueEventListener postListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    book targetBook = dataSnapshot.getValue(book.class);
+                    Book targetBook = dataSnapshot.getValue(Book.class);
                     bookList.add(targetBook);
                     Log.i("test22",targetBook.getID());
                     myBookAdapter.notifyDataSetChanged();
@@ -154,7 +150,7 @@ public class MyBookList extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 availableBookList = new ArrayList<>();
-                for (book bookItem : bookList) {
+                for (Book bookItem : bookList) {
                     //Toast.makeText(MyBookList.this,"boweiLi",Toast.LENGTH_SHORT).show();
                     if (bookItem.getStatus().equals("available")) {
                         availableBookList.add(bookItem);
@@ -162,7 +158,7 @@ public class MyBookList extends AppCompatActivity {
                         Toast.makeText(MyBookList.this, "hello", Toast.LENGTH_SHORT).show();
                     }
                 }
-                availableBookAdapter = new bookAdapter(MyBookList.this, availableBookList);
+                availableBookAdapter = new BookAdapter(MyBookList.this, availableBookList);
                 myBookList.setAdapter(availableBookAdapter);
             }
         });
@@ -171,12 +167,12 @@ public class MyBookList extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 requestedBookList = new ArrayList<>();
-                for (book bookItem : bookList) {
+                for (Book bookItem : bookList) {
                     if (bookItem.getStatus().equals("requested")) {
                         requestedBookList.add(bookItem);
                     }
                 }
-                requestedBookAdapter = new bookAdapter(MyBookList.this, requestedBookList);
+                requestedBookAdapter = new BookAdapter(MyBookList.this, requestedBookList);
                 myBookList.setAdapter(requestedBookAdapter);
 
 
@@ -187,13 +183,13 @@ public class MyBookList extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 acceptedBookList = new ArrayList<>();
-                for (book bookItem : bookList) {
+                for (Book bookItem : bookList) {
                     if (bookItem.getStatus().equals("accepted")) {
                         acceptedBookList.add(bookItem);
 
                     }
                 }
-                acceptedBookAdapter = new bookAdapter(MyBookList.this, acceptedBookList);
+                acceptedBookAdapter = new BookAdapter(MyBookList.this, acceptedBookList);
                 myBookList.setAdapter(acceptedBookAdapter);
 
             }
@@ -203,12 +199,12 @@ public class MyBookList extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 borrowedBookList = new ArrayList<>();
-                for (book bookItem : bookList) {
+                for (Book bookItem : bookList) {
                     if (bookItem.getStatus().equals("borrowed")) {
                         borrowedBookList.add(bookItem);
                     }
                 }
-                borrowedBookAdapter = new bookAdapter(MyBookList.this, borrowedBookList);
+                borrowedBookAdapter = new BookAdapter(MyBookList.this, borrowedBookList);
                 myBookList.setAdapter(borrowedBookAdapter);
 
             }
@@ -217,7 +213,7 @@ public class MyBookList extends AppCompatActivity {
         all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myBookAdapter = new bookAdapter(MyBookList.this, bookList);
+                myBookAdapter = new BookAdapter(MyBookList.this, bookList);
                 myBookList.setAdapter(myBookAdapter);
             }
         });
@@ -227,7 +223,7 @@ public class MyBookList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //TODO: Implement this method
-                book bookItem = bookList.get(position);
+                Book bookItem = bookList.get(position);
                 Toast.makeText(MyBookList.this,bookItem.getAuthor(),Toast.LENGTH_SHORT).show();
                 String bookId = bookItem.getID();
                 Intent intent = new Intent(MyBookList.this, PrivateBookDetails.class);
@@ -249,15 +245,15 @@ public class MyBookList extends AppCompatActivity {
         String ownerName = "TY";
         String status = "available";
 
-        book book1 = new book(name, author, ISBN, longitude, latitude, description,title,rating,borrowerName,ownerName,status);
+        Book book1 = new Book(name, author, ISBN, longitude, latitude, description,title,rating,borrowerName,ownerName,status);
         bookList = new ArrayList<>();
         bookList.add(book1);
-        myBookAdapter = new bookAdapter(this, bookList);
+        myBookAdapter = new BookAdapter(this, bookList);
         myBookList.setAdapter(myBookAdapter);
         */
 
         bookList = new ArrayList<>();
-        myBookAdapter = new bookAdapter(this, bookList);
+        myBookAdapter = new BookAdapter(this, bookList);
         myBookList.setAdapter(myBookAdapter);
 
     }
@@ -268,11 +264,11 @@ public class MyBookList extends AppCompatActivity {
         if(requestCode==0&&resultCode==1){
             String bookID = data.getStringExtra("ID");
             //String BookID = "0f45b9af-ebc7-4449-a6db-f88f9589a7c0";
-            DbRef = database.getReference("book/"+bookID);
+            DbRef = database.getReference("Book/"+bookID);
             ValueEventListener postListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    book targetBook = dataSnapshot.getValue(book.class);
+                    Book targetBook = dataSnapshot.getValue(Book.class);
                     bookList.add(targetBook);
                     myBookAdapter.notifyDataSetChanged();
 

@@ -7,7 +7,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
-public abstract class user {
+public abstract class User {
     private String name;
     private Image photo;
     private String password;
@@ -18,10 +18,10 @@ public abstract class user {
 
 
     /** A constructor with no parameters*/
-    user(){}
+    User(){}
 
     /** another constructoer with parameters*/
-    user(String name, Image photo, String password, String phone, String email){
+    User(String name, Image photo, String password, String phone, String email){
         this.name = name;
         this.photo = photo;
         this.password =password;
