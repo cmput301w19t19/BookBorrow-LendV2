@@ -40,35 +40,29 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+
+/**
+ * This Class is to show all the detail of a book if the user want to know
+ * when the user is seeing other activity
+ * @author Team 19
+ * @see SearchResultForBook
+ * @see BorrowerRequest
+ * @version 1.0
+ */
 public class PublicBookDetails extends AppCompatActivity {
 
-
-    String bookid;
-    String flag;
-
-    TextView bookNameTV;
-
-    TextView ISBNTV;
-
-    TextView bookAuthorTV;
-
-    TextView bookStateTV;
-
-    TextView bookRateTV;
-
-    TextView bookOwnerTV;
-
-    TextView bookDescriptionTV;
-
-    Button requestButton;
-
-    Button returnButton;
-
-    book b;
-
+    private String bookid;
+    private TextView bookNameTV;
+    private TextView ISBNTV;
+    private TextView bookAuthorTV;
+    private TextView bookStateTV;
+    private TextView bookRateTV;
+    private TextView bookOwnerTV;
+    private TextView bookDescriptionTV;
+    private Button requestButton;
+    private Button returnButton;
+    private book b;
     private String Keyword;
-
-
     private FirebaseAuth auth;
     private DatabaseReference r;
 
@@ -80,10 +74,6 @@ public class PublicBookDetails extends AppCompatActivity {
         Intent intent = getIntent();
         bookid = intent.getStringExtra("Id");
         Keyword = intent.getStringExtra("Keyword");
-        //flag = intent.getStringExtra("flag");
-
-
-
         bookNameTV = (TextView)findViewById(R.id.puBookName);
         ISBNTV = (TextView)findViewById(R.id.puBookISBN);
         bookAuthorTV = (TextView)findViewById(R.id.puBookAuthor);
@@ -91,15 +81,15 @@ public class PublicBookDetails extends AppCompatActivity {
         bookRateTV = (TextView)findViewById(R.id.puBookRate);
         bookOwnerTV = (TextView)findViewById(R.id.puBookOwner);
         bookDescriptionTV = (TextView)findViewById(R.id.puBookDescription);
-
         requestButton = (Button)findViewById(R.id.requestTheBook);
         returnButton = (Button)findViewById(R.id.puReturnButton);
 
         FirebaseDatabase m = FirebaseDatabase.getInstance();
-        //bookid = "45d11887-6961-41c0-916b-92b78c68dead"; ///for testing
         r = m.getReference("book/"+bookid);
 
-
+        /**
+         *  Get the information of the book from firebase and show them on the screen
+         */
         ValueEventListener bookListner = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -143,6 +133,11 @@ public class PublicBookDetails extends AppCompatActivity {
         };
         r.addValueEventListener(bookListner);
 
+        /**
+         * If the user want to borrow the book, the user will click request button
+         * set the requester id to the book requested list
+         * set the book to the requester's requested list
+         */
         requestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,19 +154,17 @@ public class PublicBookDetails extends AppCompatActivity {
             }
         });
 
+        /**
+         * Return to the activity which all this one, using flag to distinct caller
+         */
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //if(flag.equals("searchbook")) {
-
                 Intent back = new Intent(PublicBookDetails.this, SearchResultForBook.class);
                 back.putExtra("key",Keyword);
                 startActivity(back);
-                //} else {
-                    //setResult(1,back);
-
                 finish();
-               // }
+
             }
         });
 
