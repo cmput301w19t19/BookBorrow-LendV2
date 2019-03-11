@@ -42,19 +42,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class PublicBookDetails extends AppCompatActivity {
 
-<<<<<<< HEAD
-    private String bookid;
-    private TextView bookNameTV;
-    private TextView ISBNTV;
-    private TextView bookAuthorTV;
-    private TextView bookStateTV;
-    private TextView bookRateTV;
-    private TextView bookOwnerTV;
-    private TextView bookDescriptionTV;
-    private Button requestButton;
-    private Button returnButton;
-    private book b;
-=======
+
     String bookid;
     String flag;
 
@@ -80,7 +68,7 @@ public class PublicBookDetails extends AppCompatActivity {
 
     private String Keyword;
 
->>>>>>> a7b5efdf3e81dcae3592392501e9ba65a5de1c42
+
     private FirebaseAuth auth;
     private DatabaseReference r;
 
