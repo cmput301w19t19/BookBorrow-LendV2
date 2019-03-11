@@ -27,6 +27,7 @@ public class MyBookListTest extends ActivityTestRule<MyBookList> {
     @Rule
     public ActivityTestRule<MyBookList> rule = new ActivityTestRule<>(MyBookList.class,true,true);
 
+
     @Before
     public void setUp() throws Exception{
         solo = new Solo(getInstrumentation(),rule.getActivity());
@@ -59,7 +60,6 @@ public class MyBookListTest extends ActivityTestRule<MyBookList> {
         solo.clickOnImageButton(0);
     }
 
-
-
+    
 
 }
