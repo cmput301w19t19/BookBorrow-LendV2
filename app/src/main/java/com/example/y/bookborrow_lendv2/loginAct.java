@@ -1,3 +1,24 @@
+/*
+ * Copyright 2019 TEAM19
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Intent;
@@ -19,11 +40,22 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
+/**
+ *
+ *this is the first activity which allow user to register and loin
+ * @author  Yuan
+ * @see user
+ * @since 1.0
+ */
+
+
 public class loginAct extends AppCompatActivity {
     private FirebaseAuth auth;
     private EditText inputEmail, inputPassword;
     private Button  loginButton, registerButton;
     private DatabaseReference mDatabase;
+    /** Called when the activity is first created. */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +73,16 @@ public class loginAct extends AppCompatActivity {
         loginButton = (Button) findViewById(R.id.login_button);
         registerButton = (Button) findViewById(R.id.register_button);
 
-
+        /**
+         * if register button cliscked, the user is abble to create a account with
+         * valid password and email
+         */
         registerButton.setOnClickListener(new View.OnClickListener() {
 
 
             //hello
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
 
                 ///
                 //FirebaseDatabase
@@ -66,27 +100,14 @@ public class loginAct extends AppCompatActivity {
                     b.setStatusToRequested();
 
 
-                    //DatabaseReference ref = database.getReference("book");
-                    //ref.child("book").child(b.getID()).setValue(b);
-
-
-
-                    //book b = new book();
-
 
 
                     Toast.makeText(getApplicationContext(),"create a book",Toast.LENGTH_LONG);
-                    Log.i("testnnn",b.getID());
                     Toast.makeText(getApplicationContext(),b.getID(),Toast.LENGTH_LONG);
                     Toast.makeText(getApplicationContext(),b.getName(),Toast.LENGTH_LONG);
                     Toast.makeText(getApplicationContext(),b.getAuthor(),Toast.LENGTH_LONG);
 
 
-
-
-
-
-                /// */
 
 
                 final String email = inputEmail.getText().toString().trim();
@@ -159,12 +180,14 @@ public class loginAct extends AppCompatActivity {
                                 }
                             }});
 
-                //startActivity(new Intent(loginAct.this, SignOutActivity.class));
             }
         });
 
 
-
+        /**
+         * when the login button is clicked, the registered user is able to login with matched
+         * password and email
+         */
         loginButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -181,14 +204,12 @@ public class loginAct extends AppCompatActivity {
                     return;
                 }
 
-                Log.i("test11","user11");
 
                 //authenticate user
                 auth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(loginAct.this,new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Log.i("test11","user2222");
                                 Toast.makeText(getApplicationContext(), "login ", Toast.LENGTH_SHORT).show();
 
                                 // If sign in fails, display a message to the user. If sign in succeeds
@@ -217,11 +238,7 @@ public class loginAct extends AppCompatActivity {
 
                                     Intent intent = new Intent(loginAct.this, home_page.class);
                                     startActivity(intent);
-                                    //finish();
 
-                                    //Intent intent = new Intent(loginAct.this, home_page.class);
-                                    //startActivity(intent);
-                                    //finish();
 
                                 }
                             }
