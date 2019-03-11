@@ -31,8 +31,8 @@ import android.widget.TextView;
 /**
  * main menu for user login as borrower,
  * user has four option , requested book, booklist. search for book and scan the book
- * @param
- * @return
+ * @author Team19
+ * @version 1.0
  */
 
 public class BorrowerMenu extends AppCompatActivity {
@@ -49,7 +49,10 @@ public class BorrowerMenu extends AppCompatActivity {
 
 
         requested.setOnClickListener(new View.OnClickListener() {
-
+            /**
+             * jump to BorrowerRequest.class
+             * @param v
+             */
             public void onClick(View v) {
                 Intent intent = new Intent(BorrowerMenu.this, BorrowerRequest.class);
                 startActivity(intent);
@@ -60,7 +63,10 @@ public class BorrowerMenu extends AppCompatActivity {
         });
 
         bookList.setOnClickListener(new View.OnClickListener() {
-
+            /**
+             * jump to BorrowBookList.class
+             * @param v
+             */
             public void onClick(View v) {
                 Intent intent = new Intent(BorrowerMenu.this, BorrowBookList.class);
                 startActivity(intent);
@@ -71,7 +77,10 @@ public class BorrowerMenu extends AppCompatActivity {
         });
 
         search.setOnClickListener(new View.OnClickListener() {
-
+            /**
+             * jump to search.class
+             * @param v
+             */
             public void onClick(View v) {
                 Intent intent = new Intent(BorrowerMenu.this, Search.class);
                 startActivity(intent);
@@ -81,14 +90,14 @@ public class BorrowerMenu extends AppCompatActivity {
             }
         });
 
-        scan.setOnClickListener(new View.OnClickListener() {
+        //scan.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View v) {
+           // public void onClick(View v) {
                 // Intent intent = new Intent(BorrowerMenu.this, Scan.class);
                 // startActivity(intent);
                 // BorrowerMenu.this.finish();
 
-            }
+            //}
         });
     }
 }

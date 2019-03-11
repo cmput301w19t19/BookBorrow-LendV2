@@ -77,11 +77,11 @@ public class SearchBookAdapter extends BaseAdapter {
     }
 
     /**
-     *
+     * get the View of SearchBookAdapter
      * @param position
      * @param convertView
      * @param parent
-     * @return
+     * @return convertView
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
@@ -112,6 +112,9 @@ public class SearchBookAdapter extends BaseAdapter {
 
     }
 
+    /**
+     * a viewHolder object used for SearchBookAdapter
+     */
     private class ViewHolder{
         ImageView image;
         TextView bookName;
