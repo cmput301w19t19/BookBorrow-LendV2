@@ -23,14 +23,6 @@ public class lender extends user {
 
     //public void getMyBookList
 
-    public void addToMyBookList(String s){
-        MyBookList.add(s);
-    }
-
-    public void removeFromMyBookList(String s){
-        MyBookList.remove(s);
-    }
-
     public void setRequestedBookList(ArrayList<String> list) {
         requestedBookList = list;
     }

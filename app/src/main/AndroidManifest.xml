@@ -14,12 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SignOutActivity" />
-        <activity android:name=".SignupActivity" />
         <activity android:name=".EditBookDetail" />
-        <activity
-            android:name=".emptyActivity"
-            android:label="@string/title_activity_empty"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".check_to_scan" />
         <activity android:name=".PrivateBookDetails" />
         <activity android:name=".OwnerHomeActivity" />
