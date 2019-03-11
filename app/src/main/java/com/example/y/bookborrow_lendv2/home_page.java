@@ -22,7 +22,9 @@
 package com.example.y.bookborrow_lendv2;
 
 /**
- * This activity handles home_page
+ * This activity handles home_page, allow user select as borrower or owner view and edit profield and
+ * log out
+ * @version 1.0
  */
 import android.content.Intent;
 import android.os.Bundle;
