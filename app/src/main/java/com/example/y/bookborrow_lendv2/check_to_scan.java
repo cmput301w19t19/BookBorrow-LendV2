@@ -3,7 +3,7 @@ package com.example.y.bookborrow_lendv2;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Check_to_scan extends AppCompatActivity {
+public class check_to_scan extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

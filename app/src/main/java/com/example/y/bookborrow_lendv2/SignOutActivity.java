@@ -26,14 +26,14 @@ public class SignOutActivity extends AppCompatActivity {
 
 
 
-        Toast.makeText(getApplicationContext(), "currentUser logout userID:"+ Lender.Instance().getUid(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "currentUser logout userID:"+ lender.Instance().getUid(), Toast.LENGTH_SHORT).show();
 
         signOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 signOut();
-               // startActivity(new Intent( SignOutActivity.this,LoginAct.class));
+               // startActivity(new Intent( SignOutActivity.this,loginAct.class));
 
 
             }
@@ -46,7 +46,7 @@ public class SignOutActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         auth.signOut();
-        startActivity(new Intent( SignOutActivity.this, LoginAct.class));
+        startActivity(new Intent( SignOutActivity.this, loginAct.class));
 
 
     }

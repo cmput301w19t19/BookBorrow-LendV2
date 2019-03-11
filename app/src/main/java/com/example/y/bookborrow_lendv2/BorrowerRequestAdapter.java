@@ -13,10 +13,10 @@ import java.util.ArrayList;
 public class BorrowerRequestAdapter extends BaseAdapter {
 
     private LayoutInflater mInflater;
-    private ArrayList<Book> myBook;
+    private ArrayList<book> myBook;
 
 
-    public BorrowerRequestAdapter(Context context, ArrayList<Book> data){
+    public BorrowerRequestAdapter(Context context, ArrayList<book> data){
 
         mInflater = LayoutInflater.from(context);
         myBook = data;
@@ -64,7 +64,7 @@ public class BorrowerRequestAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Book book = myBook.get(position);
+        book book = myBook.get(position);
         holder.bookName.setText(book.getName());
         holder.currentBorrower.setText(book.getBorrowerName());
         holder.description.setText(book.getDescription());

@@ -41,7 +41,7 @@ import java.util.ArrayList;
 
 public class BorrowBookList extends AppCompatActivity {
     private ListView myBorrowBookList;
-    private ArrayList<Book> borrowedBooks = new ArrayList<>();
+    private ArrayList<book> borrowedBooks = new ArrayList<>();
     private BorrowingBookAdapter BorrowedBookAdapter;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference dbRef = database.getReference();
@@ -56,7 +56,7 @@ public class BorrowBookList extends AppCompatActivity {
         myBorrowBookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Book bookItem = borrowedBooks.get(position);
+                book bookItem = borrowedBooks.get(position);
                 String bookId = bookItem.getID();
                 Intent intent = new Intent(BorrowBookList.this, PublicBookDetails.class);
                 intent.putExtra("ID",bookId);
@@ -73,7 +73,7 @@ public class BorrowBookList extends AppCompatActivity {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Borrower targetBorrower = dataSnapshot.getValue(Borrower.class);
+                borrower targetBorrower = dataSnapshot.getValue(borrower.class);
                 borrowedBooks = targetBorrower.getBorrowedBook();
                 BorrowedBookAdapter.notifyDataSetChanged();
             }

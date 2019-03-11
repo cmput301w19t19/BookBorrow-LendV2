@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Check_to_scan">
+    tools:context=".check_to_scan">
 
     <Button
         android:id="@+id/checkBookDetail"

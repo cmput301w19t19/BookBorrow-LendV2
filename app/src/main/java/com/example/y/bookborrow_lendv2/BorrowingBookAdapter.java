@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public class BorrowingBookAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
-    private ArrayList<Book> myBook;
-    public BorrowingBookAdapter(Context context, ArrayList<Book> data) {
+    private ArrayList<book> myBook;
+    public BorrowingBookAdapter(Context context, ArrayList<book> data) {
         mInflater = LayoutInflater.from(context);
         myBook = data;
     }
@@ -52,7 +52,7 @@ public class BorrowingBookAdapter extends BaseAdapter {
             holder = (BorrowingBookAdapter.ViewHolder) convertView.getTag();
         }
 
-        Book book = myBook.get(position);
+        book book = myBook.get(position);
         holder.bookName.setText(book.getName());
         holder.OwnerName.setText(book.getOwnerName());
         //holder.image.setImageDrawable();

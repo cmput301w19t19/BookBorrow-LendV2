@@ -21,7 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Profile extends AppCompatActivity {
+public class profile extends AppCompatActivity {
     private Button updateButton;
     private TextView inputEmail;
     private EditText inputUserName, inputPhone,inputMessage;
@@ -103,7 +103,7 @@ public class Profile extends AppCompatActivity {
                 dbRef.updateChildren(childUpdates);
 
                 //Update the static object as well
-                Intent intent = new Intent(Profile.this, HomePage.class);
+                Intent intent = new Intent(profile.this, home_page.class);
                 startActivity(intent);
 
 

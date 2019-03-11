@@ -62,7 +62,7 @@ public class PublicBookDetails extends AppCompatActivity {
 
     Button returnButton;
 
-    Book b;
+    book b;
 
     private FirebaseAuth auth;
     DatabaseReference r;
@@ -89,14 +89,14 @@ public class PublicBookDetails extends AppCompatActivity {
 
         FirebaseDatabase m = FirebaseDatabase.getInstance();
         bookid = "45d11887-6961-41c0-916b-92b78c68dead"; ///for testing
-        r = m.getReference("Book/"+bookid);
+        r = m.getReference("book/"+bookid);
 
 
         ValueEventListener bookListner = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    b = dataSnapshot.getValue(Book.class);
+                    b = dataSnapshot.getValue(book.class);
                     Log.i("test22",b.getName());
                     bookNameTV.setText(b.getName());
 
@@ -144,9 +144,9 @@ public class PublicBookDetails extends AppCompatActivity {
                 FirebaseUser user = auth.getCurrentUser();
                 DatabaseReference r2 = FirebaseDatabase.getInstance().getReference();
                 String uid = user.getUid();
-                r2.child("Book").child(bookid).child("requestList").child(uid).setValue(true);
+                r2.child("book").child(bookid).child("requestList").child(uid).setValue(true);
                 r2.child("borrowers").child(uid).child("requestList").child(bookid).setValue(true);
-                //set Book status to requested
+                //set book status to requested
             }
         });
 

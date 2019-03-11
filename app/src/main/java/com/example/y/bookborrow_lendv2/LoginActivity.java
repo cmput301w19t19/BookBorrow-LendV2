@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final int REQUEST_READ_CONTACTS = 0;
 
     /**
-     * A dummy authentication store containing known User names and passwords.
+     * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
 
-        /** the foolowing lines are to test if system read infomation of Lender from firebase*/
+        /** the foolowing lines are to test if system read infomation of lender from firebase*/
 
         /** String name = "Bob";
          lenderRef.child(name).
@@ -106,7 +106,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
          public void onDataChange (DataSnapshot dataSnapshot){
 
-         Lender lenderFetched = dataSnapshot.getValue(Lender.class);
+         lender lenderFetched = dataSnapshot.getValue(lender.class);
          String Name = lenderFetched.getName();
          Toast.makeText(getBaseContext(), Name, Toast.LENGTH_LONG).show();
 
@@ -191,18 +191,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
     /**
-     * this method is called when we want to add a new User to firebase
+     * this method is called when we want to add a new user to firebase
      */
 
     public void writeNewLender(String userName) {
         //FirebaseDatabase database = FirebaseDatabase.getInstance();
         //String key = database.getReference("tweets").push().getKey();
-        Lender lender1 = new Lender();
+        lender lender1 = new lender();
         lender1.setName(userName);
         lender1.setPhone("1234567");
 
         lender1.setLenderRating((float)5.5);
-        //set userName as a key to retrieve Lender's information
+        //set userName as a key to retrieve lender's information
         String key = userName;
         mDatabase.child("lenders").child(key).setValue(lender1);
 
@@ -233,7 +233,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         boolean cancel = false;
         View focusView = null;
 
-        // Check for a valid password, if the User entered one.
+        // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
@@ -257,7 +257,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             focusView.requestFocus();
         } else {
             // Show a progress spinner, and kick off a background task to
-            // perform the User login attempt.
+            // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
@@ -312,7 +312,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
-                // Retrieve data rows for the device User's 'Profile' contact.
+                // Retrieve data rows for the device user's 'profile' contact.
                 Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
                         ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
 
@@ -322,7 +322,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 .CONTENT_ITEM_TYPE},
 
                 // Show primary email addresses first. Note that there won't be
-                // a primary email address if the User hasn't specified one.
+                // a primary email address if the user hasn't specified one.
                 ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
     }
 
@@ -365,7 +365,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     /**
      * Represents an asynchronous login/registration task used to authenticate
-     * the User.
+     * the user.
      */
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
@@ -407,7 +407,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 finish();
-                Intent myIntent = new Intent(LoginActivity.this, EmptyActivity.class);
+                Intent myIntent = new Intent(LoginActivity.this, emptyActivity.class);
                 LoginActivity.this.startActivity(myIntent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

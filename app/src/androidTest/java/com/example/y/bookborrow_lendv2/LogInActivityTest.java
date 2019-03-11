@@ -19,20 +19,20 @@ import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
-public class LogInActivityTest  extends ActivityTestRule<LoginAct> {
+public class LogInActivityTest  extends ActivityTestRule<loginAct> {
 
     private Solo solo;
     private FirebaseAuth auth;
 
 
     public LogInActivityTest(){
-        super(LoginAct.class);
+        super(loginAct.class);
 
     }
 
     @Rule
-    public ActivityTestRule<LoginAct> rule =
-            new ActivityTestRule<>(LoginAct.class,true,true);
+    public ActivityTestRule<loginAct> rule =
+            new ActivityTestRule<>(loginAct.class,true,true);
 
     @Before
     public void setUp(){
@@ -49,18 +49,18 @@ public class LogInActivityTest  extends ActivityTestRule<LoginAct> {
     @Test
     public void EnterEmail(){
 
-        /**there is a User signed in, we will sign out the User
+        /**there is a user signed in, we will sign out the user
          * first, then got to the log in activity
         */
         //auth = FirebaseAuth.getInstance();
-        //FirebaseUser User = auth.getCurrentUser();
-        //String uid = User.getUid();
+        //FirebaseUser user = auth.getCurrentUser();
+        //String uid = user.getUid();
 
         //if (uid!=null){
 
         //}
 
-        solo.assertCurrentActivity("Wrong Activity", LoginAct.class);
+        solo.assertCurrentActivity("Wrong Activity", loginAct.class);
         solo.enterText((EditText)solo.getView(R.id.loginEmail),"555@ualberta.ca");
 
        // solo.clickOnButton("login_button");
@@ -71,7 +71,7 @@ public class LogInActivityTest  extends ActivityTestRule<LoginAct> {
     }
     @Test
     public void EnterPassword(){
-        solo.assertCurrentActivity("Wrong Activity", LoginAct.class);
+        solo.assertCurrentActivity("Wrong Activity", loginAct.class);
 
         solo.enterText((EditText)solo.getView(R.id.password_editText),"123456");
 
@@ -83,9 +83,9 @@ public class LogInActivityTest  extends ActivityTestRule<LoginAct> {
     }
     @Test
     public void LogIn(){
-        LoginAct activity = (LoginAct) solo.getCurrentActivity();
+        loginAct activity = (loginAct) solo.getCurrentActivity();
 
-        solo.assertCurrentActivity("Wrong Activity", LoginAct.class);
+        solo.assertCurrentActivity("Wrong Activity", loginAct.class);
         solo.enterText((EditText)solo.getView(R.id.loginEmail),"555@ualberta.ca");
 
         solo.enterText((EditText)solo.getView(R.id.password_editText),"123456");

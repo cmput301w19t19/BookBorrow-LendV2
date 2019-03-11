@@ -2,7 +2,7 @@ package com.example.y.bookborrow_lendv2;
 
 import android.media.Image;
 
-public class NormalUser extends User {
+public class NormalUser extends user {
     private static NormalUser instance;
 
 

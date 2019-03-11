@@ -19,7 +19,7 @@ public class profileTest {
 
     @Test
     public void testsetPhone(){
-        Lender lender1= new Lender();
+        lender lender1= new lender();
         Integer new_number= 992238201;
         lender1.setPhone(new_number);
         assertEquals(lender1.getPhone(),new_number);
@@ -29,7 +29,7 @@ public class profileTest {
 
     @Test
     public void testsetEmail(){
-        Lender lender1= new Lender();
+        lender lender1= new lender();
         String new_email= "hahah2GM@gmail.com";
         lender1.setEmail(new_email);
         assertEquals(lender1.getEmail(),new_email);

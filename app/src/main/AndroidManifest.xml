@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.y.bookborrow_lendv2">
-    <!-- To auto-complete the email text field in the login form with the User's emails -->
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -17,10 +17,10 @@
         <activity android:name=".SignupActivity" />
         <activity android:name=".LoginActivity" />
         <activity
-            android:name=".EmptyActivity"
+            android:name=".emptyActivity"
             android:label="@string/title_activity_empty"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Check_to_scan" />
+        <activity android:name=".check_to_scan" />
 
 
         <activity android:name=".PrivateBookDetails" />
@@ -30,7 +30,7 @@
 
         <activity
 
-            android:name=".LoginAct"
+            android:name=".loginAct"
 
             android:label="@string/app_name">
             <intent-filter>
@@ -41,10 +41,10 @@
         </activity>
         <activity android:name=".BorrowerMenu" />
         <activity android:name=".MyBookList" />
-        <activity android:name=".Profile"/>
+        <activity android:name=".profile"/>
         <activity android:name=".BorrowerRequest"/>
         <activity android:name=".RateToOwner" />
-        <activity android:name=".HomePage" />
+        <activity android:name=".home_page" />
         <activity android:name=".PublicBookDetails" />
 
         <activity android:name=".RateToBorrower" />

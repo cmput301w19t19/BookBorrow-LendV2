@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.ArrayList;
 
-public class Book {
+public class book {
     private UUID ID;
     private String name = null;
     //private Image photo = null;
@@ -40,11 +40,11 @@ public class Book {
     /**
      * A constructor with no parameters
      */
-    Book(){
+    book(){
         this.ID = UUID.randomUUID();
     }
 
-    Book(String id){
+    book(String id){
         this.ID = UUID.fromString(id);
     };
 
@@ -54,7 +54,7 @@ public class Book {
      * This constructor is built for writing unit tests, we will use another constructor which doesn't have parameters
      * since there are too many parameters in this constructor
      */
-    Book(String name, String author, String ISBN, Double longitude, Double latitude, String description
+    book(String name, String author, String ISBN, Double longitude, Double latitude, String description
     , String title, Double bookRating, String borrowerName, String ownerName, String status ) {
         this.name = name;
         //this.photo = photo;
@@ -73,7 +73,7 @@ public class Book {
 
     public void setToFirebase(){
         m = FirebaseDatabase.getInstance();
-        r = m.getReference("Book/"+this.getID());
+        r = m.getReference("book/"+this.getID());
         r.child("id").setValue(this.getID());
         r.child("bookRating").setValue(Double.toString(this.rating));
         r.child("name").setValue(this.name);
@@ -213,7 +213,7 @@ public class Book {
 
     public boolean deleteFromFirebase(){
         m = FirebaseDatabase.getInstance();
-        r = m.getReference("Book").child(this.getID());
+        r = m.getReference("book").child(this.getID());
         r.removeValue();
 
         return true;

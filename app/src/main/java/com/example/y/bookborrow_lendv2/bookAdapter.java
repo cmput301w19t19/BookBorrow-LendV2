@@ -10,10 +10,10 @@ import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
 
-public class BookAdapter extends BaseAdapter {
+public class bookAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
-    private ArrayList<Book> myBook;
-    public BookAdapter(Context context, ArrayList<Book> data) {
+    private ArrayList<book> myBook;
+    public bookAdapter(Context context, ArrayList<book> data) {
         mInflater = LayoutInflater.from(context);
         myBook = data;
     }
@@ -54,7 +54,7 @@ public class BookAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        Book book = myBook.get(position);
+        book book = myBook.get(position);
         holder.bookName.setText(book.getName());
         holder.status.setText(book.getStatus());
         //holder.image.setImageDrawable();

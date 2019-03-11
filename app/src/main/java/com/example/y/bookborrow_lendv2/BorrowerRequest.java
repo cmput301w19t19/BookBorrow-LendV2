@@ -44,11 +44,11 @@ import java.util.ArrayList;
 
 public class BorrowerRequest extends AppCompatActivity {
 
-    //private ArrayList<Book> mainBookList = new ArrayList<Book>();
+    //private ArrayList<book> mainBookList = new ArrayList<book>();
     private ListView borrowerRequestbookList;
-    private ArrayList<Book> defaultBookList = new ArrayList<>();
-    private ArrayList<Book> requestedBookList = new ArrayList<>();
-    private ArrayList<Book> acceptedBookList = new ArrayList<>();
+    private ArrayList<book> defaultBookList = new ArrayList<>();
+    private ArrayList<book> requestedBookList = new ArrayList<>();
+    private ArrayList<book> acceptedBookList = new ArrayList<>();
     private ArrayList<String> booksID;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference DbRef = database.getReference();
@@ -83,7 +83,7 @@ public class BorrowerRequest extends AppCompatActivity {
 
         booksID = new ArrayList<>();
         DatabaseReference rootRef = database.getReference("borrowers").child(uid).child("BorrowerRequest");
-        //DatabaseReference rootRef = database.getReference("Lender").child(uid).child("MyBookList");
+        //DatabaseReference rootRef = database.getReference("lender").child(uid).child("MyBookList");
 
 
 
@@ -94,11 +94,11 @@ public class BorrowerRequest extends AppCompatActivity {
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     String bookID = ds.getKey();
-                    DbRef = database.getReference("Book/"+bookID);
+                    DbRef = database.getReference("book/"+bookID);
                     ValueEventListener eventListener1 = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
-                            Book targetBook = dataSnapshot1.getValue(Book.class);
+                            book targetBook = dataSnapshot1.getValue(book.class);
                             defaultBookList.add(targetBook);
                             myBookAdapter.notifyDataSetChanged();
                         }
@@ -122,13 +122,13 @@ public class BorrowerRequest extends AppCompatActivity {
 
 
         //
-        // User click showaccept button, Book cahnge to accepted books
+        // user click showaccept button, book cahnge to accepted books
         showAccepted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 acceptedBookList = new ArrayList<>();
 
-                for (Book bookItem : defaultBookList) {
+                for (book bookItem : defaultBookList) {
 
                     if (bookItem.getStatus().equals("Accepted")) {
                         acceptedBookList.add(bookItem);
@@ -148,7 +148,7 @@ public class BorrowerRequest extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //TODO: Implement this method
-                Book bookItem = defaultBookList.get(position);
+                book bookItem = defaultBookList.get(position);
                 String bookId = bookItem.getID();
                 Intent intent = new Intent(BorrowerRequest.this, PublicBookDetails.class);
                 intent.putExtra("Id", bookId);
@@ -161,7 +161,7 @@ public class BorrowerRequest extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 requestedBookList = new ArrayList<>();
-                for (Book bookItem : defaultBookList) {
+                for (book bookItem : defaultBookList) {
                     if (bookItem.getStatus().equals("Requested")) {
                         requestedBookList.add(bookItem);
                     }
@@ -189,11 +189,11 @@ public class BorrowerRequest extends AppCompatActivity {
         if(requestCode==0&&resultCode==1){
             String bookID = data.getStringExtra("ID");
 
-            DbRef = database.getReference("Book/"+bookID);
+            DbRef = database.getReference("book/"+bookID);
             ValueEventListener postListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Book targetBook = dataSnapshot.getValue(Book.class);
+                    book targetBook = dataSnapshot.getValue(book.class);
                     defaultBookList.add(targetBook);
                     myBookAdapter.notifyDataSetChanged();
 
