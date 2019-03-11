@@ -60,7 +60,7 @@ public class SearchResultForBook extends AppCompatActivity {
     private ArrayList<book> books = new ArrayList<>();
     private SearchBookAdapter adapter;
     private DatabaseReference mBookDatabase;
-
+    //private String flag;
     public String Keyword;
 
 
@@ -79,6 +79,7 @@ public class SearchResultForBook extends AppCompatActivity {
 
         Intent intent = getIntent();
         Keyword = intent.getStringExtra("key");
+
 
 
 
@@ -179,6 +180,7 @@ public class SearchResultForBook extends AppCompatActivity {
                 Intent intent = new Intent(SearchResultForBook.this, PublicBookDetails.class);
                 intent.putExtra("Id",bookId);
                 intent.putExtra("Keyword",Keyword);
+                intent.putExtra("flag","searchbook");
                 startActivity(intent);
             }
         });
