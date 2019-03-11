@@ -40,10 +40,6 @@ public class HomePageActivityTest extends ActivityTestRule<home_page> {
     @Test
     public void clickowner(){
 
-
-
-
-
         solo.assertCurrentActivity("wrong activity",home_page.class);
         solo.clickOnText("Owner");
         solo.assertCurrentActivity("owner home page",OwnerHomeActivity.class);
