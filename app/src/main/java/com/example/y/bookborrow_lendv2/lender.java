@@ -2,6 +2,17 @@ package com.example.y.bookborrow_lendv2;
 
 import java.util.ArrayList;
 
+
+
+/**
+ * lender object class extends user class
+ * contain two ArrayList borrowedBook and requestedList
+ *
+ *
+ *  Created  on 2/15/19.
+ *  @since 1.0
+ * @see user
+ */
 public class lender extends user {
     private float lenderRating;
     private ArrayList<String> lentBook = new ArrayList<>();

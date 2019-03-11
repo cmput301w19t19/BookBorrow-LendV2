@@ -6,6 +6,19 @@ import android.provider.ContactsContract;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * lender object  abstract class
+ * contain all user related attributes
+ * setter and getter for the book info.
+ * And firebase related methods include:
+ *  setToFirebase , deleteFromFirebase
+ *
+ *
+ *  Created  on 2/15/19.
+ *  @since 1.0
+ * @see  borrower
+ * @see lender
+ */
 
 public abstract class user {
     private String name;

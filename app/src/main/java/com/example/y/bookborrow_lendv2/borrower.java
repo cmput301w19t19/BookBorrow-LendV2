@@ -4,10 +4,11 @@ package com.example.y.bookborrow_lendv2;
 import java.util.ArrayList;
 
 /**
- * borrower object class
+ * borrower object class extends user class
  * contain two ArrayList borrowedBook and requestedList
  * @param
  * @return none
+ * @see user
  */
 
 public class borrower extends user {
