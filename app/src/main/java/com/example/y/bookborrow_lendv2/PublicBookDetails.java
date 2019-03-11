@@ -42,6 +42,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class PublicBookDetails extends AppCompatActivity {
 
+
     String bookid;
     String flag;
 
@@ -67,8 +68,9 @@ public class PublicBookDetails extends AppCompatActivity {
 
     private String Keyword;
 
+
     private FirebaseAuth auth;
-    DatabaseReference r;
+    private DatabaseReference r;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

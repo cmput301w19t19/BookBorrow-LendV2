@@ -36,7 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
- * This is our search pages "can look for the result by person and books"
+ * This is our search pages that allow user to enter keayword
  */
 public class Search extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
