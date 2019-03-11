@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 TEAM01
+ * Copyright 2019 TEAM19
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,32 +43,19 @@ import com.google.firebase.database.ValueEventListener;
 public class PublicBookDetails extends AppCompatActivity {
 
 
-    String bookid;
-    String flag;
-
-    TextView bookNameTV;
-
-    TextView ISBNTV;
-
-    TextView bookAuthorTV;
-
-    TextView bookStateTV;
-
-    TextView bookRateTV;
-
-    TextView bookOwnerTV;
-
-    TextView bookDescriptionTV;
-
-    Button requestButton;
-
-    Button returnButton;
-
-    book b;
-
+    private String bookid;
+    private String flag;
+    private TextView bookNameTV;
+    private TextView ISBNTV;
+    private TextView bookAuthorTV;
+    private TextView bookStateTV;
+    private TextView bookRateTV;
+    private TextView bookOwnerTV;
+    private TextView bookDescriptionTV;
+    private Button requestButton;
+    private Button returnButton;
+    private book b;
     private String Keyword;
-
-
     private FirebaseAuth auth;
     private DatabaseReference r;
 
@@ -80,7 +67,7 @@ public class PublicBookDetails extends AppCompatActivity {
         Intent intent = getIntent();
         bookid = intent.getStringExtra("Id");
         Keyword = intent.getStringExtra("Keyword");
-        //flag = intent.getStringExtra("flag");
+        flag = intent.getStringExtra("flag");
 
 
 
@@ -162,16 +149,16 @@ public class PublicBookDetails extends AppCompatActivity {
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //if(flag.equals("searchbook")) {
+                if(flag.equals("searchbook")) {
 
-                Intent back = new Intent(PublicBookDetails.this, SearchResultForBook.class);
-                back.putExtra("key",Keyword);
-                startActivity(back);
-                //} else {
+                    Intent back = new Intent(PublicBookDetails.this, SearchResultForBook.class);
+                    back.putExtra("key",Keyword);
+                    startActivity(back);
+                } else {
                     //setResult(1,back);
 
-                finish();
-               // }
+                    finish();
+               }
             }
         });
 
