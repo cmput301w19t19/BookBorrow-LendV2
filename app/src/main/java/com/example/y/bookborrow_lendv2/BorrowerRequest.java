@@ -219,11 +219,5 @@ public class BorrowerRequest extends AppCompatActivity {
 
     }
 
-    public void showAcceptRequest(){
 
-    }
-
-    public void showWatchList(){
-
-    }
 }

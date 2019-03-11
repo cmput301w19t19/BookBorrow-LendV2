@@ -28,6 +28,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+/**
+ * main menu for user login as borrower,
+ * user has four option , requested book, booklist. search for book and scan the book
+ * @param
+ * @return
+ */
+
 public class BorrowerMenu extends AppCompatActivity {
 
     @Override

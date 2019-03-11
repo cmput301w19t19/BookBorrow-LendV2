@@ -17,7 +17,9 @@ import java.util.ArrayList;
 /**
  * book object class
  * contain all book related attributes
- * setter and getter for the  
+ * setter and getter for the book info.
+ * And firebase related methods include:
+ *  setToFirebase , deleteFromFirebase
  */
 public class book {
     private UUID ID;

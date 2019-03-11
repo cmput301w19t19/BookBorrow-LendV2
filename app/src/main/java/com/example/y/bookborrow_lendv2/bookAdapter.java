@@ -10,6 +10,12 @@ import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
 
+/**
+ * adapter class use for ListView in owner -> myBooklist
+ *
+ * @param Listview
+ * @return none
+ */
 public class bookAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private ArrayList<book> myBook;

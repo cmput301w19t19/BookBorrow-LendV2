@@ -3,6 +3,13 @@ package com.example.y.bookborrow_lendv2;
 
 import java.util.ArrayList;
 
+/**
+ * borrower object class
+ * contain two ArrayList borrowedBook and requestedList
+ * @param
+ * @return none
+ */
+
 public class borrower extends user {
     private float borrowerRating;
 
