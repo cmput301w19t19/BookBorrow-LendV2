@@ -54,6 +54,10 @@ import android.media.Image;
 
 import java.util.ArrayList;
 
+
+/**
+ * This activity does the book search using keyword and shows the search results
+ */
 public class SearchResultForBook extends AppCompatActivity {
 
     private ListView mResultList;
@@ -99,22 +103,15 @@ public class SearchResultForBook extends AppCompatActivity {
                 Boolean found2;
                 // String search = "Elements";
                 String search = Keyword;
-                Log.i("bbbbbb","wode"+search);
                 //String search = "Trevor Hastie Robert Tibshirani Jerome Friedman";
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Log.i("bbbbbb","hello3");
                     book bookdFound = ds.getValue(book.class);
-                    Log.i("bbbbbb","hello4");
                     String title = bookdFound.getName();
-                    Log.i("bbbbbb",title);
                     String author = bookdFound.getAuthor();
-                    Log.i("bbbbbb",author);
                     String stat = bookdFound.getStatus();
-                    Log.i("bbbbbb",stat);
                     //check if title contains keyword
                     found1 = title.contains(search);
                     found2 = author.contains(search);
-                    Log.i("bbbbbb","hello8");
                     if (found1 && !stat.equals("accepted") && !stat.equals("borrowed") ) {
                         books.add(bookdFound);
                     } else if ( found2 && !stat.equals("accepted") && !stat.equals("borrowed")) {
@@ -137,7 +134,6 @@ public class SearchResultForBook extends AppCompatActivity {
                 }
                 String size = Integer.toString(books.size());
 
-                Log.i("bbbbbbbbb", size);
             }
 
             @Override
@@ -145,8 +141,6 @@ public class SearchResultForBook extends AppCompatActivity {
             }
         };
         booksRef.addListenerForSingleValueEvent(eventListener);
-
-        Log.i("bbbbbb","hello2");
 
 
 

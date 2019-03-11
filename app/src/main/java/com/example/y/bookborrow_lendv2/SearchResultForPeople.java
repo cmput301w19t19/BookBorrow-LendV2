@@ -53,6 +53,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.security.Key;
 import java.util.ArrayList;
 
+
+/**
+ * This activity does the people search using keyword and shows the search results
+ */
 public class SearchResultForPeople extends AppCompatActivity {
 
     private ListView mResultList;
@@ -78,12 +82,10 @@ public class SearchResultForPeople extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String Keyword = intent.getStringExtra("key");
-        Log.i("bbbbbbbbb", Keyword);
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference usersRef = rootRef.child("users");
         //final ArrayList<book> bookLists = new ArrayList<>();
-        Log.i("bbbbbbbbb", "kkkkk");
 
         // eventListener for searching book title's keyword
 
@@ -100,27 +102,19 @@ public class SearchResultForPeople extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     NormalUser user = ds.getValue(NormalUser.class);
-                    Log.i("bbbbbbbbb", Boolean.toString(user==null));
                     String userName = user.getName();
-                    Log.i("bbbbbbbbb","uuusseerr"+ userName);
                     String email = user.getEmail();
-                    Log.i("bbbbbbbbb", "eemmaiill"+email);
-                    Log.i("bbbbbbbbb", "pppppppp");
                     //check if user's name contains keyword
                     found = userName.contains(Keyword);
-                    Log.i("bbbbbbbbb", "hhhhhhh");
                     if (found) {
                         users.add(user);
                     }
-                    Log.i("bbbbbbbbb", "gggggg");
 
 
 
 
                     String size = Integer.toString(users.size());
-                    Log.i("bbbbbbbbb", "lllllll");
                     adapter.notifyDataSetChanged();
-                    Log.i("bbbbbbbbb", size);
                 }
             }
 
@@ -162,69 +156,6 @@ public class SearchResultForPeople extends AppCompatActivity {
         mResultList.setAdapter(adapter);
 
     }
-
-/*
-    private void firebaseUserSearch (String searchText) {
-        Toast.makeText(SearchResultForPeople.this, "Start Search", Toast.LENGTH_LONG).show();
-
-        Query firebaseSearchQuery = mUserDatabase.orderByChild("name").startAt(searchText).endAt(searchText + "\uf8ff");
-
-        FirebaseRecyclerOptions<NormalUser> options = new FirebaseRecyclerOptions.Builder<NormalUser>().setQuery(firebaseSearchQuery, NormalUser.class).setLifecycleOwner(this).build();
-        FirebaseRecyclerAdapter<NormalUser, SearchResultForPeople.UserViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<NormalUser, UserViewHolder>(options) {
-            @Override
-            protected void onBindViewHolder(@NonNull UserViewHolder holder, int position, @NonNull NormalUser model) {
-
-                holder.user_Name.setText(model.getName());
-                holder.user_Email.setText(model.getEmail());
-            }
-
-            @NonNull
-            @Override
-            public UserViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-                View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.activity_search_result_for_people, viewGroup, false);
-                SearchResultForPeople.UserViewHolder UviewHolder = new SearchResultForPeople.UserViewHolder(view);
-                return UviewHolder;
-            }
-        };
-
-
-
-
-        mResultList.setAdapter(firebaseRecyclerAdapter);
-
-
-
-    }
-
-
-
-    public static class UserViewHolder extends RecyclerView.ViewHolder{
-        View mView;
-        TextView user_Name,user_Email;
-        public UserViewHolder(View itemView){
-            super(itemView);
-            mView= itemView;
-
-            user_Name= (TextView) itemView.findViewById(R.id.InputName) ;
-            user_Email = (TextView) itemView.findViewById(R.id.InputEmail);
-        }
-
-        public void setDetails(Context ctx, String userName, String userEmail, Image profileImage){
-
-            TextView user_Name= (TextView) mView.findViewById(R.id.InputName) ;
-            TextView user_Email = (TextView) mView.findViewById(R.id.Stat);
-            //ImageView profile_image = (ImageView) mView.findViewById(R.id.profileImage);
-
-
-            user_Name.setText(userName);
-            user_Email.setText(userEmail);
-
-
-            //Glide.with(ctx).load(profileImage).into(profile_image);
-
-        }
-    }
-*/
 
 
 
