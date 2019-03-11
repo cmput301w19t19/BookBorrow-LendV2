@@ -11,8 +11,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class bookTests {
-    book book1 = new book("name","author", "ISBN",(float)100.1, (float)100.2 ,"description"
-            ,"title", (float)2.5, "borrowerName", "ownerName", "status" ,null);
+    book book1 = new book("name","author", "ISBN",100.1, 100.2 ,"description"
+            ,"title", 2.5, "borrowerName", "ownerName", "status" );
 /*
     @Test
     public void getBookRatinf(){
@@ -36,20 +36,20 @@ public class bookTests {
     @Test
     public void setRequestedList(){
         book book2 = new book();
-        ArrayList<borrower> bookRequests = new ArrayList<borrower>();
+        ArrayList<String> bookRequests = new ArrayList<>();
         book2.setRequestedList(bookRequests);
         assertEquals(book2.getRequestedList(),bookRequests);
 
     }
 
-    @Test
+    /*@Test
     public void getBorrowerName(){
 
 
         assertEquals(book1.getBorrowerName(),"borrowerName");
 
     }
-
+*/
 
 
     @Test
@@ -83,14 +83,14 @@ public class bookTests {
 
     }
 
-    @Test
+  /*  @Test
     public void getDescription(){
 
 
         assertEquals(book1.getDescription(),"description");
 
     }
-
+*/
 
     @Test
     public void setDescription(){
@@ -102,7 +102,7 @@ public class bookTests {
     }
 
 
-    @Test
+ /*   @Test
     public void getLongitude(){
 
 
@@ -110,43 +110,43 @@ public class bookTests {
         assertEquals(book1.getLongitude(),(float)100.1,0.0001);
     }
 
-
+*/
     @Test
     public void setLongitude(){
         book book2 = new book();
-        book2.setLongitude((float)99.9);
+        book2.setLongitude(99.9);
 
-        assertEquals(book2.getLongitude(),(float)99.9,0.000001);
+        assertEquals(book2.getLongitude(),99.9,0.000001);
 
 
     }
 
-
+/*
     @Test
     public void getLatitude(){
 
 
-        assertEquals(book1.getLatitude(),(float)100.2,0.000001);
+        assertEquals(book1.getLatitude(),100.2,0.000001);
     }
-
+*/
 
     @Test
     public void setLatitude(){
         book book2 = new book();
-        book2.setLatitude((float)99.9);
+        book2.setLatitude(99.9);
 
-        assertEquals(book2.getLatitude(),(float)99.9,0.000001);
+        assertEquals(book2.getLatitude(),99.9,0.000001);
 
 
     }
-
+/*
     @Test
     public void getOwnerName(){
 
 
         assertEquals(book1.getOwnerName(),"ownerName");
     }
-
+*/
     @Test
     public void setOwnerName(){
         book book2 = new book();
@@ -155,34 +155,6 @@ public class bookTests {
         assertEquals(book2.getOwnerName(),"ownerName");
     }
 
-    @Test
-    public void getTitle(){
-
-
-        assertEquals(book1.getTitle(),"title");
-    }
-
-    @Test
-    public void setTitle(){
-        book book2 = new book();
-        book2.setTitle("Title");
-
-        assertEquals(book2.getTitle(),"Title");
-    }
-
-    @Test
-    public void getStatus(){
-
-        assertEquals(book1.getStatus(),"status");
-    }
-
-    @Test
-    public void setStatus(){
-        book book2 = new book();
-        book2.setStatus("s");
-
-        assertEquals(book2.getStatus(),"s");
-    }
 
 
     @Test
@@ -198,14 +170,14 @@ public class bookTests {
 
         assertEquals(book2.getAuthor(),"a");
     }
-
+/*
     @Test
     public void getPhoto(){
 
         assertEquals(book1.getPhoto(),null);
     }
-
-
+*/
+/*
     @Test
     public void setPhoto(){
         Image image1 = null;
@@ -215,13 +187,13 @@ public class bookTests {
         assertEquals(book2.getPhoto(),image1);
 
     }
-
+*/
     @Test
     public void getRequestedList(){
         borrower borrower1 = new borrower();
-        ArrayList<borrower> requests= new ArrayList<borrower>();
+        ArrayList<String> requests= new ArrayList<>();
         book book2 = new book();
-        book2.addRequested(borrower1);
+        book2.addRequested(borrower1.getName());
         book2.setRequestedList(requests);
 
         assertEquals(book2.getRequestedList(),requests);
@@ -229,13 +201,19 @@ public class bookTests {
 
     }
 
+    @Test
+    public void setName(){
+        book book1 = new book();
+        book1.setName("hello");
+        assertEquals(book1.getName(),"hello");
+    }
 
 
     @Test
     public void addRequested(){
         borrower borrower1 = new borrower();
         book book2 = new book();
-        book2.addRequested(borrower1);
+        book2.addRequested(borrower1.getName());
 
         assertFalse(book2.getRequestedList().isEmpty());
     }

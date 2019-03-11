@@ -1,3 +1,25 @@
+/*
+ * Copyright 2019 TEAM19
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Context;
@@ -32,13 +54,17 @@ import android.media.Image;
 
 import java.util.ArrayList;
 
+
+/**
+ * This activity does the book search using keyword and shows the search results
+ */
 public class SearchResultForBook extends AppCompatActivity {
 
     private ListView mResultList;
     private ArrayList<book> books = new ArrayList<>();
     private SearchBookAdapter adapter;
     private DatabaseReference mBookDatabase;
-
+    //private String flag;
     public String Keyword;
 
 
@@ -60,6 +86,7 @@ public class SearchResultForBook extends AppCompatActivity {
 
 
 
+
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference booksRef = rootRef.child("book");
         //final ArrayList<book> bookLists = new ArrayList<>();
@@ -76,22 +103,15 @@ public class SearchResultForBook extends AppCompatActivity {
                 Boolean found2;
                 // String search = "Elements";
                 String search = Keyword;
-                Log.i("bbbbbb","wode"+search);
                 //String search = "Trevor Hastie Robert Tibshirani Jerome Friedman";
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Log.i("bbbbbb","hello3");
                     book bookdFound = ds.getValue(book.class);
-                    Log.i("bbbbbb","hello4");
                     String title = bookdFound.getName();
-                    Log.i("bbbbbb",title);
                     String author = bookdFound.getAuthor();
-                    Log.i("bbbbbb",author);
                     String stat = bookdFound.getStatus();
-                    Log.i("bbbbbb",stat);
                     //check if title contains keyword
                     found1 = title.contains(search);
                     found2 = author.contains(search);
-                    Log.i("bbbbbb","hello8");
                     if (found1 && !stat.equals("accepted") && !stat.equals("borrowed") ) {
                         books.add(bookdFound);
                     } else if ( found2 && !stat.equals("accepted") && !stat.equals("borrowed")) {
@@ -114,7 +134,6 @@ public class SearchResultForBook extends AppCompatActivity {
                 }
                 String size = Integer.toString(books.size());
 
-                Log.i("bbbbbbbbb", size);
             }
 
             @Override
@@ -122,8 +141,6 @@ public class SearchResultForBook extends AppCompatActivity {
             }
         };
         booksRef.addListenerForSingleValueEvent(eventListener);
-
-        Log.i("bbbbbb","hello2");
 
 
 
@@ -157,6 +174,7 @@ public class SearchResultForBook extends AppCompatActivity {
                 Intent intent = new Intent(SearchResultForBook.this, PublicBookDetails.class);
                 intent.putExtra("Id",bookId);
                 intent.putExtra("Keyword",Keyword);
+                intent.putExtra("flag","searchbook");
                 startActivity(intent);
             }
         });

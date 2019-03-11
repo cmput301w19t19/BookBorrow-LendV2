@@ -60,6 +60,6 @@ public class MyBookListTest extends ActivityTestRule<MyBookList> {
         solo.clickOnImageButton(0);
     }
 
-    
+
 
 }

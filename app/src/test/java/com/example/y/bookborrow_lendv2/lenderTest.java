@@ -19,7 +19,7 @@ public class lenderTest {
     @Test
     public void get_setRequestedBookList() {
         lender lender1 = new lender();
-        ArrayList<book> books = new ArrayList<book>();
+        ArrayList<String> books = new ArrayList<String>();
         lender1.setRequestedBookList(books);
         assertEquals(books,lender1.getRequestedBookList());
     }
@@ -27,7 +27,7 @@ public class lenderTest {
     @Test
     public void get_setLentBook() {
         lender lender1 = new lender();
-        ArrayList<book> books = new ArrayList<book>();
+        ArrayList<String> books = new ArrayList<String>();
         lender1.setLentBook(books);
         assertEquals(books,lender1.getLentBook());
     }
@@ -38,7 +38,7 @@ public class lenderTest {
         book book1 = new book();
         lender lender1 = new lender();
 
-        lender1.addLentBook(book1);
+        lender1.addLentBook(book1.getName());
         assertTrue(lender1.getLentBook().contains(book1));
     }
 
@@ -47,7 +47,7 @@ public class lenderTest {
         book book1 = new book();
         lender lender1 = new lender();
 
-        lender1.addRequestedBook(book1);
+        lender1.addRequestedBook(book1.getName());
         assertTrue(lender1.getRequestedBookList().contains(book1));
     }
 
@@ -56,8 +56,8 @@ public class lenderTest {
         book book1 = new book();
         lender lender1 = new lender();
 
-        lender1.addRequestedBook(book1);
-        lender1.deleteRequestedBook(book1);
+        lender1.addRequestedBook(book1.getName());
+        lender1.deleteRequestedBook(book1.getName());
         assertTrue(lender1.getRequestedBookList().isEmpty());
     }
 
@@ -65,8 +65,8 @@ public class lenderTest {
     public void deleteLentBook() {
         book book1 = new book();
         lender lender1 = new lender();
-        lender1.addLentBook(book1);
-        lender1.deleteLentBook(book1);
+        lender1.addLentBook(book1.getName());
+        lender1.deleteLentBook(book1.getName());
         assertTrue(lender1.getLentBook().isEmpty());
     }
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 TEAM01
+ * Copyright 2019 TEAM19
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -40,7 +40,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
 /**
  * This Class is to show all the detail of a book if the user want to know
  * when the user is seeing other activity
@@ -52,6 +51,7 @@ import com.google.firebase.database.ValueEventListener;
 public class PublicBookDetails extends AppCompatActivity {
 
     private String bookid;
+    private String flag;
     private TextView bookNameTV;
     private TextView ISBNTV;
     private TextView bookAuthorTV;
@@ -74,6 +74,7 @@ public class PublicBookDetails extends AppCompatActivity {
         Intent intent = getIntent();
         bookid = intent.getStringExtra("Id");
         Keyword = intent.getStringExtra("Keyword");
+        flag = intent.getStringExtra("flag");
         bookNameTV = (TextView)findViewById(R.id.puBookName);
         ISBNTV = (TextView)findViewById(R.id.puBookISBN);
         bookAuthorTV = (TextView)findViewById(R.id.puBookAuthor);
@@ -160,11 +161,15 @@ public class PublicBookDetails extends AppCompatActivity {
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent back = new Intent(PublicBookDetails.this, SearchResultForBook.class);
-                back.putExtra("key",Keyword);
-                startActivity(back);
-                finish();
+                if(flag.equals("searchbook")) {
 
+                    Intent back = new Intent(PublicBookDetails.this, SearchResultForBook.class);
+                    back.putExtra("key",Keyword);
+                    startActivity(back);
+                } else {
+                    //setResult(1,back);
+                    finish();
+               }
             }
         });
 

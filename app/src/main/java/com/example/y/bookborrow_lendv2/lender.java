@@ -82,6 +82,7 @@ public class lender extends user {
      * set a list of books the lender onws and are requested by other users
      * @param list
      */
+
     public void setRequestedBookList(ArrayList<String> list) {
         requestedBookList = list;
     }
