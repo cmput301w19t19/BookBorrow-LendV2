@@ -9,6 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+/**
+ * adapter class use for ListView in borrower -> request book list
+ *
+ * @param Listview
+ * @return none
+ */
 
 public class BorrowerRequestAdapter extends BaseAdapter {
 

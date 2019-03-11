@@ -43,6 +43,7 @@ import com.google.firebase.database.ValueEventListener;
 public class PublicBookDetails extends AppCompatActivity {
 
     String bookid;
+    String flag;
 
     TextView bookNameTV;
 
@@ -64,6 +65,8 @@ public class PublicBookDetails extends AppCompatActivity {
 
     book b;
 
+    private String Keyword;
+
     private FirebaseAuth auth;
     DatabaseReference r;
 
@@ -74,6 +77,9 @@ public class PublicBookDetails extends AppCompatActivity {
 
         Intent intent = getIntent();
         bookid = intent.getStringExtra("Id");
+        Keyword = intent.getStringExtra("Keyword");
+        //flag = intent.getStringExtra("flag");
+
 
 
         bookNameTV = (TextView)findViewById(R.id.puBookName);
@@ -88,7 +94,7 @@ public class PublicBookDetails extends AppCompatActivity {
         returnButton = (Button)findViewById(R.id.puReturnButton);
 
         FirebaseDatabase m = FirebaseDatabase.getInstance();
-        bookid = "45d11887-6961-41c0-916b-92b78c68dead"; ///for testing
+        //bookid = "45d11887-6961-41c0-916b-92b78c68dead"; ///for testing
         r = m.getReference("book/"+bookid);
 
 
@@ -146,7 +152,7 @@ public class PublicBookDetails extends AppCompatActivity {
                 String uid = user.getUid();
                 r2.child("book").child(bookid).child("requestList").child(uid).setValue(true);
                 r2.child("borrowers").child(uid).child("requestList").child(bookid).setValue(true);
-
+                r2.child("book").child(bookid).child("status").setValue("requested");
                 //set book status to requested
             }
         });
@@ -154,7 +160,16 @@ public class PublicBookDetails extends AppCompatActivity {
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //if(flag.equals("searchbook")) {
+
+                Intent back = new Intent(PublicBookDetails.this, SearchResultForBook.class);
+                back.putExtra("key",Keyword);
+                startActivity(back);
+                //} else {
+                    //setResult(1,back);
+
                 finish();
+               // }
             }
         });
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -18,6 +19,7 @@ public class OwnerHomeActivity extends AppCompatActivity {
         TextView myBooks = findViewById(R.id.select_owner_menu_1);
         TextView mySearch = findViewById(R.id.select_owner_menu_2);
         TextView myScan = findViewById(R.id.select_owner_menu_3);
+        Button backButton = findViewById(R.id.back_button);
 
         myBooks.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +45,13 @@ public class OwnerHomeActivity extends AppCompatActivity {
             }
         });
 
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OwnerHomeActivity.this, home_page.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
