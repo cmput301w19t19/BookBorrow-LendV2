@@ -1,4 +1,4 @@
-package com.example.y.bookborrow_lendv2;
+/*package com.example.y.bookborrow_lendv2;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -25,6 +25,7 @@ public class MyBookListTest extends ActivityTestRule<MyBookList> {
     public ActivityTestRule<MyBookList> rule = new ActivityTestRule<>(MyBookList.class,true,true);
 
     @Before
-    public void setUp() throws
+    //public void setUp() throws
 
 }
+*/

@@ -42,30 +42,19 @@ import com.google.firebase.database.ValueEventListener;
 
 public class PublicBookDetails extends AppCompatActivity {
 
-    String bookid;
-
-    TextView bookNameTV;
-
-    TextView ISBNTV;
-
-    TextView bookAuthorTV;
-
-    TextView bookStateTV;
-
-    TextView bookRateTV;
-
-    TextView bookOwnerTV;
-
-    TextView bookDescriptionTV;
-
-    Button requestButton;
-
-    Button returnButton;
-
-    book b;
-
+    private String bookid;
+    private TextView bookNameTV;
+    private TextView ISBNTV;
+    private TextView bookAuthorTV;
+    private TextView bookStateTV;
+    private TextView bookRateTV;
+    private TextView bookOwnerTV;
+    private TextView bookDescriptionTV;
+    private Button requestButton;
+    private Button returnButton;
+    private book b;
     private FirebaseAuth auth;
-    DatabaseReference r;
+    private DatabaseReference r;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
