@@ -8,7 +8,6 @@ public class borrower extends user {
 
     private ArrayList<book> borrowedBook = new ArrayList<book>();
     private ArrayList<book> requestedBookList = new ArrayList<book>();
-    private String uid;
     private static borrower instance;
 
 
