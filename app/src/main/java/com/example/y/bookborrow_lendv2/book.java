@@ -14,13 +14,19 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.ArrayList;
 
-/**
- * Created  on 2/15/19.
- * @since 1.0
- *
- *
- */
 
+
+
+/**
+ * book object class
+ * contain all book related attributes
+ * setter and getter for the book info.
+ * And firebase related methods include:
+ *  setToFirebase , deleteFromFirebase
+ *
+ *   * Created  on 2/15/19.
+ *  * @since 1.0
+ */
 
 public class book {
     private UUID ID;
