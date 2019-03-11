@@ -20,6 +20,11 @@
  * SOFTWARE.
  */
 package com.example.y.bookborrow_lendv2;
+/**
+ * allow owner to view his/her book, user can add book here
+ * and user can filter books status by 4 button
+ * @version 1.0
+ */
 
 import android.content.Intent;
 import android.support.annotation.NonNull;

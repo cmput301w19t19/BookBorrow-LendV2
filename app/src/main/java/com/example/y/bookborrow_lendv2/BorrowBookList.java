@@ -39,6 +39,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+/**
+ * the books which a borrower is borrowing
+ * @author BoweiLi
+ * @version 1.0
+ */
 public class BorrowBookList extends AppCompatActivity {
     private ListView myBorrowBookList;
     private ArrayList<book> borrowedBooks = new ArrayList<>();
@@ -54,6 +59,13 @@ public class BorrowBookList extends AppCompatActivity {
         myBorrowBookList = findViewById(R.id.BorrowBookList);
 
         myBorrowBookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /**
+             * click on an item
+             * @param parent
+             * @param view
+             * @param position
+             * @param id
+             */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 book bookItem = borrowedBooks.get(position);
@@ -71,6 +83,10 @@ public class BorrowBookList extends AppCompatActivity {
         String userID = "v1rSbJgp2uPgAxf4ZJXcclTgDyv2";
         dbRef = database.getReference("borrowers/"+userID);
         ValueEventListener postListener = new ValueEventListener() {
+            /**
+             * get data from firebase
+             * @param dataSnapshot
+             */
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 borrower targetBorrower = dataSnapshot.getValue(borrower.class);
@@ -78,6 +94,10 @@ public class BorrowBookList extends AppCompatActivity {
                 BorrowedBookAdapter.notifyDataSetChanged();
             }
 
+            /**
+             * get data failed
+             * @param databaseError
+             */
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Getting Post failed, log a message

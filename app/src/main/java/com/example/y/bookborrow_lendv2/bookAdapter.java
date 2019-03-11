@@ -44,24 +44,42 @@ public class bookAdapter extends BaseAdapter {
         myBook = data;
     }
 
-    @Override
     /**
-     * get the
+     * get the length of myBook
+     * @return myBook.size()
      */
+    @Override
     public int getCount(){
         return myBook.size();
     }
 
+    /**
+     * get the item at the given position of myBook
+     * @param position
+     * @return myBook.get(position);
+     */
     @Override
     public Object getItem(int position){
         return myBook.get(position);
     }
 
+    /**
+     * get the position
+     * @param position
+     * @return position
+     */
     @Override
     public long getItemId(int position){
         return position;
     }
 
+    /**
+     * get the view of book adapter
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return convertView
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         ViewHolder holder = null;
@@ -93,6 +111,9 @@ public class bookAdapter extends BaseAdapter {
 
     }
 
+    /**
+     * a Viewholder class used for bookAdapter
+     */
     private class ViewHolder{
         ImageView image;
         TextView bookName;
