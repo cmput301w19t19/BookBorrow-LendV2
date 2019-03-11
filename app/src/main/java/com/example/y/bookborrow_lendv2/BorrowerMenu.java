@@ -98,6 +98,6 @@ public class BorrowerMenu extends AppCompatActivity {
                 // BorrowerMenu.this.finish();
 
             //}
-        });
+       // });
     }
 }
