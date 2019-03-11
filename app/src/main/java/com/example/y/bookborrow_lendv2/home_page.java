@@ -106,9 +106,9 @@ public class home_page extends AppCompatActivity {
             //hello
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(home_page.this, loginAct.class);
+                Intent intent = new Intent(home_page.this, OwnerHomeActivity.class);
                 startActivity(intent);
-                finish();
+                //finish();
 
             }
         });
@@ -120,9 +120,9 @@ public class home_page extends AppCompatActivity {
             //hello
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(home_page.this, loginAct.class);
+                Intent intent = new Intent(home_page.this, BorrowerMenu.class);
                 startActivity(intent);
-                finish();
+                //finish();
 
             }
         });
@@ -134,9 +134,9 @@ public class home_page extends AppCompatActivity {
             //hello
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(home_page.this, loginAct.class);
+                Intent intent = new Intent(home_page.this, profile.class);
                 startActivity(intent);
-                finish();
+                //finish();
 
             }
         });
@@ -150,7 +150,7 @@ public class home_page extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(home_page.this, loginAct.class);
                 startActivity(intent);
-                finish();
+                //finish();
 
             }
         });

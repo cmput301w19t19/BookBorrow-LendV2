@@ -1,4 +1,5 @@
 package com.example.y.bookborrow_lendv2;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -104,7 +105,8 @@ public class profile extends AppCompatActivity {
                 dbRef.updateChildren(childUpdates);
 
                 //Update the static object as well
-
+                Intent intent = new Intent(profile.this,home_page.class);
+                startActivity(intent);
 
 
             }});

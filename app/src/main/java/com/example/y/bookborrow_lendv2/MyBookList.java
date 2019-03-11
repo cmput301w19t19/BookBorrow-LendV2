@@ -53,7 +53,7 @@ public class MyBookList extends AppCompatActivity {
 
 
 
-        ImageView addBook = findViewById(R.id.addBook);
+        ImageButton addBook = findViewById(R.id.addBook);
         final Button available = (Button) findViewById(R.id.availableFilter);
         Button requested = (Button) findViewById(R.id.requestedFilter);
         Button accepted = (Button) findViewById(R.id.acceptedFilter);
