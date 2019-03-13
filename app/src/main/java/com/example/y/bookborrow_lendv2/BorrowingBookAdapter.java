@@ -30,6 +30,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import java.util.ArrayList;
 
+/**
+ * @author BoweiLi
+ * @version 1.0
+ * @see BaseAdapter
+ * @see BorrowBookList
+ */
 public class BorrowingBookAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private ArrayList<book> myBook;
@@ -38,22 +44,39 @@ public class BorrowingBookAdapter extends BaseAdapter {
         myBook = data;
     }
 
-    // get the length of the data
+    /**
+     * get the length of myBook
+     * @return myBook.size()
+     */
     @Override
     public int getCount(){
         return myBook.size();
     }
-
+    /**
+     * get the item at the given position of myBook
+     * @param position
+     * @return myBook.get(position);
+     */
     @Override
     public Object getItem(int position){
         return myBook.get(position);
     }
-
+    /**
+     * get the position
+     * @param position
+     * @return position
+     */
     @Override
     public long getItemId(int position){
         return position;
     }
-
+    /**
+     * get a view Holder
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return convertView
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         ViewHolder holder = null;
@@ -83,7 +106,9 @@ public class BorrowingBookAdapter extends BaseAdapter {
         return convertView;
 
     }
-
+    /**
+     * the viewHolder object used for this adapter
+     */
     private class ViewHolder{
         ImageView image;
         TextView bookName;

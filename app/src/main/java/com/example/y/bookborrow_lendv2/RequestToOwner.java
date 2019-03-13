@@ -39,6 +39,12 @@ import com.google.firebase.database.DatabaseError;
 
 import java.util.ArrayList;
 
+/**
+ * this class is a page allow borrower request book, books are displayed on listview
+ *  @author
+ *  @version 1.0
+ *
+ */
 public class RequestToOwner extends AppCompatActivity {
 
     private ListView listview;

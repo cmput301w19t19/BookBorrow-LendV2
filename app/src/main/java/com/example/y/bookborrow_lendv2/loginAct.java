@@ -83,13 +83,8 @@ public class loginAct extends AppCompatActivity {
             //hello
             @Override
             public void onClick(View v) {
-
-                ///
-                //FirebaseDatabase
-
-
+                /*
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
-
                     String bookname = "The Elements of Statistical Learning";
                     book b = new book();
                     b.setAuthor("Trevor Hastie Robert Tibshirani Jerome Friedman");
@@ -99,15 +94,10 @@ public class loginAct extends AppCompatActivity {
                     b.setToFirebase();
                     b.setStatusToRequested();
 
-
-
-
                     Toast.makeText(getApplicationContext(),"create a book",Toast.LENGTH_LONG);
                     Toast.makeText(getApplicationContext(),b.getID(),Toast.LENGTH_LONG);
                     Toast.makeText(getApplicationContext(),b.getName(),Toast.LENGTH_LONG);
-                    Toast.makeText(getApplicationContext(),b.getAuthor(),Toast.LENGTH_LONG);
-
-
+                    Toast.makeText(getApplicationContext(),b.getAuthor(),Toast.LENGTH_LONG);*/
 
 
                 final String email = inputEmail.getText().toString().trim();

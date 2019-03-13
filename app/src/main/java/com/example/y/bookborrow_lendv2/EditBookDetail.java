@@ -40,6 +40,14 @@ import com.google.firebase.database.ValueEventListener;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+
+/**
+ * This class is to provide an interface for owner to edit details of one of his book
+ * @author Team 19
+ * @see PrivateBookDetails
+ * @version 1.0
+ */
+
 public class EditBookDetail extends AppCompatActivity {
     book b;
     EditText bookNamkeEditText;
@@ -50,6 +58,14 @@ public class EditBookDetail extends AppCompatActivity {
     private FirebaseAuth auth;
 
 
+    /**
+     * Usage one:
+     * Get a book id from PrivateBookDetails and show current information of a book to owner
+     * Prompt owner to edit book information and save it
+     * Usage two:
+     * Get a flag (int 0) from MyBookList and prompt owner to enter information of a book
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,12 +73,8 @@ public class EditBookDetail extends AppCompatActivity {
         Log.i("testhahaha","555");
 
         auth = FirebaseAuth.getInstance();
-
-
-
         Button saveButton = (Button)findViewById(R.id.Buttonsave);
         Button uploadButton = (Button)findViewById(R.id.ButtonUpload);
-
 
         bookNamkeEditText = (EditText)findViewById(R.id.pt4);
         authorEditText = (EditText)findViewById(R.id.pt2);
@@ -78,8 +90,10 @@ public class EditBookDetail extends AppCompatActivity {
             b = new book();
             id = b.getID();
         }else{
+
             FirebaseDatabase m = FirebaseDatabase.getInstance();
             DatabaseReference r = m.getReference("book/"+id);
+
             ValueEventListener bookLister = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -124,6 +138,11 @@ public class EditBookDetail extends AppCompatActivity {
 
         }
 
+        /**
+         * get all the information from users
+         * update book infor to firebase, path:booklendborrow/book/[bookid]
+         * update owner book list to firebase, path:booklendborrow/[user id]
+         */
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -146,6 +165,11 @@ public class EditBookDetail extends AppCompatActivity {
                 finish();
             }
         });
+
+        /**
+         * Go to upload image activity
+         * will be finished in version2
+         */
 
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
