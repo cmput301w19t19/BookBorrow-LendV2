@@ -166,8 +166,7 @@ public class RequestToOwner extends AppCompatActivity {
                 for(int j = 0; j < mDatas.size();j++){
                     if(mDatas.get(j).isSelected() == true){
                         dbBook.child("book").child(book_ID).child("status").setValue("accepted");
-                        dbBorrower.child("borrowers").child(mDatas.get(j).getUserID()).child("BorrowerRequest").child(book_ID).setValue("true");
-                        for(int i = 0; i < mDatas.size();i++)
+                         for(int i = 0; i < mDatas.size();i++)
                         {
                             mDatas.get(i).selected = true;
                         }
@@ -207,11 +206,11 @@ public class RequestToOwner extends AppCompatActivity {
 
 
     private void deleteRequest(ArrayList<B_request> mDatas, DatabaseReference dbBorrower, DatabaseReference dbHolder, String book_ID){
-        for(int j = 0; j < mDatas.size();j++){
-            if(mDatas.get(j).isSelected() == true){
-                dbHolder.child(mDatas.get(j).getUserID()).removeValue();
-                dbBorrower.child("borrowers").child(mDatas.get(j).getUserID()).child("requestList").child(book_ID).removeValue() ;
-                mDatas.remove(j);
+        for(B_request bRequest: mDatas){
+            if(bRequest.isSelected()){
+                dbHolder.child(bRequest.getUserID()).removeValue();
+                //dbBorrower.child("borrowers").child(bRequest.getUserID()).child("requestList").child(book_ID).removeValue() ;
+                mDatas.remove(bRequest);
             }
         }
         mAdapter.notifyDataSetChanged();

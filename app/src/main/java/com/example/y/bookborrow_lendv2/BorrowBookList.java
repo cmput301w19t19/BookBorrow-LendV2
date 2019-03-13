@@ -81,7 +81,7 @@ public class BorrowBookList extends AppCompatActivity {
         BorrowedBookAdapter = new BorrowingBookAdapter(this,borrowedBooks);
         myBorrowBookList.setAdapter(BorrowedBookAdapter);
         String userID = "v1rSbJgp2uPgAxf4ZJXcclTgDyv2";
-        dbRef = database.getReference("borrowers/"+userID);
+        dbRef = database.getReference("borrowers").child(userID).child("acceptList");
         ValueEventListener postListener = new ValueEventListener() {
             /**
              * get data from firebase
@@ -89,9 +89,28 @@ public class BorrowBookList extends AppCompatActivity {
              */
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                borrower targetBorrower = dataSnapshot.getValue(borrower.class);
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    String bookID = ds.getKey();
+                    DatabaseReference DbRef = database.getReference("book/"+bookID);
+                    ValueEventListener eventListener1 = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
+                            book targetBook = dataSnapshot1.getValue(book.class);
+                            borrowedBooks.add(targetBook);
+                            BorrowedBookAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError1) {
+
+                        }
+                    };
+                    DbRef.addValueEventListener(eventListener1);
+                }
+                /*borrower targetBorrower = dataSnapshot.getValue(borrower.class);
                 borrowedBooks = targetBorrower.getBorrowedBook();
                 BorrowedBookAdapter.notifyDataSetChanged();
+                */
             }
 
             /**

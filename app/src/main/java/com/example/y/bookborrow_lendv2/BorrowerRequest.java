@@ -90,7 +90,7 @@ public class BorrowerRequest extends AppCompatActivity {
         String uid = user.getUid();
 
         booksID = new ArrayList<>();
-        DatabaseReference rootRef = database.getReference("borrowers").child(uid).child("BorrowerRequest");
+        DatabaseReference rootRef = database.getReference("borrowers").child(uid).child("requestList");
         //DatabaseReference rootRef = database.getReference("lender").child(uid).child("MyBookList");
 
 
@@ -130,7 +130,7 @@ public class BorrowerRequest extends AppCompatActivity {
 
 
 
-        // user click showaccept button, book cahnge to accepted books
+        // user click showaccept button, book change to accepted books
         showAccepted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

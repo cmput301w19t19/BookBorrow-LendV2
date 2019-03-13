@@ -52,7 +52,7 @@
         android:layout_toRightOf="@+id/acceptedFilter"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="20dp"
-        android:text="requested" />
+        android:text="borrowed" />
 
     <ImageButton
         android:id="@+id/addBook"
