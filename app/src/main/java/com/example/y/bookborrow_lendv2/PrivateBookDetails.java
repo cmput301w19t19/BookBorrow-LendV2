@@ -39,6 +39,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * This Class is to show all the detail of a book to the book owner
+ * @author team 19
+ * @see MyBookList
+ * @version1.0
+ */
 public class PrivateBookDetails extends AppCompatActivity {
 
     String bookid;
@@ -62,7 +68,6 @@ public class PrivateBookDetails extends AppCompatActivity {
 
         Intent intent = getIntent();
         bookid = intent.getStringExtra("Id");
-
         bookNameTV = (TextView)findViewById(R.id.pBookName);
         ISBNTV = (TextView)findViewById(R.id.pBookISBN);
         bookAuthorTV = (TextView)findViewById(R.id.pBookAuthor);
@@ -74,10 +79,10 @@ public class PrivateBookDetails extends AppCompatActivity {
         requestButton = (Button)findViewById(R.id.bookDetailRequest);
         returnButton = (Button)findViewById(R.id.ReturnButton);
 
-
+        /**
+         *  Get the information of the book from firebase and show them on the screen
+         */
         FirebaseDatabase m = FirebaseDatabase.getInstance();
-        //bookid = "c10dee3e-c475-4fee-9a7f-aa111675825c"; ///for testing
-
         DatabaseReference r = m.getReference("book/"+bookid);
         ValueEventListener bookListner = new ValueEventListener() {
             @Override
@@ -120,6 +125,11 @@ public class PrivateBookDetails extends AppCompatActivity {
         };
         r.addListenerForSingleValueEvent(bookListner);
 
+        /**
+         * Prompt the user to edit book detail if the user want
+         * Go to editBookDetail
+         * @see editBookDetail
+         */
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,6 +139,11 @@ public class PrivateBookDetails extends AppCompatActivity {
             }
         });
 
+        /**
+         *Prompt the user to delete the book if the user does not want to share it
+         * remove the book from the book list on firebase
+         * remove the book from the owner book list firebase
+         */
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,6 +159,11 @@ public class PrivateBookDetails extends AppCompatActivity {
             }
         });
 
+        /**
+         * Prompt the user to see all the requests on the book
+         * go to requestToOwner activity
+         * @see requestToOwner
+         */
         requestButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -153,6 +173,9 @@ public class PrivateBookDetails extends AppCompatActivity {
             }
         });
 
+        /**
+         * Return to the activity which all this one, using flag to distinct caller
+         */
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,7 +185,12 @@ public class PrivateBookDetails extends AppCompatActivity {
         });
     }
 
-
+    /**
+     *  Get all result back
+     * @param requestCode
+     * @param resultCode
+     * @param Data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent Data){
         super.onActivityResult(requestCode,resultCode,Data);

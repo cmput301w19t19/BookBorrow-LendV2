@@ -64,7 +64,6 @@ public class home_page extends AppCompatActivity {
         FirebaseUser user = auth.getCurrentUser();
         String uid = user.getUid();
 
-        Toast.makeText(getApplicationContext(), "Enter email address!"+uid, Toast.LENGTH_SHORT).show();
 
 
         //get current logged in user name

@@ -1,0 +1,14 @@
+UML: UpdatedUML.png
+
+Release Planning changed on wiki;
+
+Activity Class: loginAct.java, home_page.java, profile.java, OwnerHomeActivity.java, BorrowerMenu.java, Search.java,
+SearchResultForPeople.java, SearchResultForBook.java, RequestToOwner.java, PublicBookDetails.java, PrivateBookDetails.java,
+MyBookList.java, EditBookDetail.java, BorrowerRequest.java, BorrowBookList.java
+
+Model class: user.java, borrower.java, lender.java, NormalUser.java, book.java
+
+Adapter: bookAdapter.java, SearchPersonAdapter.java, SearchBookAdapter.java, Request_Book_MyAdapter.java,
+BorrowingBookAdapter.java, BorrowerRequestAdapter.java
+
+Unused Class: RateToBorrower.java, RateToOwner.java, SignOutActivity.java,bookISBN.java, check_to_scan.java

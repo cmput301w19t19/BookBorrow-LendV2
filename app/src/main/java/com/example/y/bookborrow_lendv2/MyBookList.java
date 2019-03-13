@@ -48,6 +48,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+/**
+ * this activity shows the books the user owns with different kinds of starus: requested, avaliable,
+ * borrowed and accepted
+ */
+
 public class MyBookList extends AppCompatActivity {
     private ListView myBookList;
     private ArrayList<book> bookList = new ArrayList<>();
@@ -71,7 +76,7 @@ public class MyBookList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_book_list);
 
-        Log.i("testnn","111");
+
 
 
 
@@ -135,34 +140,7 @@ public class MyBookList extends AppCompatActivity {
         Log.i("testnn","444");
 
         rootRef.addListenerForSingleValueEvent(eventListener);
-        /*Log.i("testsize1",Integer.toString(booksID.size()));
-        booksID.add("hello");
-        Log.i("testsize2",Integer.toString(booksID.size()));
-        for(String bookID:booksID){
-            DbRef = database.getReference("book/"+bookID);
-            Log.i("test11",bookID);
-            Toast.makeText(MyBookList.this,"test11",Toast.LENGTH_SHORT).show();
-            ValueEventListener postListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    book targetBook = dataSnapshot.getValue(book.class);
-                    bookList.add(targetBook);
-                    Log.i("test22",targetBook.getID());
-                    myBookAdapter.notifyDataSetChanged();
 
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // Getting Post failed, log a message
-                    Log.w( "loadPost:onCancelled", databaseError.toException());
-                }
-            };
-            DbRef.addValueEventListener(postListener);
-        }
-
-
-*/
         Log.i("testnn","555");
         addBook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -269,24 +247,6 @@ public class MyBookList extends AppCompatActivity {
         });
 
 
-        /*String name = "111";
-        String author = "Bowei";
-        String ISBN = "1110";
-        String description = "111 Bowei 1110";
-        Double longitude = 2.0;
-        Double latitude = 3.0;
-        String title = "111";
-        Double rating = 1.0;
-        String borrowerName = "FY";
-        String ownerName = "TY";
-        String status = "available";
-
-        book book1 = new book(name, author, ISBN, longitude, latitude, description,title,rating,borrowerName,ownerName,status);
-        bookList = new ArrayList<>();
-        bookList.add(book1);
-        myBookAdapter = new bookAdapter(this, bookList);
-        myBookList.setAdapter(myBookAdapter);
-        */
 
         bookList = new ArrayList<>();
         myBookAdapter = new bookAdapter(this, bookList);
@@ -317,8 +277,7 @@ public class MyBookList extends AppCompatActivity {
                 }
             };
             DbRef.addValueEventListener(postListener);
-            //bookList.add(book1);
-            //adapter.notifyDataSetChanged();
+
         }
 
     }
