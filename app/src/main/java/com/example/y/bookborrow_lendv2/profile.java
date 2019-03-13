@@ -157,10 +157,10 @@ public class profile extends AppCompatActivity {
 
 
 
-                childUpdates.put(uid+"/name", userName);
+                childUpdates.put("users/"+uid+"/name", userName);
                 borrowerRef.updateChildren(childUpdates);
 
-                childUpdates.put(uid+"/name", userName);
+                childUpdates.put("users/"+uid+"/name", userName);
                 lenderRef.updateChildren(childUpdates);
 
 
