@@ -27,9 +27,9 @@ import java.util.Map;
 
 public class bookISBN {
     private String ISBN;
-    private Double rate;
+    private Double totalRate;
     private Integer borrowTime;
-    private ArrayList<String> borrowerID;
+    private ArrayList<RatingAndComment> commentList;
 
 
     bookISBN(int ISBN){
@@ -37,12 +37,17 @@ public class bookISBN {
         this.ISBN = sISBN;
     }
 
+    public void updateBorrowTime(){
+        this.borrowTime += 1;
+    }
+
+
     public void setBookRate(Double rating) {
-        this.rate = rating;
+        this.totalRate += rating;
     }
 
     public String getBookRate() {
-        return Double.toString(this.rate);
+        return Double.toString(this.totalRate/this.borrowTime);
     }
 
 
