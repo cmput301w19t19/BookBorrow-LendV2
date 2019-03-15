@@ -80,11 +80,9 @@ public class EditBookDetail extends AppCompatActivity {
         authorEditText = (EditText)findViewById(R.id.pt2);
         ISBNEditText = (EditText)findViewById(R.id.pt3);
         descriptionEditText = (EditText)findViewById(R.id.editTextDes);
-        final TextView bookstatusTextView = (TextView)findViewById(R.id.pt1);
 
         Intent i = getIntent();
         id = i.getStringExtra("0");
-        Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
 
         if (id.equals("0")){
             b = new book();
@@ -114,11 +112,6 @@ public class EditBookDetail extends AppCompatActivity {
                         String author = b.getAuthor();
                         if (author != null) {
                             authorEditText.setText(b.getAuthor());
-                        }
-
-                        String state = b.getStatus();
-                        if (state != null) {
-                            bookstatusTextView.setText(state);
                         }
 
                         String description = b.getDescription();

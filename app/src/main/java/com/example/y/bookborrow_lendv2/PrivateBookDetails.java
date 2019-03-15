@@ -196,12 +196,9 @@ public class PrivateBookDetails extends AppCompatActivity {
         super.onActivityResult(requestCode,resultCode,Data);
         if (requestCode == 2 && resultCode == 1){
             bookid = Data.getStringExtra("ID");
-            Toast.makeText(getApplicationContext(),bookid,Toast.LENGTH_SHORT).show();
         }
 
         if (requestCode == 3){
-            Toast.makeText(getApplicationContext(),"Return from FengYuan",Toast.LENGTH_SHORT).show();
-
         }
 
 

@@ -22,21 +22,29 @@
 
 package com.example.y.bookborrow_lendv2;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 public class bookISBN {
     private String ISBN;
-    private String bookRating;
+    private Double rate;
+    private Integer borrowTime;
+    private ArrayList<String> borrowerID;
+
 
     bookISBN(int ISBN){
         String sISBN = Integer.toString(ISBN);
         this.ISBN = sISBN;
     }
 
-    public void setBookRating(Float rating) {
-        String srate = Float.toString(rating);
-        this.bookRating = srate;
+    public void setBookRate(Double rating) {
+        this.rate = rating;
     }
 
-    public String getBookRating() { return bookRating; }
+    public String getBookRate() {
+        return Double.toString(this.rate);
+    }
+
 
 
 }
