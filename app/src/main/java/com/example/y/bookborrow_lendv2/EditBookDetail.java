@@ -151,10 +151,12 @@ public class EditBookDetail extends AppCompatActivity {
                 b.setDescription(descriptionEditText.getText().toString());
                 b.setISBN(ISBNEditText.getText().toString());
 
+
                 FirebaseUser user = auth.getCurrentUser();
                 DatabaseReference r = FirebaseDatabase.getInstance().getReference();
 
                 String uid = user.getUid();
+                b.setOwnerID(uid);
                 r.child("lenders").child(uid).child("MyBookList").child(id).setValue(true);
 
                 b.setToFirebase();
