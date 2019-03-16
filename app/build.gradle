@@ -44,6 +44,9 @@ dependencies {
     //package for testing
     androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.6.1'
 
+    // Zxing package
+    implementation 'com.journeyapps:zxing-android-embedded:3.5.0'
+
 
 
     implementation('com.facebook.android:audience-network-sdk:4.28.0', {
