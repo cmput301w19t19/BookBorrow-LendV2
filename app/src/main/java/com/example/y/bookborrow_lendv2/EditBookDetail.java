@@ -70,7 +70,6 @@ public class EditBookDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_book_detail);
-        Log.i("testhahaha","555");
 
         auth = FirebaseAuth.getInstance();
         Button saveButton = (Button)findViewById(R.id.Buttonsave);
@@ -143,6 +142,9 @@ public class EditBookDetail extends AppCompatActivity {
                 b.setAuthor(authorEditText.getText().toString());
                 b.setDescription(descriptionEditText.getText().toString());
                 b.setISBN(ISBNEditText.getText().toString());
+
+                bookISBN ISBN = new bookISBN(ISBNEditText.getText().toString());
+                ISBN.setToFirebse();
 
 
                 FirebaseUser user = auth.getCurrentUser();

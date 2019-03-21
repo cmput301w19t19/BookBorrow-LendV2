@@ -360,7 +360,10 @@ public class book {
      * return the book's rating
      * @return rating
      */
-    public Double getBookRating(){return rating; }
+    public String getBookRating(){
+        bookISBN ISBN = new bookISBN(this.getISBN());
+        return ISBN.getBookRate();
+    }
 
     /**
      * return the description which contains the book's author, title

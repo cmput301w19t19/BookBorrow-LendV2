@@ -96,4 +96,13 @@
     <string name="EditBookDetailUpload">Upload Photo</string>
     <string name="requestViewRequestB">show requested</string>
     <string name="requestViewAcceptB">show accepted</string>
+    <string name="RateToOwnerUserName">Missing owner user name!</string>
+    <string name="RateToOwnerUserDesciption">Missing user rating!</string>
+    <string name="RateToOwnerUserRatePrompt">A number between 1 and 10</string>
+    <string name="RateToOwnerUserCommentPrompt">Please enter comment about your lender. Is he be on time?Is he be on time?</string>
+    <string name="RateToOwnerBookName">Missing Book Name!</string>
+    <string name="RateToOwnerBookISBN">Missing ISBN!</string>
+    <string name="RateToOwnerBookAuthor">Missing Author!</string>
+    <string name="RateToOwnerBookComment">Is this book interesting? Do you like it?</string>
+    <string name="RateToOwnerUserEmail">Missing lender email!</string>
 </resources>
