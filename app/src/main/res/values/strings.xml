@@ -104,4 +104,5 @@
     <string name="RateToOwnerBookISBN">Missing ISBN!</string>
     <string name="RateToOwnerBookAuthor">Missing Author!</string>
     <string name="RateToOwnerBookComment">Is this book interesting? Do you like it?</string>
+    <string name="RateToOwnerUserEmail">Missing lender email!</string>
 </resources>
