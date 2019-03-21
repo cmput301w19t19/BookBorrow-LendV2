@@ -133,6 +133,7 @@
                 style="@style/Widget.AppCompat.Button.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:onClick="toOwnerMapActivity"
                 android:text="@string/pLocationButton"
                 android:textSize="14sp"
                 tools:layout_editor_absoluteX="126dp"

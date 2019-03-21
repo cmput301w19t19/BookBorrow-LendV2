@@ -61,6 +61,16 @@ public class PrivateBookDetails extends AppCompatActivity {
     book bookx;
     FirebaseAuth auth;
 
+    //function that user click location button and jump to map activity
+    public void toOwnerMapActivity(View view){
+
+        Intent intent = new Intent(getApplicationContext(), MapsActivityOwnerSetLocation.class);
+        startActivity(intent);
+    }
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
