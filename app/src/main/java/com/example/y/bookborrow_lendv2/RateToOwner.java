@@ -40,8 +40,8 @@ public class RateToOwner extends AppCompatActivity {
         EditText O_rate_borrower = (EditText) findViewById(R.id.edit_owner_rate);
         EditText O_com_borrower = (EditText) findViewById(R.id.edit_owner_comment);
 
-        TextView B_username = (TextView) findViewById(R.id.Book_username);
-        TextView B_description = (TextView) findViewById(R.id.Book_description);
+        TextView B_username = (TextView) findViewById(R.id.Book_name);
+        TextView B_description = (TextView) findViewById(R.id.Book_author);
 
         EditText B_rate_borrower = (EditText) findViewById(R.id.edit_book_rate);
         EditText B_com_borrower = (EditText) findViewById(R.id.edit_book_comment);
