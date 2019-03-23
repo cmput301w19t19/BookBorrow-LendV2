@@ -22,50 +22,146 @@
 
 package com.example.y.bookborrow_lendv2;
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class RateToOwner extends AppCompatActivity {
+
+    private book b;
+    private bookISBN ISBN;
+    private lender owner;
+
+    EditText ownerRateEditText;
+    EditText ownerCommentEditText;
+    EditText bookRateEditText;
+    EditText bookCommentEditText;
+
+    TextView ownerUserEmailTextView;
+    TextView ownerUserNameTextView;
+    TextView bookNameTextView;
+    TextView bookAuthorTextView;
+    TextView bookISBNTextView;
+
+
+
+    FirebaseAuth auth;
+    FirebaseUser user;
+    FirebaseDatabase m;
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_to_owner);
 
-        TextView O_username = (TextView) findViewById(R.id.Owner_username);
-        TextView O_description = (TextView) findViewById(R.id.Owner_description);
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        uid = user.getUid();
+        m = FirebaseDatabase.getInstance();
 
-        EditText O_rate_borrower = (EditText) findViewById(R.id.edit_owner_rate);
-        EditText O_com_borrower = (EditText) findViewById(R.id.edit_owner_comment);
+        ownerRateEditText = (EditText) findViewById(R.id.edit_owner_rate);
+        ownerCommentEditText = (EditText) findViewById(R.id.edit_owner_comment);
+        bookRateEditText = (EditText) findViewById(R.id.edit_book_rate);
+        bookCommentEditText = (EditText) findViewById(R.id.edit_book_comment);
 
-        TextView B_username = (TextView) findViewById(R.id.Book_username);
-        TextView B_description = (TextView) findViewById(R.id.Book_description);
+        Button saveButton = (Button)findViewById(R.id.RateToOwnerSaveButton);
 
-        EditText B_rate_borrower = (EditText) findViewById(R.id.edit_book_rate);
-        EditText B_com_borrower = (EditText) findViewById(R.id.edit_book_comment);
+        ownerUserNameTextView = (TextView) findViewById(R.id.Owner_username);
+        ownerUserEmailTextView = (TextView)findViewById(R.id.Owner_user_email);
+        bookNameTextView = (TextView) findViewById(R.id.Book_name);
+        bookAuthorTextView = (TextView) findViewById(R.id.Book_author);
+        bookISBNTextView = (TextView) findViewById(R.id.Book_ISBN);
 
-        set_O_UsernameAndDescription();
-        set_O_RateAndComment();
 
-        set_B_UsernameAndDescription();
-        set_B_RateAndComment();
+        Intent i = getIntent();
+        String bid = i.getStringExtra("0");
+
+        /**
+         * set basic book information
+         */
+        DatabaseReference r = m.getReference("book/"+bid);
+        ValueEventListener bookLister = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    b = dataSnapshot.getValue(book.class);
+                    String bookName = b.getName();
+                    if (bookName != null){
+                        bookNameTextView.setText(bookName);
+                    }
+
+                    String bookISBN = b.getISBN();
+                    if (ISBN != null) {
+                        bookISBNTextView.setText(bookISBN);
+                    }
+
+                    String author = b.getAuthor();
+                    if (author != null) {
+                        bookAuthorTextView.setText(b.getAuthor());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(),"Fail to get data from database",Toast.LENGTH_SHORT).show();
+            }
+        };
+        r.addListenerForSingleValueEvent(bookLister);
+
+
+        /**
+         * set basic owner information
+         */
+        String ownerUid = b.getOwnerID();
+        r = m.getReference("lenders/" + ownerUid);
+        ValueEventListener lenderListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               if (dataSnapshot.exists() ){
+                   owner = dataSnapshot.getValue(lender.class);
+
+                   String userEmail = owner.getEmail();
+                   if (userEmail != null){
+                       ownerUserEmailTextView.setText(userEmail);
+                   }
+
+                   String userName = owner.getName();
+                   if (userName != null){
+                       ownerUserNameTextView.setText(userName);
+                   }
+
+               }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(),"Fail to get data from database",Toast.LENGTH_SHORT).show();
+            }
+        };
+
+
+
+
+
+
+
+
     }
 
-    public void set_O_UsernameAndDescription(){
-
-    }
-
-    public void set_O_RateAndComment(){
-
-    }
-
-    public void set_B_UsernameAndDescription(){
-
-    }
-
-    public void set_B_RateAndComment(){
-
-    }
 }

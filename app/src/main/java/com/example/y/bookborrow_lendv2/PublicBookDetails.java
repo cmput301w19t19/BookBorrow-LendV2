@@ -114,9 +114,8 @@ public class PublicBookDetails extends AppCompatActivity {
                         bookStateTV.setText(state);
                     }
 
-                    Double rate = b.getBookRating();
-                    String srate = Double.toString(rate);
-                    bookRateTV.setText(srate);
+                    String rate = b.getBookRating();
+                    bookRateTV.setText(rate);
 
                     String description = b.getDescription();
                     if (description != null) {

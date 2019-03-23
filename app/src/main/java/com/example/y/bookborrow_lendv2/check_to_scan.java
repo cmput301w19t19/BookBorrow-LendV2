@@ -56,12 +56,13 @@ public class check_to_scan extends AppCompatActivity{
 
         FirebaseAuth Auth = FirebaseAuth.getInstance();
         FirebaseUser users = Auth.getCurrentUser();
-        String uid = users.getUid();
+        uid = users.getUid();
+        Log.i("start the app", "fuck this bullshit");
 
-        //Intent intent = getIntent();
+        Intent intent = getIntent();
         // need the message to know if it is borrower to scan or is owner to scan
-        //final String user = intent.getStringExtra("user");
-        user = "owner";
+        user = intent.getStringExtra("user");
+        //user = "owner";
 
 
 
@@ -107,38 +108,12 @@ public class check_to_scan extends AppCompatActivity{
         scanning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch(B_status){
-                    case "detail":
-                        new IntentIntegrator(check_to_scan.this)
-                                .setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)//any type of ISBN
-                                .setOrientationLocked(true)
-                                .setPrompt("Please Point to QR code")
-                                .setCameraId(0) //chose camera
-                                .initiateScan();
-                        Toast.makeText(check_to_scan.this, "Success detail", Toast.LENGTH_LONG).show();
-                        //Intent intent = new Intent(check_to_scan.this, PrivateBookDetails.class);
-                        //startActivity(intent);
-                        break;
-                    case "borrow":
-                        new IntentIntegrator(check_to_scan.this)
-                                .setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)//any type of ISBN
-                                .setOrientationLocked(true)
-                                .setPrompt("Please Point to QR code")
-                                .setCameraId(0) //chose camera
-                                .initiateScan();
-                        Toast.makeText(check_to_scan.this, "Success Borrowed", Toast.LENGTH_LONG).show();
-                        break;
-                    case "return":
-                        new IntentIntegrator(check_to_scan.this)
-                                .setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)//any type of ISBN
-                                .setOrientationLocked(false)
-                                .setPrompt("Please Point to QR code")
-                                .setCameraId(0) //chose camera
-                                .initiateScan();
-                        Toast.makeText(check_to_scan.this, "Success Returned", Toast.LENGTH_LONG).show();
-                        break;
-
-                }
+                new IntentIntegrator(check_to_scan.this)
+                        .setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)//any type of ISBN
+                        .setOrientationLocked(true)
+                        .setPrompt("Please Point to QR code")
+                        .setCameraId(0) //chose camera
+                        .initiateScan();
             }
         });
 
@@ -150,9 +125,10 @@ public class check_to_scan extends AppCompatActivity{
         super.onActivityResult(requestCode, resultCode, data);
         IntentResult intentResult= IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (intentResult!=null){
-            if (intentResult.getContents()==null) {
+            String result = intentResult.getContents();
+            if (result!=null) {
                 Toast.makeText(check_to_scan.this, "Checking QR code finished", Toast.LENGTH_LONG).show();
-                String bookID = findBookId(resultCode);
+                String bookID = findBookId(result);
                 DbRef = m.getReference("book");
 
                 ValueEventListener eventListener = new ValueEventListener() {
@@ -253,11 +229,11 @@ public class check_to_scan extends AppCompatActivity{
     }
 
 
-    public String findBookId(int ISBN) {
+    public String findBookId(String ISBN) {
         //String bookID;
         selectedID = null;
         // code is the ISBN that the result of scanner
-        code = String.valueOf(ISBN);
+        code = ISBN;
         auth = FirebaseAuth.getInstance();
         FirebaseUser users = auth.getCurrentUser();
         String uid = users.getUid();

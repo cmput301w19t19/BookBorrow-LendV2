@@ -98,7 +98,7 @@ public class BorrowingBookAdapter extends BaseAdapter {
 
         book book = myBook.get(position);
         holder.bookName.setText(book.getName());
-        holder.OwnerName.setText(book.getOwnerName());
+        holder.OwnerName.setText(book.getOwnerID());
         //holder.image.setImageDrawable();
         holder.rating.setText(book.getBookRating().toString());
         holder.description.setText(book.getDescription());
