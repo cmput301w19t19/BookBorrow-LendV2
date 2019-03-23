@@ -251,17 +251,14 @@ public class PrivateBookDetails extends AppCompatActivity {
 
         //return from map activity and
         if (requestCode == pickMapPointRequest){
+            LatLng latLng = (LatLng) Data.getParcelableExtra("picked_point");
 
 
-                LatLng latLng = (LatLng) Data.getParcelableExtra("picked_point");
-                Toast.makeText(this, "Point Chosen: " + latLng.latitude + " " + latLng.longitude, Toast.LENGTH_LONG).show();
-                //locationCode = Data.getStringExtra("location");
-                //Log.i("location", locationCode);
-                //Toast.makeText(getApplicationContext(),"location back",Toast.LENGTH_SHORT).show();
-
-
-
-
+            FirebaseDatabase db = FirebaseDatabase.getInstance();
+            DatabaseReference r = db.getReference("book/"+bookx.getID());
+            r.child("longitude").setValue(latLng.longitude);
+            r.child("latitude").setValue(latLng.latitude);
+            Toast.makeText(this, "Point Chosen: " + latLng.latitude + " " + latLng.longitude, Toast.LENGTH_LONG).show();
 
         }
 

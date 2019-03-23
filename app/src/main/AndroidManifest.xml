@@ -8,10 +8,7 @@
          location permissions for the 'MyLocation' functionality.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -37,8 +34,11 @@
             android:value="@string/google_maps_key" />
 
         <activity
+            android:name=".MapsActivityBorrowerView"
+            android:label="@string/title_activity_maps_borrower_view"></activity>
+        <activity
             android:name=".MapsActivityOwnerSetLocation"
-            android:label="@string/title_activity_maps_owner_set_location"></activity>
+            android:label="@string/title_activity_maps_owner_set_location" />
         <activity android:name=".SignOutActivity" />
         <activity android:name=".EditBookDetail" />
         <activity android:name=".check_to_scan" />
