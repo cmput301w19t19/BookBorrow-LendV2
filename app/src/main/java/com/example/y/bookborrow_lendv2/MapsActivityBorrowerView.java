@@ -158,7 +158,8 @@ public class MapsActivityBorrowerView extends FragmentActivity implements OnMapR
 
         // Add a marker in book location and move the camera
         LatLng bookLocation = new LatLng(newLat,newLong);
+        //Toast.makeText(getApplicationContext(),bookLocation.toString(),Toast.LENGTH_SHORT).show();
         mMap.addMarker(new MarkerOptions().position(bookLocation).title("Book Location is here"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bookLocation,10));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bookLocation,15));
     }
 }

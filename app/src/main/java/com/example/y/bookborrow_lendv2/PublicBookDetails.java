@@ -186,24 +186,20 @@ public class PublicBookDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //this latlong is for testing only need to find from firebase
-               // auth = FirebaseAuth.getInstance();
-                //FirebaseUser user = auth.getCurrentUser();
-                //DatabaseReference r2 = FirebaseDatabase.getInstance().getReference();
                 FirebaseDatabase m = FirebaseDatabase.getInstance();
                 DatabaseReference r2 = m.getReference("book/"+bookid);
 
                 ValueEventListener bookListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        book bookFromFirebade = dataSnapshot.getValue(book.class);
+                        book bookFromFirebase = dataSnapshot.getValue(book.class);
 
-                        if (bookFromFirebade.getLatitude() != null){
-                            latFromFirebase = bookFromFirebade.getLatitude();
+                        if (bookFromFirebase.getLatitude() != null){
+                            latFromFirebase = bookFromFirebase.getLatitude();
                         }
 
-                        if (bookFromFirebade.getLongitude() != null){
-                            longFromFirebase = bookFromFirebade.getLongitude();
+                        if (bookFromFirebase.getLongitude() != null){
+                            longFromFirebase = bookFromFirebase.getLongitude();
                         }
                     }
 
@@ -214,14 +210,21 @@ public class PublicBookDetails extends AppCompatActivity {
                     }
 
                 };
-                r2.addListenerForSingleValueEvent(bookListener);
 
-
-                //LatLng locationCode = new LatLng(47.6065467,-122.3380167);
                 LatLng locationCode = new LatLng(latFromFirebase,longFromFirebase);
+                //Toast.makeText(getApplicationContext(),locationCode.toString(),Toast.LENGTH_SHORT).show();
                 Intent location = new Intent(PublicBookDetails.this, MapsActivityBorrowerView.class);
                 location.putExtra("locationCode",locationCode);
                 startActivity(location);
+                r2.addListenerForSingleValueEvent(bookListener);
+
+
+                /*//LatLng locationCode = new LatLng(47.6065467,-122.3380167);
+                LatLng locationCode = new LatLng(latFromFirebase,longFromFirebase);
+                Toast.makeText(getApplicationContext(),locationCode.toString(),Toast.LENGTH_SHORT).show();
+                Intent location = new Intent(PublicBookDetails.this, MapsActivityBorrowerView.class);
+                location.putExtra("locationCode",locationCode);
+                startActivity(location);*/
 
             }
         });

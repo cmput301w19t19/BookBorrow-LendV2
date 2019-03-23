@@ -258,7 +258,7 @@ public class PrivateBookDetails extends AppCompatActivity {
             DatabaseReference r = db.getReference("book/"+bookx.getID());
             r.child("longitude").setValue(latLng.longitude);
             r.child("latitude").setValue(latLng.latitude);
-            Toast.makeText(this, "Point Chosen: " + latLng.latitude + " " + latLng.longitude, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Book Location Saved: " + latLng.latitude + " " + latLng.longitude, Toast.LENGTH_LONG).show();
 
         }
 
