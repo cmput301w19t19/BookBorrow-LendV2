@@ -26,9 +26,21 @@ package com.example.y.bookborrow_lendv2;
  * user can see current book's location on this activity
  */
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -37,8 +49,13 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.HashMap;
 
 public class MapsActivityBorrowerView extends FragmentActivity implements OnMapReadyCallback {
 
@@ -48,6 +65,22 @@ public class MapsActivityBorrowerView extends FragmentActivity implements OnMapR
     private double newLat;
     private double newLong;
 
+    LocationManager locationManager;
+    LocationListener locationListener;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED ){
+
+            //if get the permission than start getting user location
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2, 2, locationListener);
+            }
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +91,17 @@ public class MapsActivityBorrowerView extends FragmentActivity implements OnMapR
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
         Intent data = getIntent();
-        //LatLng locationCode = (LatLng) data.getParcelableExtra("locationCode");
-        //data from last activity is call locationCode, save it as
+        /*data from last activity is call locationCode, save it in this activity
+        * and set it to newLat, newLong,
+        * two new location coordinate will show on map as book's location
+        */
         LatLng locationCode = getIntent().getExtras().getParcelable("locationCode");
         newLat = locationCode.latitude;
         newLong = locationCode.longitude;
-        //Toast.makeText(getApplicationContext(),locationCode.toString(),Toast.LENGTH_SHORT).show();
         Toast.makeText(getApplicationContext(),"Current Book's Location is showed on red marker.",Toast.LENGTH_SHORT).show();
+
 
     }
 
@@ -80,10 +116,47 @@ public class MapsActivityBorrowerView extends FragmentActivity implements OnMapR
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+
+                /*
+                user real time location will be displayed upon GPS decte change
+                 */
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
+
+        if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        } else {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2, 2, locationListener);
+            mMap.setMyLocationEnabled(true);
+
+        }
+
+
+
+        // Add a marker in book location and move the camera
         LatLng bookLocation = new LatLng(newLat,newLong);
         mMap.addMarker(new MarkerOptions().position(bookLocation).title("Book Location is here"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bookLocation,10));
