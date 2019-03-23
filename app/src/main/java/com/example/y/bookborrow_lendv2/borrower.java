@@ -37,6 +37,7 @@ public class borrower extends user {
 
     private ArrayList<book> borrowedBook = new ArrayList<book>();
     private ArrayList<book> requestedBookList = new ArrayList<book>();
+    private ArrayList<book> acceptedBookList = new ArrayList<book>();
     private static borrower instance;
 
 
@@ -76,6 +77,15 @@ public class borrower extends user {
      * @param list
      */
 
+    public void setAcceptedBookList(ArrayList<book> list) {
+        acceptedBookList = list;
+    }
+
+    /**
+     * set the list of the books the borrower has borrowed
+     * @param list
+     */
+
     public void setBorrowedBook(ArrayList<book> list) {
         borrowedBook = list;
     }
@@ -87,6 +97,15 @@ public class borrower extends user {
 
     public ArrayList<book> getBorrowedBook() {
         return borrowedBook;
+    }
+
+    /**
+     * return the list of books the borrower has requested
+     * @return
+     */
+
+    public ArrayList<book> getAcceptedBookList() {
+        return acceptedBookList;
     }
 
     /**
@@ -113,6 +132,15 @@ public class borrower extends user {
 
     public void addRequestedBook(book book) {
         requestedBookList.add(book);
+    }
+
+    /**
+     * add the book the borrower has requested to the list
+     * @param book
+     */
+
+    public void addAcceptedBook(book book) {
+        acceptedBookList.add(book);
     }
 
     /**

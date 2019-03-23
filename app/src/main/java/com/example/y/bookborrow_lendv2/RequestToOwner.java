@@ -158,14 +158,17 @@ public class RequestToOwner extends AppCompatActivity {
         dbBorrower = m.getReference();
 
         // accept the chosen request
+        //////////////////////////////////////////need         change//////////////////////////////////////////////////////////////////
         accept.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Log.i("Accept", mDatas.get(0).toString());
-                for(int j = 0; j < mDatas.size();j++){
-                    if(mDatas.get(j).isSelected() == true){
+                for(B_request bRequest: mDatas){
+                    if(bRequest.isSelected()){
                         dbBook.child("book").child(book_ID).child("status").setValue("accepted");
+                        dbBorrower.child("borrowers").child(bRequest.getUserID()).child("AcceptedList").setValue(book_ID, true);
+                        dbBorrower = m.getReference();
                          for(int i = 0; i < mDatas.size();i++)
                         {
                             mDatas.get(i).selected = true;
@@ -186,6 +189,11 @@ public class RequestToOwner extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i("Delete", mDatas.get(0).getUserID());
                 deleteRequest(mDatas, dbBorrower, dbHolder, book_ID);
+                // have not test yet
+                if(mDatas.size() == 0)
+                {
+                    dbBook.child("book").child(book_ID).child("status").setValue("available");
+                }
                 mAdapter.notifyDataSetChanged();
             }
         });
@@ -209,7 +217,7 @@ public class RequestToOwner extends AppCompatActivity {
         for(B_request bRequest: mDatas){
             if(bRequest.isSelected()){
                 dbHolder.child(bRequest.getUserID()).removeValue();
-                //dbBorrower.child("borrowers").child(bRequest.getUserID()).child("requestList").child(book_ID).removeValue() ;
+                dbBorrower.child("borrowers").child(bRequest.getUserID()).child("requestList").child(book_ID).removeValue() ;
                 mDatas.remove(bRequest);
             }
         }

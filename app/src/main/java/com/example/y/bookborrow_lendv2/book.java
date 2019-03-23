@@ -66,6 +66,7 @@ public class book {
     private Double rating = -1.0;
     private FirebaseDatabase m;
     private DatabaseReference r;
+    private String firstScanned = "false";
 
     private Map<String, Boolean> requestList;
 
@@ -90,7 +91,7 @@ public class book {
      * since there are too many parameters in this constructor
      */
     book(String name, String author, String ISBN, Double longitude, Double latitude, String description
-    , String title, Double bookRating, String borrowerName, String ownerName, String status ) {
+    , String title, Double bookRating, String borrowerName, String ownerName, String status, String firstScanned) {
         this.name = name;
         //this.photo = photo;
         this.author = author;
@@ -103,6 +104,7 @@ public class book {
         this.borrowerName = borrowerName;
         this.ownerName = ownerName;
         this.status = status;
+        this.firstScanned = firstScanned;
     }
 
 
@@ -125,6 +127,7 @@ public class book {
         r.child("borrowerName").setValue(this.borrowerName);
         r.child("ownerName").setValue(this.ownerName);
         r.child("status").setValue(this.status);
+        r.child("firstScanned").setValue(this.firstScanned);
     }
     /**
      * @param s
@@ -355,6 +358,23 @@ public class book {
     public String getAuthor() {
         return author;
     }
+
+    /**
+     * @param s
+     * this method set a checkmate of borrowing or returning
+     */
+
+    public void setFirstScanned(String s) {
+        this.firstScanned = s;
+    }
+
+    /**
+     * this method return checkmate of borrowing or returning
+     * @return firstScanned
+     *
+     */
+
+    public String getFirstScanned(){return this.firstScanned;}
 
     /**
      * return the book's rating
