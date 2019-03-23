@@ -31,7 +31,7 @@ public class SearchTest extends ActivityTestRule<Search> {
             new ActivityTestRule<>(Search.class, true, true);
 
     @Before
-    public void setup(){
+    public void setup() throws Exception{
         solo= new Solo(getInstrumentation(), rule.getActivity());
     }
 

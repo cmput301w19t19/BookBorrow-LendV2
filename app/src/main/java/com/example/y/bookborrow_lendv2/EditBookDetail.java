@@ -177,7 +177,6 @@ public class EditBookDetail extends AppCompatActivity {
         });
 
 
-
     }
 
 }

@@ -66,6 +66,7 @@ public class book {
     private Double rating = -1.0;
     private FirebaseDatabase m;
     private DatabaseReference r;
+    private String firstScanned = "false";
 
     private Map<String, Boolean> requestList;
 
@@ -90,7 +91,7 @@ public class book {
      * since there are too many parameters in this constructor
      */
     book(String name, String author, String ISBN, Double longitude, Double latitude, String description
-    , String title, Double bookRating, String borrowerName, String ownerName, String status ) {
+            , String title, Double bookRating, String borrowerName, String ownerName, String status ) {
         this.name = name;
         //this.photo = photo;
         this.author = author;
@@ -103,6 +104,8 @@ public class book {
         this.borrowerID = borrowerName;
         this.ownerID = ownerName;
         this.status = status;
+
+        this.firstScanned = firstScanned;
     }
 
 
@@ -125,6 +128,8 @@ public class book {
         r.child("borrowerID").setValue(this.borrowerID);
         r.child("ownerID").setValue(this.ownerID);
         r.child("status").setValue(this.status);
+
+        r.child("firstScanned").setValue(this.firstScanned);
     }
     /**
      * @param s
@@ -360,7 +365,10 @@ public class book {
      * return the book's rating
      * @return rating
      */
-    public Double getBookRating(){return rating; }
+    public String getBookRating(){
+        bookISBN ISBN = new bookISBN(this.getISBN());
+        return ISBN.getBookRate();
+    }
 
     /**
      * return the description which contains the book's author, title
@@ -382,5 +390,21 @@ public class book {
 
         return true;
     }
-}
 
+    /**
+     * @param s
+     * this method set a checkmate of borrowing or returning
+     */
+
+    public void setFirstScanned(String s) {
+        this.firstScanned = s;
+    }
+
+    /**
+     * this method return checkmate of borrowing or returning
+     * @return firstScanned
+     *
+     */
+
+    public String getFirstScanned(){return this.firstScanned;}
+}

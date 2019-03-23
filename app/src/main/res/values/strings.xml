@@ -96,4 +96,5 @@
     <string name="EditBookDetailUpload">Upload Photo</string>
     <string name="requestViewRequestB">show requested</string>
     <string name="requestViewAcceptB">show accepted</string>
+    <string name="title_activity_check_to_scan_borrow_book">check_to_scan_borrowBook</string>
 </resources>

@@ -61,6 +61,16 @@ public class PrivateBookDetails extends AppCompatActivity {
     book bookx;
     FirebaseAuth auth;
 
+    //function that user click location button and jump to map activity
+    public void toOwnerMapActivity(View view){
+
+        Intent intent = new Intent(getApplicationContext(), MapsActivityOwnerSetLocation.class);
+        startActivity(intent);
+    }
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,9 +116,8 @@ public class PrivateBookDetails extends AppCompatActivity {
                         bookStateTV.setText(state);
                     }
 
-                    Double rate = bookx.getBookRating();
-                    String srate = Double.toString(rate);
-                    bookRateTV.setText(srate);
+                    String rate = bookx.getBookRating();
+                    bookRateTV.setText(rate);
 
                     String description = bookx.getDescription();
                     if (description != null) {
@@ -230,9 +239,8 @@ public class PrivateBookDetails extends AppCompatActivity {
                     bookStateTV.setText(state);
                 }
 
-                Double rate = bookx.getBookRating();
-                String srate = Double.toString(rate);
-                bookRateTV.setText(srate);
+                String rate = bookx.getBookRating();
+                bookRateTV.setText(rate);
 
                 String description = bookx.getDescription();
                 if (description != null){

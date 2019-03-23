@@ -32,9 +32,8 @@ public class bookISBN {
     private ArrayList<RatingAndComment> commentList;
 
 
-    bookISBN(int ISBN){
-        String sISBN = Integer.toString(ISBN);
-        this.ISBN = sISBN;
+    bookISBN(String ISBN){
+        this.ISBN = ISBN;
     }
 
     public void updateBorrowTime(){

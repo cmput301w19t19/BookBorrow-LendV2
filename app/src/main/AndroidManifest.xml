@@ -20,9 +20,7 @@
         <activity android:name=".OwnerHomeActivity" />
         <activity android:name=".RequestToOwner" />
         <activity
-
             android:name=".loginAct"
-
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +32,6 @@
         <activity android:name=".MyBookList" />
         <activity android:name=".profile" />
         <activity android:name=".BorrowerRequest" />
-
         <activity android:name=".RateToOwner" />
         <activity android:name=".home_page" />
         <activity android:name=".Search" />

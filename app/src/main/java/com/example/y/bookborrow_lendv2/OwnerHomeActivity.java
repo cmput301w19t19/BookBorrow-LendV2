@@ -70,14 +70,14 @@ public class OwnerHomeActivity extends AppCompatActivity {
             }
         });
 
-        /*myScan.setOnClickListener(new View.OnClickListener() {
+        myScan.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(OwnerHomeActivity.this, Scan.class);
-                //startActivity(intent);
+                Intent intent = new Intent(OwnerHomeActivity.this, check_to_scan.class);
+                startActivity(intent);
             }
-        });*/
+        });
 
         backButton.setOnClickListener(new View.OnClickListener() {
             /**
