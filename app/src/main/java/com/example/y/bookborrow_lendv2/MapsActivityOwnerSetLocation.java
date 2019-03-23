@@ -1,8 +1,12 @@
 package com.example.y.bookborrow_lendv2;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -10,13 +14,22 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MapsActivityOwnerSetLocation extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private double latitude;
     private double longitude;
+    private LatLng userClick;
+
+    book b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +39,33 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        Intent intent = getIntent();
+        final String book_ID = intent.getStringExtra("bookid");
+
+        FirebaseDatabase m = FirebaseDatabase.getInstance();
+        DatabaseReference r = m.getReference("book/"+book_ID);
+
+        ValueEventListener bookListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()){
+                    b = dataSnapshot.getValue(book.class);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(),"Fail to get data from database",Toast.LENGTH_SHORT).show();
+
+            }
+        };
+        r.addListenerForSingleValueEvent(bookListener);
+
+
+
+
     }
 
 
@@ -39,43 +79,50 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(final GoogleMap googleMap) {
+
+
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        //LatLng sydney = new LatLng(-34, 151);
-        //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
 
-                Toast.makeText(
+                /*Toast.makeText(
                         MapsActivityOwnerSetLocation.this, "Lat: "+latLng.latitude + ", "
                         + "Long : " + latLng.longitude,
-                        Toast.LENGTH_LONG).show();
-
-                //save user click on map
-                latitude = latLng.latitude;
-                longitude = latLng.longitude;
+                        Toast.LENGTH_LONG).show()*/
 
 
                 mMap.addMarker(new MarkerOptions().position(latLng).title("set here as a receive location"));
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
 
-                Log.i("Location", latLng.toString());
 
-
-
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("picked_point", latLng);
+                setResult(Activity.RESULT_OK, returnIntent);
+                finish();
             }
+
+                /*
+                FirebaseDatabase db = FirebaseDatabase.getInstance();
+                DatabaseReference r = db.getReference("book/"+b.getID());
+                r.child("longitude").setValue(longitude);
+                r.child("latitude").setValue(latitude);*/
+
+
+
+
+
         });
-
-        //mMap.setOnInfoWindowClickListener();
-
-
 
 
     }
+
+
+
+
+
 }
