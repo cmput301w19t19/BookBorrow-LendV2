@@ -38,7 +38,10 @@
             android:label="@string/title_activity_maps_borrower_view"></activity>
         <activity
             android:name=".MapsActivityOwnerSetLocation"
-            android:label="@string/title_activity_maps_owner_set_location" />
+
+            android:label="@string/title_activity_maps_owner_set_location"></activity>
+
+
         <activity android:name=".SignOutActivity" />
         <activity android:name=".EditBookDetail" />
         <activity android:name=".check_to_scan" />
