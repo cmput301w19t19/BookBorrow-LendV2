@@ -306,14 +306,6 @@ public class PublicBookDetails extends AppCompatActivity {
                 startActivity(location);
                 r2.addListenerForSingleValueEvent(bookListener);
 
-
-                /*//LatLng locationCode = new LatLng(47.6065467,-122.3380167);
-                LatLng locationCode = new LatLng(latFromFirebase,longFromFirebase);
-                Toast.makeText(getApplicationContext(),locationCode.toString(),Toast.LENGTH_SHORT).show();
-                Intent location = new Intent(PublicBookDetails.this, MapsActivityBorrowerView.class);
-                location.putExtra("locationCode",locationCode);
-                startActivity(location);*/
-
             }
         });
 
