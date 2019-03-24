@@ -53,6 +53,10 @@ public class PublicBookDetails extends AppCompatActivity {
 
     private String bookid;
     private String flag;
+    private String ownerID;
+    private lender bookOwner;
+    private String title1;
+    private book requestedBook;
     private TextView bookNameTV;
     private TextView ISBNTV;
     private TextView bookAuthorTV;
@@ -67,6 +71,16 @@ public class PublicBookDetails extends AppCompatActivity {
     private String Keyword;
     private FirebaseAuth auth;
     private DatabaseReference r;
+
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+    DatabaseReference DbRef = database.getReference();
+    DatabaseReference dbRef = database.getReference();
+
+
+
+
 
     private double latFromFirebase;  //location code from firebase
     private double longFromFirebase;
@@ -93,6 +107,8 @@ public class PublicBookDetails extends AppCompatActivity {
 
         FirebaseDatabase m = FirebaseDatabase.getInstance();
         r = m.getReference("book/"+bookid);
+
+
 
         /**
          *  Get the information of the book from firebase and show them on the screen
@@ -145,9 +161,16 @@ public class PublicBookDetails extends AppCompatActivity {
          * set the book to the requester's requested list
          */
         requestButton.setOnClickListener(new View.OnClickListener() {
+           NormalUser user1 = new NormalUser();
+
+
             @Override
             public void onClick(View v) {
                 // get id
+                Log.i("qqqqqqqqq","0000000");
+                Log.w("qqqqqqqqqq",bookid);
+
+
 
                 auth = FirebaseAuth.getInstance();
                 FirebaseUser user = auth.getCurrentUser();
@@ -155,8 +178,73 @@ public class PublicBookDetails extends AppCompatActivity {
                 String uid = user.getUid();
                 r2.child("book").child(bookid).child("requestList").child(uid).setValue(true);
                 r2.child("borrowers").child(uid).child("requestList").child(bookid).setValue(true);
+                //add requested book to lender's requested list to keep track of the new requests
+               // r2.child("lenders").child(ownerID).child("requestList").child(bookid).setValue(true);
                 r2.child("book").child(bookid).child("status").setValue("requested");
+
                 //set book status to requested
+                Log.i("ooooooooo","0000000");
+
+
+                //get book by bookid
+                DbRef = database.getReference("book/"+bookid);
+
+
+
+                  ValueEventListener postListener2 = new ValueEventListener() {
+                      @Override
+                      public void onDataChange(DataSnapshot dataSnapshot) {
+                         // bookOwner = dataSnapshot.getValue(lender.class);
+                          requestedBook = dataSnapshot.getValue(book.class);
+                          //title1 = requestedBook.getID();
+
+                          //Log.i("tttttttt","aaaaa"+title1);
+                          ownerID = requestedBook.getOwnerID();
+
+
+                          //retireve onwer by bookid
+                          dbRef = database.getReference("lenders/"+ownerID);
+
+                          ValueEventListener PostListener = new ValueEventListener() {
+                              @Override
+                              public void onDataChange(DataSnapshot dataSnapshot) {
+                                  bookOwner = dataSnapshot.getValue(lender.class);
+                              }
+                              @Override
+                              public void onCancelled(DatabaseError databaseError) {
+                                  // Getting Post failed, log a message
+                                  Log.w( "loadPost:onCancelled", databaseError.toException());
+                              }
+                          };
+
+                          dbRef.addValueEventListener(PostListener);
+                          Log.i("22222222","bbbbbbbb"+ownerID);
+
+                          //add requested book id to book owner's ListOfNewRequests list
+                          dbRef.child("ListOfNewRequests").
+                                  child(bookid).child("requested").setValue(true);
+                          dbRef.child("ListOfNewRequests").child(bookid).
+                                  child("checkedByOwner").setValue(false);
+                          dbRef.child("ListOfNewRequests").child(bookid).
+                                  child("bookID").setValue(bookid);
+                          Log.i("33333333","cccccccc");
+
+
+
+                      }
+                      @Override
+                      public void onCancelled(DatabaseError databaseError) {
+                          // Getting Post failed, log a message
+                          Log.w( "loadPost:onCancelled", databaseError.toException());
+                      }
+                  };
+
+
+                  DbRef.addValueEventListener(postListener2);
+                  Log.i("1111111133333","aaaaaaaaa");
+
+
+
             }
         });
 
