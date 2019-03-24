@@ -37,11 +37,8 @@ dependencies {
     implementation 'com.jayway.android.robotium:robotium-solo:5.6.3'
     implementation 'com.google.code.gson:gson:2.7'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
-
     // Scanning by using zxing
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
-
-
     //Glide Library
     implementation 'com.github.bumptech.glide:glide:4.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
@@ -54,7 +51,8 @@ dependencies {
     implementation('com.facebook.android:audience-network-sdk:4.28.0', {
         exclude group: 'com.google.android.gms'
     })
-    implementation files('build/intermediates/jniLibs/android-viewbadger.jar')
+    //implementation files('build/intermediates/jniLibs/android-viewbadger.jar')
+    implementation files('/Users/yuan/Desktop/project/BookBorrow-LendV2/gradle/wrapper/android-viewbadger 1.37.14 PM.jar')
 }
 com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
 //must add this line for using google map
