@@ -75,7 +75,7 @@ public class OwnerHomeActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
-        String uid = user.getUid();
+        final String uid = user.getUid();
 
         DatabaseReference rootRef = database.getReference("lenders").child(uid).child("ListOfNewRequests");
         Log.i("ttttttttt3",uid);
@@ -90,11 +90,36 @@ public class OwnerHomeActivity extends AppCompatActivity {
 
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String bookID = ds.getKey();
-                    BookList.add(bookID);
+                    final String bookID = ds.getKey();
+
+
+                    DatabaseReference dbRef = database.getReference("lenders").child(uid).child("ListOfNewRequests").child(bookID);
+                    ValueEventListener eventListener2 = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot ds1 : dataSnapshot.getChildren()) {
+                                if (ds1.getKey().equals("checkedByOwner")) {
+                                    if (ds1.getValue().equals(false)) {
+                                        BookList.add(bookID);
+                                        Log.i("yyyyyyyyy",Integer.toString(BookList.size()));
+
+
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    };
+                    dbRef.addValueEventListener(eventListener2);
+                }
+
 
                     //
-                }
+
                 Log.i("ttttttttt3",Integer.toString(BookList.size()));
                 String size = Integer.toString(BookList.size());
                 badge.setText(size);
