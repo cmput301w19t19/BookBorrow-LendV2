@@ -249,7 +249,9 @@ public class PrivateBookDetails extends AppCompatActivity {
         }
 
 
-        //return from map activity and
+        /*return from map activity and
+        toast the location user long click in map view activity
+         */
         if (requestCode == pickMapPointRequest){
             LatLng latLng = (LatLng) Data.getParcelableExtra("picked_point");
 
@@ -258,7 +260,8 @@ public class PrivateBookDetails extends AppCompatActivity {
             DatabaseReference r = db.getReference("book/"+bookx.getID());
             r.child("longitude").setValue(latLng.longitude);
             r.child("latitude").setValue(latLng.latitude);
-            Toast.makeText(this, "Book Location Saved: " + latLng.latitude + " " + latLng.longitude, Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Book Location Saved: " + latLng.latitude + " " + latLng.longitude, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Book Location Saved!", Toast.LENGTH_LONG).show();
 
         }
 

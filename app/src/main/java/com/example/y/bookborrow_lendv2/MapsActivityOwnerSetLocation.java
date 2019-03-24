@@ -110,7 +110,7 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-        Toast.makeText(getApplicationContext(),"Click on Map will set a location for book.",Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(),"Long Click on Map To Set a Location.",Toast.LENGTH_LONG).show();
 
         locationListener = new LocationListener() {
             @Override
@@ -145,40 +145,41 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2, 2, locationListener);
             mMap.setMyLocationEnabled(true);
 
+            //set map view when launch to be last save location
+            //Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            //LatLng lastLocation = new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude());
+            //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLocation,10));
+
 
         }
 
 
 
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
             @Override
-            public void onMapClick(LatLng latLng) {
-
-                /*Toast.makeText(
-                        MapsActivityOwnerSetLocation.this, "Lat: "+latLng.latitude + ", "
-                        + "Long : " + latLng.longitude,
-                        Toast.LENGTH_LONG).show()*/
-
-
-                mMap.addMarker(new MarkerOptions().position(latLng).title("set here as a receive location"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-
+            public void onMapLongClick(LatLng latLng) {
 
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("picked_point", latLng);
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
+
             }
+        });
 
-                /*
-                FirebaseDatabase db = FirebaseDatabase.getInstance();
-                DatabaseReference r = db.getReference("book/"+b.getID());
-                r.child("longitude").setValue(longitude);
-                r.child("latitude").setValue(latitude);*/
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
 
-
-
-
+                mMap.clear();
+                Marker marker = mMap.addMarker(new MarkerOptions().position(latLng).title("long click to set here as receive location"));
+                marker.showInfoWindow();
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+                //Intent returnIntent = new Intent();
+                //returnIntent.putExtra("picked_point", latLng);
+                //setResult(Activity.RESULT_OK, returnIntent);
+                //finish();
+            }
 
         });
 
@@ -190,3 +191,9 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
 
 
 }
+
+
+/*Toast.makeText(
+                        MapsActivityOwnerSetLocation.this, "Lat: "+latLng.latitude + ", "
+                        + "Long : " + latLng.longitude,
+                        Toast.LENGTH_LONG).show()*/
