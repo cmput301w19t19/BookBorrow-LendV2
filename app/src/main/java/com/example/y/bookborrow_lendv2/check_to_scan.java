@@ -52,7 +52,7 @@ public class check_to_scan extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_to_scan);
-        B_status = "return";
+        B_status = "borrow";
 
         FirebaseAuth Auth = FirebaseAuth.getInstance();
         FirebaseUser users = Auth.getCurrentUser();
