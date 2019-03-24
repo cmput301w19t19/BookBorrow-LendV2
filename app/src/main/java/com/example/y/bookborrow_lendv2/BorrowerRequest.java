@@ -66,6 +66,8 @@ public class BorrowerRequest extends AppCompatActivity {
     private BorrowerRequestAdapter myBookAdapter;
     private BorrowerRequestAdapter requestAdapter;
     private BorrowerRequestAdapter acceptAdapter;
+    private DatabaseReference rootRefR;
+    private DatabaseReference rootRefA;
     //private BorrowingBookAdapter myBookAdapter;
     //private BorrowingBookAdapter requestAdapter;
     ///private BorrowingBookAdapter acceptAdapter;
@@ -90,43 +92,13 @@ public class BorrowerRequest extends AppCompatActivity {
         String uid = user.getUid();
 
         booksID = new ArrayList<>();
-        DatabaseReference rootRef = database.getReference("borrowers").child(uid).child("requestList");
-        //DatabaseReference rootRef = database.getReference("lender").child(uid).child("MyBookList");
+        rootRefR = database.getReference("borrowers").child(uid).child("requestList");
+        rootRefA = database.getReference("borrowers").child(uid).child("AcceptedList");
 
 
 
 
-        ValueEventListener eventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    String bookID = ds.getKey();
-                    DbRef = database.getReference("book/"+bookID);
-                    ValueEventListener eventListener1 = new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
-                            book targetBook = dataSnapshot1.getValue(book.class);
-                            defaultBookList.add(targetBook);
-                            myBookAdapter.notifyDataSetChanged();
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError1) {
-
-                        }
-                    };
-                    DbRef.addValueEventListener(eventListener1);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        };
-        rootRef.addListenerForSingleValueEvent(eventListener);
 
 
 
@@ -135,14 +107,38 @@ public class BorrowerRequest extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 acceptedBookList = new ArrayList<>();
+                ValueEventListener eventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for (book bookItem : defaultBookList) {
+                        for(DataSnapshot ds : dataSnapshot.getChildren()){
+                            String bookID = ds.getKey();
+                            DbRef = database.getReference("book/"+bookID);
+                            ValueEventListener eventListener1 = new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
+                                    book targetBook = dataSnapshot1.getValue(book.class);
+                                    acceptedBookList.add(targetBook);
+                                    myBookAdapter.notifyDataSetChanged();
+                                }
 
-                    if (bookItem.getStatus().equals("accepted")) {
-                        acceptedBookList.add(bookItem);
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError1) {
+
+                                }
+                            };
+                            DbRef.addValueEventListener(eventListener1);
+                        }
 
                     }
-                }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                };
+                rootRefR.addListenerForSingleValueEvent(eventListener);
+
                 acceptAdapter = new BorrowerRequestAdapter(BorrowerRequest.this, acceptedBookList);
                 //acceptAdapter = new BorrowingBookAdapter(BorrowerRequest.this,acceptedBookList);
                 borrowerRequestbookList.setAdapter(acceptAdapter);
@@ -169,11 +165,38 @@ public class BorrowerRequest extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 requestedBookList = new ArrayList<>();
-                for (book bookItem : defaultBookList) {
-                    if (bookItem.getStatus().equals("requested")) {
-                        requestedBookList.add(bookItem);
+                ValueEventListener eventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        for(DataSnapshot ds : dataSnapshot.getChildren()){
+                            String bookID = ds.getKey();
+                            DbRef = database.getReference("book/"+bookID);
+                            ValueEventListener eventListener1 = new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
+                                    book targetBook = dataSnapshot1.getValue(book.class);
+                                    requestedBookList.add(targetBook);
+                                    myBookAdapter.notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError1) {
+
+                                }
+                            };
+                            DbRef.addValueEventListener(eventListener1);
+                        }
+
                     }
-                }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                };
+                rootRefA.addListenerForSingleValueEvent(eventListener);
+
                 requestAdapter = new BorrowerRequestAdapter(BorrowerRequest.this, requestedBookList);
                 //requestAdapter = new BorrowingBookAdapter(BorrowerRequest.this,requestedBookList);
                 borrowerRequestbookList.setAdapter(requestAdapter);
