@@ -106,6 +106,7 @@ public class bookAdapter extends BaseAdapter {
         //holder.image.setImageDrawable();
         holder.currentBorrower.setText(book.getBorrowerName());
         holder.description.setText(book.getDescription());
+        holder.image.setImageBitmap(book.getImage());
         //holder.info.set
         return convertView;
 
