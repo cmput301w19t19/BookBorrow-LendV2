@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -65,6 +66,7 @@ public class PublicBookDetails extends AppCompatActivity {
     private TextView bookDescriptionTV;
     private Button requestButton;
     private Button returnButton;
+    private Button locationButton;
     private book b;
     private String Keyword;
     private FirebaseAuth auth;
@@ -80,6 +82,8 @@ public class PublicBookDetails extends AppCompatActivity {
 
 
 
+    private double latFromFirebase;  //location code from firebase
+    private double longFromFirebase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +103,7 @@ public class PublicBookDetails extends AppCompatActivity {
         bookDescriptionTV = (TextView)findViewById(R.id.puBookDescription);
         requestButton = (Button)findViewById(R.id.requestTheBook);
         returnButton = (Button)findViewById(R.id.puReturnButton);
+        locationButton = (Button)findViewById(R.id.pubBookLocation);
 
         FirebaseDatabase m = FirebaseDatabase.getInstance();
         r = m.getReference("book/"+bookid);
@@ -259,6 +264,59 @@ public class PublicBookDetails extends AppCompatActivity {
                }
             }
         });
+
+
+        //borrower click location button than can view
+        //this book's location on map
+        //need to send latlong(pull back from firebase svae as locationCode)
+        // to the map activity, and display this location code on map
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseDatabase m = FirebaseDatabase.getInstance();
+                DatabaseReference r2 = m.getReference("book/"+bookid);
+
+                ValueEventListener bookListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        book bookFromFirebase = dataSnapshot.getValue(book.class);
+
+                        if (bookFromFirebase.getLatitude() != null){
+                            latFromFirebase = bookFromFirebase.getLatitude();
+                        }
+
+                        if (bookFromFirebase.getLongitude() != null){
+                            longFromFirebase = bookFromFirebase.getLongitude();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toast.makeText(getApplicationContext(),"Fail to renew data",Toast.LENGTH_SHORT).show();
+
+                    }
+
+                };
+
+                LatLng locationCode = new LatLng(latFromFirebase,longFromFirebase);
+                //Toast.makeText(getApplicationContext(),locationCode.toString(),Toast.LENGTH_SHORT).show();
+                Intent location = new Intent(PublicBookDetails.this, MapsActivityBorrowerView.class);
+                location.putExtra("locationCode",locationCode);
+                startActivity(location);
+                r2.addListenerForSingleValueEvent(bookListener);
+
+
+                /*//LatLng locationCode = new LatLng(47.6065467,-122.3380167);
+                LatLng locationCode = new LatLng(latFromFirebase,longFromFirebase);
+                Toast.makeText(getApplicationContext(),locationCode.toString(),Toast.LENGTH_SHORT).show();
+                Intent location = new Intent(PublicBookDetails.this, MapsActivityBorrowerView.class);
+                location.putExtra("locationCode",locationCode);
+                startActivity(location);*/
+
+            }
+        });
+
 
 
     }

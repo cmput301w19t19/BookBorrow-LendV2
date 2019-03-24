@@ -106,4 +106,5 @@
     <string name="RateToOwnerBookComment">Is this book interesting? Do you like it?</string>
     <string name="RateToOwnerUserEmail">Missing lender email!</string>
     <string name="title_activity_maps_owner_set_location">Map</string>
+    <string name="title_activity_maps_borrower_view">Map</string>
 </resources>

@@ -26,11 +26,13 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -60,13 +62,20 @@ public class PrivateBookDetails extends AppCompatActivity {
     Button returnButton;
     book bookx;
     FirebaseAuth auth;
+    Button locationButton;
 
-    //function that user click location button and jump to map activity
+    private String locationCode;
+
+    /**function that user click location button and jump to map activity
     public void toOwnerMapActivity(View view){
 
         Intent intent = new Intent(getApplicationContext(), MapsActivityOwnerSetLocation.class);
         startActivity(intent);
-    }
+
+        intent.putExtra("bookid",bookid);
+    }*/
+
+
 
 
 
@@ -88,6 +97,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         editButton = (Button)findViewById(R.id.bookDetailEdit);
         requestButton = (Button)findViewById(R.id.bookDetailRequest);
         returnButton = (Button)findViewById(R.id.ReturnButton);
+        locationButton = (Button)findViewById(R.id.pBookLocation);
 
         /**
          *  Get the information of the book from firebase and show them on the screen
@@ -133,6 +143,10 @@ public class PrivateBookDetails extends AppCompatActivity {
             }
         };
         r.addListenerForSingleValueEvent(bookListner);
+
+
+
+
 
         /**
          * Prompt the user to edit book detail if the user want
@@ -192,7 +206,31 @@ public class PrivateBookDetails extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+
+
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Intent intent = new Intent(getApplicationContext(), MapsActivityOwnerSetLocation.class);
+                //startActivityForResult(new Intent(PrivateBookDetails.this, MapsActivityOwnerSetLocation.class), 4);
+                pickPointOnMap();
+
+
+
+            }
+        });
     }
+
+    //switch to map activity, user can pick a point on map
+    //map activity will return lat and long
+    static final int pickMapPointRequest = 100;
+    private void pickPointOnMap(){
+        Intent pickPointIntent = new Intent(this,MapsActivityOwnerSetLocation.class);
+        startActivityForResult(pickPointIntent, pickMapPointRequest);
+    }
+
 
     /**
      *  Get all result back
@@ -209,6 +247,21 @@ public class PrivateBookDetails extends AppCompatActivity {
 
         if (requestCode == 3){
         }
+
+
+        //return from map activity and
+        if (requestCode == pickMapPointRequest){
+            LatLng latLng = (LatLng) Data.getParcelableExtra("picked_point");
+
+
+            FirebaseDatabase db = FirebaseDatabase.getInstance();
+            DatabaseReference r = db.getReference("book/"+bookx.getID());
+            r.child("longitude").setValue(latLng.longitude);
+            r.child("latitude").setValue(latLng.latitude);
+            Toast.makeText(this, "Book Location Saved: " + latLng.latitude + " " + latLng.longitude, Toast.LENGTH_LONG).show();
+
+        }
+
 
 
         FirebaseDatabase m = FirebaseDatabase.getInstance();
@@ -260,4 +313,7 @@ public class PrivateBookDetails extends AppCompatActivity {
 
 
     }
+
+
+
 }
