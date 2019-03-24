@@ -128,6 +128,7 @@ public class MapsActivityBorrowerView extends FragmentActivity implements OnMapR
                 /*
                 user real time location will be displayed upon GPS decte change
                  */
+
             }
 
             @Override
@@ -150,9 +151,14 @@ public class MapsActivityBorrowerView extends FragmentActivity implements OnMapR
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2, 2, locationListener);
-            mMap.setMyLocationEnabled(true);
+            //mMap.setMyLocationEnabled(true);
+
+            //set last known location as default
+            //Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            //mMap.setMyLocationEnabled(true);
 
         }
+
 
 
 
