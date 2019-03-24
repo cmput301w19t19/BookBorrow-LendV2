@@ -57,6 +57,7 @@ public class OwnerHomeActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private book targetBook;
     private ArrayList<String> BookList = new ArrayList<>();
+    private String newRequestListSize;
 
 
 
@@ -101,12 +102,22 @@ public class OwnerHomeActivity extends AppCompatActivity {
                                 if (ds1.getKey().equals("checkedByOwner")) {
                                     if (ds1.getValue().equals(false)) {
                                         BookList.add(bookID);
-                                        Log.i("yyyyyyyyy",Integer.toString(BookList.size()));
+                                       // Log.i("yyyyyyyyy",Integer.toString(BookList.size()));
+                                        newRequestListSize = Integer.toString(BookList.size());
+                                        badge.setText(Integer.toString(BookList.size()));
+
+
 
 
                                     }
                                 }
                             }
+                            if  (BookList.size() > 0){
+                                badge.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
+
+                                badge.show();
+                            }
+
                         }
 
                         @Override
@@ -120,12 +131,6 @@ public class OwnerHomeActivity extends AppCompatActivity {
 
                     //
 
-                Log.i("ttttttttt3",Integer.toString(BookList.size()));
-                String size = Integer.toString(BookList.size());
-                badge.setText(size);
-                badge.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
-                if (BookList.size() > 0){
-                badge.show();}
 
             }
 
@@ -136,8 +141,6 @@ public class OwnerHomeActivity extends AppCompatActivity {
         Log.i("testnn","444");
 
         rootRef.addListenerForSingleValueEvent(eventListener);
-
-
 
 
 
