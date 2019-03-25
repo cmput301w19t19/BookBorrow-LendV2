@@ -30,6 +30,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * The type Maps activity owner set location.
+ */
 public class MapsActivityOwnerSetLocation extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -37,9 +40,18 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
     private double longitude;
     private LatLng userClick;
 
+    /**
+     * The Location manager.
+     */
     LocationManager locationManager;
+    /**
+     * The Location listener.
+     */
     LocationListener locationListener;
 
+    /**
+     * The B.
+     */
     book b;
 
     //#################

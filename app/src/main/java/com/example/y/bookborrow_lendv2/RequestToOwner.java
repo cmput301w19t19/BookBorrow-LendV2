@@ -43,9 +43,9 @@ import java.util.ArrayList;
 
 /**
  * this class is a page allow borrower request book, books are displayed on listview
- *  @author
- *  @version 1.0
  *
+ * @author
+ * @version 1.0
  */
 public class RequestToOwner extends AppCompatActivity {
 
@@ -53,11 +53,29 @@ public class RequestToOwner extends AppCompatActivity {
     private FirebaseAuth auth;
     private ArrayList<B_request> mDatas;
     private Request_Book_MyAdapter mAdapter;
+    /**
+     * The M.
+     */
     FirebaseDatabase m = FirebaseDatabase.getInstance();
+    /**
+     * The Db holder.
+     */
     DatabaseReference dbHolder;
+    /**
+     * The Holder.
+     */
     DatabaseReference Holder;
+    /**
+     * The Db borrower.
+     */
     DatabaseReference dbBorrower;
+    /**
+     * The Db book.
+     */
     DatabaseReference dbBook;
+    /**
+     * The B.
+     */
     book b;
     private ArrayList<String> borrowerID = new ArrayList<String>();
     private String borrower_username;
@@ -247,6 +265,10 @@ public class RequestToOwner extends AppCompatActivity {
         }
         mAdapter.notifyDataSetChanged();
     }
+
+    /**
+     * Refresh.
+     */
     public void refresh() {
 
         onCreate(null);

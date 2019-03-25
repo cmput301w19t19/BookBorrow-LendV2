@@ -42,14 +42,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 /**
+ * this is the first activity which allow user to register and loin
  *
- *this is the first activity which allow user to register and loin
- * @author  Yuan
+ * @author Yuan
  * @see user
  * @since 1.0
  */
-
-
 public class loginAct extends AppCompatActivity {
     private FirebaseAuth auth;
     private EditText inputEmail, inputPassword;
@@ -258,8 +256,10 @@ public class loginAct extends AppCompatActivity {
                             Intent intent = new Intent(loginAct.this, home_page.class);
                             startActivity(intent);
 
+
                         }
                     }
+
 
                 });
     }

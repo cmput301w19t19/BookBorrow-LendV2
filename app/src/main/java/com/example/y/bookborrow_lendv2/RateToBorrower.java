@@ -27,6 +27,14 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/**
+ * This function for WOW feature
+ * Rating for the book
+ * and both borrower and Owner
+ *
+ * @author YiZhou Wen
+ * @version 1.0
+ */
 public class RateToBorrower extends AppCompatActivity {
 
     @Override
@@ -44,10 +52,16 @@ public class RateToBorrower extends AppCompatActivity {
         setRateAndComment();
     }
 
+    /**
+     * Set username and description.
+     */
     public void setUsernameAndDescription(){
 
     }
 
+    /**
+     * Set rate and comment.
+     */
     public void setRateAndComment(){
 
     }

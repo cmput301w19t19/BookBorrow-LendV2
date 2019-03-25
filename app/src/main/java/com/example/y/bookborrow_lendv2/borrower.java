@@ -27,11 +27,11 @@ import java.util.ArrayList;
 /**
  * borrower object class extends user class
  * contain two ArrayList borrowedBook and requestedList
+ *
  * @param
  * @return none
  * @see user
  */
-
 public class borrower extends user {
     private float borrowerRating;
 
@@ -41,14 +41,16 @@ public class borrower extends user {
     private static borrower instance;
 
 
-
-    /** A constructor with no parameters*/
+    /**
+     * A constructor with no parameters
+     */
     borrower() {
     }
 
     /**
      * another constructor with parameter "rating"
-     * @param rating
+     *
+     * @param rating the rating
      */
     borrower(float rating){
         this.borrowerRating = rating;
@@ -57,7 +59,8 @@ public class borrower extends user {
 
     /**
      * set the rating of the bowrrower
-     * @param rating
+     *
+     * @param rating the rating
      */
     public void setBorrowerRating(Float rating) {
         this.borrowerRating = rating;
@@ -65,69 +68,71 @@ public class borrower extends user {
 
     /**
      * set the list of array list of books the borrower has requested
-     * @param list
+     *
+     * @param list the list
      */
-
     public void setRequestedBookList(ArrayList<book> list) {
         requestedBookList = list;
     }
 
     /**
      * set the list of the books the borrower has borrowed
-     * @param list
+     *
+     * @param list the list
      */
-
     public void setAcceptedBookList(ArrayList<book> list) {
         acceptedBookList = list;
     }
 
     /**
      * set the list of the books the borrower has borrowed
-     * @param list
+     *
+     * @param list the list
      */
-
     public void setBorrowedBook(ArrayList<book> list) {
         borrowedBook = list;
     }
 
     /**
      * return the list of books the borrower has borrowed so far
-     * @return list
+     *
+     * @return list borrowed book
      */
-
     public ArrayList<book> getBorrowedBook() {
         return borrowedBook;
     }
 
     /**
      * return the list of books the borrower has requested
-     * @return
+     *
+     * @return accepted book list
      */
-
     public ArrayList<book> getAcceptedBookList() {
         return acceptedBookList;
     }
 
     /**
      * return the list of books the borrower has requested
-     * @return
+     *
+     * @return requested book list
      */
-
     public ArrayList<book> getRequestedBookList() {
         return requestedBookList;
     }
 
     /**
      * add the book the borrower has borrowed to the list
-     * @param book
+     *
+     * @param book the book
      */
-
     public void addBorrowedBook(book book) {
         borrowedBook.add(book);
     }
+
     /**
      * add the book the borrower has requested to the list
-     * @param book
+     *
+     * @param book the book
      */
 
     public void addRequestedBook(book book) {
@@ -136,45 +141,45 @@ public class borrower extends user {
 
     /**
      * add the book the borrower has requested to the list
-     * @param book
+     *
+     * @param book the book
      */
-
     public void addAcceptedBook(book book) {
         acceptedBookList.add(book);
     }
 
     /**
      * remove the book the borrower has requested from the list
-     * @param book
+     *
+     * @param book the book
      */
-
     public void deleteRequestedBook(book book) {
         requestedBookList.remove(book);
     }
 
     /**
      * remove the book the borrower has borrowed from the list
-     * @param book
+     *
+     * @param book the book
      */
-
     public void deleteBorrowedBook(book book) {
         borrowedBook.remove(book);
     }
 
     /**
      * return the rating of the borrower
-     * @return
+     *
+     * @return borrower rating
      */
-
     public float getBorrowerRating() {
         return borrowerRating;
     }
 
     /**
      * create a static instance of borrower, singleton pattern has implemented
+     *
      * @return instance of borrower
      */
-
     public static borrower Instance()
     {
         //if no instance is initialized yet then create new instance

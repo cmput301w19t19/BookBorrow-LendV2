@@ -61,9 +61,10 @@ import java.io.IOException;
 
 /**
  * This Class is to show all the detail of a book to the book owner
+ *
  * @author team 19
- * @see MyBookList
  * @version1.0
+ * @see MyBookList
  */
 public class PrivateBookDetails extends AppCompatActivity {
 
@@ -84,14 +85,29 @@ public class PrivateBookDetails extends AppCompatActivity {
     private ImageButton gallery;
     private book bookx;
     private FirebaseAuth auth;
+    /**
+     * The Database.
+     */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    /**
+     * The Db ref.
+     */
     DatabaseReference DbRef = database.getReference();
+    /**
+     * The Storage.
+     */
     FirebaseStorage storage = FirebaseStorage.getInstance();
+    /**
+     * The Storage ref.
+     */
     StorageReference storageRef = storage.getReference();
     //private static final File USER_ICON = new File(Environment.getExternalStorageDirectory(), "user_icon.jpg");
     private static final int CODE_PHOTO_REQUEST = 5;
     private static final int CODE_CAMERA_REQUEST = 6;
     private static final int CODE_PHOTO_CLIP = 7;
+    /**
+     * The Location button.
+     */
     Button locationButton;
 
     private String locationCode;
@@ -314,7 +330,10 @@ public class PrivateBookDetails extends AppCompatActivity {
 
     }
 
-    //switch to map activity, user can pick a point on map
+    /**
+     * The constant pickMapPointRequest.
+     */
+//switch to map activity, user can pick a point on map
     //map activity will return lat and long
     static final int pickMapPointRequest = 100;
     private void pickPointOnMap(){
@@ -366,8 +385,8 @@ public class PrivateBookDetails extends AppCompatActivity {
                     try {
                         Uri uri = Data.getData();
                         Log.i("hello22","22");
-                    //if (extra != null) {
-                    //  Log.i("hello22","slslsl");
+                        //if (extra != null) {
+                        //  Log.i("hello22","slslsl");
                         photo = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
                         bookPhoto.setImageBitmap(photo);
                         StorageReference storageReference = storageRef.child("book/"+bookid+"/"+"1.jpg");
@@ -380,7 +399,6 @@ public class PrivateBookDetails extends AppCompatActivity {
                         /*ByteArrayOutputStream baos = new ByteArrayOutputStream();
                         //photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                         //byte[] data = baos.toByteArray();
-
                         //UploadTask uploadTask = storageRef.putBytes(data);
                         uploadTask.addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -395,10 +413,10 @@ public class PrivateBookDetails extends AppCompatActivity {
                                 Log.i("upload??","upload failed");
                             }
                         }); */
-                        }
-                        catch (IOException e){
-                            e.printStackTrace();
-                        }
+                    }
+                    catch (IOException e){
+                        e.printStackTrace();
+                    }
                     //setImageToHeadView(Data);
                     //photoClip(Data.getData());
                 }
