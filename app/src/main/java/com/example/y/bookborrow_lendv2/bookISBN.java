@@ -29,6 +29,13 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ *  DO NOT CHANGE ANY INTERFACES FOR THE GETTING AND SETTING
+ *  UNLESS YOU ARE GOING TO COMPLETE THE CHANGES IN OTHER ACTIVITY
+ *
+ *  This class is created for rating to the content of books marked with the same ISBN
+ *
+ */
 public class bookISBN {
     private String ISBN;
     private Double totalRate = 0.00;
@@ -37,8 +44,17 @@ public class bookISBN {
     private FirebaseDatabase m;
     private DatabaseReference r;
 
+    /**
+     * This empty constructor will also be used
+     * when trying to get a instance of the object from firebase
+     */
     bookISBN(){}
 
+    /**
+     * This constructor is only use in EditBookDetail when init a new book
+     * @see EditBookDetail
+     * @param ISBN
+     */
     bookISBN(String ISBN){
         this.ISBN = ISBN;
     }
@@ -54,12 +70,31 @@ public class bookISBN {
 
     }
 
+    /**
+     *  The getter is only used when try to get totalRate from firebase
+     *  i.e. onDataChange method
+     * @return
+     */
     public Double getTotalRate(){return this.totalRate;}
 
+    /**
+     *  The getter is only used when try to get borrowTime from firebase
+     *  i.e. onDataChange method
+     * @return
+     */
     public Integer getBorrowTime(){return borrowTime;}
 
+    /**
+     *  The getter is only used when try to get ISBN from firebase
+     *  i.e. onDataChange method
+     * @return
+     */
     public String getISBN(){return ISBN;};
 
+    /**
+     *  return the book rate by calculate the avarage
+     * @return
+     */
     public String getBookRate() {
         if (this.totalRate == 0.00){
             return "No one rate it yet!";
@@ -67,6 +102,9 @@ public class bookISBN {
         return Double.toString(this.totalRate/this.borrowTime);
     }
 
+    /**
+     *  set all the class attribute to firebase
+     */
     public void setToFirebase(){
         m = FirebaseDatabase.getInstance();
         r = m.getReference("bookISBN/"+this.ISBN);
@@ -75,6 +113,11 @@ public class bookISBN {
         r.child("borrowTime").setValue(this.borrowTime);
     }
 
+    /**
+     *  get all a new RatingAndComment object
+     *  set it to commentList or set it to firebase
+     * @param c
+     */
     public void addNewComment(RatingAndComment c){
         UUID commentID = UUID.randomUUID();
         commentList.add(c);
