@@ -1,48 +1,77 @@
+/*
+ * Copyright 2019 TEAM01
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package com.example.y.bookborrow_lendv2;
+/**
+ * relate class : PublicBookDetail, when user click location button on that page,
+ * user can see current book's location on this activity
+ */
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.common.internal.Objects;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-public class MapsActivityOwnerSetLocation extends FragmentActivity implements OnMapReadyCallback {
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+
+public class MapsActivityBorrowerView extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private double latitude;
-    private double longitude;
-    private LatLng userClick;
+    private LatLng locationCode;
+    private LatLng bookLocation;
+    private double newLat;
+    private double newLong;
 
     LocationManager locationManager;
     LocationListener locationListener;
-
-    book b;
-
-    //#################
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -52,7 +81,7 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
 
             //if get the permission than start getting user location
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2, 2, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5, 5, locationListener);
             }
 
         }
@@ -61,34 +90,23 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps_owner_set_location);
+        setContentView(R.layout.activity_maps_borrower_view);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Intent intent = getIntent();
-        final String book_ID = intent.getStringExtra("bookid");
 
-        FirebaseDatabase m = FirebaseDatabase.getInstance();
-        DatabaseReference r = m.getReference("book/"+book_ID);
+        Intent data = getIntent();
+        /*data from last activity is call locationCode, save it in this activity
+        * and set it to newLat, newLong,
+        * two new location coordinate will show on map as book's location
+        */
+        LatLng locationCode = getIntent().getExtras().getParcelable("locationCode");
+        newLat = locationCode.latitude;
+        newLong = locationCode.longitude;
+        Toast.makeText(getApplicationContext(),"Current Book's Location is showed on red marker.",Toast.LENGTH_SHORT).show();
 
-        ValueEventListener bookListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                    b = dataSnapshot.getValue(book.class);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getApplicationContext(),"Fail to get data from database",Toast.LENGTH_SHORT).show();
-
-            }
-        };
-        r.addListenerForSingleValueEvent(bookListener);
 
     }
 
@@ -104,21 +122,19 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
      */
     @Override
     public void onMapReady(final GoogleMap googleMap) {
-
-
         mMap = googleMap;
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
-        Toast.makeText(getApplicationContext(),"Long Click on Map To Set a Location.",Toast.LENGTH_LONG).show();
 
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
 
+                /*
+                user real time location will be displayed upon GPS decte change
+                 */
+                //LatLng userLocation =
 
-                LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation,15));
 
 
             }
@@ -142,58 +158,22 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
         if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2, 2, locationListener);
-            mMap.setMyLocationEnabled(true);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5, 5, locationListener);
+            //mMap.setMyLocationEnabled(true);
 
-            //set map view when launch to be last save location
+            //set last known location as default
             //Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            //LatLng lastLocation = new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude());
-            //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLocation,10));
-
+            mMap.setMyLocationEnabled(true);
 
         }
 
 
 
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(LatLng latLng) {
 
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("picked_point", latLng);
-                setResult(Activity.RESULT_OK, returnIntent);
-                finish();
-
-            }
-        });
-
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-            @Override
-            public void onMapClick(LatLng latLng) {
-
-                mMap.clear();
-                Marker marker = mMap.addMarker(new MarkerOptions().position(latLng).title("long click to set here as receive location"));
-                marker.showInfoWindow();
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                //Intent returnIntent = new Intent();
-                //returnIntent.putExtra("picked_point", latLng);
-                //setResult(Activity.RESULT_OK, returnIntent);
-                //finish();
-            }
-
-        });
-
-
+        // Add a marker in book location and move the camera
+        LatLng bookLocation = new LatLng(newLat,newLong);
+        //Toast.makeText(getApplicationContext(),bookLocation.toString(),Toast.LENGTH_SHORT).show();
+        mMap.addMarker(new MarkerOptions().position(bookLocation).title("Book Location is here"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bookLocation,15));
     }
-
-
-
-
-
 }
-
-
-/*Toast.makeText(
-                        MapsActivityOwnerSetLocation.this, "Lat: "+latLng.latitude + ", "
-                        + "Long : " + latLng.longitude,
-                        Toast.LENGTH_LONG).show()*/

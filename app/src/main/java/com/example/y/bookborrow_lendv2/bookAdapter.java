@@ -90,8 +90,8 @@ public class bookAdapter extends BaseAdapter {
             holder.image = (ImageView) convertView.findViewById(R.id.BookImage);
             holder.bookName = (TextView) convertView.findViewById(R.id.BookName);
             //holder.info = (ImageButton) convertView.findViewById(R.id.infoButton);
-            holder.currentBorrower = (TextView) convertView.findViewById(R.id.CurrentBorrower);
-            holder.description = (TextView) convertView.findViewById(R.id.descrip);
+            //holder.currentBorrower = (TextView) convertView.findViewById(R.id.CurrentBorrower);
+            //holder.description = (TextView) convertView.findViewById(R.id.descrip);
             holder.status = (TextView) convertView.findViewById(R.id.Stat);
 
             convertView.setTag(holder);
@@ -104,8 +104,9 @@ public class bookAdapter extends BaseAdapter {
         holder.bookName.setText(book.getName());
         holder.status.setText(book.getStatus());
         //holder.image.setImageDrawable();
-        holder.currentBorrower.setText(book.getBorrowerID());
-        holder.description.setText(book.getDescription());
+        //holder.currentBorrower.setText(book.getBorrowerID());
+        //holder.description.setText(book.getDescription());
+        holder.image.setImageBitmap(book.getImage());
         //holder.info.set
         return convertView;
 
@@ -118,8 +119,8 @@ public class bookAdapter extends BaseAdapter {
         ImageView image;
         TextView bookName;
         TextView status;
-        TextView currentBorrower;
-        TextView description;
+        //TextView currentBorrower;
+        //TextView description;
         //ImageButton info;
     }
 

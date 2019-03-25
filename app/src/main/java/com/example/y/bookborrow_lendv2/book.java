@@ -22,14 +22,21 @@
 package com.example.y.bookborrow_lendv2;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Map;
 import java.util.UUID;
@@ -52,7 +59,7 @@ import java.util.ArrayList;
 public class book {
     private UUID ID;
     private String name = null;
-    //private Image photo = null;
+    private Bitmap photo = null;
     private String author = null;
     private String ISBN = null;
     private Double longitude = 0.0;
@@ -91,7 +98,7 @@ public class book {
      * since there are too many parameters in this constructor
      */
     book(String name, String author, String ISBN, Double longitude, Double latitude, String description
-            , String title, Double bookRating, String borrowerName, String ownerName, String status ) {
+            , String title, Double bookRating, String borrowerName, String ownerName, String status, String firstScanned) {
         this.name = name;
         //this.photo = photo;
         this.author = author;
@@ -104,11 +111,16 @@ public class book {
         this.borrowerID = borrowerName;
         this.ownerID = ownerName;
         this.status = status;
-
         this.firstScanned = firstScanned;
     }
 
+    public void setImage(Bitmap bitmap){
+        this.photo = bitmap;
+    }
 
+    public Bitmap getImage(){
+        return this.photo;
+    }
     /**
      * this method set the values that fot from firebase to object
      */
@@ -128,7 +140,6 @@ public class book {
         r.child("borrowerID").setValue(this.borrowerID);
         r.child("ownerID").setValue(this.ownerID);
         r.child("status").setValue(this.status);
-
         r.child("firstScanned").setValue(this.firstScanned);
     }
     /**
@@ -362,6 +373,23 @@ public class book {
     }
 
     /**
+     * @param s
+     * this method set a checkmate of borrowing or returning
+     */
+
+    public void setFirstScanned(String s) {
+        this.firstScanned = s;
+    }
+
+    /**
+     * this method return checkmate of borrowing or returning
+     * @return firstScanned
+     *
+     */
+
+    public String getFirstScanned(){return this.firstScanned;}
+
+    /**
      * return the book's rating
      * @return rating
      */
@@ -390,21 +418,4 @@ public class book {
 
         return true;
     }
-
-    /**
-     * @param s
-     * this method set a checkmate of borrowing or returning
-     */
-
-    public void setFirstScanned(String s) {
-        this.firstScanned = s;
-    }
-
-    /**
-     * this method return checkmate of borrowing or returning
-     * @return firstScanned
-     *
-     */
-
-    public String getFirstScanned(){return this.firstScanned;}
 }
