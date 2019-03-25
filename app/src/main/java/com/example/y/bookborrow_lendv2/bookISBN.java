@@ -28,6 +28,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * The type Book isbn.
+ */
 public class bookISBN {
     private String ISBN;
     private Double totalRate = 0.00;
@@ -37,16 +40,34 @@ public class bookISBN {
     private DatabaseReference r;
 
 
+    /**
+     * Instantiates a new Book isbn.
+     *
+     * @param ISBN the isbn
+     */
     bookISBN(String ISBN){
         this.ISBN = ISBN;
     }
 
+    /**
+     * Update borrow time.
+     */
     public void updateBorrowTime(){
         this.borrowTime += 1;
     }
 
+    /**
+     * Sets book rate.
+     *
+     * @param rating the rating
+     */
     public void setBookRate(Double rating) { this.totalRate += rating; }
 
+    /**
+     * Gets book rate.
+     *
+     * @return the book rate
+     */
     public String getBookRate() {
         if (this.totalRate == 0.00){
             return "No one rate it yet!";
@@ -54,6 +75,9 @@ public class bookISBN {
         return Double.toString(this.totalRate/this.borrowTime);
     }
 
+    /**
+     * Set to firebse.
+     */
     public void setToFirebse(){
         m = FirebaseDatabase.getInstance();
         r = m.getReference("bookISBN/"+this.ISBN);
@@ -62,6 +86,11 @@ public class bookISBN {
         r.child("RatingAndComment").setValue(this.commentList);
     }
 
+    /**
+     * Add new rating and comment.
+     *
+     * @param newComment the new comment
+     */
     public void addNewRatingAndComment(RatingAndComment newComment){
         commentList.add(newComment);
         m = FirebaseDatabase.getInstance();

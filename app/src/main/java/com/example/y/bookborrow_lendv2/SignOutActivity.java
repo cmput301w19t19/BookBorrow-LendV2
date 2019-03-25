@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * The type Sign out activity.
+ */
 public class SignOutActivity extends AppCompatActivity {
 
 
@@ -41,7 +44,10 @@ public class SignOutActivity extends AppCompatActivity {
     }
 
 
-    //sign out method
+    /**
+     * Sign out.
+     */
+//sign out method
     public void signOut() {
         auth = FirebaseAuth.getInstance();
 

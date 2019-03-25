@@ -47,12 +47,20 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 /**
- * @author: Bowei Li
+ * The type Owner home activity.
+ *
  * @version 1.0
+ * @author: Bowei Li
  */
 public class OwnerHomeActivity extends AppCompatActivity {
 
+    /**
+     * The Database.
+     */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    /**
+     * The Db ref.
+     */
     DatabaseReference DbRef = database.getReference();
     private FirebaseAuth auth;
     private book targetBook;

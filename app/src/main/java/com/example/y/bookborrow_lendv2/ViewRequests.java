@@ -24,10 +24,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 
-
-
-
-
+/**
+ * The type View requests.
+ */
 public class ViewRequests extends AppCompatActivity {
 
     private FirebaseAuth auth;
@@ -35,12 +34,27 @@ public class ViewRequests extends AppCompatActivity {
     private ListView BookListView2;
     private ListView BookListView;
     private Button backButton;
+    /**
+     * The Database.
+     */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 
+    /**
+     * The Db ref.
+     */
     DatabaseReference DbRef = database.getReference();
+    /**
+     * The Db ref.
+     */
     DatabaseReference dbRef = database.getReference();
+    /**
+     * The Book list.
+     */
     ArrayList<book> bookList = new ArrayList<>();
+    /**
+     * The Book id list.
+     */
     ArrayList<String> bookIDList = new ArrayList<>();
 
 

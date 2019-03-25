@@ -34,13 +34,22 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
+ * The type Search book adapter.
+ *
+ * @version 1.0
  * @author: Bowei Li
  * @see: BaseAdapter
- * @version 1.0
  */
 public class SearchBookAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private ArrayList<book> myBook;
+
+    /**
+     * Instantiates a new Search book adapter.
+     *
+     * @param context the context
+     * @param data    the data
+     */
     public SearchBookAdapter(Context context, ArrayList<book> data) {
         mInflater = LayoutInflater.from(context);
         myBook = data;
@@ -116,10 +125,25 @@ public class SearchBookAdapter extends BaseAdapter {
      * a viewHolder object used for SearchBookAdapter
      */
     private class ViewHolder{
+        /**
+         * The Image.
+         */
         ImageView image;
+        /**
+         * The Book name.
+         */
         TextView bookName;
+        /**
+         * The Status.
+         */
         TextView status;
+        /**
+         * The Description.
+         */
         TextView description;
+        /**
+         * The Owner.
+         */
         TextView owner;
     }
 

@@ -28,23 +28,59 @@ import com.journeyapps.barcodescanner.CaptureActivity;
 
 import java.util.ArrayList;
 
+/**
+ * This function is working for scanning
+ * By scanning, user could check book details, borrow a book
+ * and return a book
+ *
+ * @author Yuan Feng
+ * @author bingqiWang
+ * @since 1.0
+ */
 public class check_to_scan extends AppCompatActivity{
 
     private RadioGroup group;
     private String B_status;
     private Button scanning;
+    /**
+     * The M.
+     */
     FirebaseDatabase m = FirebaseDatabase.getInstance();
+    /**
+     * The Db holder.
+     */
     DatabaseReference dbHolder;
+    /**
+     * The Db ref.
+     */
     DatabaseReference DbRef;
+    /**
+     * The User.
+     */
     String user;
     private FirebaseAuth auth;
-    // String of ISBN
+    /**
+     * The Code.
+     */
+// String of ISBN
     String code;
+    /**
+     * The Selected id.
+     */
     String selectedID = null;
 
+    /**
+     * The Book status.
+     */
     String bookStatus;
+    /**
+     * The Bookfirst scanned.
+     */
     String BookfirstScanned;
 
+    /**
+     * The Uid.
+     */
     String uid;
 
 
