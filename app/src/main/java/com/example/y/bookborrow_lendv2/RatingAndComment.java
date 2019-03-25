@@ -7,10 +7,11 @@ public class RatingAndComment {
     private String borrowerID;
     private Double borrowerRating;
     private String comment;
-    private FirebaseDatabase m = FirebaseDatabase.getInstance();
+    //private FirebaseDatabase m = FirebaseDatabase.getInstance();
 
     RatingAndComment(){}
 
+    /*
     RatingAndComment(String ID){
         this.setBorrowerID(ID);
     }
@@ -24,7 +25,7 @@ public class RatingAndComment {
     public void deleteFromFirebase(){
         DatabaseReference r = m.getReference("RatingAndComment/").child(this.borrowerID);
         r.removeValue();
-    }
+    }*/
 
     public void setBorrowerID(String borrowerID) {
         this.borrowerID = borrowerID;
@@ -42,8 +43,8 @@ public class RatingAndComment {
         return true;
     }
 
-    public Double getBorrowerRating() {
-        return borrowerRating;
+    public String getBorrowerRating() {
+        return Double.toString(borrowerRating);
     }
 
     public void setComment(String comment) {

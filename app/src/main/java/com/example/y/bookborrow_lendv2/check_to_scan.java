@@ -150,9 +150,10 @@ public class check_to_scan extends AppCompatActivity{
         super.onActivityResult(requestCode, resultCode, data);
         IntentResult intentResult= IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (intentResult!=null){
-            if (intentResult.getContents()==null) {
+            String result = intentResult.getContents();
+            if (result!=null) {
                 Toast.makeText(check_to_scan.this, "Checking QR code finished", Toast.LENGTH_LONG).show();
-                String bookID = findBookId(resultCode);
+                String bookID = findBookId(result);
                 DbRef = m.getReference("book");
 
                 ValueEventListener eventListener = new ValueEventListener() {
@@ -253,11 +254,11 @@ public class check_to_scan extends AppCompatActivity{
     }
 
 
-    public String findBookId(int ISBN) {
+    public String findBookId(String ISBN) {
         //String bookID;
         selectedID = null;
         // code is the ISBN that the result of scanner
-        code = String.valueOf(ISBN);
+        code = ISBN;
         auth = FirebaseAuth.getInstance();
         FirebaseUser users = auth.getCurrentUser();
         String uid = users.getUid();

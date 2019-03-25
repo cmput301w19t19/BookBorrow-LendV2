@@ -22,14 +22,19 @@
 
 package com.example.y.bookborrow_lendv2;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.Map;
 
 public class bookISBN {
     private String ISBN;
-    private Double totalRate;
-    private Integer borrowTime;
+    private Double totalRate = 0.00;
+    private Integer borrowTime = 0;
     private ArrayList<RatingAndComment> commentList;
+    private FirebaseDatabase m;
+    private DatabaseReference r;
 
 
     bookISBN(String ISBN){
@@ -40,13 +45,28 @@ public class bookISBN {
         this.borrowTime += 1;
     }
 
-
-    public void setBookRate(Double rating) {
-        this.totalRate += rating;
-    }
+    public void setBookRate(Double rating) { this.totalRate += rating; }
 
     public String getBookRate() {
+        if (this.totalRate == 0.00){
+            return "No one rate it yet!";
+        }
         return Double.toString(this.totalRate/this.borrowTime);
+    }
+
+    public void setToFirebse(){
+        m = FirebaseDatabase.getInstance();
+        r = m.getReference("bookISBN/"+this.ISBN);
+        r.child("totalRate").setValue(this.totalRate);
+        r.child("borrowTime").setValue(this.borrowTime);
+        r.child("RatingAndComment").setValue(this.commentList);
+    }
+
+    public void addNewRatingAndComment(RatingAndComment newComment){
+        commentList.add(newComment);
+        m = FirebaseDatabase.getInstance();
+        r = m.getReference("book/"+this.ISBN+"/RatingAndComment");
+        r.child("RatingAndComment").setValue(newComment);
     }
 
 

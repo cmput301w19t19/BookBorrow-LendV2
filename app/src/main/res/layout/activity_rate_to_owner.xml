@@ -59,20 +59,9 @@
         android:layout_marginStart="18dp"
         android:layout_marginLeft="18dp"
         android:layout_marginTop="16dp"
-        android:text="TextView"
+        android:text="@string/RateToOwnerUserName"
         app:layout_constraintStart_toEndOf="@+id/Owner_image"
         app:layout_constraintTop_toBottomOf="@+id/textView_BorrowerRequest3" />
-
-    <TextView
-        android:id="@+id/Owner_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="11dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/Owner_image"
-        app:layout_constraintTop_toBottomOf="@+id/Owner_username" />
 
     <TextView
         android:id="@+id/Owner_rate_text"
@@ -87,14 +76,14 @@
 
     <EditText
         android:id="@+id/edit_owner_rate"
-        android:layout_width="97dp"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
         android:layout_marginLeft="42dp"
         android:layout_marginTop="88dp"
         android:ems="10"
-        android:hint="(1-10)"
-        android:inputType="textPersonName|number"
+        android:hint="@string/RateToOwnerUserRatePrompt"
+        android:inputType="numberDecimal"
         app:layout_constraintStart_toEndOf="@+id/Owner_rate_text"
         app:layout_constraintTop_toBottomOf="@+id/textView_BorrowerRequest3" />
 
@@ -119,7 +108,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:ems="10"
-        android:hint="comment"
+        android:hint="@string/RateToOwnerUserCommentPrompt"
         android:inputType="textLongMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Owner_comment_text"
@@ -137,26 +126,23 @@
         app:srcCompat="@mipmap/ic_launcher" />
 
     <TextView
-        android:id="@+id/Book_username"
+        android:id="@+id/Book_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:layout_marginLeft="18dp"
         android:layout_marginTop="80dp"
-        android:text="TextView"
+        android:text="@string/RateToOwnerBookName"
         app:layout_constraintStart_toEndOf="@+id/Book_image"
         app:layout_constraintTop_toBottomOf="@+id/Owner_comment_text" />
 
     <TextView
-        android:id="@+id/Book_description"
+        android:id="@+id/Book_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginLeft="18dp"
-        android:layout_marginTop="11dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/Book_image"
-        app:layout_constraintTop_toBottomOf="@+id/Book_username" />
+        android:text="@string/RateToOwnerBookAuthor"
+        tools:layout_editor_absoluteX="106dp"
+        tools:layout_editor_absoluteY="316dp" />
 
     <TextView
         android:id="@+id/Book_rate_text"
@@ -188,8 +174,8 @@
         android:layout_marginLeft="42dp"
         android:layout_marginTop="152dp"
         android:ems="10"
-        android:hint="(1-10)"
-        android:inputType="textPersonName|number"
+        android:hint="@string/RateToOwnerUserRatePrompt"
+        android:inputType="numberDecimal"
         app:layout_constraintStart_toEndOf="@+id/Book_rate_text"
         app:layout_constraintTop_toBottomOf="@+id/Owner_comment_text" />
 
@@ -203,9 +189,35 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:ems="10"
-        android:hint="comment"
+        android:hint="@string/RateToOwnerBookComment"
         android:inputType="textLongMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/Book_comment_text"
         app:layout_constraintTop_toBottomOf="@+id/edit_book_rate" />
+
+    <TextView
+        android:id="@+id/Book_ISBN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/RateToOwnerBookISBN"
+        app:layout_constraintStart_toStartOf="@+id/Book_author"
+        app:layout_constraintTop_toBottomOf="@+id/Book_author" />
+
+    <Button
+        android:id="@+id/RateToOwnerSaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/Book_comment_text" />
+
+    <TextView
+        android:id="@+id/Owner_user_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/RateToOwnerUserEmail"
+        tools:layout_editor_absoluteX="106dp"
+        tools:layout_editor_absoluteY="116dp" />
 </android.support.constraint.ConstraintLayout>
