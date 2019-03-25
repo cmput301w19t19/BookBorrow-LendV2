@@ -133,6 +133,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         gallery = findViewById(R.id.gallery);
         locationButton = (Button)findViewById(R.id.pBookLocation);
 
+
         /**
          *  Get the information of the book from firebase and show them on the screen
          */

@@ -81,22 +81,6 @@ public class loginAct extends AppCompatActivity {
             //hello
             @Override
             public void onClick(View v) {
-                /*
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    String bookname = "The Elements of Statistical Learning";
-                    book b = new book();
-                    b.setAuthor("Trevor Hastie Robert Tibshirani Jerome Friedman");
-                    b.setDescription("statistic machine learning");
-                    b.setName(bookname);
-
-                    b.setToFirebase();
-                    b.setStatusToRequested();
-
-                    Toast.makeText(getApplicationContext(),"create a book",Toast.LENGTH_LONG);
-                    Toast.makeText(getApplicationContext(),b.getID(),Toast.LENGTH_LONG);
-                    Toast.makeText(getApplicationContext(),b.getName(),Toast.LENGTH_LONG);
-                    Toast.makeText(getApplicationContext(),b.getAuthor(),Toast.LENGTH_LONG);*/
-
 
                 final String email = inputEmail.getText().toString().trim();
                 final String password = inputPassword.getText().toString().trim();
@@ -150,10 +134,15 @@ public class loginAct extends AppCompatActivity {
                                     newUser.setEmail(email);
                                     newUser.setUid(uid);
                                     newUser.setPassword(password);
+
                                     newBorrower.setEmail(email);
                                     newBorrower.setUid(uid);
+                                    newBorrower.setToFirebase(uid,email);
+
+
                                     newLender.setEmail(email);
                                     newLender.setUid(uid);
+                                    newLender.setToFirebase(uid,email);
 
 
 
@@ -161,8 +150,8 @@ public class loginAct extends AppCompatActivity {
                                     newUser.setPassword(password);
                                     String key = uid;
                                     mDatabase.child("users").child(key).setValue(newUser);
-                                    mDatabase.child("borrowers").child(key).setValue(newBorrower);
-                                    mDatabase.child("lenders").child(key).setValue(newLender);
+                                    //mDatabase.child("borrowers").child(key).setValue(newBorrower);
+                                    //mDatabase.child("lenders").child(key).setValue(newLender);
 
                                     Toast.makeText(loginAct.this, "Authentication success!" + task.getException(),
                                             Toast.LENGTH_SHORT).show();
@@ -206,6 +195,11 @@ public class loginAct extends AppCompatActivity {
         });
 
 
+                                    // On login button click, storing our username into normalUser,lender borrower classes.
+                                    //Singleton Pattern implemented here
+                                    //NormalUser.Instance().setUid(uid);
+                                    //borrower.Instance().setUid(uid);
+                                    //lender.Instance().setUid(uid);
     }
 
     /**
@@ -214,7 +208,6 @@ public class loginAct extends AppCompatActivity {
      */
     public String returnCurrentUser(){
         auth = FirebaseAuth.getInstance();
-
         FirebaseUser user = auth.getCurrentUser();
         String uid = user.getUid();
         return uid;
@@ -228,7 +221,8 @@ public class loginAct extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Toast.makeText(getApplicationContext(), "login ", Toast.LENGTH_SHORT).show();
-
+                        Intent intent = new Intent(loginAct.this, home_page.class);
+                        startActivity(intent);
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
@@ -236,7 +230,6 @@ public class loginAct extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             // there was an error
                             Toast.makeText(getApplicationContext(), "login failed", Toast.LENGTH_SHORT).show();
-
 
                         } else {
                             FirebaseUser user = auth.getCurrentUser();
@@ -253,8 +246,8 @@ public class loginAct extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "login Success!", Toast.LENGTH_SHORT).show();
 
 
-                            Intent intent = new Intent(loginAct.this, home_page.class);
-                            startActivity(intent);
+                            Intent i = new Intent(loginAct.this, home_page.class);
+                            startActivity(i);
 
 
                         }

@@ -31,6 +31,10 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
+
 /*
  * Copyright 2019 TEAM19
  *
@@ -62,6 +66,7 @@ import java.io.IOException;
  */
 public class EditBookDetail extends AppCompatActivity {
 
+
     private book b;
     private EditText bookNamkeEditText;
     private EditText authorEditText;
@@ -69,6 +74,9 @@ public class EditBookDetail extends AppCompatActivity {
     private EditText descriptionEditText;
     private ImageView bookPhoto;
     private String id;
+
+
+    Button ISBNButton;
 
     private FirebaseAuth auth;
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -92,12 +100,14 @@ public class EditBookDetail extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         Button saveButton = (Button)findViewById(R.id.Buttonsave);
         Button uploadButton = (Button)findViewById(R.id.ButtonUpload);
+        ISBNButton = (Button)findViewById(R.id.ISBNscan);
 
         bookNamkeEditText = (EditText)findViewById(R.id.pt4);
         authorEditText = (EditText)findViewById(R.id.pt2);
         ISBNEditText = (EditText)findViewById(R.id.pt3);
         descriptionEditText = (EditText)findViewById(R.id.editTextDes);
         bookPhoto = findViewById(R.id.BookPhoto);
+
 
         Intent i = getIntent();
         id = i.getStringExtra("0");
@@ -170,6 +180,19 @@ public class EditBookDetail extends AppCompatActivity {
 
         }
 
+        // scan the bar code to get the ISBN automatically
+        ISBNButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new IntentIntegrator(EditBookDetail.this)
+                        .setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES)//any type of ISBN
+                        .setOrientationLocked(true)
+                        .setPrompt("Please Point to QR code")
+                        .setCameraId(0) //chose camera
+                        .initiateScan();
+            }
+        });
+
         /**
          * get all the information from users
          * update book infor to firebase, path:booklendborrow/book/[bookid]
@@ -225,6 +248,11 @@ public class EditBookDetail extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent Data) {
         super.onActivityResult(requestCode, resultCode, Data);
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, Data);
+        if (scanResult != null) {
+            String result = scanResult.getContents();
+            ISBNEditText.setText(result);
+        }
         if (resultCode == RESULT_CANCELED) {
             Toast.makeText(EditBookDetail.this, "canceled", Toast.LENGTH_LONG).show();
             return;
@@ -252,5 +280,7 @@ public class EditBookDetail extends AppCompatActivity {
             }
         }
     }
+
+
 
 }

@@ -57,14 +57,10 @@ public class BorrowBookList extends AppCompatActivity {
     private ListView myBorrowBookList;
     private ArrayList<book> borrowedBooks = new ArrayList<>();
     private BorrowingBookAdapter BorrowedBookAdapter;
-<<<<<<< HEAD
+
     private FirebaseAuth auth;
     private FirebaseUser user;
-=======
-    /**
-     * The Database.
-     */
->>>>>>> 465c2cecf348316bfe63c38ec0ef298654ce130b
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     /**
      * The Db ref.

@@ -109,7 +109,8 @@ public class BorrowingBookAdapter extends BaseAdapter {
         holder.bookName.setText(book.getName());
         holder.OwnerName.setText(book.getOwnerID());
         holder.image.setImageBitmap(book.getImage());
-        holder.rating.setText(book.getBookRating().toString());
+        holder.rating.setText(book.getBookRating());
+
         holder.description.setText(book.getDescription());
         //holder.info.set
         return convertView;

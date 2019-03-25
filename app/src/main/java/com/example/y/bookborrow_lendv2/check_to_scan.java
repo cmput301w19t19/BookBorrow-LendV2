@@ -34,7 +34,6 @@ import java.util.ArrayList;
  * and return a book
  *
  * @author Yuan Feng
- * @author bingqiWang
  * @since 1.0
  */
 public class check_to_scan extends AppCompatActivity{
@@ -42,45 +41,17 @@ public class check_to_scan extends AppCompatActivity{
     private RadioGroup group;
     private String B_status;
     private Button scanning;
-    /**
-     * The M.
-     */
+
     FirebaseDatabase m = FirebaseDatabase.getInstance();
-    /**
-     * The Db holder.
-     */
     DatabaseReference dbHolder;
-    /**
-     * The Db ref.
-     */
     DatabaseReference DbRef;
-    /**
-     * The User.
-     */
     String user;
     private FirebaseAuth auth;
-    /**
-     * The Code.
-     */
-// String of ISBN
+
     String code;
-    /**
-     * The Selected id.
-     */
     String selectedID = null;
-
-    /**
-     * The Book status.
-     */
     String bookStatus;
-    /**
-     * The Bookfirst scanned.
-     */
     String BookfirstScanned;
-
-    /**
-     * The Uid.
-     */
     String uid;
 
 
@@ -187,15 +158,17 @@ public class check_to_scan extends AppCompatActivity{
                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
                             final String bookID = ds.getKey();
                             DbRef = m.getReference("book/" + bookID);
+
                             ValueEventListener eventListener1 = new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
                                     book targetBook = dataSnapshot1.getValue(book.class);
                                     String sampleISBN = targetBook.getISBN();
+
                                     if (code.equals(sampleISBN)) {
                                         selectedID = bookID;
                                     }
-                                    if(selectedID != null){
+                                    if(selectedID != null) {
                                         DbRef = m.getReference("book/" + selectedID);
 
                                         ValueEventListener eventListener2 = new ValueEventListener() {
@@ -207,16 +180,15 @@ public class check_to_scan extends AppCompatActivity{
                                                 bookStatus = FoundBook.getStatus();
                                                 BookfirstScanned = FoundBook.getFirstScanned();
 
-                                                Log.i("B_status",B_status);
+                                                Log.i("B_status", B_status);
 
-                                                if(B_status.equals("detail")){
+                                                if (B_status.equals("detail")) {
                                                     Intent intent = new Intent(check_to_scan.this, PrivateBookDetails.class);
                                                     // put the result code to private detail
-                                                    intent.putExtra("Id",selectedID);
-                                                    startActivityForResult(intent,3);
-                                                }
-                                                else if (B_status.equals("borrow")&& user.equals("borrower")){
-                                                    if(bookStatus.equals("accepted")&& BookfirstScanned.equals("true")){
+                                                    intent.putExtra("Id", selectedID);
+                                                    startActivityForResult(intent, 3);
+                                                } else if (B_status.equals("borrow") && user.equals("borrower")) {
+                                                    if (bookStatus.equals("accepted") && BookfirstScanned.equals("true")) {
                                                         //first delete the book in accept List
 
                                                         m.getReference("borrowers").child(uid).child("AcceptedList").child(selectedID).removeValue();
@@ -225,36 +197,49 @@ public class check_to_scan extends AppCompatActivity{
                                                         m.getReference("borrowers").child(uid).child("BorrowBookList").child(selectedID).setValue(true);
                                                         DbRef = m.getReference("book");
                                                         DbRef.child(selectedID).child("status").setValue("borrowed");
-
+                                                        DbRef.child(selectedID).child("borrowerID").setValue(uid);
                                                         DbRef.child(selectedID).child("firstScanned").setValue("false");
-                                                    }
-                                                    else {
+                                                    } else {
                                                         Toast.makeText(check_to_scan.this, "The Book is not ready to scan yet", Toast.LENGTH_LONG).show();
 
                                                     }
-                                                }
-                                                else if (B_status.equals("borrow")&& user.equals("owner")){
-                                                    if(bookStatus.equals("accepted")&& BookfirstScanned.equals("false")){
+                                                } else if (B_status.equals("borrow") && user.equals("owner")) {
+                                                    if (bookStatus.equals("accepted") && BookfirstScanned.equals("false")) {
                                                         DbRef = m.getReference("book");
                                                         // set the checkmate to true
                                                         DbRef.child(selectedID).child("firstScanned").setValue("true");
-                                                    }
-                                                    else {
+                                                    } else {
                                                         Toast.makeText(check_to_scan.this, "The Book is not ready to scan yet", Toast.LENGTH_LONG).show();
                                                     }
-                                                }
-                                                else if (B_status.equals("return")&& user.equals("borrower")){
-                                                    if(bookStatus.equals("borrowed")&& BookfirstScanned.equals("false")){
+                                                } else if (B_status.equals("return") && user.equals("borrower")) {
+                                                    if (bookStatus.equals("borrowed") && BookfirstScanned.equals("false")) {
                                                         DbRef = m.getReference("book");
                                                         // set the checkmate to false
                                                         DbRef.child(selectedID).child("firstScanned").setValue("true");
-                                                    }
-                                                    else {
+                                                    } else {
                                                         Toast.makeText(check_to_scan.this, "The Book is not ready to scan yet", Toast.LENGTH_LONG).show();
                                                     }
-                                                }
-                                                else if (B_status.equals("return")&& user.equals("owner")){
-                                                    if(bookStatus.equals("borrowed")&& BookfirstScanned.equals("true")){
+                                                } else if (B_status.equals("return") && user.equals("borrower")) {
+                                                    if (bookStatus.equals("borrowed") && BookfirstScanned.equals("false")) {
+                                                        DbRef = m.getReference("book");
+                                                        // set the checkmate to false
+                                                        DbRef.child(selectedID).child("firstScanned").setValue("true");
+
+                                                        Log.i("test checkToScan", "rateToOwnerStart");
+
+                                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                                        Intent i = new Intent(getApplicationContext(), RateToOwner.class);
+                                                        i.putExtra("bookID", selectedID);
+                                                        startActivity(i);
+
+                                                        Log.i("test checkToScan", "RateToOwnerFinish");
+                                                        finish();
+                                                        return;
+                                                    } else {
+                                                        Toast.makeText(check_to_scan.this, "The Book is not ready to scan yet", Toast.LENGTH_LONG).show();
+                                                    }
+                                                } else if (B_status.equals("return") && user.equals("owner")) {
+                                                    if (bookStatus.equals("borrowed") && BookfirstScanned.equals("true")) {
                                                         //first delete the book in borrow List
                                                         m.getReference("borrowers").child(uid).child("BorrowBookList").child(selectedID).removeValue();
 
@@ -263,8 +248,22 @@ public class check_to_scan extends AppCompatActivity{
                                                         DbRef.child(selectedID).child("status").setValue("available");
 
                                                         DbRef.child(selectedID).child("firstScanned").setValue("false");
-                                                    }
-                                                    else {
+
+                                                        Log.i("test checkToScan", "rateToBorrowerStart");
+
+                                                        DatabaseReference r = FirebaseDatabase.getInstance().getReference("book/" + selectedID);
+                                                        String BorrowerID = FoundBook.getBorrowerID();
+                                                        r.child("borrowerID").removeValue();
+
+                                                        Intent i = new Intent(getApplicationContext(), RateToBorrower.class);
+                                                        i.putExtra("borrowerID", BorrowerID);
+                                                        i.putExtra("bookID", selectedID);
+                                                        startActivity(i);
+
+                                                        Log.i("test checkToScan", "rateToBorrowerFinish");
+                                                        finish();
+                                                        return;
+                                                    } else {
                                                         Toast.makeText(check_to_scan.this, "The Book is not ready to scan yet", Toast.LENGTH_LONG).show();
                                                     }
                                                 }
@@ -289,6 +288,7 @@ public class check_to_scan extends AppCompatActivity{
                             };
                             DbRef.addValueEventListener(eventListener1);
                         }
+
                     }
                     @Override
                     public void onCancelled (DatabaseError databaseError){

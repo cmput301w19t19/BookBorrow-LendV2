@@ -31,9 +31,15 @@ public class RatingAndComment {
     private Double rating;
     private String comment = null;
 
+    /**
+     * This empty constructor is used in RateToOwner and RateToBorrower
+     * This empty constructor will also be used
+     * when trying to get a instance of the object from firebase
+     * @see RateToBorrower
+     * @see RateToOwner
+     */
     RatingAndComment(){}
-    
-    
+
     public void setID(String ID) {
         this.ID = ID;
     }

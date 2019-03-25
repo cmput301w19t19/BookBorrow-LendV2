@@ -142,19 +142,10 @@ public class BorrowerRequestAdapter extends BaseAdapter {
          * The Image.
          */
         ImageView image;
-<<<<<<< HEAD
+
         TextView rating;
         TextView status;
-=======
-        /**
-         * The Current borrower.
-         */
-        TextView currentBorrower;
-        /**
-         * The Description.
-         */
-        TextView description;
->>>>>>> 465c2cecf348316bfe63c38ec0ef298654ce130b
+
     }
 
 }
