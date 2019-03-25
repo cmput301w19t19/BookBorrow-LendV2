@@ -107,4 +107,7 @@
     <string name="RateToOwnerUserEmail">Missing lender email!</string>
     <string name="title_activity_maps_owner_set_location">Map</string>
     <string name="title_activity_maps_borrower_view">Map</string>
+    <string name="loginPageHint">Don\'t have an account?</string>
+    <string name="registerButton">register</string>
+    <string name="signUp">signup</string>
 </resources>

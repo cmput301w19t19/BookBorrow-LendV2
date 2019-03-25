@@ -269,6 +269,19 @@ public class PrivateBookDetails extends AppCompatActivity {
                 startActivityForResult(intent,CODE_PHOTO_REQUEST);
             }
         });
+
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Intent intent = new Intent(getApplicationContext(), MapsActivityOwnerSetLocation.class);
+                //startActivityForResult(new Intent(PrivateBookDetails.this, MapsActivityOwnerSetLocation.class), 4);
+                pickPointOnMap();
+
+
+
+            }
+        });
     }
 
     private void photoClip(Uri uri) {
@@ -299,18 +312,6 @@ public class PrivateBookDetails extends AppCompatActivity {
 
 
 
-        locationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //Intent intent = new Intent(getApplicationContext(), MapsActivityOwnerSetLocation.class);
-                //startActivityForResult(new Intent(PrivateBookDetails.this, MapsActivityOwnerSetLocation.class), 4);
-                pickPointOnMap();
-
-
-
-            }
-        });
     }
 
     //switch to map activity, user can pick a point on map
@@ -320,6 +321,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         Intent pickPointIntent = new Intent(this,MapsActivityOwnerSetLocation.class);
         startActivityForResult(pickPointIntent, pickMapPointRequest);
     }
+
 
 
     /**
