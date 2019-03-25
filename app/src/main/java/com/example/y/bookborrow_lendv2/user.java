@@ -32,15 +32,15 @@ import com.google.firebase.auth.FirebaseUser;
  * contain all user related attributes
  * setter and getter for the book info.
  * And firebase related methods include:
- *  setToFirebase , deleteFromFirebase
+ * setToFirebase , deleteFromFirebase
+ * <p>
+ * <p>
+ * Created  on 2/15/19.
  *
- *
- *  Created  on 2/15/19.
- *  @since 1.0
- * @see  borrower
+ * @see borrower
  * @see lender
+ * @since 1.0
  */
-
 public abstract class user {
     private String name;
     private Image photo;
@@ -50,11 +50,20 @@ public abstract class user {
     private String Uid;
 
 
-
-    /** A constructor with no parameters*/
+    /**
+     * A constructor with no parameters
+     */
     user(){}
 
-    /** another constructoer with parameters*/
+    /**
+     * another constructoer with parameters @param name the name
+     *
+     * @param name     the name
+     * @param photo    the photo
+     * @param password the password
+     * @param phone    the phone
+     * @param email    the email
+     */
     user(String name, Image photo, String password, String phone, String email){
         this.name = name;
         this.photo = photo;
@@ -66,25 +75,26 @@ public abstract class user {
 
     /**
      * set profile image of the user
-     * @param photo
+     *
+     * @param photo the photo
      */
-
     public void setPhoto(Image photo) {
         this.photo = photo;
     }
 
     /**
      * set phone of the user
-     * @param phone
+     *
+     * @param phone the phone
      */
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
     /**
      * set the login password of the user
-     * @param password
+     *
+     * @param password the password
      */
     public void setPassword(String password) {
         this.password = password;
@@ -92,7 +102,8 @@ public abstract class user {
 
     /**
      * set the user name of the user
-     * @param name
+     *
+     * @param name the name
      */
     public void setName(String name) {
         this.name = name;
@@ -100,7 +111,8 @@ public abstract class user {
 
     /**
      * return the account password of the user
-     * @return password
+     *
+     * @return password password
      */
     public String getPassword() {
         return password;
@@ -108,59 +120,60 @@ public abstract class user {
 
     /**
      * return the phone number of the user
-     * @return phone
+     *
+     * @return phone phone
      */
-
     public String getPhone() {
         return phone;
     }
 
     /**
      * return the user name of the user
-     * @return name
+     *
+     * @return name name
      */
-
     public String getName() {
         return name;
     }
 
     /**
      * return the profiole photo of the user
-     * @return photo
+     *
+     * @return photo photo
      */
-
     public Image getPhoto() {
         return photo;
     }
 
     /**
      * return the rmail of the user
-     * @return user
+     *
+     * @return user email
      */
-
     public String getEmail() {
         return email;
     }
 
     /**
      * set the emai of the user
-     * @param email
+     *
+     * @param email the email
      */
-
     public void setEmail(String email) {
         this.email = email;
     }
 
     /**
      * set the unique id of user
-     * @param id
+     *
+     * @param id the id
      */
-
     public void setUid(String id){this.Uid = id;}
 
     /**
      * return the id of the user
-     * @return Uid
+     *
+     * @return Uid string
      */
     public String getUid(){
         return this.Uid;

@@ -33,14 +33,26 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * The type Request book my adapter.
+ */
 public class Request_Book_MyAdapter extends BaseAdapter {
+    /**
+     * The Is selected.
+     */
     public static HashMap<Integer, Boolean> isSelected;
     private LayoutInflater mInflater;
     private ArrayList<B_request> bookRequest;
     //public static Map<Integer, Boolean> isSelected;
     //private boolean defulat = false;
 
-    //need a context to find the layout.inflater, use inflater to set the item's layout
+    /**
+     * Instantiates a new Request book my adapter.
+     *
+     * @param context the context
+     * @param datas   the datas
+     */
+//need a context to find the layout.inflater, use inflater to set the item's layout
     public Request_Book_MyAdapter(Context context, ArrayList<B_request> datas) {
         mInflater = LayoutInflater.from(context);
         bookRequest = datas;
@@ -107,9 +119,21 @@ public class Request_Book_MyAdapter extends BaseAdapter {
      };
 
     private class ViewHolder{
+        /**
+         * The Image.
+         */
         public ImageView image;
+        /**
+         * The User name.
+         */
         public TextView userName;
+        /**
+         * The Rating.
+         */
         public TextView rating;
+        /**
+         * The Check box.
+         */
         public CheckBox checkBox;
     }
 

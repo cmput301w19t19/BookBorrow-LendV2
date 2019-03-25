@@ -39,28 +39,69 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * The type Rate to owner.
+ */
 public class RateToOwner extends AppCompatActivity {
 
     private book b;
     private bookISBN ISBN;
     private lender owner;
 
+    /**
+     * The Owner rate edit text.
+     */
     EditText ownerRateEditText;
+    /**
+     * The Owner comment edit text.
+     */
     EditText ownerCommentEditText;
+    /**
+     * The Book rate edit text.
+     */
     EditText bookRateEditText;
+    /**
+     * The Book comment edit text.
+     */
     EditText bookCommentEditText;
 
+    /**
+     * The Owner user email text view.
+     */
     TextView ownerUserEmailTextView;
+    /**
+     * The Owner user name text view.
+     */
     TextView ownerUserNameTextView;
+    /**
+     * The Book name text view.
+     */
     TextView bookNameTextView;
+    /**
+     * The Book author text view.
+     */
     TextView bookAuthorTextView;
+    /**
+     * The Book isbn text view.
+     */
     TextView bookISBNTextView;
 
 
-
+    /**
+     * The Auth.
+     */
     FirebaseAuth auth;
+    /**
+     * The User.
+     */
     FirebaseUser user;
+    /**
+     * The M.
+     */
     FirebaseDatabase m;
+    /**
+     * The Uid.
+     */
     String uid;
 
     @Override

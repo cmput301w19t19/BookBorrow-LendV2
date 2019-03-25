@@ -43,12 +43,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * The type Home page.
+ */
 public class home_page extends AppCompatActivity {
     private FirebaseAuth auth;
     private TextView username;
     private DatabaseReference mDatabase;
+    /**
+     * The Database.
+     */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+    /**
+     * The Db ref.
+     */
     DatabaseReference DbRef = database.getReference();
 
 
