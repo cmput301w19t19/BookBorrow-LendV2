@@ -59,7 +59,7 @@ import java.util.ArrayList;
 public class book {
     private UUID ID;
     private String name = null;
-    private Bitmap photo = null;
+    private Bitmap photo;
     private String author = null;
     private String ISBN = null;
     private Double longitude = 0.0;

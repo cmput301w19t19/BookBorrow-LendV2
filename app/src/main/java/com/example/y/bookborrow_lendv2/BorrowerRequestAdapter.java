@@ -106,6 +106,8 @@ public class BorrowerRequestAdapter extends BaseAdapter {
             //convert to the my_book_list_item layout, ids are in there
             holder.image = (ImageView) convertView.findViewById(R.id.BookImage);
             holder.bookName = (TextView) convertView.findViewById(R.id.BookName);
+            holder.rating = convertView.findViewById(R.id.rating_on);
+            holder.status = convertView.findViewById(R.id.Stat);
             //holder.currentBorrower = (TextView) convertView.findViewById(R.id.CurrentBorrower);
             //holder.description = (TextView) convertView.findViewById(R.id.descrip);
 
@@ -117,8 +119,9 @@ public class BorrowerRequestAdapter extends BaseAdapter {
 
         book book = myBook.get(position);
         holder.bookName.setText(book.getName());
-        holder.currentBorrower.setText(book.getBorrowerID());
-        holder.description.setText(book.getDescription());
+        holder.rating.setText(book.getBookRating());
+        holder.status.setText(book.getStatus());
+        holder.image.setImageBitmap(book.getImage());
 
         return convertView;
     }
@@ -130,8 +133,8 @@ public class BorrowerRequestAdapter extends BaseAdapter {
 
         TextView bookName;
         ImageView image;
-        TextView currentBorrower;
-        TextView description;
+        TextView rating;
+        TextView status;
     }
 
 }

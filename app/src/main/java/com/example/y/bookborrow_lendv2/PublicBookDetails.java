@@ -23,16 +23,22 @@
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,6 +46,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 /**
  * This Class is to show all the detail of a book if the user want to know
@@ -64,6 +72,7 @@ public class PublicBookDetails extends AppCompatActivity {
     private TextView bookRateTV;
     private TextView bookOwnerTV;
     private TextView bookDescriptionTV;
+    private ImageView bookPhoto;
     private Button requestButton;
     private Button returnButton;
     private Button locationButton;
@@ -77,7 +86,8 @@ public class PublicBookDetails extends AppCompatActivity {
 
     DatabaseReference DbRef = database.getReference();
     DatabaseReference dbRef = database.getReference();
-
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
 
 
 
@@ -104,7 +114,7 @@ public class PublicBookDetails extends AppCompatActivity {
         requestButton = (Button)findViewById(R.id.requestTheBook);
         returnButton = (Button)findViewById(R.id.puReturnButton);
         locationButton = (Button)findViewById(R.id.pubBookLocation);
-
+        bookPhoto = findViewById(R.id.bookPhoto1);
         FirebaseDatabase m = FirebaseDatabase.getInstance();
         r = m.getReference("book/"+bookid);
 
@@ -143,6 +153,22 @@ public class PublicBookDetails extends AppCompatActivity {
                     if (description != null) {
                         bookDescriptionTV.setText(description);
                     }
+                    StorageReference imageRef = storageRef.child("book/"+bookid+"/1.jpg");
+                    final long ONE_MEGABYTE = 1024 * 1024;
+                    imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Log.i("Result","success");
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                            bookPhoto.setImageBitmap(bitmap);
+                        }
+
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.i("Result","failed");
+                        }
+                    });
 
                 }
             }

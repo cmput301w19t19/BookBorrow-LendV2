@@ -21,6 +21,7 @@
  */
 package com.example.y.bookborrow_lendv2;
 
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.provider.ContactsContract;
 
@@ -43,7 +44,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public abstract class user {
     private String name;
-    private Image photo;
+    private Bitmap photo;
     private String password;
     private String phone;
     private String email;
@@ -51,11 +52,12 @@ public abstract class user {
 
 
 
+
     /** A constructor with no parameters*/
     user(){}
 
     /** another constructoer with parameters*/
-    user(String name, Image photo, String password, String phone, String email){
+    user(String name, Bitmap photo, String password, String phone, String email){
         this.name = name;
         this.photo = photo;
         this.password =password;
@@ -69,7 +71,7 @@ public abstract class user {
      * @param photo
      */
 
-    public void setPhoto(Image photo) {
+    public void setPhoto(Bitmap photo) {
         this.photo = photo;
     }
 
@@ -129,7 +131,7 @@ public abstract class user {
      * @return photo
      */
 
-    public Image getPhoto() {
+    public Bitmap getPhoto() {
         return photo;
     }
 

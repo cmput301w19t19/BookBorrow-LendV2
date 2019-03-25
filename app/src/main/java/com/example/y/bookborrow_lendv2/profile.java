@@ -21,6 +21,11 @@
  */
 package com.example.y.bookborrow_lendv2;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -31,7 +36,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,8 +47,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.readystatesoftware.viewbadger.BadgeView;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,6 +66,7 @@ import java.util.Map;
 
 public class profile extends AppCompatActivity {
     private Button updateButton;
+    private ImageView portrait;
     private TextView inputEmail,uneditableUserName;
     private EditText inputUserName, inputPhone,inputMessage;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -61,7 +74,10 @@ public class profile extends AppCompatActivity {
     DatabaseReference DbRef = database.getReference();
     DatabaseReference borrowerRef = database.getReference();
     DatabaseReference lenderRef = database.getReference();
-
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
+    private static final int CODE_PHOTO_REQUEST = 5;
+    private String uid;
 
 
     private FirebaseAuth auth;
@@ -88,12 +104,13 @@ public class profile extends AppCompatActivity {
         //get the current logged in usesr ID
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
-        String uid = user.getUid();
+        uid = user.getUid();
 
         updateButton = (Button) findViewById(R.id.UpdateButton);
         inputEmail = (TextView) findViewById(R.id.InputEmail);
         inputUserName = (EditText) findViewById(R.id.InputName);
         inputPhone = (EditText) findViewById(R.id.InputPhone);
+        portrait = findViewById(R.id.head);
         uneditableUserName = (TextView) findViewById(R.id.UserName) ;
 
 
@@ -120,6 +137,22 @@ public class profile extends AppCompatActivity {
                 inputUserName.setText(UserName, TextView.BufferType.EDITABLE);
                 inputPhone.setText(Phone, TextView.BufferType.EDITABLE);
                 uneditableUserName.setText(UserName);
+                StorageReference imageRef = storageRef.child("user/"+uid+"/1.jpg");
+                final long ONE_MEGABYTE = 1024 * 1024;
+                imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        Log.i("Result","success");
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                        portrait.setImageBitmap(bitmap);
+                    }
+
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("Result","failed");
+                    }
+                });
 
                 // ...
             }
@@ -135,7 +168,17 @@ public class profile extends AppCompatActivity {
         DbRef.addValueEventListener(postListener);
 
 
-
+        portrait.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                //intent.setAction(Intent.ACTION_GET_CONTENT);
+                //intent.setType("image/*");
+                intent.setAction(Intent.ACTION_PICK);
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                startActivityForResult(intent,CODE_PHOTO_REQUEST);
+            }
+        });
 
 
         updateButton.setOnClickListener(new View.OnClickListener() {
@@ -188,6 +231,36 @@ public class profile extends AppCompatActivity {
             }});
 
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent Data) {
+        super.onActivityResult(requestCode, resultCode, Data);
+        if (resultCode == RESULT_CANCELED) {
+            Toast.makeText(profile.this, "canceled", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (requestCode == CODE_PHOTO_REQUEST) {
+            if (Data != null) {
+                Bitmap photo = null;
+                try {
+                    Uri uri = Data.getData();
+                    Log.i("hello22", "22");
+                    //if (extra != null) {
+                    //  Log.i("hello22","slslsl");
+                    photo = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                    portrait.setImageBitmap(photo);
+                    StorageReference storageReference = storageRef.child("user/" + uid + "/" + "1.jpg");
+                    storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Uri downloadUrl = taskSnapshot.getUploadSessionUri();
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
 }
