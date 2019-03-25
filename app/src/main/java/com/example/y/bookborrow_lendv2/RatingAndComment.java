@@ -4,47 +4,31 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class RatingAndComment {
-    private String borrowerID;
-    private Double borrowerRating;
-    private String comment;
-    //private FirebaseDatabase m = FirebaseDatabase.getInstance();
+    private String ID;
+    private Double rating;
+    private String comment = null;
 
     RatingAndComment(){}
 
-    /*
-    RatingAndComment(String ID){
-        this.setBorrowerID(ID);
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
-    public void setToFirebase(){
-        DatabaseReference r1 = m.getReference("RatingAndComment/"+this.borrowerID);
-        r1.child("borrowerRating").setValue(Double.toString(this.borrowerRating));
-        r1.child("comment").setValue(this.comment);
+    public String getID() {
+        return this.ID;
     }
 
-    public void deleteFromFirebase(){
-        DatabaseReference r = m.getReference("RatingAndComment/").child(this.borrowerID);
-        r.removeValue();
-    }*/
-
-    public void setBorrowerID(String borrowerID) {
-        this.borrowerID = borrowerID;
-    }
-
-    public String getBorrowerID() {
-        return borrowerID;
-    }
-
-    public boolean setBorrowerRating(Double borrowerRating) {
+    public boolean setRating(Double borrowerRating) {
         if (borrowerRating < 0 || borrowerRating >10){
             return false;
         }
-        this.borrowerRating = borrowerRating;
+        this.rating = borrowerRating;
         return true;
     }
 
-    public String getBorrowerRating() {
-        return Double.toString(borrowerRating);
+    public String getRating() {
+        return Double.toString(rating);
     }
 
     public void setComment(String comment) {

@@ -79,6 +79,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         requestButton = (Button)findViewById(R.id.bookDetailRequest);
         returnButton = (Button)findViewById(R.id.ReturnButton);
 
+
         /**
          *  Get the information of the book from firebase and show them on the screen
          */

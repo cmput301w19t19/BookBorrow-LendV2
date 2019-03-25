@@ -22,7 +22,13 @@
 package com.example.y.bookborrow_lendv2;
 
 
+import android.util.Log;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * borrower object class extends user class
@@ -33,11 +39,15 @@ import java.util.ArrayList;
  */
 
 public class borrower extends user {
-    private float borrowerRating;
+    private Double totalRate = 0.00000001;
+    private Integer borrowBookTime = 0;
+    private ArrayList<RatingAndComment> commentList = new ArrayList<RatingAndComment>();
 
     private ArrayList<book> borrowedBook = new ArrayList<book>();
     private ArrayList<book> requestedBookList = new ArrayList<book>();
     private static borrower instance;
+    private FirebaseDatabase m;
+    private DatabaseReference r;
 
 
 
@@ -45,22 +55,53 @@ public class borrower extends user {
     borrower() {
     }
 
+    public Double getTotalRate(){return this.totalRate;}
+
+    public Integer getborrowBookTime(){return borrowBookTime;}
+
     /**
      * another constructor with parameter "rating"
      * @param rating
      */
-    borrower(float rating){
-        this.borrowerRating = rating;
+    borrower(Double rating){
+        this.totalRate += rating;
+
     }
 
-
-    /**
-     * set the rating of the bowrrower
-     * @param rating
-     */
-    public void setBorrowerRating(Float rating) {
-        this.borrowerRating = rating;
+    public void setToFirebase(String uid,String email){
+        m = FirebaseDatabase.getInstance();
+        r = m.getReference("borrowers/"+uid);
+        r.child("email").setValue(email);
+        r.child("uid").setValue(uid);
+        r.child("totalRate").setValue(this.totalRate);
+        r.child("borrowBookTime").setValue(this.borrowBookTime);
     }
+
+    public void setNameToFireBase(String uid,String name){
+        FirebaseDatabase m = FirebaseDatabase.getInstance();
+        DatabaseReference r = m.getReference("borrowers/"+uid);
+        r.child("name").setValue(name);
+    }
+
+    public void setBorrowerRating(Double rating) {
+        this.totalRate += rating;
+        this.borrowBookTime += 1;
+        m = FirebaseDatabase.getInstance();
+        r = m.getReference("borrowers/"+this.getUid());
+        r.child("totalRate").setValue(this.totalRate);
+        r.child("borrowBookTime").setValue(this.borrowBookTime);
+    }
+
+    public void addNewComment(RatingAndComment c){
+        UUID commentID = UUID.randomUUID();
+        commentList.add(c);
+        m = FirebaseDatabase.getInstance();
+        r = m.getReference("borrowers/"+this.getUid() + "/RatingAndComment/"+commentID);
+        r.child("ID").setValue(c.getID());
+        r.child("rating").setValue(c.getRating());
+        r.child("comment").setValue(c.getComment());
+    }
+
 
     /**
      * set the list of array list of books the borrower has requested
@@ -138,8 +179,11 @@ public class borrower extends user {
      * @return
      */
 
-    public float getBorrowerRating() {
-        return borrowerRating;
+    public String getBorrowerRating() {
+        if (this.totalRate == 0.00000001){
+            return "No one rate borrowring yet!";
+        }
+        return Double.toString(this.totalRate/this.borrowBookTime);
     }
 
     /**

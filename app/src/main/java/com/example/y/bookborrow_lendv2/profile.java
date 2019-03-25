@@ -143,25 +143,29 @@ public class profile extends AppCompatActivity {
                 currentU.setName(userName);
                 currentU.setPhone(phone);
                 currentU.setEmail(email);
+                currentU.setToFirebase();
 
                 currentB.setName(userName);
-                currentL.setName(userName);
-
-
-                Map<String, Object> childUpdates = new HashMap<>();
-
-
-                dbRef.child("users").child(uid).setValue(currentU);
-                dbRef.child("lenders").child(uid).setValue(currentL);
-                dbRef.child("borrowers").child(uid).setValue(currentB);
+                currentB.setNameToFireBase(uid,userName);
+                //currentL.setName(userName);
+                currentL.setNameToFireBase(uid,userName);
 
 
 
-                childUpdates.put("users/"+uid+"/name", userName);
-                borrowerRef.updateChildren(childUpdates);
+               // Map<String, Object> childUpdates = new HashMap<>();
 
-                childUpdates.put("users/"+uid+"/name", userName);
-                lenderRef.updateChildren(childUpdates);
+
+                //dbRef.child("users").child(uid).setValue(currentU);
+                //dbRef.child("lenders").child(uid).setValue(currentL);
+                //dbRef.child("borrowers").child(uid).setValue(currentB);
+
+
+
+                //childUpdates.put("users/"+uid+"/name", userName);
+                //borrowerRef.updateChildren(childUpdates);
+
+                //childUpdates.put("users/"+uid+"/name", userName);
+                //lenderRef.updateChildren(childUpdates);
 
 
 

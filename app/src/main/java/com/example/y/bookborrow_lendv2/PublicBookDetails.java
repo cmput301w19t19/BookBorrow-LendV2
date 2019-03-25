@@ -121,7 +121,6 @@ public class PublicBookDetails extends AppCompatActivity {
                     if (description != null) {
                         bookDescriptionTV.setText(description);
                     }
-
                 }
             }
 

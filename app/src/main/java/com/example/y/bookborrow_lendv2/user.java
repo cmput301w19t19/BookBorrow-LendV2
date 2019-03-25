@@ -23,9 +23,12 @@ package com.example.y.bookborrow_lendv2;
 
 import android.media.Image;
 import android.provider.ContactsContract;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * lender object  abstract class
@@ -54,6 +57,7 @@ public abstract class user {
     /** A constructor with no parameters*/
     user(){}
 
+
     /** another constructoer with parameters*/
     user(String name, Image photo, String password, String phone, String email){
         this.name = name;
@@ -73,11 +77,18 @@ public abstract class user {
         this.photo = photo;
     }
 
+    public void setToFirebase(){
+        FirebaseDatabase m = FirebaseDatabase.getInstance();
+        DatabaseReference r = m.getReference("users/"+this.Uid);
+        r.child("name").setValue(this.name);
+        r.child("password").setValue(this.password);
+        r.child("phone").setValue(this.phone);
+    }
+
     /**
      * set phone of the user
      * @param phone
      */
-
     public void setPhone(String phone) {
         this.phone = phone;
     }

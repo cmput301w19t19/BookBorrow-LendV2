@@ -83,22 +83,6 @@ public class loginAct extends AppCompatActivity {
             //hello
             @Override
             public void onClick(View v) {
-                /*
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    String bookname = "The Elements of Statistical Learning";
-                    book b = new book();
-                    b.setAuthor("Trevor Hastie Robert Tibshirani Jerome Friedman");
-                    b.setDescription("statistic machine learning");
-                    b.setName(bookname);
-
-                    b.setToFirebase();
-                    b.setStatusToRequested();
-
-                    Toast.makeText(getApplicationContext(),"create a book",Toast.LENGTH_LONG);
-                    Toast.makeText(getApplicationContext(),b.getID(),Toast.LENGTH_LONG);
-                    Toast.makeText(getApplicationContext(),b.getName(),Toast.LENGTH_LONG);
-                    Toast.makeText(getApplicationContext(),b.getAuthor(),Toast.LENGTH_LONG);*/
-
 
                 final String email = inputEmail.getText().toString().trim();
                 final String password = inputPassword.getText().toString().trim();
@@ -151,10 +135,15 @@ public class loginAct extends AppCompatActivity {
                                     newUser.setEmail(email);
                                     newUser.setUid(uid);
                                     newUser.setPassword(password);
+
                                     newBorrower.setEmail(email);
                                     newBorrower.setUid(uid);
+                                    newBorrower.setToFirebase(uid,email);
+
+
                                     newLender.setEmail(email);
                                     newLender.setUid(uid);
+                                    newLender.setToFirebase(uid,email);
 
 
 
@@ -162,8 +151,8 @@ public class loginAct extends AppCompatActivity {
                                     newUser.setPassword(password);
                                     String key = uid;
                                     mDatabase.child("users").child(key).setValue(newUser);
-                                    mDatabase.child("borrowers").child(key).setValue(newBorrower);
-                                    mDatabase.child("lenders").child(key).setValue(newLender);
+                                    //mDatabase.child("borrowers").child(key).setValue(newBorrower);
+                                    //mDatabase.child("lenders").child(key).setValue(newLender);
 
                                     Toast.makeText(loginAct.this, "Authentication success!" + task.getException(),
                                             Toast.LENGTH_SHORT).show();
@@ -219,14 +208,14 @@ public class loginAct extends AppCompatActivity {
                                     //Singleton Pattern implemented here
                                     NormalUser.Instance().setUid(uid);
                                     borrower.Instance().setUid(uid);
-                                    lender.Instance().setUid(uid);
+                                    //lender.Instance().setUid(uid);
 
 
 
                                     Toast.makeText(getApplicationContext(), "login Success!", Toast.LENGTH_SHORT).show();
 
-
-                                    Intent intent = new Intent(loginAct.this, home_page.class);
+                                    //Intent intent = new Intent(loginAct.this, home_page.class);
+                                    Intent intent = new Intent(loginAct.this, RateToBorrower.class);
                                     startActivity(intent);
 
 

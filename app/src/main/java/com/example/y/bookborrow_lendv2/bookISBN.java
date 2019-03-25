@@ -27,25 +27,38 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.UUID;
 
 public class bookISBN {
     private String ISBN;
     private Double totalRate = 0.00;
     private Integer borrowTime = 0;
-    private ArrayList<RatingAndComment> commentList;
+    private ArrayList<RatingAndComment> commentList = new ArrayList<>();
     private FirebaseDatabase m;
     private DatabaseReference r;
 
+    bookISBN(){}
 
     bookISBN(String ISBN){
         this.ISBN = ISBN;
     }
 
-    public void updateBorrowTime(){
+
+    public void setBookRate(Double rating) {
+        this.totalRate += rating;
         this.borrowTime += 1;
+        m = FirebaseDatabase.getInstance();
+        r = m.getReference("bookISBN/"+this.ISBN);
+        r.child("totalRate").setValue(this.totalRate);
+        r.child("borrowTime").setValue(this.borrowTime);
+
     }
 
-    public void setBookRate(Double rating) { this.totalRate += rating; }
+    public Double getTotalRate(){return this.totalRate;}
+
+    public Integer getBorrowTime(){return borrowTime;}
+
+    public String getISBN(){return ISBN;};
 
     public String getBookRate() {
         if (this.totalRate == 0.00){
@@ -54,21 +67,22 @@ public class bookISBN {
         return Double.toString(this.totalRate/this.borrowTime);
     }
 
-    public void setToFirebse(){
+    public void setToFirebase(){
         m = FirebaseDatabase.getInstance();
         r = m.getReference("bookISBN/"+this.ISBN);
+        r.child("ISBN").setValue(this.ISBN);
         r.child("totalRate").setValue(this.totalRate);
         r.child("borrowTime").setValue(this.borrowTime);
-        r.child("RatingAndComment").setValue(this.commentList);
     }
 
-    public void addNewRatingAndComment(RatingAndComment newComment){
-        commentList.add(newComment);
+    public void addNewComment(RatingAndComment c){
+        UUID commentID = UUID.randomUUID();
+        commentList.add(c);
         m = FirebaseDatabase.getInstance();
-        r = m.getReference("book/"+this.ISBN+"/RatingAndComment");
-        r.child("RatingAndComment").setValue(newComment);
+        r = m.getReference("bookISBN/"+this.ISBN + "/RatingAndComment/"+commentID);
+        r.child("ID").setValue(c.getID());
+        r.child("rating").setValue(c.getRating());
+        r.child("comment").setValue(c.getComment());
     }
-
-
 
 }

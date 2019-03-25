@@ -153,13 +153,22 @@
             <EditText
                 android:id="@+id/pt3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
                 android:hint="@string/EditBookDetailISBN"
                 android:inputType="text"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
                 android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/ISBNscan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:text="Scan"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="353dp" />
         </LinearLayout>
 
         <LinearLayout

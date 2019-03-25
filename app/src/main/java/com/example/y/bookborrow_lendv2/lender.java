@@ -21,8 +21,13 @@
  */
 package com.example.y.bookborrow_lendv2;
 
-import java.util.ArrayList;
+import android.util.Log;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.UUID;
 
 
 /**
@@ -35,32 +40,79 @@ import java.util.ArrayList;
  * @see user
  */
 public class lender extends user {
-    private float lenderRating;
+    private Double totalRate = 0.00000001;
+    private Integer lendBookTime = 0;
+    private ArrayList<RatingAndComment> commentList = new ArrayList<>();
+    private FirebaseDatabase m;
+    private DatabaseReference r;
+
+    //private String uid;
     private ArrayList<String> lentBook = new ArrayList<>();
     private ArrayList<String> requestedBookList = new ArrayList<>();
     private ArrayList<String> MyBookList = new ArrayList<>();
-    private static lender instance;
+    //private static lender instance;
 
 
     lender() {
     }
 
+    public Double getTotalRate(){return this.totalRate;}
+
+    public Integer getLendBookTime(){return lendBookTime;}
+
+    public void setToFirebase(String uid,String email){
+        FirebaseDatabase m = FirebaseDatabase.getInstance();
+        DatabaseReference r = m.getReference("lenders/"+uid);
+        r.child("email").setValue(email);
+        r.child("uid").setValue(uid);
+        r.child("totalRate").setValue(this.totalRate);
+        Log.i("totalRate",Double.toString(this.totalRate));
+        r.child("lendBookTime").setValue(this.lendBookTime);
+        Log.i("totalRate",Double.toString(this.lendBookTime));
+    }
+
+    public void setNameToFireBase(String uid,String name){
+        FirebaseDatabase m = FirebaseDatabase.getInstance();
+        DatabaseReference r = m.getReference("lenders/"+uid);
+        r.child("name").setValue(name);
+    }
+
+
     /**
      * set the rating of the lender
      * @param rating
      */
-    public void setLenderRating(Float rating) {
-        this.lenderRating = rating;
+    public void setLenderRating(Double rating) {
+        this.totalRate += rating;
+        this.lendBookTime += 1;
+        m = FirebaseDatabase.getInstance();
+        r = m.getReference("lenders/"+this.getUid());
+        r.child("totalRate").setValue(this.totalRate);
+        r.child("lendBookTime").setValue(this.lendBookTime);
+    }
+
+    public void addNewComment(RatingAndComment c){
+        UUID commentID = UUID.randomUUID();
+        commentList.add(c);
+        m = FirebaseDatabase.getInstance();
+        Log.i("testnn lender class",this.getUid());
+        r = m.getReference("lenders/"+this.getUid() + "/RatingAndComment/"+commentID);
+        r.child("ID").setValue(c.getID());
+        r.child("rating").setValue(c.getRating());
+        r.child("comment").setValue(c.getComment());
     }
 
     /**
      * return the rating of the lender
      * @return rating
      */
-
-    public float getLenderRating() {
-        return lenderRating;
+    public String getLenderRating() {
+        if (this.totalRate == 0.00000001){
+            return "No one lend his lending yet!";
+        }
+        return Double.toString(this.totalRate/lendBookTime);
     }
+
 
     /**
      * add the lender's own book to a list
@@ -154,6 +206,7 @@ public class lender extends user {
      */
 
 
+    /*
     public static lender Instance()
     {
         //if no instance is initialized yet then create new instance
@@ -163,7 +216,7 @@ public class lender extends user {
             instance = new lender();
         }
         return instance;
-    }
+    }*/
 
 
 }
