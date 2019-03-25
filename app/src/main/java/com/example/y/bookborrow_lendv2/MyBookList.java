@@ -70,6 +70,7 @@ public class MyBookList extends AppCompatActivity {
     DatabaseReference DbRef = database.getReference();
     private FirebaseAuth auth;
     private book targetBook;
+    private ArrayList<book> books;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +116,7 @@ public class MyBookList extends AppCompatActivity {
                             bookList.add(targetBook);
 
                             myBookAdapter.notifyDataSetChanged();
+                            books = bookList;
                         }
 
                         @Override
@@ -129,7 +131,7 @@ public class MyBookList extends AppCompatActivity {
                     //Toast.makeText(MyBookList.this,book,Toast.LENGTH_SHORT).show();
                     //Log.i("testnn",Boolean.toString(a));
                 }
-                Log.i("testsize3",Integer.toString(booksID.size()));
+                Log.i("testsize3",Integer.toString(bookList.size()));
 
             }
 
@@ -166,6 +168,8 @@ public class MyBookList extends AppCompatActivity {
                 }
                 availableBookAdapter = new bookAdapter(MyBookList.this, availableBookList);
                 myBookList.setAdapter(availableBookAdapter);
+                books = availableBookList;
+
             }
         });
 
@@ -188,6 +192,7 @@ public class MyBookList extends AppCompatActivity {
                 }
                 requestedBookAdapter = new bookAdapter(MyBookList.this, requestedBookList);
                 myBookList.setAdapter(requestedBookAdapter);
+                books = requestedBookList;
 
 
             }
@@ -205,6 +210,7 @@ public class MyBookList extends AppCompatActivity {
                 }
                 acceptedBookAdapter = new bookAdapter(MyBookList.this, acceptedBookList);
                 myBookList.setAdapter(acceptedBookAdapter);
+                books = acceptedBookList;
 
             }
         });
@@ -220,6 +226,7 @@ public class MyBookList extends AppCompatActivity {
                 }
                 borrowedBookAdapter = new bookAdapter(MyBookList.this, borrowedBookList);
                 myBookList.setAdapter(borrowedBookAdapter);
+                books = borrowedBookList;
 
             }
         });
@@ -237,7 +244,9 @@ public class MyBookList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //TODO: Implement this method
-                book bookItem = bookList.get(position);
+               // book bookItem = bookList.get(position);
+                book bookItem = books.get(position);
+
                 Toast.makeText(MyBookList.this,bookItem.getAuthor(),Toast.LENGTH_SHORT).show();
                 String bookId = bookItem.getID();
                 Intent intent = new Intent(MyBookList.this, PrivateBookDetails.class);

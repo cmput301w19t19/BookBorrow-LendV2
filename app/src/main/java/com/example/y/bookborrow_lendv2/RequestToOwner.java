@@ -30,6 +30,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -48,6 +50,7 @@ import java.util.ArrayList;
 public class RequestToOwner extends AppCompatActivity {
 
     private ListView listview;
+    private FirebaseAuth auth;
     private ArrayList<B_request> mDatas;
     private Request_Book_MyAdapter mAdapter;
     FirebaseDatabase m = FirebaseDatabase.getInstance();
@@ -59,6 +62,8 @@ public class RequestToOwner extends AppCompatActivity {
     private ArrayList<String> borrowerID = new ArrayList<String>();
     private String borrower_username;
     private Button accept, delete;
+    private String SelectedBorrower;
+
 
     //private List<HashMap<String, Object>> M_list = null;
 
@@ -66,6 +71,8 @@ public class RequestToOwner extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_to_owner);
+        auth = FirebaseAuth.getInstance();
+
 
 
         // get the book ID by intent
@@ -167,14 +174,17 @@ public class RequestToOwner extends AppCompatActivity {
                 for(B_request bRequest: mDatas){
                     if(bRequest.isSelected()){
                         dbBook.child("book").child(book_ID).child("status").setValue("accepted");
+                        SelectedBorrower = bRequest.getUserID();
                         dbBorrower.child("borrowers").child(bRequest.getUserID()).child("AcceptedList").child(book_ID).setValue(true);
-                        dbBorrower = m.getReference();
+                        //dbBorrower = m.getReference();
                          for(int i = 0; i < mDatas.size();i++)
                         {
                             mDatas.get(i).selected = true;
                         }
                         deleteRequest(mDatas, dbBorrower, dbHolder, book_ID);
                         mAdapter.notifyDataSetChanged();
+                        setContentView(R.layout.activity_request_to_owner);
+
                         //Log.i("Sucess", mDatas.get(j).getUserID());
                     }
                 }
@@ -194,6 +204,8 @@ public class RequestToOwner extends AppCompatActivity {
                 {
                     dbBook.child("book").child(book_ID).child("status").setValue("available");
                 }
+                setContentView(R.layout.activity_request_to_owner);
+
                 mAdapter.notifyDataSetChanged();
             }
         });
@@ -218,9 +230,26 @@ public class RequestToOwner extends AppCompatActivity {
             if(bRequest.isSelected()){
                 dbHolder.child(bRequest.getUserID()).removeValue();
                 dbBorrower.child("borrowers").child(bRequest.getUserID()).child("requestList").child(book_ID).removeValue() ;
+                if (bRequest.getUserID().equals( SelectedBorrower)){
+                    dbBorrower.child("borrowers").child(SelectedBorrower).child("newAcceptedRequestList").child(book_ID).setValue("true");
+
+                }
+                else{
+                    dbBorrower.child("borrowers").child(bRequest.getUserID()).child("newNotAcceptedList").child(book_ID).setValue("true");
+                }
+
+
+                //FirebaseUser user = auth.getCurrentUser();
+                //String uid = user.getUid();
+                //dbBorrower.child("lenders").child(uid).child("requestList").child(book_ID).removeValue();
                 mDatas.remove(bRequest);
             }
         }
         mAdapter.notifyDataSetChanged();
+    }
+    public void refresh() {
+
+        onCreate(null);
+
     }
 }

@@ -52,7 +52,7 @@ dependencies {
         exclude group: 'com.google.android.gms'
     })
     //implementation files('build/intermediates/jniLibs/android-viewbadger.jar')
-    implementation files('/Users/yuan/Desktop/project/BookBorrow-LendV2/gradle/wrapper/android-viewbadger 1.37.14 PM.jar')
+    implementation files('../gradle/wrapper/android-viewbadger 1.37.14 PM.jar')
 }
 com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
 //must add this line for using google map
