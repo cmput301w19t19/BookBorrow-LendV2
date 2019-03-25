@@ -96,6 +96,9 @@
     <string name="EditBookDetailUpload">Upload Photo</string>
     <string name="requestViewRequestB">show requested</string>
     <string name="requestViewAcceptB">show accepted</string>
+
+    <string name="title_activity_check_to_scan_borrow_book">check_to_scan_borrowBook</string>
+
     <string name="RateToOwnerUserName">Missing owner user name!</string>
     <string name="RateToOwnerUserDesciption">Missing user rating!</string>
     <string name="RateToOwnerUserRatePrompt">A number between 1 and 10</string>

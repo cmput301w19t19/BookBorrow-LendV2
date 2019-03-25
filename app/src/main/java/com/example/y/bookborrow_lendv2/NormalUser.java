@@ -26,22 +26,21 @@ import android.media.Image;
 
 /**
  * the class that extends user so that we can get an instance of user
- *
  */
-
 public class NormalUser extends user {
     private static NormalUser instance;
 
     /**
      * a constructor with parameters
-     * @param name
-     * @param photo
-     * @param password
-     * @param phone
-     * @param email
+     *
+     * @param name     the name
+     * @param photo    the photo
+     * @param password the password
+     * @param phone    the phone
+     * @param email    the email
      */
-
     public NormalUser(String name, Bitmap photo, String password, String phone, String email){
+
         super(name, photo, password, phone, email);
     }
 
@@ -56,9 +55,9 @@ public class NormalUser extends user {
 
     /**
      * create and return a static instance of normal user
+     *
      * @return a instance of normal user
      */
-
     public static NormalUser Instance()
     {
         //if no instance is initialized yet then create new instance

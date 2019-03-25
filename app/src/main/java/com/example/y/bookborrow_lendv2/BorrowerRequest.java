@@ -53,7 +53,9 @@ import java.util.ArrayList;
  * when user login in as a borrower, there is a bookRequested button
  * and this class be able to let user to view the book he/she requested, and the accepted books
  *
- * //@param  uid, user id that pass by login to search book
+
+ * @param  uid, user id that pass by login to search book
+
  * @return none
  */
 public class BorrowerRequest extends AppCompatActivity {
@@ -64,7 +66,13 @@ public class BorrowerRequest extends AppCompatActivity {
     private ArrayList<book> requestedBookList = new ArrayList<>();
     private ArrayList<book> acceptedBookList = new ArrayList<>();
     private ArrayList<String> booksID;
+    /**
+     * The Database.
+     */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    /**
+     * The Db ref.
+     */
     DatabaseReference DbRef = database.getReference();
 
     private FirebaseAuth auth;

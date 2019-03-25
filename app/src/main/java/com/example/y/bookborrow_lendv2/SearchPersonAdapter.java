@@ -33,9 +33,19 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * The type Search person adapter.
+ */
 public class SearchPersonAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private ArrayList<NormalUser> myUser;
+
+    /**
+     * Instantiates a new Search person adapter.
+     *
+     * @param context the context
+     * @param data    the data
+     */
     public SearchPersonAdapter(Context context, ArrayList<NormalUser> data) {
         mInflater = LayoutInflater.from(context);
         myUser = data;
@@ -84,8 +94,13 @@ public class SearchPersonAdapter extends BaseAdapter {
     }
 
     private class ViewHolder{
+
         ImageView userImage;
+
         TextView userName;
+        /**
+         * The User email.
+         */
         TextView userEmail;
     }
 

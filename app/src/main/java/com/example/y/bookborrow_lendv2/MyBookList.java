@@ -58,7 +58,6 @@ import java.util.ArrayList;
  * this activity shows the books the user owns with different kinds of starus: requested, avaliable,
  * borrowed and accepted
  */
-
 public class MyBookList extends AppCompatActivity {
     private ListView myBookList;
     private ArrayList<book> bookList = new ArrayList<>();
@@ -72,10 +71,22 @@ public class MyBookList extends AppCompatActivity {
     private ArrayList<book> borrowedBookList = new ArrayList<>();
     private ArrayList<book> availableBookList = new ArrayList<>();
     private ArrayList<String> booksID;
+    /**
+     * The Database.
+     */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    /**
+     * The Db ref.
+     */
     DatabaseReference DbRef = database.getReference();
     private FirebaseAuth auth;
+    /**
+     * The Storage.
+     */
     FirebaseStorage storage = FirebaseStorage.getInstance();
+    /**
+     * The Storage ref.
+     */
     StorageReference storageRef = storage.getReference();
     //private book targetBook;
     private ArrayList<book> books;

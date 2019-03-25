@@ -62,6 +62,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * The type Maps activity borrower view.
+ */
 public class MapsActivityBorrowerView extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -70,7 +73,13 @@ public class MapsActivityBorrowerView extends FragmentActivity implements OnMapR
     private double newLat;
     private double newLong;
 
+    /**
+     * The Location manager.
+     */
     LocationManager locationManager;
+    /**
+     * The Location listener.
+     */
     LocationListener locationListener;
 
     @Override

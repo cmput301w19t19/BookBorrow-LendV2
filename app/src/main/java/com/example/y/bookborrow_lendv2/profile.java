@@ -57,22 +57,36 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * the page that shows the user's profile and allow logged in usesr to edit profile
  *
- *the page that shows the user's profile and allow logged in usesr to edit profile
- * @author  Yuan
+ * @author Yuan
  * @see user
  * @since 1.0
  */
-
 public class profile extends AppCompatActivity {
     private Button updateButton;
     private ImageView portrait;
     private TextView inputEmail,uneditableUserName;
     private EditText inputUserName, inputPhone,inputMessage;
+    /**
+     * The Database.
+     */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    /**
+     * The Db ref.
+     */
     DatabaseReference dbRef = database.getReference();
+    /**
+     * The Db ref.
+     */
     DatabaseReference DbRef = database.getReference();
+    /**
+     * The Borrower ref.
+     */
     DatabaseReference borrowerRef = database.getReference();
+    /**
+     * The Lender ref.
+     */
     DatabaseReference lenderRef = database.getReference();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();

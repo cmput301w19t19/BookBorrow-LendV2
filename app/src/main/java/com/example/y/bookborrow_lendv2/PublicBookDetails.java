@@ -52,10 +52,11 @@ import com.google.firebase.storage.StorageReference;
 /**
  * This Class is to show all the detail of a book if the user want to know
  * when the user is seeing other activity
+ *
  * @author Team 19
+ * @version 1.0
  * @see SearchResultForBook
  * @see BorrowerRequest
- * @version 1.0
  */
 public class PublicBookDetails extends AppCompatActivity {
 
@@ -82,9 +83,18 @@ public class PublicBookDetails extends AppCompatActivity {
     private DatabaseReference r;
 
 
+    /**
+     * The Database.
+     */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+    /**
+     * The Db ref.
+     */
     DatabaseReference DbRef = database.getReference();
+    /**
+     * The Db ref.
+     */
     DatabaseReference dbRef = database.getReference();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();

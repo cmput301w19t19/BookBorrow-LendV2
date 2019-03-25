@@ -70,9 +70,11 @@ public class SearchResultForBook extends AppCompatActivity {
     private ArrayList<book> books = new ArrayList<>();
     private SearchBookAdapter adapter;
     private DatabaseReference mBookDatabase;
+
     //private String flag;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
+
     public String Keyword;
 
 

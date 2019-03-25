@@ -39,7 +39,13 @@ import com.google.firebase.database.FirebaseDatabase;
  * This is our search pages that allow user to enter keayword
  */
 public class Search extends AppCompatActivity {
+    /**
+     * The Database.
+     */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    /**
+     * The Db ref.
+     */
     DatabaseReference DbRef;
     private FirebaseAuth auth;
     private EditText inputKeyword;

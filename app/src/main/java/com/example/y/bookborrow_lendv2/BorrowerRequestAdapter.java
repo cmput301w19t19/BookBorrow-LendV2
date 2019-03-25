@@ -30,8 +30,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
 /**
  * adapter class used for ListView in borrower -> request book list
+ *
  * @author Team19
  * @version 1.0
  */
@@ -43,8 +45,9 @@ public class BorrowerRequestAdapter extends BaseAdapter {
 
     /**
      * initialize the adapter
-     * @param context
-     * @param data
+     *
+     * @param context the context
+     * @param data    the data
      */
     public BorrowerRequestAdapter(Context context, ArrayList<book> data){
 
@@ -131,10 +134,27 @@ public class BorrowerRequestAdapter extends BaseAdapter {
      */
     private class ViewHolder{
 
+        /**
+         * The Book name.
+         */
         TextView bookName;
+        /**
+         * The Image.
+         */
         ImageView image;
+<<<<<<< HEAD
         TextView rating;
         TextView status;
+=======
+        /**
+         * The Current borrower.
+         */
+        TextView currentBorrower;
+        /**
+         * The Description.
+         */
+        TextView description;
+>>>>>>> 465c2cecf348316bfe63c38ec0ef298654ce130b
     }
 
 }

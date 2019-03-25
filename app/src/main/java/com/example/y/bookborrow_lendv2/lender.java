@@ -24,15 +24,15 @@ package com.example.y.bookborrow_lendv2;
 import java.util.ArrayList;
 
 
-
 /**
  * lender object class extends user class
  * contain two ArrayList borrowedBook and requestedList
+ * <p>
+ * <p>
+ * Created  on 2/15/19.
  *
- *
- *  Created  on 2/15/19.
- *  @since 1.0
  * @see user
+ * @since 1.0
  */
 public class lender extends user {
     private float lenderRating;
@@ -42,12 +42,16 @@ public class lender extends user {
     private static lender instance;
 
 
+    /**
+     * Instantiates a new Lender.
+     */
     lender() {
     }
 
     /**
      * set the rating of the lender
-     * @param rating
+     *
+     * @param rating the rating
      */
     public void setLenderRating(Float rating) {
         this.lenderRating = rating;
@@ -55,16 +59,17 @@ public class lender extends user {
 
     /**
      * return the rating of the lender
-     * @return rating
+     *
+     * @return rating lender rating
      */
-
     public float getLenderRating() {
         return lenderRating;
     }
 
     /**
      * add the lender's own book to a list
-     * @param s
+     *
+     * @param s the s
      */
     public void addToMyBookList(String s){
         MyBookList.add(s);
@@ -72,7 +77,8 @@ public class lender extends user {
 
     /**
      * remove a book from the list of bokks the lender owns
-     * @param s
+     *
+     * @param s the s
      */
     public void removeFromMyBookList(String s){
         MyBookList.remove(s);
@@ -80,34 +86,35 @@ public class lender extends user {
 
     /**
      * set a list of books the lender onws and are requested by other users
-     * @param list
+     *
+     * @param list the list
      */
-
     public void setRequestedBookList(ArrayList<String> list) {
         requestedBookList = list;
     }
 
     /**
      * set a list of books the lender has lended
-     * @param list
+     *
+     * @param list the list
      */
-
     public void setLentBook(ArrayList<String> list) {
         lentBook = list;
     }
 
     /**
      * return a list of books the lender has lended
-     * @return lentBook
+     *
+     * @return lentBook lent book
      */
-
     public ArrayList<String> getLentBook() {
         return lentBook;
     }
 
     /**
      * return a list of books that are requested by other users
-     * @return requestedBookList
+     *
+     * @return requestedBookList requested book list
      */
     public ArrayList<String> getRequestedBookList() {
         return requestedBookList;
@@ -116,7 +123,8 @@ public class lender extends user {
 
     /**
      * add a book to the list of books that are lended by the lender
-     * @param book
+     *
+     * @param book the book
      */
     public void addLentBook(String book) {
         lentBook.add(book);
@@ -124,16 +132,18 @@ public class lender extends user {
 
     /**
      * return a list of books the lender onws and are requested by other users
+     *
+     * @param book the book
      * @return list
      */
-
     public void addRequestedBook(String book) {
         requestedBookList.add(book);
     }
 
     /**
      * remove the book from the list of books requested by other users
-     * @param book
+     *
+     * @param book the book
      */
     public void deleteRequestedBook(String book) {
         requestedBookList.remove(book);
@@ -142,7 +152,8 @@ public class lender extends user {
 
     /**
      * remove a book from the list of books that are lended by the lender
-     * @param book
+     *
+     * @param book the book
      */
     public void deleteLentBook(String book) {
         lentBook.remove(book);
@@ -150,6 +161,7 @@ public class lender extends user {
 
     /**
      * create a static instance of lender, singleton pattern has implemented
+     *
      * @return instance of lender
      */
 

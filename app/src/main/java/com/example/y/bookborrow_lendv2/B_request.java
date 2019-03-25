@@ -25,20 +25,25 @@ import android.graphics.Bitmap;
 
 /**
  * class defined as object in Request_Book_MyAdapter
+ *
  * @author Yuan Feng
  */
 public class B_request {
     private String userName;
     private double rating;
+    /**
+     * The Selected.
+     */
     boolean selected = false;
     private String userID;
     private Bitmap photo;
 
     /**
      * initialize the object
-     * @param userName
-     * @param rating
-     * @param userID
+     *
+     * @param userName the user name
+     * @param rating   the rating
+     * @param userID   the user id
      */
     public B_request(String userName, double rating, String userID) {
         this.userName = userName;
@@ -49,7 +54,8 @@ public class B_request {
 
     /**
      * get the username of the B_request object
-     * @return username
+     *
+     * @return username string
      */
     public String getUserName(){
         return userName;
@@ -57,7 +63,8 @@ public class B_request {
 
     /**
      * set the username of the B_request object
-     * @param userName
+     *
+     * @param userName the user name
      */
     public void setUserName(String userName){
         this.userName = userName;
@@ -65,7 +72,8 @@ public class B_request {
 
     /**
      * get the rating of the B-request object
-     * @return rating
+     *
+     * @return rating double
      */
     public double getRating(){
         return rating;
@@ -73,7 +81,8 @@ public class B_request {
 
     /**
      * set the rating of the B_request object
-     * @param rating
+     *
+     * @param rating the rating
      */
     public void setRating(double rating){
         this.rating = rating;
@@ -81,7 +90,8 @@ public class B_request {
 
     /**
      * return a boolean indicates if the object is selected
-     * @return selected
+     *
+     * @return selected boolean
      */
     public boolean isSelected() {
         return selected;
@@ -89,7 +99,8 @@ public class B_request {
 
     /**
      * set the object to be selected
-     * @param selected
+     *
+     * @param selected the selected
      */
     public void setSelected(boolean selected) {
         this.selected = selected;
@@ -97,7 +108,8 @@ public class B_request {
 
     /**
      * get the object's userID
-     * @return userID
+     *
+     * @return userID string
      */
     public String getUserID(){
         return this.userID;
@@ -113,7 +125,8 @@ public class B_request {
 
     /**
      * set the object's userID
-     * @param userID
+     *
+     * @param userID the user id
      */
 
 

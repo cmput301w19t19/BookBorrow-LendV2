@@ -33,12 +33,20 @@ import java.util.ArrayList;
 
 /**
  * book adapter used in MyBookList
+ *
  * @author Bowei Li
  * @version 1.0
  */
 public class bookAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private ArrayList<book> myBook;
+
+    /**
+     * Instantiates a new Book adapter.
+     *
+     * @param context the context
+     * @param data    the data
+     */
     public bookAdapter(Context context, ArrayList<book> data) {
         mInflater = LayoutInflater.from(context);
         myBook = data;
@@ -116,8 +124,17 @@ public class bookAdapter extends BaseAdapter {
      * a Viewholder class used for bookAdapter
      */
     private class ViewHolder{
+        /**
+         * The Image.
+         */
         ImageView image;
+        /**
+         * The Book name.
+         */
         TextView bookName;
+        /**
+         * The Status.
+         */
         TextView status;
         //TextView currentBorrower;
         //TextView description;

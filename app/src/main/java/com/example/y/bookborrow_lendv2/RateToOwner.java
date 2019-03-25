@@ -26,6 +26,9 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -39,29 +42,34 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import static java.lang.Double.parseDouble;
+
 public class RateToOwner extends AppCompatActivity {
 
     private book b;
     private bookISBN ISBN;
     private lender owner;
-
-    EditText ownerRateEditText;
-    EditText ownerCommentEditText;
-    EditText bookRateEditText;
-    EditText bookCommentEditText;
-
-    TextView ownerUserEmailTextView;
-    TextView ownerUserNameTextView;
-    TextView bookNameTextView;
-    TextView bookAuthorTextView;
-    TextView bookISBNTextView;
+    private String uid;
+    private String bid;
+    private String lenderUid;
+    private String bookISBNString;
 
 
+    private EditText ownerRateEditText;
+    private EditText ownerCommentEditText;
+    private EditText bookRateEditText;
+    private EditText bookCommentEditText;
+
+    private TextView ownerUserEmailTextView;
+    private TextView ownerUserNameTextView;
+    private TextView bookNameTextView;
+    private TextView bookAuthorTextView;
+    private TextView bookISBNTextView;
 
     FirebaseAuth auth;
     FirebaseUser user;
     FirebaseDatabase m;
-    String uid;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,25 +95,32 @@ public class RateToOwner extends AppCompatActivity {
         bookISBNTextView = (TextView) findViewById(R.id.Book_ISBN);
 
 
-        Intent i = getIntent();
-        String bid = i.getStringExtra("0");
-
         /**
+         * get basic book information from firebase
          * set basic book information
          */
-        DatabaseReference r = m.getReference("book/"+bid);
+        Intent i = getIntent();
+        bid = i.getStringExtra("bookID");
+        Log.i("test RateToOwner","bookid"+bid);
+
+        //String bid = "5f3a1368-57a6-470c-97f1-da74d90a4b9e";
+        DatabaseReference r1 = m.getReference("book/"+bid);
         ValueEventListener bookLister = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     b = dataSnapshot.getValue(book.class);
                     String bookName = b.getName();
+
+                    lenderUid = b.getOwnerID();
+                    bookISBNString = b.getISBN();
+
                     if (bookName != null){
                         bookNameTextView.setText(bookName);
                     }
 
                     String bookISBN = b.getISBN();
-                    if (ISBN != null) {
+                    if (bookISBN != null) {
                         bookISBNTextView.setText(bookISBN);
                     }
 
@@ -113,54 +128,158 @@ public class RateToOwner extends AppCompatActivity {
                     if (author != null) {
                         bookAuthorTextView.setText(b.getAuthor());
                     }
+
+
+                    /**
+                     * get bookISBN object from firebase
+                     */
+                    DatabaseReference r3 = m.getReference("bookISBN/" + b.getISBN());
+                    ValueEventListener ISBNListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            ISBN = dataSnapshot.getValue(bookISBN.class);
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Fail to get data from database",Toast.LENGTH_SHORT).show();
+                        }
+                    };
+                    r3.addValueEventListener(ISBNListener);
+
+
+                    /**
+                     * get basic owner information from firebase
+                     * set the information to the view
+                     */
+                    DatabaseReference r2 = m.getReference("lenders/" + lenderUid);
+                    ValueEventListener lenderListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists() ){
+                                owner = dataSnapshot.getValue(lender.class);
+
+                                String userEmail = owner.getEmail();
+                                if (userEmail != null){
+                                    ownerUserEmailTextView.setText(userEmail);
+                                }
+
+                                String userName = owner.getName();
+                                if (userName != null){
+                                    ownerUserNameTextView.setText(userName);
+                                }
+
+                                Log.i("test owner totalrate","hello"+owner.getLenderRating());
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toast.makeText(getApplicationContext(),
+                                    "Fail to get data from database",Toast.LENGTH_SHORT).show();
+                        }
+                    };
+                    Log.i("testnn","888");
+                    r2.addValueEventListener(lenderListener);
+
+
                 }
 
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getApplicationContext(),"Fail to get data from database",Toast.LENGTH_SHORT).show();
-            }
-        };
-        r.addListenerForSingleValueEvent(bookLister);
-
-
-        /**
-         * set basic owner information
-         */
-        String ownerUid = b.getOwnerID();
-        r = m.getReference("lenders/" + ownerUid);
-        ValueEventListener lenderListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               if (dataSnapshot.exists() ){
-                   owner = dataSnapshot.getValue(lender.class);
-
-                   String userEmail = owner.getEmail();
-                   if (userEmail != null){
-                       ownerUserEmailTextView.setText(userEmail);
-                   }
-
-                   String userName = owner.getName();
-                   if (userName != null){
-                       ownerUserNameTextView.setText(userName);
-                   }
-
-               }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getApplicationContext(),"Fail to get data from database",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),
+                        "Fail to get data from database",Toast.LENGTH_SHORT).show();
             }
         };
 
+        r1.addValueEventListener(bookLister);
+        Log.i("testnn","333");
 
 
 
 
 
 
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // check necessary part get input
+                String newOwnerRate = ownerRateEditText.getText().toString();
+                if (TextUtils.isEmpty(newOwnerRate)){
+                    Toast.makeText(getApplicationContext(),
+                            "Enter rate to lender!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                String newBookRate = bookRateEditText.getText().toString();
+                if (TextUtils.isEmpty(newBookRate)){
+                    Toast.makeText(getApplicationContext(),
+                            "Enter rate to book!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // check input is valid
+                Double newBookRatingDouble;
+                Double newOwnerRatingDouble;
+                try{
+                    newBookRatingDouble = Double.parseDouble(newBookRate);
+                    newOwnerRatingDouble = Double.parseDouble(newOwnerRate);
+                }catch (Exception e){
+                    Toast.makeText(getApplicationContext(),
+                            "A rate should be an number!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (newBookRatingDouble < 0 || newBookRatingDouble > 10 ){
+                    Toast.makeText(getApplicationContext(),
+                            "A rate should be an number between 1 and 10!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (newOwnerRatingDouble < 0 || newOwnerRatingDouble > 10 ){
+                    Toast.makeText(getApplicationContext(),
+                            "A rate should be an number between 1 and 10!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                // set valid input for book into firebase
+                String bookComment = bookCommentEditText.getText().toString();
+
+                ISBN.setBookRate(newBookRatingDouble);
+
+                RatingAndComment cBook = new RatingAndComment();
+                cBook.setID(uid);
+                cBook.setComment(bookComment);
+                cBook.setRating(Double.parseDouble(newBookRate));
+                ISBN.addNewComment(cBook);
+
+                // set valid input for owner into firebase
+                String ownerComment = ownerCommentEditText.getText().toString();
+
+                owner.setLenderRating(newOwnerRatingDouble);
+
+                RatingAndComment cOwner = new RatingAndComment();
+                cOwner.setID(uid);
+                cOwner.setComment(ownerComment);
+                cOwner.setRating(newOwnerRatingDouble);
+                owner.addNewComment(cOwner);
+
+                Log.i("test RateToOwner","Just above start activity");
+
+                //go back to public book detail
+                Intent i = new Intent(RateToOwner.this,PublicBookDetails.class);
+                i.putExtra("Id",bid);
+                startActivity(i);
+
+
+            }
+        });
 
     }
 

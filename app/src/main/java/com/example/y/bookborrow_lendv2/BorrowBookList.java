@@ -49,6 +49,7 @@ import java.util.ArrayList;
 
 /**
  * the books which a borrower is borrowing
+ *
  * @author BoweiLi
  * @version 1.0
  */
@@ -56,9 +57,18 @@ public class BorrowBookList extends AppCompatActivity {
     private ListView myBorrowBookList;
     private ArrayList<book> borrowedBooks = new ArrayList<>();
     private BorrowingBookAdapter BorrowedBookAdapter;
+<<<<<<< HEAD
     private FirebaseAuth auth;
     private FirebaseUser user;
+=======
+    /**
+     * The Database.
+     */
+>>>>>>> 465c2cecf348316bfe63c38ec0ef298654ce130b
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    /**
+     * The Db ref.
+     */
     DatabaseReference dbRef = database.getReference();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
@@ -88,6 +98,8 @@ public class BorrowBookList extends AppCompatActivity {
 
             }
         });
+
+
 
         borrowedBooks = new ArrayList<>();
         BorrowedBookAdapter = new BorrowingBookAdapter(this,borrowedBooks);

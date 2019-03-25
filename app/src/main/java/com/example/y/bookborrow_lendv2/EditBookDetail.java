@@ -55,12 +55,13 @@ import java.io.IOException;
 
 /**
  * This class is to provide an interface for owner to edit details of one of his book
+ *
  * @author Team 19
- * @see PrivateBookDetails
  * @version 1.0
+ * @see PrivateBookDetails
  */
-
 public class EditBookDetail extends AppCompatActivity {
+
     private book b;
     private EditText bookNamkeEditText;
     private EditText authorEditText;
@@ -68,6 +69,7 @@ public class EditBookDetail extends AppCompatActivity {
     private EditText descriptionEditText;
     private ImageView bookPhoto;
     private String id;
+
     private FirebaseAuth auth;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
@@ -182,7 +184,7 @@ public class EditBookDetail extends AppCompatActivity {
                 b.setISBN(ISBNEditText.getText().toString());
 
                 bookISBN ISBN = new bookISBN(ISBNEditText.getText().toString());
-                ISBN.setToFirebse();
+                ISBN.setToFirebase();
 
 
                 FirebaseUser user = auth.getCurrentUser();
@@ -217,7 +219,6 @@ public class EditBookDetail extends AppCompatActivity {
                 startActivityForResult(intent,CODE_PHOTO_REQUEST);
             }
         });
-
 
 
     }
