@@ -122,6 +122,7 @@ public class loginAct extends AppCompatActivity {
 
                 //create user
                 auth.createUserWithEmailAndPassword(email, password)
+
                         .addOnCompleteListener(loginAct.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -167,6 +168,9 @@ public class loginAct extends AppCompatActivity {
 
                                     Toast.makeText(loginAct.this, "Authentication success!" + task.getException(),
                                             Toast.LENGTH_SHORT).show();
+                                    SignIn(email,password);
+                                    Intent intent = new Intent(loginAct.this, profile.class);
+                                    startActivity(intent);
                                 }
                             }});
 
@@ -195,52 +199,14 @@ public class loginAct extends AppCompatActivity {
                 }
 
 
-                //authenticate user
-                auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(loginAct.this,new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(getApplicationContext(), "login ", Toast.LENGTH_SHORT).show();
-
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-                                //progressBar.setVisibility(View.GONE);
-                                if (!task.isSuccessful()) {
-                                    // there was an error
-                                    Toast.makeText(getApplicationContext(), "login failed", Toast.LENGTH_SHORT).show();
-
-
-                                } else {
-                                    FirebaseUser user = auth.getCurrentUser();
-                                    String uid = user.getUid();
-
-                                    // On login button click, storing our username into normalUser,lender borrower classes.
-                                    //Singleton Pattern implemented here
-                                    NormalUser.Instance().setUid(uid);
-                                    borrower.Instance().setUid(uid);
-                                    lender.Instance().setUid(uid);
-
-
-
-                                    Toast.makeText(getApplicationContext(), "login Success!", Toast.LENGTH_SHORT).show();
-
-
-                                    Intent intent = new Intent(loginAct.this, home_page.class);
-                                    startActivity(intent);
-
-
-                                }
-                            }
-
-                        });
-
+                SignIn(email, password);
 
 
 
             }
 
         });
+
 
     }
 
@@ -254,5 +220,47 @@ public class loginAct extends AppCompatActivity {
         FirebaseUser user = auth.getCurrentUser();
         String uid = user.getUid();
         return uid;
+    }
+
+
+    public void SignIn(String email, String password){
+        //authenticate user
+        auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(loginAct.this,new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Toast.makeText(getApplicationContext(), "login ", Toast.LENGTH_SHORT).show();
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        //progressBar.setVisibility(View.GONE);
+                        if (!task.isSuccessful()) {
+                            // there was an error
+                            Toast.makeText(getApplicationContext(), "login failed", Toast.LENGTH_SHORT).show();
+
+
+                        } else {
+                            FirebaseUser user = auth.getCurrentUser();
+                            String uid = user.getUid();
+
+                            // On login button click, storing our username into normalUser,lender borrower classes.
+                            //Singleton Pattern implemented here
+                            NormalUser.Instance().setUid(uid);
+                            borrower.Instance().setUid(uid);
+                            lender.Instance().setUid(uid);
+
+
+
+                            Toast.makeText(getApplicationContext(), "login Success!", Toast.LENGTH_SHORT).show();
+
+
+                            Intent intent = new Intent(loginAct.this, home_page.class);
+                            startActivity(intent);
+
+                        }
+                    }
+
+                });
     }
 }
