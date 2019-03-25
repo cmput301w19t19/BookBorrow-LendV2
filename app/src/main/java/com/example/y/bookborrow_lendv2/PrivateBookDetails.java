@@ -344,6 +344,14 @@ public class PrivateBookDetails extends AppCompatActivity {
                 }
                 Bitmap imageBitmap = (Bitmap) extras.get("data");
                 bookPhoto.setImageBitmap(imageBitmap);
+                /*Uri uri1 = Uri.parse(MediaStore.Images.Media.insertImage(getContentResolver(),imageBitmap, null,null));
+                StorageReference storageReference1 = storageRef.child("book/"+bookid+"/"+"1.jpg");
+                storageReference1.putFile(uri1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Uri downloadUrl = taskSnapshot.getUploadSessionUri();
+                    }
+                }); */
                 break;
                 /*if (USER_ICON.exists()) {
                     Log.i("555","555555");

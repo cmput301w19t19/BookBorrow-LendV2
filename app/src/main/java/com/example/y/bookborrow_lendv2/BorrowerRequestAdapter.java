@@ -106,8 +106,8 @@ public class BorrowerRequestAdapter extends BaseAdapter {
             //convert to the my_book_list_item layout, ids are in there
             holder.image = (ImageView) convertView.findViewById(R.id.BookImage);
             holder.bookName = (TextView) convertView.findViewById(R.id.BookName);
-            holder.currentBorrower = (TextView) convertView.findViewById(R.id.CurrentBorrower);
-            holder.description = (TextView) convertView.findViewById(R.id.descrip);
+            //holder.currentBorrower = (TextView) convertView.findViewById(R.id.CurrentBorrower);
+            //holder.description = (TextView) convertView.findViewById(R.id.descrip);
 
             convertView.setTag(holder);
         }
