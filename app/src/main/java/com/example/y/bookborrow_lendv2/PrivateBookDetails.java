@@ -269,6 +269,17 @@ public class PrivateBookDetails extends AppCompatActivity {
                 startActivityForResult(intent,CODE_PHOTO_REQUEST);
             }
         });
+
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Intent intent = new Intent(getApplicationContext(), MapsActivityOwnerSetLocation.class);
+                //startActivityForResult(new Intent(PrivateBookDetails.this, MapsActivityOwnerSetLocation.class), 4);
+                pickPointOnMap();
+
+            }
+        });
     }
 
     private void photoClip(Uri uri) {
@@ -299,18 +310,7 @@ public class PrivateBookDetails extends AppCompatActivity {
 
 
 
-        locationButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                //Intent intent = new Intent(getApplicationContext(), MapsActivityOwnerSetLocation.class);
-                //startActivityForResult(new Intent(PrivateBookDetails.this, MapsActivityOwnerSetLocation.class), 4);
-                pickPointOnMap();
-
-
-
-            }
-        });
     }
 
     //switch to map activity, user can pick a point on map
@@ -336,6 +336,7 @@ public class PrivateBookDetails extends AppCompatActivity {
             Toast.makeText(PrivateBookDetails.this, "canceled", Toast.LENGTH_LONG).show();
             return;
         }
+
         switch (requestCode) {
             case CODE_CAMERA_REQUEST:
                 Bundle extras = Data.getExtras();

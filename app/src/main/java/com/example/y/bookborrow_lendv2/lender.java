@@ -154,6 +154,7 @@ public class lender extends user {
      */
 
 
+
     public static lender Instance()
     {
         //if no instance is initialized yet then create new instance
