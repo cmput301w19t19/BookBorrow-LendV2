@@ -41,6 +41,9 @@ import android.graphics.Bitmap;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+
+import com.google.android.gms.maps.model.LatLng;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -63,6 +66,7 @@ import java.io.IOException;
  * @version1.0
  */
 public class PrivateBookDetails extends AppCompatActivity {
+
 
     private String bookid;
     private TextView bookNameTV;
@@ -88,6 +92,10 @@ public class PrivateBookDetails extends AppCompatActivity {
     private static final int CODE_PHOTO_REQUEST = 5;
     private static final int CODE_CAMERA_REQUEST = 6;
     private static final int CODE_PHOTO_CLIP = 7;
+    Button locationButton;
+
+    private String locationCode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +115,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         bookPhoto = findViewById(R.id.bookPhoto);
         takePhoto = findViewById(R.id.takePhoto);
         gallery = findViewById(R.id.gallery);
-
+        locationButton = (Button)findViewById(R.id.pBookLocation);
 
         /**
          *  Get the information of the book from firebase and show them on the screen
@@ -136,9 +144,8 @@ public class PrivateBookDetails extends AppCompatActivity {
                         bookStateTV.setText(state);
                     }
 
-                    Double rate = bookx.getBookRating();
-                    String srate = Double.toString(rate);
-                    bookRateTV.setText(srate);
+                    String rate = bookx.getBookRating();
+                    bookRateTV.setText(rate);
 
                     String description = bookx.getDescription();
                     if (description != null) {
@@ -171,6 +178,10 @@ public class PrivateBookDetails extends AppCompatActivity {
             }
         };
         r.addListenerForSingleValueEvent(bookListner);
+
+
+
+
 
         /**
          * Prompt the user to edit book detail if the user want
@@ -231,6 +242,7 @@ public class PrivateBookDetails extends AppCompatActivity {
             }
         });
 
+
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -284,7 +296,31 @@ public class PrivateBookDetails extends AppCompatActivity {
         Intent intent = new Intent();
         setResult(RESULT_OK,intent);
         finish();
+
+
+
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Intent intent = new Intent(getApplicationContext(), MapsActivityOwnerSetLocation.class);
+                //startActivityForResult(new Intent(PrivateBookDetails.this, MapsActivityOwnerSetLocation.class), 4);
+                pickPointOnMap();
+
+
+
+            }
+        });
     }
+
+    //switch to map activity, user can pick a point on map
+    //map activity will return lat and long
+    static final int pickMapPointRequest = 100;
+    private void pickPointOnMap(){
+        Intent pickPointIntent = new Intent(this,MapsActivityOwnerSetLocation.class);
+        startActivityForResult(pickPointIntent, pickMapPointRequest);
+    }
+
 
     /**
      *  Get all result back
@@ -368,13 +404,28 @@ public class PrivateBookDetails extends AppCompatActivity {
 
         if (requestCode == 2 && resultCode == 1){
             bookid = Data.getStringExtra("ID");
-            Toast.makeText(getApplicationContext(),bookid,Toast.LENGTH_SHORT).show();
         }
 
         if (requestCode == 3){
-            Toast.makeText(getApplicationContext(),"Return from FengYuan",Toast.LENGTH_SHORT).show();
+        }
+
+
+        /*return from map activity and
+        toast the location user long click in map view activity
+         */
+        if (requestCode == pickMapPointRequest){
+            LatLng latLng = (LatLng) Data.getParcelableExtra("picked_point");
+
+
+            FirebaseDatabase db = FirebaseDatabase.getInstance();
+            DatabaseReference r = db.getReference("book/"+bookx.getID());
+            r.child("longitude").setValue(latLng.longitude);
+            r.child("latitude").setValue(latLng.latitude);
+            //Toast.makeText(this, "Book Location Saved: " + latLng.latitude + " " + latLng.longitude, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Book Location Saved!", Toast.LENGTH_LONG).show();
 
         }
+
 
 
         FirebaseDatabase m = FirebaseDatabase.getInstance();
@@ -405,9 +456,8 @@ public class PrivateBookDetails extends AppCompatActivity {
                     bookStateTV.setText(state);
                 }
 
-                Double rate = bookx.getBookRating();
-                String srate = Double.toString(rate);
-                bookRateTV.setText(srate);
+                String rate = bookx.getBookRating();
+                bookRateTV.setText(rate);
 
                 String description = bookx.getDescription();
                 if (description != null){
@@ -427,4 +477,7 @@ public class PrivateBookDetails extends AppCompatActivity {
 
 
     }
+
+
+
 }

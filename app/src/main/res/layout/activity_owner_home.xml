@@ -2,22 +2,25 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/BellView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".OwnerHomeActivity">
 
     <TextView
         android:id="@+id/textView_Owner"
-        android:layout_width="383dp"
-        android:layout_height="49dp"
+        android:layout_width="385dp"
+        android:layout_height="54dp"
         android:layout_marginBottom="462dp"
+        android:gravity="center_vertical"
         android:text="Owner"
         android:textSize="20sp"
-        android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.615"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023"
         tools:background="@android:color/darker_gray" />
 
     <TextView
@@ -57,6 +60,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView_Owner"
         app:srcCompat="@mipmap/ic_launcher" />
 
+
     <TextView
         android:id="@+id/select_owner_menu_1"
         android:layout_width="381dp"
@@ -66,8 +70,10 @@
         android:text="@string/empty"
         app:layout_constraintBottom_toBottomOf="@+id/string_1_1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_Owner" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_Owner"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/string_2_0"
@@ -108,15 +114,16 @@
 
     <TextView
         android:id="@+id/select_owner_menu_2"
-        android:clickable="true"
-        android:focusable="true"
         android:layout_width="381dp"
         android:layout_height="80dp"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/empty"
         app:layout_constraintBottom_toBottomOf="@+id/string_2_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/string_1_1" />
+
 
     <TextView
         android:id="@+id/string_3_0"
@@ -157,10 +164,10 @@
 
     <TextView
         android:id="@+id/select_owner_menu_3"
-        android:clickable="true"
-        android:focusable="true"
         android:layout_width="381dp"
         android:layout_height="80dp"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/empty"
         app:layout_constraintBottom_toBottomOf="@+id/string_3_1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -180,6 +187,46 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
+    <TextView
+        android:id="@+id/newRequest"
+        android:layout_width="381dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginLeft="55dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="328dp"
+        android:text="You've got some new requests!"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/back_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/select_owner_menu_3" />
+
+    <ImageButton
+        android:id="@+id/Ibutton2"
+        android:layout_width="67dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
+        android:tint="@color/common_google_signin_btn_text_dark_disabled"
+        app:layout_constraintBottom_toTopOf="@+id/select_owner_menu_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.974"
+        app:layout_constraintStart_toStartOf="@+id/textView_Owner"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_book_black_24dp" />
 
 
 </android.support.constraint.ConstraintLayout>

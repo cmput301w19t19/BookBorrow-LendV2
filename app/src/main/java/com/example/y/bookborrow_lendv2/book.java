@@ -67,12 +67,13 @@ public class book {
     private String description = null;
     private String title = null;
     private ArrayList<String> requestedList = new ArrayList<String>();
-    private String borrowerName = null;
-    private String ownerName = null;
+    private String borrowerID= null;
+    private String ownerID = null;
     private String status = "available";
     private Double rating = -1.0;
     private FirebaseDatabase m;
     private DatabaseReference r;
+    private String firstScanned = "false";
 
     private Map<String, Boolean> requestList;
 
@@ -97,7 +98,7 @@ public class book {
      * since there are too many parameters in this constructor
      */
     book(String name, String author, String ISBN, Double longitude, Double latitude, String description
-    , String title, Double bookRating, String borrowerName, String ownerName, String status ) {
+    , String title, Double bookRating, String borrowerName, String ownerName, String status, String firstScanned) {
         this.name = name;
         //this.photo = photo;
         this.author = author;
@@ -107,9 +108,10 @@ public class book {
         this.description = description;
         this.title = title;
         //this.bookRating = bookRating;
-        this.borrowerName = borrowerName;
-        this.ownerName = ownerName;
+        this.borrowerID = borrowerName;
+        this.ownerID = ownerName;
         this.status = status;
+        this.firstScanned = firstScanned;
     }
 
     public void setImage(Bitmap bitmap){
@@ -135,9 +137,10 @@ public class book {
         r.child("latitude").setValue(this.latitude);
         r.child("description").setValue(this.description);
         r.child("title").setValue(this.title);
-        r.child("borrowerName").setValue(this.borrowerName);
-        r.child("ownerName").setValue(this.ownerName);
+        r.child("borrowerID").setValue(this.borrowerID);
+        r.child("ownerID").setValue(this.ownerID);
         r.child("status").setValue(this.status);
+        r.child("firstScanned").setValue(this.firstScanned);
     }
     /**
      * @param s
@@ -170,8 +173,8 @@ public class book {
      * @param name
      */
 
-    public void setBorrowerName(String name) {
-        borrowerName = name;
+    public void setBorrowerID(String name) {
+        borrowerID = name;
     }
 
     /**
@@ -179,8 +182,8 @@ public class book {
      * @return
      */
 
-    public String getBorrowerName() {
-        return borrowerName;
+    public String getBorrowerID() {
+        return borrowerID;
     }
 
     /**
@@ -268,8 +271,8 @@ public class book {
      * @param name
      */
 
-    public void setOwnerName(String name) {
-        ownerName = name;
+    public void setOwnerID(String name) {
+        ownerID = name;
     }
 
     /**
@@ -278,8 +281,8 @@ public class book {
      */
 
 
-    public String getOwnerName() {
-        return ownerName;
+    public String getOwnerID() {
+        return ownerID;
     }
 
     /**
@@ -370,10 +373,30 @@ public class book {
     }
 
     /**
+     * @param s
+     * this method set a checkmate of borrowing or returning
+     */
+
+    public void setFirstScanned(String s) {
+        this.firstScanned = s;
+    }
+
+    /**
+     * this method return checkmate of borrowing or returning
+     * @return firstScanned
+     *
+     */
+
+    public String getFirstScanned(){return this.firstScanned;}
+
+    /**
      * return the book's rating
      * @return rating
      */
-    public Double getBookRating(){return rating; }
+    public String getBookRating(){
+        bookISBN ISBN = new bookISBN(this.getISBN());
+        return ISBN.getBookRate();
+    }
 
     /**
      * return the description which contains the book's author, title

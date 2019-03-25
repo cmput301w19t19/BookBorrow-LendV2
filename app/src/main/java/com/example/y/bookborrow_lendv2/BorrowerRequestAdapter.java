@@ -117,7 +117,7 @@ public class BorrowerRequestAdapter extends BaseAdapter {
 
         book book = myBook.get(position);
         holder.bookName.setText(book.getName());
-        holder.currentBorrower.setText(book.getBorrowerName());
+        holder.currentBorrower.setText(book.getBorrowerID());
         holder.description.setText(book.getDescription());
 
         return convertView;

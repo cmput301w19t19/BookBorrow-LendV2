@@ -29,6 +29,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,6 +39,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.readystatesoftware.viewbadger.BadgeView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,9 +65,16 @@ public class profile extends AppCompatActivity {
 
 
     private FirebaseAuth auth;
+
     private NormalUser currentU = new NormalUser();
     private lender currentL = new lender();
     private borrower currentB = new borrower();
+
+
+
+
+
+
 
 
     /** Called when the activity is first created. */
@@ -86,6 +95,11 @@ public class profile extends AppCompatActivity {
         inputUserName = (EditText) findViewById(R.id.InputName);
         inputPhone = (EditText) findViewById(R.id.InputPhone);
         uneditableUserName = (TextView) findViewById(R.id.UserName) ;
+
+
+       // BadgeView badge = new BadgeView(this,inputEmail );
+       // badge.setText("1");
+       // badge.show();
 
         //line 53-78: load data from firebase and update UI
         DbRef = database.getReference("users/"+uid);

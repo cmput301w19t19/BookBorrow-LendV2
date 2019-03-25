@@ -70,7 +70,6 @@ public class EditBookDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_book_detail);
-        Log.i("testhahaha","555");
 
         auth = FirebaseAuth.getInstance();
         Button saveButton = (Button)findViewById(R.id.Buttonsave);
@@ -80,11 +79,9 @@ public class EditBookDetail extends AppCompatActivity {
         authorEditText = (EditText)findViewById(R.id.pt2);
         ISBNEditText = (EditText)findViewById(R.id.pt3);
         descriptionEditText = (EditText)findViewById(R.id.editTextDes);
-        final TextView bookstatusTextView = (TextView)findViewById(R.id.pt1);
 
         Intent i = getIntent();
         id = i.getStringExtra("0");
-        Toast.makeText(getApplicationContext(),id,Toast.LENGTH_SHORT).show();
 
         if (id.equals("0")){
             b = new book();
@@ -114,11 +111,6 @@ public class EditBookDetail extends AppCompatActivity {
                         String author = b.getAuthor();
                         if (author != null) {
                             authorEditText.setText(b.getAuthor());
-                        }
-
-                        String state = b.getStatus();
-                        if (state != null) {
-                            bookstatusTextView.setText(state);
                         }
 
                         String description = b.getDescription();
@@ -151,10 +143,15 @@ public class EditBookDetail extends AppCompatActivity {
                 b.setDescription(descriptionEditText.getText().toString());
                 b.setISBN(ISBNEditText.getText().toString());
 
+                bookISBN ISBN = new bookISBN(ISBNEditText.getText().toString());
+                ISBN.setToFirebse();
+
+
                 FirebaseUser user = auth.getCurrentUser();
                 DatabaseReference r = FirebaseDatabase.getInstance().getReference();
 
                 String uid = user.getUid();
+                b.setOwnerID(uid);
                 r.child("lenders").child(uid).child("MyBookList").child(id).setValue(true);
 
                 b.setToFirebase();
