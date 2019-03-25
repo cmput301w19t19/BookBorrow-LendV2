@@ -45,17 +45,35 @@ import com.google.zxing.integration.android.IntentResult;
 
 /**
  * This class is to provide an interface for owner to edit details of one of his book
+ *
  * @author Team 19
- * @see PrivateBookDetails
  * @version 1.0
+ * @see PrivateBookDetails
  */
-
 public class EditBookDetail extends AppCompatActivity {
+    /**
+     * The B.
+     */
     book b;
+    /**
+     * The Book namke edit text.
+     */
     EditText bookNamkeEditText;
+    /**
+     * The Author edit text.
+     */
     EditText authorEditText;
+    /**
+     * The Isbn edit text.
+     */
     EditText ISBNEditText;
+    /**
+     * The Description edit text.
+     */
     EditText descriptionEditText;
+    /**
+     * The Id.
+     */
     String id;
     Button ISBNButton;
     private FirebaseAuth auth;
@@ -196,7 +214,6 @@ public class EditBookDetail extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"The function is waiting for implemented",Toast.LENGTH_SHORT).show();
             }
         });
-
 
 
     }

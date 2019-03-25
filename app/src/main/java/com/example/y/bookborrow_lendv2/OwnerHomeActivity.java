@@ -47,12 +47,20 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 /**
- * @author: Bowei Li
+ * The type Owner home activity.
+ *
  * @version 1.0
+ * @author: Bowei Li
  */
 public class OwnerHomeActivity extends AppCompatActivity {
 
+    /**
+     * The Database.
+     */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    /**
+     * The Db ref.
+     */
     DatabaseReference DbRef = database.getReference();
     private FirebaseAuth auth;
     private book targetBook;
@@ -71,6 +79,7 @@ public class OwnerHomeActivity extends AppCompatActivity {
         TextView myScan = findViewById(R.id.select_owner_menu_3);
         Button backButton = findViewById(R.id.back_button);
         ImageButton button = findViewById(R.id.Ibutton2);
+        final TextView newRequestMessage = findViewById(R.id.newRequest);
 
 
 
@@ -102,9 +111,8 @@ public class OwnerHomeActivity extends AppCompatActivity {
                                 if (ds1.getKey().equals("checkedByOwner")) {
                                     if (ds1.getValue().equals(false)) {
                                         BookList.add(bookID);
-                                       // Log.i("yyyyyyyyy",Integer.toString(BookList.size()));
+                                        Log.i("yyyyyyyyy",Integer.toString(BookList.size()));
                                         newRequestListSize = Integer.toString(BookList.size());
-                                        badge.setText(Integer.toString(BookList.size()));
 
 
 
@@ -113,9 +121,15 @@ public class OwnerHomeActivity extends AppCompatActivity {
                                 }
                             }
                             if  (BookList.size() > 0){
+                                badge.setText(Integer.toString(BookList.size()));
+
                                 badge.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
 
+
                                 badge.show();
+                            }
+                            else{
+                                newRequestMessage.setVisibility(View.INVISIBLE);
                             }
 
                         }
@@ -129,7 +143,7 @@ public class OwnerHomeActivity extends AppCompatActivity {
                 }
 
 
-                    //
+                //
 
 
             }

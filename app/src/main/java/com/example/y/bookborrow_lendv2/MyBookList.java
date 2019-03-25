@@ -58,7 +58,6 @@ import java.util.ArrayList;
  * this activity shows the books the user owns with different kinds of starus: requested, avaliable,
  * borrowed and accepted
  */
-
 public class MyBookList extends AppCompatActivity {
     private ListView myBookList;
     private ArrayList<book> bookList = new ArrayList<>();
@@ -72,12 +71,25 @@ public class MyBookList extends AppCompatActivity {
     private ArrayList<book> borrowedBookList = new ArrayList<>();
     private ArrayList<book> availableBookList = new ArrayList<>();
     private ArrayList<String> booksID;
+    /**
+     * The Database.
+     */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    /**
+     * The Db ref.
+     */
     DatabaseReference DbRef = database.getReference();
     private FirebaseAuth auth;
+    /**
+     * The Storage.
+     */
     FirebaseStorage storage = FirebaseStorage.getInstance();
+    /**
+     * The Storage ref.
+     */
     StorageReference storageRef = storage.getReference();
     private book targetBook;
+    private ArrayList<book> books;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +152,7 @@ public class MyBookList extends AppCompatActivity {
                             bookList.add(targetBook);
                             //myBookList.setAdapter(myBookAdapter);
                             myBookAdapter.notifyDataSetChanged();
+                            books = bookList;
                         }
 
                         @Override
@@ -154,6 +167,7 @@ public class MyBookList extends AppCompatActivity {
                     //Toast.makeText(MyBookList.this,book,Toast.LENGTH_SHORT).show();
                     //Log.i("testnn",Boolean.toString(a));
                 }
+
 
                 Log.i("testsize3",Integer.toString(booksID.size()));
                 myBookAdapter = new bookAdapter(MyBookList.this, bookList);
@@ -193,6 +207,8 @@ public class MyBookList extends AppCompatActivity {
                 }
                 availableBookAdapter = new bookAdapter(MyBookList.this, availableBookList);
                 myBookList.setAdapter(availableBookAdapter);
+                books = availableBookList;
+
             }
         });
 
@@ -215,6 +231,7 @@ public class MyBookList extends AppCompatActivity {
                 }
                 requestedBookAdapter = new bookAdapter(MyBookList.this, requestedBookList);
                 myBookList.setAdapter(requestedBookAdapter);
+                books = requestedBookList;
 
 
             }
@@ -232,6 +249,7 @@ public class MyBookList extends AppCompatActivity {
                 }
                 acceptedBookAdapter = new bookAdapter(MyBookList.this, acceptedBookList);
                 myBookList.setAdapter(acceptedBookAdapter);
+                books = acceptedBookList;
 
             }
         });
@@ -247,6 +265,7 @@ public class MyBookList extends AppCompatActivity {
                 }
                 borrowedBookAdapter = new bookAdapter(MyBookList.this, borrowedBookList);
                 myBookList.setAdapter(borrowedBookAdapter);
+                books = borrowedBookList;
 
             }
         });
@@ -264,7 +283,9 @@ public class MyBookList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //TODO: Implement this method
-                book bookItem = bookList.get(position);
+               // book bookItem = bookList.get(position);
+                book bookItem = books.get(position);
+
                 Toast.makeText(MyBookList.this,bookItem.getAuthor(),Toast.LENGTH_SHORT).show();
                 String bookId = bookItem.getID();
                 Intent intent = new Intent(MyBookList.this, PrivateBookDetails.class);
