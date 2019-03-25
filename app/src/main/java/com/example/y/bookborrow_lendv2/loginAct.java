@@ -214,8 +214,8 @@ public class loginAct extends AppCompatActivity {
 
                                     Toast.makeText(getApplicationContext(), "login Success!", Toast.LENGTH_SHORT).show();
 
-                                    //Intent intent = new Intent(loginAct.this, home_page.class);
-                                    Intent intent = new Intent(loginAct.this, RateToBorrower.class);
+                                    Intent intent = new Intent(loginAct.this, home_page.class);
+                                    //Intent intent = new Intent(loginAct.this, RateToBorrower.class);
                                     startActivity(intent);
 
 

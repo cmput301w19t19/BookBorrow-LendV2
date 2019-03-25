@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -52,6 +53,10 @@ public class PublicBookDetails extends AppCompatActivity {
 
     private String bookid;
     private String flag;
+    private String ownerID;
+    private lender bookOwner;
+    private String title1;
+    private book requestedBook;
     private TextView bookNameTV;
     private TextView ISBNTV;
     private TextView bookAuthorTV;
@@ -61,10 +66,24 @@ public class PublicBookDetails extends AppCompatActivity {
     private TextView bookDescriptionTV;
     private Button requestButton;
     private Button returnButton;
+    private Button locationButton;
     private book b;
     private String Keyword;
     private FirebaseAuth auth;
     private DatabaseReference r;
+
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+    DatabaseReference DbRef = database.getReference();
+    DatabaseReference dbRef = database.getReference();
+
+
+
+
+
+    private double latFromFirebase;  //location code from firebase
+    private double longFromFirebase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,9 +103,12 @@ public class PublicBookDetails extends AppCompatActivity {
         bookDescriptionTV = (TextView)findViewById(R.id.puBookDescription);
         requestButton = (Button)findViewById(R.id.requestTheBook);
         returnButton = (Button)findViewById(R.id.puReturnButton);
+        locationButton = (Button)findViewById(R.id.pubBookLocation);
 
         FirebaseDatabase m = FirebaseDatabase.getInstance();
         r = m.getReference("book/"+bookid);
+
+
 
         /**
          *  Get the information of the book from firebase and show them on the screen
@@ -138,9 +160,16 @@ public class PublicBookDetails extends AppCompatActivity {
          * set the book to the requester's requested list
          */
         requestButton.setOnClickListener(new View.OnClickListener() {
+           NormalUser user1 = new NormalUser();
+
+
             @Override
             public void onClick(View v) {
                 // get id
+                Log.i("qqqqqqqqq","0000000");
+                Log.w("qqqqqqqqqq",bookid);
+
+
 
                 auth = FirebaseAuth.getInstance();
                 FirebaseUser user = auth.getCurrentUser();
@@ -148,8 +177,73 @@ public class PublicBookDetails extends AppCompatActivity {
                 String uid = user.getUid();
                 r2.child("book").child(bookid).child("requestList").child(uid).setValue(true);
                 r2.child("borrowers").child(uid).child("requestList").child(bookid).setValue(true);
+                //add requested book to lender's requested list to keep track of the new requests
+               // r2.child("lenders").child(ownerID).child("requestList").child(bookid).setValue(true);
                 r2.child("book").child(bookid).child("status").setValue("requested");
+
                 //set book status to requested
+                Log.i("ooooooooo","0000000");
+
+
+                //get book by bookid
+                DbRef = database.getReference("book/"+bookid);
+
+
+
+                  ValueEventListener postListener2 = new ValueEventListener() {
+                      @Override
+                      public void onDataChange(DataSnapshot dataSnapshot) {
+                         // bookOwner = dataSnapshot.getValue(lender.class);
+                          requestedBook = dataSnapshot.getValue(book.class);
+                          //title1 = requestedBook.getID();
+
+                          //Log.i("tttttttt","aaaaa"+title1);
+                          ownerID = requestedBook.getOwnerID();
+
+
+                          //retireve onwer by bookid
+                          dbRef = database.getReference("lenders/"+ownerID);
+
+                          ValueEventListener PostListener = new ValueEventListener() {
+                              @Override
+                              public void onDataChange(DataSnapshot dataSnapshot) {
+                                  bookOwner = dataSnapshot.getValue(lender.class);
+                              }
+                              @Override
+                              public void onCancelled(DatabaseError databaseError) {
+                                  // Getting Post failed, log a message
+                                  Log.w( "loadPost:onCancelled", databaseError.toException());
+                              }
+                          };
+
+                          dbRef.addValueEventListener(PostListener);
+                          Log.i("22222222","bbbbbbbb"+ownerID);
+
+                          //add requested book id to book owner's ListOfNewRequests list
+                          dbRef.child("ListOfNewRequests").
+                                  child(bookid).child("requested").setValue(true);
+                          dbRef.child("ListOfNewRequests").child(bookid).
+                                  child("checkedByOwner").setValue(false);
+                          dbRef.child("ListOfNewRequests").child(bookid).
+                                  child("bookID").setValue(bookid);
+                          Log.i("33333333","cccccccc");
+
+
+
+                      }
+                      @Override
+                      public void onCancelled(DatabaseError databaseError) {
+                          // Getting Post failed, log a message
+                          Log.w( "loadPost:onCancelled", databaseError.toException());
+                      }
+                  };
+
+
+                  DbRef.addValueEventListener(postListener2);
+                  Log.i("1111111133333","aaaaaaaaa");
+
+
+
             }
         });
 
@@ -169,6 +263,51 @@ public class PublicBookDetails extends AppCompatActivity {
                }
             }
         });
+
+
+        //borrower click location button than can view
+        //this book's location on map
+        //need to send latlong(pull back from firebase svae as locationCode)
+        // to the map activity, and display this location code on map
+        locationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseDatabase m = FirebaseDatabase.getInstance();
+                DatabaseReference r2 = m.getReference("book/"+bookid);
+
+                ValueEventListener bookListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        book bookFromFirebase = dataSnapshot.getValue(book.class);
+
+                        if (bookFromFirebase.getLatitude() != null){
+                            latFromFirebase = bookFromFirebase.getLatitude();
+                        }
+
+                        if (bookFromFirebase.getLongitude() != null){
+                            longFromFirebase = bookFromFirebase.getLongitude();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toast.makeText(getApplicationContext(),"Fail to renew data",Toast.LENGTH_SHORT).show();
+
+                    }
+
+                };
+
+                LatLng locationCode = new LatLng(latFromFirebase,longFromFirebase);
+                //Toast.makeText(getApplicationContext(),locationCode.toString(),Toast.LENGTH_SHORT).show();
+                Intent location = new Intent(PublicBookDetails.this, MapsActivityBorrowerView.class);
+                location.putExtra("locationCode",locationCode);
+                startActivity(location);
+                r2.addListenerForSingleValueEvent(bookListener);
+
+            }
+        });
+
 
 
     }

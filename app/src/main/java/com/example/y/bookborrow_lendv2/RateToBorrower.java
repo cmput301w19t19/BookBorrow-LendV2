@@ -51,6 +51,7 @@ public class RateToBorrower extends AppCompatActivity {
     private EditText borrowerRateEditText;
     private EditText borrrowerCommentEditText;
     private String uid;
+    private String bookID;
 
     FirebaseAuth auth;
     FirebaseUser user;
@@ -74,15 +75,17 @@ public class RateToBorrower extends AppCompatActivity {
         m = FirebaseDatabase.getInstance();
 
         // need to get the borrower id from the last activity
-        //Intent i = getIntent();
-        //String borrowerID = i.getStringExtra("borrowerID");
+        Intent i = getIntent();
+        String bid = i.getStringExtra("borrowerID");
+        bookID = i.getStringExtra("bookID");
 
-        String bid = "J0WloTnZcAcds7lT7dCR9PtzH5x2";
+        Log.i("test RateToBorrower","bookid"+bookID);
+
+        //String bid = "J0WloTnZcAcds7lT7dCR9PtzH5x2";
         DatabaseReference r3 = m.getReference("borrowers/" + bid);
         ValueEventListener borrowerListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.i("testnn","666");
                 borrowerx = dataSnapshot.getValue(borrower.class);
                 borrowerNameTextView.setText(borrowerx.getName());
                 borrowerEmailTextView.setText(borrowerx.getEmail());
@@ -95,7 +98,6 @@ public class RateToBorrower extends AppCompatActivity {
                         "Fail to get data from database",Toast.LENGTH_SHORT).show();
             }
         };
-        Log.i("testnn","555");
         r3.addValueEventListener(borrowerListener);
 
 
@@ -133,6 +135,12 @@ public class RateToBorrower extends AppCompatActivity {
                 cOwner.setRating(newBorrowerRatingDouble);
                 borrowerx.addNewComment(cOwner);
                 borrowerx.setBorrowerRating(newBorrowerRatingDouble);
+
+                Log.i("test RateToBorrower","just above start activity");
+
+                Intent i = new Intent(RateToBorrower.this,PrivateBookDetails.class);
+                i.putExtra("Id",bookID);
+                startActivity(i);
 
             }
         });

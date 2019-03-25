@@ -50,6 +50,7 @@ public class RateToOwner extends AppCompatActivity {
     private bookISBN ISBN;
     private lender owner;
     private String uid;
+    private String bid;
     private String lenderUid;
     private String bookISBNString;
 
@@ -94,16 +95,15 @@ public class RateToOwner extends AppCompatActivity {
         bookISBNTextView = (TextView) findViewById(R.id.Book_ISBN);
 
 
-        Log.i("testnn","222");
-
         /**
          * get basic book information from firebase
          * set basic book information
          */
-        //Intent i = getIntent();
-        //String bid = i.getStringExtra("bookID");
+        Intent i = getIntent();
+        bid = i.getStringExtra("bookID");
+        Log.i("test RateToOwner","bookid"+bid);
 
-        String bid = "5f3a1368-57a6-470c-97f1-da74d90a4b9e";
+        //String bid = "5f3a1368-57a6-470c-97f1-da74d90a4b9e";
         DatabaseReference r1 = m.getReference("book/"+bid);
         ValueEventListener bookLister = new ValueEventListener() {
             @Override
@@ -133,12 +133,10 @@ public class RateToOwner extends AppCompatActivity {
                     /**
                      * get bookISBN object from firebase
                      */
-                    Log.i("testnn","444");
                     DatabaseReference r3 = m.getReference("bookISBN/" + b.getISBN());
                     ValueEventListener ISBNListener = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Log.i("testnn","666");
                             ISBN = dataSnapshot.getValue(bookISBN.class);
 
                         }
@@ -149,7 +147,6 @@ public class RateToOwner extends AppCompatActivity {
                                     "Fail to get data from database",Toast.LENGTH_SHORT).show();
                         }
                     };
-                    Log.i("testnn","555");
                     r3.addValueEventListener(ISBNListener);
 
 
@@ -158,13 +155,11 @@ public class RateToOwner extends AppCompatActivity {
                      * set the information to the view
                      */
                     DatabaseReference r2 = m.getReference("lenders/" + lenderUid);
-                    Log.i("testnn","777");
                     ValueEventListener lenderListener = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             if (dataSnapshot.exists() ){
                                 owner = dataSnapshot.getValue(lender.class);
-                                Log.i("testnn","999");
 
                                 String userEmail = owner.getEmail();
                                 if (userEmail != null){
@@ -274,6 +269,13 @@ public class RateToOwner extends AppCompatActivity {
                 cOwner.setComment(ownerComment);
                 cOwner.setRating(newOwnerRatingDouble);
                 owner.addNewComment(cOwner);
+
+                Log.i("test RateToOwner","Just above start activity");
+
+                //go back to public book detail
+                Intent i = new Intent(RateToOwner.this,PublicBookDetails.class);
+                i.putExtra("Id",bid);
+                startActivity(i);
 
 
             }
