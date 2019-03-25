@@ -32,6 +32,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -55,7 +57,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 
 public class MapsActivityBorrowerView extends FragmentActivity implements OnMapReadyCallback {
 
@@ -76,7 +81,7 @@ public class MapsActivityBorrowerView extends FragmentActivity implements OnMapR
 
             //if get the permission than start getting user location
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2, 2, locationListener);
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5, 5, locationListener);
             }
 
         }
@@ -128,6 +133,9 @@ public class MapsActivityBorrowerView extends FragmentActivity implements OnMapR
                 /*
                 user real time location will be displayed upon GPS decte change
                  */
+                //LatLng userLocation =
+
+
 
             }
 
@@ -150,12 +158,12 @@ public class MapsActivityBorrowerView extends FragmentActivity implements OnMapR
         if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2, 2, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5, 5, locationListener);
             //mMap.setMyLocationEnabled(true);
 
             //set last known location as default
             //Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            //mMap.setMyLocationEnabled(true);
+            mMap.setMyLocationEnabled(true);
 
         }
 

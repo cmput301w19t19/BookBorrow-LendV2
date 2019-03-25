@@ -22,14 +22,21 @@
 package com.example.y.bookborrow_lendv2;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Map;
 import java.util.UUID;
@@ -52,7 +59,7 @@ import java.util.ArrayList;
 public class book {
     private UUID ID;
     private String name = null;
-    //private Image photo = null;
+    private Bitmap photo = null;
     private String author = null;
     private String ISBN = null;
     private Double longitude = 0.0;
@@ -107,7 +114,13 @@ public class book {
         this.firstScanned = firstScanned;
     }
 
+    public void setImage(Bitmap bitmap){
+        this.photo = bitmap;
+    }
 
+    public Bitmap getImage(){
+        return this.photo;
+    }
     /**
      * this method set the values that fot from firebase to object
      */
