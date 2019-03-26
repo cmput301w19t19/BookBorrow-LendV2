@@ -31,7 +31,7 @@
     <string name="rate_comment">"Enter the comment: "</string>
     <string name="rate_to_owner">Rate To Owner and Book</string>
     <string name="rate_to_borrower">Rate To Borrower</string>
-    <string name="BorrowedBookListText">My Borrowed books</string>
+    <string name="BorrowedBookListText">My Borrowed Books</string>
     <string name="title_activity_search">Search</string>
     <string name="bookDetailTitle">Book Detail</string>
     <string name="bookDetailComment">Comment from Borrowers:</string>

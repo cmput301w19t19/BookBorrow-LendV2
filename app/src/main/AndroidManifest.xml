@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.y.bookborrow_lendv2">
+    package="com.example.y.BookEX">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -8,7 +8,7 @@
     -->
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- To auto-complete the email text field in the login form with the User's emails -->
 
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -25,7 +25,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ViewRequests"></activity>
+        <activity android:name="com.example.y.BookEX.ViewRequests"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -39,21 +39,21 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MapsActivityBorrowerView"
+            android:name="com.example.y.BookEX.MapsActivityBorrowerView"
             android:label="@string/title_activity_maps_borrower_view"></activity>
         <activity
-            android:name=".MapsActivityOwnerSetLocation"
+            android:name="com.example.y.BookEX.MapsActivityOwnerSetLocation"
 
             android:label="@string/title_activity_maps_owner_set_location" />
 
-        <activity android:name=".SignOutActivity" />
-        <activity android:name=".EditBookDetail" />
-        <activity android:name=".check_to_scan" />
-        <activity android:name=".PrivateBookDetails" />
-        <activity android:name=".OwnerHomeActivity" />
-        <activity android:name=".RequestToOwner" />
+        <activity android:name="com.example.y.BookEX.SignOutActivity" />
+        <activity android:name="com.example.y.BookEX.EditBookDetail" />
+        <activity android:name="com.example.y.BookEX.Check_to_scan" />
+        <activity android:name="com.example.y.BookEX.PrivateBookDetails" />
+        <activity android:name="com.example.y.BookEX.OwnerHomeActivity" />
+        <activity android:name="com.example.y.BookEX.RequestToOwner" />
         <activity
-            android:name=".loginAct"
+            android:name="com.example.y.BookEX.LoginAct"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -61,20 +61,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BorrowerMenu" />
-        <activity android:name=".MyBookList" />
-        <activity android:name=".profile" />
-        <activity android:name=".BorrowerRequest" />
-        <activity android:name=".RateToOwner" />
-        <activity android:name=".home_page" />
-        <activity android:name=".Search" />
-        <activity android:name=".SearchResultForBook" />
-        <activity android:name=".PublicBookDetails" />
-        <activity android:name=".RateToBorrower" />
-        <activity android:name=".BorrowBookList" />
+        <activity android:name="com.example.y.BookEX.BorrowerMenu" />
+        <activity android:name="com.example.y.BookEX.MyBookList" />
+        <activity android:name="com.example.y.BookEX.Profile" />
+        <activity android:name="com.example.y.BookEX.BorrowerRequest" />
+        <activity android:name="com.example.y.BookEX.RateToOwner" />
+        <activity android:name="com.example.y.BookEX.Home_page" />
+        <activity android:name="com.example.y.BookEX.Search" />
+        <activity android:name="com.example.y.BookEX.SearchResultForBook" />
+        <activity android:name="com.example.y.BookEX.PublicBookDetails" />
+        <activity android:name="com.example.y.BookEX.RateToBorrower" />
+        <activity android:name="com.example.y.BookEX.BorrowBookList" />
 
         <activity
-            android:name=".SearchResultForPeople"
+            android:name="com.example.y.BookEX.SearchResultForPeople"
             android:label="@string/title_activity_search"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

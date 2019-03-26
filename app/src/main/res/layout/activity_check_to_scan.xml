@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".check_to_scan">
+    tools:context=".Check_to_scan">
 
     <RadioGroup
         android:id="@+id/RadioGroup"

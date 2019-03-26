@@ -30,7 +30,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.y.bookborrow_lendv2.Search">
+    tools:context="com.example.y.BookEX.Search">
 
 
     <TextView
@@ -67,7 +67,7 @@
         android:layout_alignLeft="@+id/keyword"
         android:layout_alignRight="@id/keyword"
         android:layout_marginTop="129dp"
-        android:text="Search For books" />
+        android:text="Search For Books" />
 
     <Button
         android:id="@+id/See_Result_of_PersonButton"

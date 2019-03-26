@@ -42,7 +42,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginLeft="80dp"
         android:layout_marginTop="32dp"
-        android:text="Click here to check your books"
+        android:text="Click here to check your Books"
         app:layout_constraintStart_toStartOf="@+id/image_1"
         app:layout_constraintTop_toTopOf="@+id/myBooks" />
 
