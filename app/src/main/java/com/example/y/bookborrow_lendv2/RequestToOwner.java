@@ -167,15 +167,18 @@ public class RequestToOwner extends AppCompatActivity {
                     if(bRequest.isSelected()){
                         dbBook.child("book").child(book_ID).child("status").setValue("accepted");
                         dbBorrower.child("borrowers").child(bRequest.getUserID()).child("AcceptedList").child(book_ID).setValue(true);
-                        Log.i("Sucess", bRequest.getUserID());
-                        dbBorrower = m.getReference();
+                        //dbBorrower = m.getReference();
                          for(int i = 0; i < mDatas.size();i++)
                         {
                             mDatas.get(i).selected = true;
                         }
                         deleteRequest(mDatas, dbBorrower, dbHolder, book_ID);
-                        mAdapter.notifyDataSetChanged();
+                        //mAdapter.notifyDataSetChanged();
+                        //refresh();
+                        Intent i = new Intent(RequestToOwner.this,PrivateBookDetails.class);
+                        startActivity(i);
                         //Log.i("Sucess", mDatas.get(j).getUserID());
+                        ///////////////////////////////////////////////////need to intend to map/////////////////////////////////////////
                     }
                 }
             }
@@ -195,11 +198,16 @@ public class RequestToOwner extends AppCompatActivity {
                     dbBook.child("book").child(book_ID).child("status").setValue("available");
                 }
                 mAdapter.notifyDataSetChanged();
+                //refresh();
             }
         });
 
 
 
+    }
+
+    public void refresh(){
+        onCreate(null);
     }
 
     private void initView(){
@@ -222,5 +230,7 @@ public class RequestToOwner extends AppCompatActivity {
             }
         }
         mAdapter.notifyDataSetChanged();
+
+
     }
 }

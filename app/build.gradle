@@ -63,3 +63,4 @@ dependencies {
 }
 com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
 //must add this line for using google map
+

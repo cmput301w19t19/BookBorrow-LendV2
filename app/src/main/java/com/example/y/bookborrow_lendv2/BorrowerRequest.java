@@ -47,7 +47,7 @@ import java.util.ArrayList;
  * when user login in as a borrower, there is a bookRequested button
  * and this class be able to let user to view the book he/she requested, and the accepted books
  *
- * @param  uid, user id that pass by login to search book
+ * //@param  uid, user id that pass by login to search book
  * @return none
  */
 public class BorrowerRequest extends AppCompatActivity {
@@ -68,6 +68,7 @@ public class BorrowerRequest extends AppCompatActivity {
     private BorrowerRequestAdapter acceptAdapter;
     private DatabaseReference rootRefR;
     private DatabaseReference rootRefA;
+    private String message;
     //private BorrowingBookAdapter myBookAdapter;
     //private BorrowingBookAdapter requestAdapter;
     ///private BorrowingBookAdapter acceptAdapter;
@@ -106,6 +107,8 @@ public class BorrowerRequest extends AppCompatActivity {
         showAccepted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                message = "accepted";
+                Log.i("acceptButtonClick", "fuxxxxxxxxxxxxk");
                 acceptedBookList = new ArrayList<>();
                 ValueEventListener eventListener = new ValueEventListener() {
                     @Override
@@ -119,7 +122,80 @@ public class BorrowerRequest extends AppCompatActivity {
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
                                     book targetBook = dataSnapshot1.getValue(book.class);
                                     acceptedBookList.add(targetBook);
-                                    myBookAdapter.notifyDataSetChanged();
+                                    acceptAdapter.notifyDataSetChanged();
+                                    Log.i("acceptListDataChange", String.valueOf(acceptedBookList.size()));
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError1) {
+
+                                }
+                            };
+                            DbRef.addValueEventListener(eventListener1);
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                };
+                rootRefA.addListenerForSingleValueEvent(eventListener);
+                //defaultBookList = acceptedBookList;
+
+                acceptAdapter = new BorrowerRequestAdapter(BorrowerRequest.this, acceptedBookList);
+                //acceptAdapter = new BorrowerRequestAdapter(BorrowerRequest.this,acceptedBookList);
+                borrowerRequestbookList.setAdapter(acceptAdapter);
+
+            }
+        });
+
+
+        //set click on the main listView
+        borrowerRequestbookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //TODO: Implement this method
+                if(message.equals("accepted")){
+                    book bookItem = acceptedBookList.get(position);
+                    String bookId = bookItem.getID();
+                    Intent intent = new Intent(BorrowerRequest.this, PublicBookDetails.class);
+                    intent.putExtra("Id", bookId);
+                    startActivity(intent);
+                }
+                else if(message.equals("requested")){
+                    book bookItem = requestedBookList.get(position);
+                    String bookId = bookItem.getID();
+                    Intent intent = new Intent(BorrowerRequest.this, PublicBookDetails.class);
+                    intent.putExtra("Id", bookId);
+                    startActivity(intent);
+                }
+            }
+        });
+
+        //button for show all request
+        showRequested.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                message = "requested";
+                Log.i("requestListButtonClick", "fuxxxxxxxxxxxxk");
+                requestedBookList = new ArrayList<>();
+                ValueEventListener eventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        for(DataSnapshot ds : dataSnapshot.getChildren()){
+                            String bookID = ds.getKey();
+                            DbRef = database.getReference("book/"+bookID);
+                            ValueEventListener eventListener1 = new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
+                                    book targetBook = dataSnapshot1.getValue(book.class);
+                                    requestedBookList.add(targetBook);
+                                    requestAdapter.notifyDataSetChanged();
+                                    Log.i("requestListDataChange", String.valueOf(requestedBookList.size()));
                                 }
 
                                 @Override
@@ -138,77 +214,20 @@ public class BorrowerRequest extends AppCompatActivity {
                     }
                 };
                 rootRefR.addListenerForSingleValueEvent(eventListener);
-
-                acceptAdapter = new BorrowerRequestAdapter(BorrowerRequest.this, acceptedBookList);
-                //acceptAdapter = new BorrowingBookAdapter(BorrowerRequest.this,acceptedBookList);
-                borrowerRequestbookList.setAdapter(acceptAdapter);
-
-            }
-        });
-
-
-        //set click on the main listView
-        borrowerRequestbookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //TODO: Implement this method
-                book bookItem = defaultBookList.get(position);
-                String bookId = bookItem.getID();
-                Intent intent = new Intent(BorrowerRequest.this, PublicBookDetails.class);
-                intent.putExtra("Id", bookId);
-                startActivity(intent);
-            }
-        });
-
-        //button for show all request
-        showRequested.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestedBookList = new ArrayList<>();
-                ValueEventListener eventListener = new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        for(DataSnapshot ds : dataSnapshot.getChildren()){
-                            String bookID = ds.getKey();
-                            DbRef = database.getReference("book/"+bookID);
-                            ValueEventListener eventListener1 = new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
-                                    book targetBook = dataSnapshot1.getValue(book.class);
-                                    requestedBookList.add(targetBook);
-                                    myBookAdapter.notifyDataSetChanged();
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError1) {
-
-                                }
-                            };
-                            DbRef.addValueEventListener(eventListener1);
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                };
-                rootRefA.addListenerForSingleValueEvent(eventListener);
+                defaultBookList = requestedBookList;
 
                 requestAdapter = new BorrowerRequestAdapter(BorrowerRequest.this, requestedBookList);
-                //requestAdapter = new BorrowingBookAdapter(BorrowerRequest.this,requestedBookList);
+                //requestAdapter = new BorrowerRequestAdapter(BorrowerRequest.this,requestedBookList);
                 borrowerRequestbookList.setAdapter(requestAdapter);
 
             }
         });
 
         //these three lines what to do?
-        defaultBookList = new ArrayList<>();
-        myBookAdapter = new BorrowerRequestAdapter(this, defaultBookList);
+        //defaultBookList = new ArrayList<>();
+        //myBookAdapter = new BorrowerRequestAdapter(this, defaultBookList);
         //myBookAdapter = new BorrowingBookAdapter(this,defaultBookList);
-        borrowerRequestbookList.setAdapter(myBookAdapter);
+        //borrowerRequestbookList.setAdapter(myBookAdapter);
 
 
     }

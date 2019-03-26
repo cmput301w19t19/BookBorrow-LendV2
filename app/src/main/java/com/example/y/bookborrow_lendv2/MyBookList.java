@@ -129,7 +129,7 @@ public class MyBookList extends AppCompatActivity {
                     //Toast.makeText(MyBookList.this,book,Toast.LENGTH_SHORT).show();
                     //Log.i("testnn",Boolean.toString(a));
                 }
-                Log.i("testsize3",Integer.toString(booksID.size()));
+                Log.i("testsize3",Integer.toString(bookList.size()));
 
             }
 
