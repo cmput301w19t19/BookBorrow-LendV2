@@ -116,7 +116,7 @@ public class SearchResultForPeople extends AppCompatActivity {
                         if (found) {
                             String id = user.getUid();
                             StorageReference imageRef = storageRef.child("user/" + id + "/1.jpg");
-                            final long ONE_MEGABYTE = 1024 * 1024;
+                            final long ONE_MEGABYTE = 10 * 1024 * 1024;
                             imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                 @Override
                                 public void onSuccess(byte[] bytes) {

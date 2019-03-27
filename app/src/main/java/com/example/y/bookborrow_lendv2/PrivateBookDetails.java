@@ -81,8 +81,7 @@ public class PrivateBookDetails extends AppCompatActivity {
     private Button requestButton;
     private Button returnButton;
     private ImageView bookPhoto ;
-    private ImageButton takePhoto;
-    private ImageButton gallery;
+
     private book bookx;
     private FirebaseAuth auth;
     /**
@@ -129,8 +128,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         requestButton = (Button)findViewById(R.id.bookDetailRequest);
         returnButton = (Button)findViewById(R.id.ReturnButton);
         bookPhoto = findViewById(R.id.bookPhoto);
-        takePhoto = findViewById(R.id.takePhoto);
-        gallery = findViewById(R.id.gallery);
+
         locationButton = (Button)findViewById(R.id.pBookLocation);
 
 
@@ -170,13 +168,14 @@ public class PrivateBookDetails extends AppCompatActivity {
                     }
 
                     StorageReference imageRef = storageRef.child("book/"+bookid+"/1.jpg");
-                    final long ONE_MEGABYTE = 1024 * 1024;
+                    final long ONE_MEGABYTE = 10 * 1024 * 1024;
                     imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                         @Override
                         public void onSuccess(byte[] bytes) {
                             Log.i("Result","success");
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                             bookPhoto.setImageBitmap(bitmap);
+                            bookx.setImage(bitmap);
                         }
 
                     }).addOnFailureListener(new OnFailureListener() {
@@ -275,7 +274,7 @@ public class PrivateBookDetails extends AppCompatActivity {
             }
         });
 */
-        gallery.setOnClickListener(new View.OnClickListener() {
+        /*gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -286,6 +285,7 @@ public class PrivateBookDetails extends AppCompatActivity {
                 startActivityForResult(intent,CODE_PHOTO_REQUEST);
             }
         });
+        */
 
         locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -295,12 +295,10 @@ public class PrivateBookDetails extends AppCompatActivity {
                 //startActivityForResult(new Intent(PrivateBookDetails.this, MapsActivityOwnerSetLocation.class), 4);
                 pickPointOnMap();
 
-
-
             }
         });
     }
-
+/*
     private void photoClip(Uri uri) {
         Intent intent = new Intent();
         intent.setAction("com.android.camera.action.CROP");
@@ -321,11 +319,13 @@ public class PrivateBookDetails extends AppCompatActivity {
             bookPhoto.setImageBitmap(photo);
         }
     }
+    */
     @Override
     public void onBackPressed(){
         Intent intent = new Intent();
         setResult(RESULT_OK,intent);
         finish();
+
 
 
 
@@ -358,6 +358,7 @@ public class PrivateBookDetails extends AppCompatActivity {
             Toast.makeText(PrivateBookDetails.this, "canceled", Toast.LENGTH_LONG).show();
             return;
         }
+
         switch (requestCode) {
             case CODE_CAMERA_REQUEST:
                 Bundle extras = Data.getExtras();

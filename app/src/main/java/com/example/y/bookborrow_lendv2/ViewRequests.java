@@ -130,7 +130,7 @@ public class ViewRequests extends AppCompatActivity {
                                 if (ds.getKey().equals(bookID1)) {
                                     final book targetBook = ds.getValue(book.class);
                                     StorageReference imageRef = storageRef.child("book/"+bookID1+"/1.jpg");
-                                    final long ONE_MEGABYTE = 1024 * 1024;
+                                    final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                     imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                         @Override
                                         public void onSuccess(byte[] bytes) {
