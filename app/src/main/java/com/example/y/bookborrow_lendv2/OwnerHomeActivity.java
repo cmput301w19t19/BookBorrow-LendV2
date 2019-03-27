@@ -77,7 +77,7 @@ public class OwnerHomeActivity extends AppCompatActivity {
         TextView myBooks = findViewById(R.id.select_owner_menu_1);
         TextView mySearch = findViewById(R.id.select_owner_menu_2);
         TextView myScan = findViewById(R.id.select_owner_menu_3);
-        Button backButton = findViewById(R.id.back_button);
+
         ImageButton button = findViewById(R.id.Ibutton2);
         final TextView newRequestMessage = findViewById(R.id.newRequest);
 
@@ -242,17 +242,7 @@ public class OwnerHomeActivity extends AppCompatActivity {
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            /**
-             * jump to homepage class after click
-             * @param v
-             */
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(OwnerHomeActivity.this, home_page.class);
-                startActivity(intent);
-            }
-        });
+
     }
     @Override
     public void onBackPressed(){

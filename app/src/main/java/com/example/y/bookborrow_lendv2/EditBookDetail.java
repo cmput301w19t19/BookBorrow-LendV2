@@ -77,7 +77,10 @@ public class EditBookDetail extends AppCompatActivity {
     private EditText descriptionEditText;
     private ImageView bookPhoto;
     private String id;
-    private Button ISBNButton;
+    private Bitmap photo = null;
+
+
+    Button ISBNButton;
 
     private FirebaseAuth auth;
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -204,6 +207,10 @@ public class EditBookDetail extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (photo == null) {
+                    Toast.makeText(EditBookDetail.this, "Please upload image!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 b.setName(bookNamkeEditText.getText().toString());
                 b.setAuthor(authorEditText.getText().toString());
                 b.setDescription(descriptionEditText.getText().toString());
@@ -222,10 +229,11 @@ public class EditBookDetail extends AppCompatActivity {
 
                 b.setToFirebase();
                 String bookid = b.getID();
-                Intent back = new Intent();
-                back.putExtra("ID",bookid);
-                setResult(1,back);
-                finish();
+                Intent back = new Intent(EditBookDetail.this,MyBookList.class);
+                startActivity(back);
+                //back.putExtra("ID",bookid);
+                //setResult(1,back);
+                //finish();
             }
         });
 
@@ -262,7 +270,7 @@ public class EditBookDetail extends AppCompatActivity {
         }
         if (requestCode == CODE_PHOTO_REQUEST) {
             if (Data != null) {
-                Bitmap photo = null;
+                //Bitmap photo = null;
                 try {
                     Uri uri = Data.getData();
                     Log.i("hello22", "22");

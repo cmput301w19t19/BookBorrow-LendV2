@@ -68,6 +68,7 @@ public class profile extends AppCompatActivity {
     private ImageView portrait;
     private TextView inputEmail,uneditableUserName;
     private EditText inputUserName, inputPhone,inputMessage;
+    private Bitmap photo;
     /**
      * The Database.
      */
@@ -199,6 +200,10 @@ public class profile extends AppCompatActivity {
         updateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (photo == null) {
+                    Toast.makeText(profile.this, "Please upload image!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 String email = inputEmail.getText().toString();
                 String userName = inputUserName.getText().toString();
                 String phone = inputPhone.getText().toString();
@@ -260,7 +265,7 @@ public class profile extends AppCompatActivity {
         }
         if (requestCode == CODE_PHOTO_REQUEST) {
             if (Data != null) {
-                Bitmap photo = null;
+                //Bitmap photo = null;
                 try {
                     Uri uri = Data.getData();
                     Log.i("hello22", "22");
