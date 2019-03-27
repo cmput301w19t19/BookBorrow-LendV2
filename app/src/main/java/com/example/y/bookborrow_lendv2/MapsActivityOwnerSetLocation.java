@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,22 +37,16 @@ import com.google.firebase.database.ValueEventListener;
 public class MapsActivityOwnerSetLocation extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    //location tuple return last activity to save in firebase
     private double latitude;
     private double longitude;
+
     private LatLng userClick;
+    private LatLng userLocation;
 
-    /**
-     * The Location manager.
-     */
+
     LocationManager locationManager;
-    /**
-     * The Location listener.
-     */
     LocationListener locationListener;
-
-    /**
-     * The B.
-     */
     book b;
 
     //#################
@@ -124,13 +119,19 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
 
         Toast.makeText(getApplicationContext(),"Long Click on Map To Set a Location.",Toast.LENGTH_LONG).show();
 
+
+
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
 
 
                 LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation,15));
+                //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation,15));
+
+                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(userLocation, 13);
+                mMap.animateCamera(cameraUpdate);
+                locationManager.removeUpdates(this);
 
 
             }
@@ -154,13 +155,9 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
         if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
+
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2, 2, locationListener);
             mMap.setMyLocationEnabled(true);
-
-            //set map view when launch to be last save location
-            //Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            //LatLng lastLocation = new LatLng(lastKnownLocation.getLatitude(),lastKnownLocation.getLongitude());
-            //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLocation,10));
 
 
         }
@@ -187,10 +184,7 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
                 Marker marker = mMap.addMarker(new MarkerOptions().position(latLng).title("long click to set here as receive location"));
                 marker.showInfoWindow();
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                //Intent returnIntent = new Intent();
-                //returnIntent.putExtra("picked_point", latLng);
-                //setResult(Activity.RESULT_OK, returnIntent);
-                //finish();
+
             }
 
         });

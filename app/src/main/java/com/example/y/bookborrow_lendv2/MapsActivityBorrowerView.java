@@ -47,6 +47,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.internal.Objects;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -139,8 +140,11 @@ public class MapsActivityBorrowerView extends FragmentActivity implements OnMapR
         LatLng bookLocation = new LatLng(newLat,newLong);
         //Toast.makeText(getApplicationContext(),bookLocation.toString(),Toast.LENGTH_SHORT).show();
         mMap.addMarker(new MarkerOptions().position(bookLocation).title("Book Location is here"));
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bookLocation,12));
+
         Toast.makeText(getApplicationContext(),"Current Book's Location is showed on red marker.",Toast.LENGTH_SHORT).show();
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bookLocation,15));
+
 
 
 
@@ -176,7 +180,7 @@ public class MapsActivityBorrowerView extends FragmentActivity implements OnMapR
         if (ContextCompat.checkSelfPermission(this,Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5, 5, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2, 2, locationListener);
             //mMap.setMyLocationEnabled(true);
 
             //set last known location as default
