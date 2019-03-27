@@ -131,7 +131,7 @@ public class SearchResultForBook extends AppCompatActivity {
                     for (final book bookItem: books){
                         String bookID = bookItem.getID();
                         StorageReference imageRef = storageRef.child("book/"+bookID+"/1.jpg");
-                        final long ONE_MEGABYTE = 1024 * 1024;
+                        final long ONE_MEGABYTE = 10 * 1024 * 1024;
                         imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                             @Override
                             public void onSuccess(byte[] bytes) {

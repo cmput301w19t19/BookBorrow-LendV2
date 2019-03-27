@@ -130,7 +130,7 @@ public class ViewRequests extends AppCompatActivity {
                                 if (ds.getKey().equals(bookID1)) {
                                     final book targetBook = ds.getValue(book.class);
                                     StorageReference imageRef = storageRef.child("book/"+bookID1+"/1.jpg");
-                                    final long ONE_MEGABYTE = 1024 * 1024;
+                                    final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                     imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                         @Override
                                         public void onSuccess(byte[] bytes) {
@@ -188,9 +188,9 @@ public class ViewRequests extends AppCompatActivity {
                 intent.putExtra("Id", bookId);
 
                 //记得把ViewRequests 里的OnItemCliskListener 点过的 request 的checkByOwner 改成 true，就没有小红点
-                //dbRef = database.getReference("lenders").child(uid).child("ListOfNewRequests").child(clickedBookId).
-                //child("checkedByOwner");
-                //dbRef.setValue("true");
+                dbRef = database.getReference("lenders").child(uid).child("ListOfNewRequests").child(clickedBookId).
+                child("checkedByOwner");
+                dbRef.setValue("true");
 
 
                 startActivity(intent);

@@ -172,7 +172,7 @@ public class PublicBookDetails extends AppCompatActivity {
                         bookDescriptionTV.setText(description);
                     }
                     StorageReference imageRef = storageRef.child("book/"+bookid+"/1.jpg");
-                    final long ONE_MEGABYTE = 1024 * 1024;
+                    final long ONE_MEGABYTE = 10 * 1024 * 1024;
                     imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                         @Override
                         public void onSuccess(byte[] bytes) {

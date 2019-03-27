@@ -129,7 +129,7 @@ public class RequestToOwner extends AppCompatActivity {
                                     final String b_user = bor.getName();
                                     final String userID = bor.getUid();
                                     StorageReference imageRef = storageRef.child("book/"+userID+"/1.jpg");
-                                    final long ONE_MEGABYTE = 1024 * 1024;
+                                    final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                     imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                         @Override
                                         public void onSuccess(byte[] bytes) {

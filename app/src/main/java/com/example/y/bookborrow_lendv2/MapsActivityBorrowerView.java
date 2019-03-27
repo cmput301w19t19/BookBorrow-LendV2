@@ -114,7 +114,7 @@ public class MapsActivityBorrowerView extends FragmentActivity implements OnMapR
         LatLng locationCode = getIntent().getExtras().getParcelable("locationCode");
         newLat = locationCode.latitude;
         newLong = locationCode.longitude;
-        Toast.makeText(getApplicationContext(),"Current Book's Location is showed on red marker.",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),"Current Book's Location is showed on red marker.",Toast.LENGTH_SHORT).show();
 
 
     }
@@ -134,6 +134,15 @@ public class MapsActivityBorrowerView extends FragmentActivity implements OnMapR
         mMap = googleMap;
 
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+
+        LatLng bookLocation = new LatLng(newLat,newLong);
+        //Toast.makeText(getApplicationContext(),bookLocation.toString(),Toast.LENGTH_SHORT).show();
+        mMap.addMarker(new MarkerOptions().position(bookLocation).title("Book Location is here"));
+        Toast.makeText(getApplicationContext(),"Current Book's Location is showed on red marker.",Toast.LENGTH_SHORT).show();
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bookLocation,15));
+
+
 
         locationListener = new LocationListener() {
             @Override
@@ -180,9 +189,8 @@ public class MapsActivityBorrowerView extends FragmentActivity implements OnMapR
 
 
         // Add a marker in book location and move the camera
-        LatLng bookLocation = new LatLng(newLat,newLong);
-        //Toast.makeText(getApplicationContext(),bookLocation.toString(),Toast.LENGTH_SHORT).show();
-        mMap.addMarker(new MarkerOptions().position(bookLocation).title("Book Location is here"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bookLocation,15));
+        //LatLng bookLocation = new LatLng(newLat,newLong);
+        //mMap.addMarker(new MarkerOptions().position(bookLocation).title("Book Location is here"));
+        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bookLocation,15));
     }
 }

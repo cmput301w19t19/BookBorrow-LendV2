@@ -152,13 +152,16 @@ public class profile extends AppCompatActivity {
                 inputPhone.setText(Phone, TextView.BufferType.EDITABLE);
                 uneditableUserName.setText(UserName);
                 StorageReference imageRef = storageRef.child("user/"+uid+"/1.jpg");
-                final long ONE_MEGABYTE = 1024 * 1024;
+                final long ONE_MEGABYTE = 10 * 1024 * 1024;
                 imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                     @Override
                     public void onSuccess(byte[] bytes) {
                         Log.i("Result","success");
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                         portrait.setImageBitmap(bitmap);
+                        currentU.setPhoto(bitmap);
+                        currentB.setPhoto(bitmap);
+                        currentL.setPhoto(bitmap);
                     }
 
                 }).addOnFailureListener(new OnFailureListener() {

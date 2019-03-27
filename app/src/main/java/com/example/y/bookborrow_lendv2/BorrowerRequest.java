@@ -53,8 +53,11 @@ import java.util.ArrayList;
  * when user login in as a borrower, there is a bookRequested button
  * and this class be able to let user to view the book he/she requested, and the accepted books
  *
+<<<<<<< HEAD
  * //@param  uid, user id that pass by login to search book
  * @return none
+=======
+>>>>>>> fda353c90a62586e1af338f230814b9832d5ce56
  */
 public class BorrowerRequest extends AppCompatActivity {
 
@@ -131,7 +134,7 @@ public class BorrowerRequest extends AppCompatActivity {
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
                                     final book targetBook = dataSnapshot1.getValue(book.class);
                                     StorageReference imageRef = storageRef.child("book/"+bookID+"/1.jpg");
-                                    final long ONE_MEGABYTE = 1024 * 1024;
+                                    final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                     imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                         @Override
                                         public void onSuccess(byte[] bytes) {
@@ -279,6 +282,12 @@ public class BorrowerRequest extends AppCompatActivity {
 
 
     }
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(BorrowerRequest.this,BorrowerMenu.class);
+        startActivity(intent);
+    }
+
 
     //confused by these lines??
     @Override

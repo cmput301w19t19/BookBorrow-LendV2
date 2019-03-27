@@ -81,6 +81,8 @@ public class OwnerHomeActivity extends AppCompatActivity {
         ImageButton button = findViewById(R.id.Ibutton2);
         final TextView newRequestMessage = findViewById(R.id.newRequest);
 
+        newRequestMessage.setVisibility(View.INVISIBLE);
+
 
 
         auth = FirebaseAuth.getInstance();
@@ -120,17 +122,48 @@ public class OwnerHomeActivity extends AppCompatActivity {
                                     }
                                 }
                             }
+                            for (String BookID : BookList){
+                                DatabaseReference Ref = database.getReference("book").
+                                        child(BookID);
+
+
+                                ValueEventListener eventListener3 = new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot ds1 : dataSnapshot.getChildren()) {
+                                            if (ds1.getKey().equals("status")) {
+                                                if (ds1.getValue().equals("accepted")) {
+                                                    BookList.remove(bookID);
+                                                    Log.i("yyyyyyyyy", Integer.toString(BookList.size()));
+
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }};
+
+
+                            }
+
+
+
+
+
+
                             if  (BookList.size() > 0){
                                 badge.setText(Integer.toString(BookList.size()));
 
                                 badge.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
 
+                                newRequestMessage.setVisibility(View.VISIBLE);
 
                                 badge.show();
                             }
-                            else{
-                                newRequestMessage.setVisibility(View.INVISIBLE);
-                            }
+
 
                         }
 
@@ -221,7 +254,11 @@ public class OwnerHomeActivity extends AppCompatActivity {
             }
         });
     }
-
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(OwnerHomeActivity.this,home_page.class);
+        startActivity(intent);
+    }
 
 
 }
