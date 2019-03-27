@@ -102,7 +102,6 @@ public class MyBookList extends AppCompatActivity {
 
         ImageButton addBook = findViewById(R.id.addBook);
         final Button available = (Button) findViewById(R.id.availableFilter);
-        Button backButton = findViewById(R.id.backButton);
         Button requested = (Button) findViewById(R.id.requestedFilter);
         Button accepted = (Button) findViewById(R.id.acceptedFilter);
         Button borrowed = (Button) findViewById(R.id.borrowedFilter);
@@ -134,7 +133,7 @@ public class MyBookList extends AppCompatActivity {
                             final book targetBook = dataSnapshot1.getValue(book.class);
                             Log.i("testName",targetBook.getName());
                             StorageReference imageRef = storageRef.child("book/"+bookID+"/1.jpg");
-                            final long ONE_MEGABYTE = 1024 * 1024;
+                            final long ONE_MEGABYTE = 10 * 1024 * 1024;
                             imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                 @Override
                                 public void onSuccess(byte[] bytes) {
@@ -223,13 +222,6 @@ public class MyBookList extends AppCompatActivity {
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MyBookList.this,OwnerHomeActivity.class);
-                startActivity(intent);
-            }
-        });
 
         requested.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -307,12 +299,18 @@ public class MyBookList extends AppCompatActivity {
         });
 
 
+
         Log.i("step","1");
         bookList = new ArrayList<>();
         myBookAdapter = new bookAdapter(this, bookList);
         myBookList.setAdapter(myBookAdapter);
         Log.i("step","2");
 
+    }
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(MyBookList.this,OwnerHomeActivity.class);
+        startActivity(intent);
     }
 
     @Override

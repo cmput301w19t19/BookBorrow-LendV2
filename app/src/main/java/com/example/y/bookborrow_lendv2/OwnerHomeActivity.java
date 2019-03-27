@@ -221,7 +221,11 @@ public class OwnerHomeActivity extends AppCompatActivity {
             }
         });
     }
-
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(OwnerHomeActivity.this,home_page.class);
+        startActivity(intent);
+    }
 
 
 }

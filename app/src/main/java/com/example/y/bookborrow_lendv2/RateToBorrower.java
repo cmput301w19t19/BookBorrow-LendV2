@@ -23,6 +23,8 @@
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,9 +33,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +46,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class RateToBorrower extends AppCompatActivity {
 
@@ -50,19 +57,22 @@ public class RateToBorrower extends AppCompatActivity {
     private Button saveButton;
     private EditText borrowerRateEditText;
     private EditText borrrowerCommentEditText;
+    private ImageView borrowerImage;
     private String uid;
     private String bookID;
 
     FirebaseAuth auth;
     FirebaseUser user;
     FirebaseDatabase m;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate_to_borrower);
-
+        borrowerImage = findViewById(R.id.Borrower_image);
         borrowerNameTextView = (TextView) findViewById(R.id.RateToBorrowerUserName);
         borrowerEmailTextView = (TextView) findViewById(R.id.RateToBorrowerUserEmail);
         borrowerRateEditText = (EditText) findViewById(R.id.edit_borrower_rate);
@@ -89,6 +99,23 @@ public class RateToBorrower extends AppCompatActivity {
                 borrowerx = dataSnapshot.getValue(borrower.class);
                 borrowerNameTextView.setText(borrowerx.getName());
                 borrowerEmailTextView.setText(borrowerx.getEmail());
+                StorageReference imageRef = storageRef.child("user/"+uid+"/1.jpg");
+                final long ONE_MEGABYTE = 10 * 1024 * 1024;
+                imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        Log.i("Result","success");
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                        borrowerImage.setImageBitmap(bitmap);
+                        borrowerx.setPhoto(bitmap);
+                    }
+
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("Result","failed");
+                    }
+                });
 
             }
 

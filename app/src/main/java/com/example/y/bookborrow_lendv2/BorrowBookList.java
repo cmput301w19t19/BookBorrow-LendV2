@@ -121,7 +121,7 @@ public class BorrowBookList extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
                             final book targetBook = dataSnapshot1.getValue(book.class);
                             StorageReference imageRef = storageRef.child("book/"+bookID+"/1.jpg");
-                            final long ONE_MEGABYTE = 1024 * 1024;
+                            final long ONE_MEGABYTE = 10 * 1024 * 1024;
                             imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                 @Override
                                 public void onSuccess(byte[] bytes) {
@@ -167,5 +167,11 @@ public class BorrowBookList extends AppCompatActivity {
             }
         };
         dbRef.addValueEventListener(postListener);
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(BorrowBookList.this,BorrowerMenu.class);
+        startActivity(intent);
     }
 }

@@ -82,16 +82,21 @@ public class loginAct extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final String email = inputEmail.getText().toString().trim();
+
+                Intent intent = new Intent(loginAct.this, Register.class);
+                startActivity(intent);
+
+
+                /**final String email = inputEmail.getText().toString().trim();
                 final String password = inputPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter email address you want to register with!", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Enter password !", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -156,10 +161,10 @@ public class loginAct extends AppCompatActivity {
                                     Toast.makeText(loginAct.this, "Authentication success!" + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                     SignIn(email,password);
-                                    Intent intent = new Intent(loginAct.this, profile.class);
-                                    startActivity(intent);
+                                    //Intent intent = new Intent(loginAct.this, profile.class);
+                                   // startActivity(intent);
                                 }
-                            }});
+                            }});*/
 
             }
         });
