@@ -192,22 +192,21 @@
     <TextView
         android:id="@+id/newRequest"
         android:layout_width="315dp"
-        android:layout_height="43dp"
+        android:layout_height="37dp"
         android:layout_marginStart="55dp"
         android:layout_marginLeft="55dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:layout_marginBottom="328dp"
+        android:layout_marginBottom="280dp"
         android:text="You've got some new requests!"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/back_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/select_owner_menu_3" />
 
     <ImageButton
         android:id="@+id/Ibutton2"
