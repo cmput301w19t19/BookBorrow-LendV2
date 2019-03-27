@@ -27,6 +27,8 @@ package com.example.y.bookborrow_lendv2;
  */
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,6 +40,8 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -45,6 +49,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -52,7 +58,6 @@ import java.util.ArrayList;
  * this activity shows the books the user owns with different kinds of starus: requested, avaliable,
  * borrowed and accepted
  */
-
 public class MyBookList extends AppCompatActivity {
     private ListView myBookList;
     private ArrayList<book> bookList = new ArrayList<>();
@@ -66,10 +71,25 @@ public class MyBookList extends AppCompatActivity {
     private ArrayList<book> borrowedBookList = new ArrayList<>();
     private ArrayList<book> availableBookList = new ArrayList<>();
     private ArrayList<String> booksID;
+    /**
+     * The Database.
+     */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    /**
+     * The Db ref.
+     */
     DatabaseReference DbRef = database.getReference();
     private FirebaseAuth auth;
-    private book targetBook;
+    /**
+     * The Storage.
+     */
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    /**
+     * The Storage ref.
+     */
+    StorageReference storageRef = storage.getReference();
+    //private book targetBook;
+    private ArrayList<book> books;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,17 +124,46 @@ public class MyBookList extends AppCompatActivity {
                 Log.i("testnn","333");
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String bookID = ds.getKey();
+                    final String bookID = ds.getKey();
+                    Log.i("bookID",bookID);
                     DbRef = database.getReference("book/"+bookID);
                     ValueEventListener eventListener1 = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
                             Log.i("test22","hello");
-                            targetBook = dataSnapshot1.getValue(book.class);
-                            Log.i("test22",targetBook.getName());
-                            bookList.add(targetBook);
+                            final book targetBook = dataSnapshot1.getValue(book.class);
+                            Log.i("testName",targetBook.getName());
+                            StorageReference imageRef = storageRef.child("book/"+bookID+"/1.jpg");
+                            final long ONE_MEGABYTE = 1024 * 1024;
+                            imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                @Override
+                                public void onSuccess(byte[] bytes) {
+                                    Log.i("step","success1");
+                                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                                    targetBook.setImage(bitmap);
+                                    Log.i("testName1",targetBook.getName());
+                                    myBookAdapter.notifyDataSetChanged();
+                                    //bookPhoto.setImageBitmap(bitmap);
+                                }
 
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.i("Result","failed");
+                                }
+                            });
+                            bookList.add(targetBook);
+                            Log.i("testName2",targetBook.getName());
                             myBookAdapter.notifyDataSetChanged();
+                            //bookList.add(targetBook);
+                            //myBookAdapter = new bookAdapter(MyBookList.this,bookList);
+
+                            //myBookList.setAdapter(myBookAdapter);
+                            //myBookAdapter.notifyDataSetChanged();
+                            //if (targetBook.getImage()!=null) {
+                                Log.i("step", "3");
+                            //}
+                            books = bookList;
                         }
 
                         @Override
@@ -129,8 +178,11 @@ public class MyBookList extends AppCompatActivity {
                     //Toast.makeText(MyBookList.this,book,Toast.LENGTH_SHORT).show();
                     //Log.i("testnn",Boolean.toString(a));
                 }
-                Log.i("testsize3",Integer.toString(bookList.size()));
 
+
+                //Log.i("testsize3",Integer.toString(book.size()));
+                //myBookAdapter = new bookAdapter(MyBookList.this, books);
+                //myBookList.setAdapter(myBookAdapter);
             }
 
             @Override
@@ -166,6 +218,8 @@ public class MyBookList extends AppCompatActivity {
                 }
                 availableBookAdapter = new bookAdapter(MyBookList.this, availableBookList);
                 myBookList.setAdapter(availableBookAdapter);
+                books = availableBookList;
+
             }
         });
 
@@ -188,6 +242,7 @@ public class MyBookList extends AppCompatActivity {
                 }
                 requestedBookAdapter = new bookAdapter(MyBookList.this, requestedBookList);
                 myBookList.setAdapter(requestedBookAdapter);
+                books = requestedBookList;
 
 
             }
@@ -205,6 +260,7 @@ public class MyBookList extends AppCompatActivity {
                 }
                 acceptedBookAdapter = new bookAdapter(MyBookList.this, acceptedBookList);
                 myBookList.setAdapter(acceptedBookAdapter);
+                books = acceptedBookList;
 
             }
         });
@@ -220,6 +276,7 @@ public class MyBookList extends AppCompatActivity {
                 }
                 borrowedBookAdapter = new bookAdapter(MyBookList.this, borrowedBookList);
                 myBookList.setAdapter(borrowedBookAdapter);
+                books = borrowedBookList;
 
             }
         });
@@ -229,6 +286,7 @@ public class MyBookList extends AppCompatActivity {
             public void onClick(View v) {
                 myBookAdapter = new bookAdapter(MyBookList.this, bookList);
                 myBookList.setAdapter(myBookAdapter);
+                Log.i("step","4");
             }
         });
 
@@ -237,20 +295,23 @@ public class MyBookList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //TODO: Implement this method
-                book bookItem = bookList.get(position);
+               // book bookItem = bookList.get(position);
+                book bookItem = books.get(position);
+
                 Toast.makeText(MyBookList.this,bookItem.getAuthor(),Toast.LENGTH_SHORT).show();
                 String bookId = bookItem.getID();
                 Intent intent = new Intent(MyBookList.this, PrivateBookDetails.class);
                 intent.putExtra("Id", bookId);
-                startActivity(intent);
+                startActivityForResult(intent,2);
             }
         });
 
 
-
+        Log.i("step","1");
         bookList = new ArrayList<>();
         myBookAdapter = new bookAdapter(this, bookList);
         myBookList.setAdapter(myBookAdapter);
+        Log.i("step","2");
 
     }
 
@@ -258,15 +319,34 @@ public class MyBookList extends AppCompatActivity {
     protected void onActivityResult(int requestCode,int resultCode ,Intent data){
         super.onActivityResult(requestCode,resultCode,data);
         if(requestCode==0&&resultCode==1){
-            String bookID = data.getStringExtra("ID");
+            final String bookID1 = data.getStringExtra("ID");
             //String BookID = "0f45b9af-ebc7-4449-a6db-f88f9589a7c0";
-            DbRef = database.getReference("book/"+bookID);
+            DbRef = database.getReference("book/"+bookID1);
             ValueEventListener postListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    book targetBook = dataSnapshot.getValue(book.class);
-                    bookList.add(targetBook);
-                    myBookAdapter.notifyDataSetChanged();
+                    final book targetBook1 = dataSnapshot.getValue(book.class);
+                    StorageReference imageRef = storageRef.child("book/"+bookID1+"/1.jpg");
+                    final long ONE_MEGABYTE = 1024 * 1024;
+                    imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Log.i("step","success1");
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                            targetBook1.setImage(bitmap);
+                            bookList.add(targetBook1);
+                            myBookAdapter.notifyDataSetChanged();
+                            //bookPhoto.setImageBitmap(bitmap);
+                        }
+
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.i("Result","failed");
+                        }
+                    });
+                    //bookList.add(targetBook);
+                    //myBookAdapter.notifyDataSetChanged();
 
                 }
 
@@ -278,6 +358,9 @@ public class MyBookList extends AppCompatActivity {
             };
             DbRef.addValueEventListener(postListener);
 
+        }
+        else if (requestCode==2&&resultCode==RESULT_OK){
+            Log.i("finish","true");
         }
 
     }

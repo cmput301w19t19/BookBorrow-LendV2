@@ -140,9 +140,10 @@
         android:id="@+id/Book_author"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="@string/RateToOwnerBookAuthor"
-        tools:layout_editor_absoluteX="106dp"
-        tools:layout_editor_absoluteY="316dp" />
+        app:layout_constraintTop_toBottomOf="@+id/Book_name"
+        tools:layout_editor_absoluteX="106dp" />
 
     <TextView
         android:id="@+id/Book_rate_text"

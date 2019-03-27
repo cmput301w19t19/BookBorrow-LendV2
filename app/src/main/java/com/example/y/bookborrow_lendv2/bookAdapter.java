@@ -33,12 +33,20 @@ import java.util.ArrayList;
 
 /**
  * book adapter used in MyBookList
+ *
  * @author Bowei Li
  * @version 1.0
  */
 public class bookAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private ArrayList<book> myBook;
+
+    /**
+     * Instantiates a new Book adapter.
+     *
+     * @param context the context
+     * @param data    the data
+     */
     public bookAdapter(Context context, ArrayList<book> data) {
         mInflater = LayoutInflater.from(context);
         myBook = data;
@@ -90,8 +98,8 @@ public class bookAdapter extends BaseAdapter {
             holder.image = (ImageView) convertView.findViewById(R.id.BookImage);
             holder.bookName = (TextView) convertView.findViewById(R.id.BookName);
             //holder.info = (ImageButton) convertView.findViewById(R.id.infoButton);
-            holder.currentBorrower = (TextView) convertView.findViewById(R.id.CurrentBorrower);
-            holder.description = (TextView) convertView.findViewById(R.id.descrip);
+            //holder.currentBorrower = (TextView) convertView.findViewById(R.id.CurrentBorrower);
+            //holder.description = (TextView) convertView.findViewById(R.id.descrip);
             holder.status = (TextView) convertView.findViewById(R.id.Stat);
 
             convertView.setTag(holder);
@@ -104,8 +112,9 @@ public class bookAdapter extends BaseAdapter {
         holder.bookName.setText(book.getName());
         holder.status.setText(book.getStatus());
         //holder.image.setImageDrawable();
-        holder.currentBorrower.setText(book.getBorrowerID());
-        holder.description.setText(book.getDescription());
+        //holder.currentBorrower.setText(book.getBorrowerID());
+        //holder.description.setText(book.getDescription());
+        holder.image.setImageBitmap(book.getImage());
         //holder.info.set
         return convertView;
 
@@ -115,11 +124,20 @@ public class bookAdapter extends BaseAdapter {
      * a Viewholder class used for bookAdapter
      */
     private class ViewHolder{
+        /**
+         * The Image.
+         */
         ImageView image;
+        /**
+         * The Book name.
+         */
         TextView bookName;
+        /**
+         * The Status.
+         */
         TextView status;
-        TextView currentBorrower;
-        TextView description;
+        //TextView currentBorrower;
+        //TextView description;
         //ImageButton info;
     }
 

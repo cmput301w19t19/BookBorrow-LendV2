@@ -24,6 +24,8 @@ package com.example.y.bookborrow_lendv2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -43,12 +45,16 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.security.Key;
 import java.util.ArrayList;
@@ -63,6 +69,8 @@ public class SearchResultForPeople extends AppCompatActivity {
     private DatabaseReference mUserDatabase;
     private ArrayList<NormalUser> users = new ArrayList<>();
     private SearchPersonAdapter adapter;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
 
 
 
@@ -101,13 +109,36 @@ public class SearchResultForPeople extends AppCompatActivity {
                 //String search = "Trevor Hastie Robert Tibshirani Jerome Friedman";
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                    NormalUser user = ds.getValue(NormalUser.class);
+                    final NormalUser user = ds.getValue(NormalUser.class);
                     String userName = user.getName();
-                    String email = user.getEmail();
-                    //check if user's name contains keyword
-                    found = userName.contains(Keyword);
-                    if (found) {
-                        users.add(user);
+                    if (userName != null) {
+                        found = userName.contains(Keyword);
+                        if (found) {
+                            String id = user.getUid();
+                            StorageReference imageRef = storageRef.child("user/" + id + "/1.jpg");
+                            final long ONE_MEGABYTE = 1024 * 1024;
+                            imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                @Override
+                                public void onSuccess(byte[] bytes) {
+                                    Log.i("Result", "success");
+                                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                    user.setPhoto(bitmap);
+
+                                    adapter.notifyDataSetChanged();
+                                }
+
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.i("Result", "failed");
+                                }
+                            });
+                            users.add(user);
+                            adapter.notifyDataSetChanged();
+
+                            //check if user's name contains keyword
+
+                        }
                     }
 
 

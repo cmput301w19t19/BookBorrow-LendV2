@@ -21,29 +21,33 @@
  */
 package com.example.y.bookborrow_lendv2;
 
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.provider.ContactsContract;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * lender object  abstract class
  * contain all user related attributes
  * setter and getter for the book info.
  * And firebase related methods include:
- *  setToFirebase , deleteFromFirebase
+ * setToFirebase , deleteFromFirebase
+ * <p>
+ * <p>
+ * Created  on 2/15/19.
  *
- *
- *  Created  on 2/15/19.
- *  @since 1.0
- * @see  borrower
+ * @see borrower
  * @see lender
+ * @since 1.0
  */
-
 public abstract class user {
     private String name;
-    private Image photo;
+    private Bitmap photo;
     private String password;
     private String phone;
     private String email;
@@ -51,11 +55,24 @@ public abstract class user {
 
 
 
-    /** A constructor with no parameters*/
+    /**
+     * A constructor with no parameters
+     */
     user(){}
 
-    /** another constructoer with parameters*/
-    user(String name, Image photo, String password, String phone, String email){
+
+    /**
+     * another constructor with parameters @param name the name
+     *
+     * @param name     the name
+     * @param photo    the photo
+     * @param password the password
+     * @param phone    the phone
+     * @param email    the email
+     */
+    user(String name, Bitmap photo, String password, String phone, String email){
+
+
         this.name = name;
         this.photo = photo;
         this.password =password;
@@ -66,25 +83,37 @@ public abstract class user {
 
     /**
      * set profile image of the user
-     * @param photo
+     *
+     * @param photo the photo
      */
 
-    public void setPhoto(Image photo) {
+
+    public void setPhoto(Bitmap photo) {
+
         this.photo = photo;
+    }
+
+    public void setToFirebase(){
+        FirebaseDatabase m = FirebaseDatabase.getInstance();
+        DatabaseReference r = m.getReference("users/"+this.Uid);
+        r.child("name").setValue(this.name);
+        r.child("password").setValue(this.password);
+        r.child("phone").setValue(this.phone);
     }
 
     /**
      * set phone of the user
-     * @param phone
+     *
+     * @param phone the phone
      */
-
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
     /**
      * set the login password of the user
-     * @param password
+     *
+     * @param password the password
      */
     public void setPassword(String password) {
         this.password = password;
@@ -92,7 +121,8 @@ public abstract class user {
 
     /**
      * set the user name of the user
-     * @param name
+     *
+     * @param name the name
      */
     public void setName(String name) {
         this.name = name;
@@ -100,7 +130,8 @@ public abstract class user {
 
     /**
      * return the account password of the user
-     * @return password
+     *
+     * @return password password
      */
     public String getPassword() {
         return password;
@@ -108,59 +139,62 @@ public abstract class user {
 
     /**
      * return the phone number of the user
-     * @return phone
+     *
+     * @return phone phone
      */
-
     public String getPhone() {
         return phone;
     }
 
     /**
      * return the user name of the user
-     * @return name
+     *
+     * @return name name
      */
-
     public String getName() {
         return name;
     }
 
     /**
      * return the profiole photo of the user
-     * @return photo
+     *
+     * @return photo photo
      */
 
-    public Image getPhoto() {
+    public Bitmap getPhoto() {
+
         return photo;
     }
 
     /**
      * return the rmail of the user
-     * @return user
+     *
+     * @return user email
      */
-
     public String getEmail() {
         return email;
     }
 
     /**
      * set the emai of the user
-     * @param email
+     *
+     * @param email the email
      */
-
     public void setEmail(String email) {
         this.email = email;
     }
 
     /**
      * set the unique id of user
-     * @param id
+     *
+     * @param id the id
      */
-
     public void setUid(String id){this.Uid = id;}
 
     /**
      * return the id of the user
-     * @return Uid
+     *
+     * @return Uid string
      */
     public String getUid(){
         return this.Uid;

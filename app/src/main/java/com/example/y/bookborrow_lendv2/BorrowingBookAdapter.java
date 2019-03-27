@@ -31,6 +31,8 @@ import android.widget.BaseAdapter;
 import java.util.ArrayList;
 
 /**
+ * The type Borrowing book adapter.
+ *
  * @author BoweiLi
  * @version 1.0
  * @see BaseAdapter
@@ -39,6 +41,13 @@ import java.util.ArrayList;
 public class BorrowingBookAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private ArrayList<book> myBook;
+
+    /**
+     * Instantiates a new Borrowing book adapter.
+     *
+     * @param context the context
+     * @param data    the data
+     */
     public BorrowingBookAdapter(Context context, ArrayList<book> data) {
         mInflater = LayoutInflater.from(context);
         myBook = data;
@@ -99,8 +108,9 @@ public class BorrowingBookAdapter extends BaseAdapter {
         book book = myBook.get(position);
         holder.bookName.setText(book.getName());
         holder.OwnerName.setText(book.getOwnerID());
-        //holder.image.setImageDrawable();
-        holder.rating.setText(book.getBookRating().toString());
+        holder.image.setImageBitmap(book.getImage());
+        holder.rating.setText(book.getBookRating());
+
         holder.description.setText(book.getDescription());
         //holder.info.set
         return convertView;
@@ -110,10 +120,25 @@ public class BorrowingBookAdapter extends BaseAdapter {
      * the viewHolder object used for this adapter
      */
     private class ViewHolder{
+        /**
+         * The Image.
+         */
         ImageView image;
+        /**
+         * The Book name.
+         */
         TextView bookName;
+        /**
+         * The Owner name.
+         */
         TextView OwnerName;
+        /**
+         * The Description.
+         */
         TextView description;
+        /**
+         * The Rating.
+         */
         TextView rating;
     }
 

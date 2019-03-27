@@ -30,8 +30,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
 /**
  * adapter class used for ListView in borrower -> request book list
+ *
  * @author Team19
  * @version 1.0
  */
@@ -43,8 +45,9 @@ public class BorrowerRequestAdapter extends BaseAdapter {
 
     /**
      * initialize the adapter
-     * @param context
-     * @param data
+     *
+     * @param context the context
+     * @param data    the data
      */
     public BorrowerRequestAdapter(Context context, ArrayList<book> data){
 
@@ -106,8 +109,10 @@ public class BorrowerRequestAdapter extends BaseAdapter {
             //convert to the my_book_list_item layout, ids are in there
             holder.image = (ImageView) convertView.findViewById(R.id.BookImage);
             holder.bookName = (TextView) convertView.findViewById(R.id.BookName);
-            holder.currentBorrower = (TextView) convertView.findViewById(R.id.CurrentBorrower);
-            holder.description = (TextView) convertView.findViewById(R.id.descrip);
+            holder.rating = convertView.findViewById(R.id.rating_on);
+            holder.status = convertView.findViewById(R.id.Stat);
+            //holder.currentBorrower = (TextView) convertView.findViewById(R.id.CurrentBorrower);
+            //holder.description = (TextView) convertView.findViewById(R.id.descrip);
 
             convertView.setTag(holder);
         }
@@ -117,8 +122,9 @@ public class BorrowerRequestAdapter extends BaseAdapter {
 
         book book = myBook.get(position);
         holder.bookName.setText(book.getName());
-        holder.currentBorrower.setText(book.getBorrowerID());
-        holder.description.setText(book.getDescription());
+        holder.rating.setText(book.getBookRating());
+        holder.status.setText(book.getStatus());
+        holder.image.setImageBitmap(book.getImage());
 
         return convertView;
     }
@@ -128,10 +134,18 @@ public class BorrowerRequestAdapter extends BaseAdapter {
      */
     private class ViewHolder{
 
+        /**
+         * The Book name.
+         */
         TextView bookName;
+        /**
+         * The Image.
+         */
         ImageView image;
-        TextView currentBorrower;
-        TextView description;
+
+        TextView rating;
+        TextView status;
+
     }
 
 }

@@ -1,6 +1,10 @@
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,9 +12,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +27,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.IOException;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
 
 /*
  * Copyright 2019 TEAM19
@@ -45,20 +61,28 @@ import com.google.zxing.integration.android.IntentResult;
 
 /**
  * This class is to provide an interface for owner to edit details of one of his book
+ *
  * @author Team 19
- * @see PrivateBookDetails
  * @version 1.0
+ * @see PrivateBookDetails
  */
-
 public class EditBookDetail extends AppCompatActivity {
-    book b;
-    EditText bookNamkeEditText;
-    EditText authorEditText;
-    EditText ISBNEditText;
-    EditText descriptionEditText;
-    String id;
-    Button ISBNButton;
+
+
+
+    private book b;
+    private EditText bookNamkeEditText;
+    private EditText authorEditText;
+    private EditText ISBNEditText;
+    private EditText descriptionEditText;
+    private ImageView bookPhoto;
+    private String id;
+    private Button ISBNButton;
+
     private FirebaseAuth auth;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
+    private static final int CODE_PHOTO_REQUEST = 5;
 
 
     /**
@@ -83,6 +107,8 @@ public class EditBookDetail extends AppCompatActivity {
         authorEditText = (EditText)findViewById(R.id.pt2);
         ISBNEditText = (EditText)findViewById(R.id.pt3);
         descriptionEditText = (EditText)findViewById(R.id.editTextDes);
+        bookPhoto = findViewById(R.id.BookPhoto);
+
 
 
         Intent i = getIntent();
@@ -122,7 +148,28 @@ public class EditBookDetail extends AppCompatActivity {
                         if (description != null) {
                             descriptionEditText.setText(b.getDescription());
                         }
+                        StorageReference imageRef = storageRef.child("book/"+id+"/1.jpg");
+                        final long ONE_MEGABYTE = 1024 * 1024;
+                        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                            @Override
+                            public void onSuccess(byte[] bytes) {
+                                Log.i("Result","success");
+                                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                                b.setImage(bitmap);
+                                bookPhoto.setImageBitmap(bitmap);
+                                //bookPhoto.setImageBitmap(bitmap);
+                            }
+
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.i("Result","failed");
+                            }
+                        });
+
+
                     }
+
 
                 }
 
@@ -145,9 +192,9 @@ public class EditBookDetail extends AppCompatActivity {
                         .setPrompt("Please Point to QR code")
                         .setCameraId(0) //chose camera
                         .initiateScan();
-                }
+
             }
-        );
+        });
 
         /**
          * get all the information from users
@@ -163,7 +210,7 @@ public class EditBookDetail extends AppCompatActivity {
                 b.setISBN(ISBNEditText.getText().toString());
 
                 bookISBN ISBN = new bookISBN(ISBNEditText.getText().toString());
-                ISBN.setToFirebse();
+                ISBN.setToFirebase();
 
 
                 FirebaseUser user = auth.getCurrentUser();
@@ -190,22 +237,50 @@ public class EditBookDetail extends AppCompatActivity {
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent upload = new Intent();
-                String bookid = b.getID();
-                upload.putExtra("bookid",bookid);
-                Toast.makeText(getApplicationContext(),"The function is waiting for implemented",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent();
+                //intent.setAction(Intent.ACTION_GET_CONTENT);
+                //intent.setType("image/*");
+                intent.setAction(Intent.ACTION_PICK);
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+                startActivityForResult(intent,CODE_PHOTO_REQUEST);
             }
         });
 
 
-
     }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent Data) {
+        super.onActivityResult(requestCode, resultCode, Data);
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, Data);
         if (scanResult != null) {
             String result = scanResult.getContents();
             ISBNEditText.setText(result);
+        }
+        if (resultCode == RESULT_CANCELED) {
+            Toast.makeText(EditBookDetail.this, "canceled", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (requestCode == CODE_PHOTO_REQUEST) {
+            if (Data != null) {
+                Bitmap photo = null;
+                try {
+                    Uri uri = Data.getData();
+                    Log.i("hello22", "22");
+                    //if (extra != null) {
+                    //  Log.i("hello22","slslsl");
+                    photo = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                    bookPhoto.setImageBitmap(photo);
+                    StorageReference storageReference = storageRef.child("book/" + id + "/" + "1.jpg");
+                    storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Uri downloadUrl = taskSnapshot.getUploadSessionUri();
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

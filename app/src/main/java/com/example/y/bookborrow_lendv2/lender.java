@@ -21,50 +21,108 @@
  */
 package com.example.y.bookborrow_lendv2;
 
+import android.util.Log;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
-
-
+import java.util.UUID;
 
 /**
  * lender object class extends user class
  * contain two ArrayList borrowedBook and requestedList
+ * <p>
+ * <p>
+ * Created  on 2/15/19.
  *
- *
- *  Created  on 2/15/19.
- *  @since 1.0
  * @see user
+ * @since 1.0
  */
 public class lender extends user {
-    private float lenderRating;
+    private Double totalRate = 0.00000001;
+    private Integer lendBookTime = 0;
+    private ArrayList<RatingAndComment> commentList = new ArrayList<>();
+    private FirebaseDatabase m;
+    private DatabaseReference r;
+
+    //private String uid;
     private ArrayList<String> lentBook = new ArrayList<>();
     private ArrayList<String> requestedBookList = new ArrayList<>();
     private ArrayList<String> MyBookList = new ArrayList<>();
     private static lender instance;
 
 
+    /**
+     * Instantiates a new Lender.
+     */
     lender() {
     }
 
+    public Double getTotalRate(){return this.totalRate;}
+
+    public Integer getLendBookTime(){return lendBookTime;}
+
+    public void setToFirebase(String uid,String email){
+        FirebaseDatabase m = FirebaseDatabase.getInstance();
+        DatabaseReference r = m.getReference("lenders/"+uid);
+        r.child("email").setValue(email);
+        r.child("uid").setValue(uid);
+        r.child("totalRate").setValue(this.totalRate);
+        Log.i("totalRate",Double.toString(this.totalRate));
+        r.child("lendBookTime").setValue(this.lendBookTime);
+        Log.i("totalRate",Double.toString(this.lendBookTime));
+    }
+
+    public void setNameToFireBase(String uid,String name){
+        FirebaseDatabase m = FirebaseDatabase.getInstance();
+        DatabaseReference r = m.getReference("lenders/"+uid);
+        r.child("name").setValue(name);
+    }
+
+
     /**
      * set the rating of the lender
-     * @param rating
+     *
+     * @param rating the rating
      */
-    public void setLenderRating(Float rating) {
-        this.lenderRating = rating;
+    public void setLenderRating(Double rating) {
+        this.totalRate += rating;
+        this.lendBookTime += 1;
+        m = FirebaseDatabase.getInstance();
+        r = m.getReference("lenders/"+this.getUid());
+        r.child("totalRate").setValue(this.totalRate);
+        r.child("lendBookTime").setValue(this.lendBookTime);
+    }
+
+    public void addNewComment(RatingAndComment c){
+        UUID commentID = UUID.randomUUID();
+        commentList.add(c);
+        m = FirebaseDatabase.getInstance();
+        Log.i("testnn lender class",this.getUid());
+        r = m.getReference("lenders/"+this.getUid() + "/RatingAndComment/"+commentID);
+        r.child("ID").setValue(c.getID());
+        r.child("rating").setValue(c.getRating());
+        r.child("comment").setValue(c.getComment());
     }
 
     /**
      * return the rating of the lender
-     * @return rating
+     *
+     * @return rating lender rating
      */
-
-    public float getLenderRating() {
-        return lenderRating;
+    public String getLenderRating() {
+        if (this.totalRate == 0.00000001){
+            return "No one lend his lending yet!";
+        }
+        return Double.toString(this.totalRate/lendBookTime);
     }
+
 
     /**
      * add the lender's own book to a list
-     * @param s
+     *
+     * @param s the s
      */
     public void addToMyBookList(String s){
         MyBookList.add(s);
@@ -72,7 +130,8 @@ public class lender extends user {
 
     /**
      * remove a book from the list of bokks the lender owns
-     * @param s
+     *
+     * @param s the s
      */
     public void removeFromMyBookList(String s){
         MyBookList.remove(s);
@@ -80,34 +139,35 @@ public class lender extends user {
 
     /**
      * set a list of books the lender onws and are requested by other users
-     * @param list
+     *
+     * @param list the list
      */
-
     public void setRequestedBookList(ArrayList<String> list) {
         requestedBookList = list;
     }
 
     /**
      * set a list of books the lender has lended
-     * @param list
+     *
+     * @param list the list
      */
-
     public void setLentBook(ArrayList<String> list) {
         lentBook = list;
     }
 
     /**
      * return a list of books the lender has lended
-     * @return lentBook
+     *
+     * @return lentBook lent book
      */
-
     public ArrayList<String> getLentBook() {
         return lentBook;
     }
 
     /**
      * return a list of books that are requested by other users
-     * @return requestedBookList
+     *
+     * @return requestedBookList requested book list
      */
     public ArrayList<String> getRequestedBookList() {
         return requestedBookList;
@@ -116,7 +176,8 @@ public class lender extends user {
 
     /**
      * add a book to the list of books that are lended by the lender
-     * @param book
+     *
+     * @param book the book
      */
     public void addLentBook(String book) {
         lentBook.add(book);
@@ -124,16 +185,18 @@ public class lender extends user {
 
     /**
      * return a list of books the lender onws and are requested by other users
+     *
+     * @param book the book
      * @return list
      */
-
     public void addRequestedBook(String book) {
         requestedBookList.add(book);
     }
 
     /**
      * remove the book from the list of books requested by other users
-     * @param book
+     *
+     * @param book the book
      */
     public void deleteRequestedBook(String book) {
         requestedBookList.remove(book);
@@ -142,7 +205,8 @@ public class lender extends user {
 
     /**
      * remove a book from the list of books that are lended by the lender
-     * @param book
+     *
+     * @param book the book
      */
     public void deleteLentBook(String book) {
         lentBook.remove(book);
@@ -150,8 +214,10 @@ public class lender extends user {
 
     /**
      * create a static instance of lender, singleton pattern has implemented
+     *
      * @return instance of lender
      */
+
 
 
     public static lender Instance()
@@ -164,6 +230,7 @@ public class lender extends user {
         }
         return instance;
     }
+
 
 
 }

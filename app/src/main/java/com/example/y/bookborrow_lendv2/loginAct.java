@@ -42,14 +42,12 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 /**
+ * this is the first activity which allow user to register and loin
  *
- *this is the first activity which allow user to register and loin
- * @author  Yuan
+ * @author Yuan
  * @see user
  * @since 1.0
  */
-
-
 public class loginAct extends AppCompatActivity {
     private FirebaseAuth auth;
     private EditText inputEmail, inputPassword;
@@ -83,22 +81,6 @@ public class loginAct extends AppCompatActivity {
             //hello
             @Override
             public void onClick(View v) {
-                /*
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    String bookname = "The Elements of Statistical Learning";
-                    book b = new book();
-                    b.setAuthor("Trevor Hastie Robert Tibshirani Jerome Friedman");
-                    b.setDescription("statistic machine learning");
-                    b.setName(bookname);
-
-                    b.setToFirebase();
-                    b.setStatusToRequested();
-
-                    Toast.makeText(getApplicationContext(),"create a book",Toast.LENGTH_LONG);
-                    Toast.makeText(getApplicationContext(),b.getID(),Toast.LENGTH_LONG);
-                    Toast.makeText(getApplicationContext(),b.getName(),Toast.LENGTH_LONG);
-                    Toast.makeText(getApplicationContext(),b.getAuthor(),Toast.LENGTH_LONG);*/
-
 
                 final String email = inputEmail.getText().toString().trim();
                 final String password = inputPassword.getText().toString().trim();
@@ -122,6 +104,7 @@ public class loginAct extends AppCompatActivity {
 
                 //create user
                 auth.createUserWithEmailAndPassword(email, password)
+
                         .addOnCompleteListener(loginAct.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -151,10 +134,15 @@ public class loginAct extends AppCompatActivity {
                                     newUser.setEmail(email);
                                     newUser.setUid(uid);
                                     newUser.setPassword(password);
+
                                     newBorrower.setEmail(email);
                                     newBorrower.setUid(uid);
+                                    newBorrower.setToFirebase(uid,email);
+
+
                                     newLender.setEmail(email);
                                     newLender.setUid(uid);
+                                    newLender.setToFirebase(uid,email);
 
 
 
@@ -162,11 +150,14 @@ public class loginAct extends AppCompatActivity {
                                     newUser.setPassword(password);
                                     String key = uid;
                                     mDatabase.child("users").child(key).setValue(newUser);
-                                    mDatabase.child("borrowers").child(key).setValue(newBorrower);
-                                    mDatabase.child("lenders").child(key).setValue(newLender);
+                                    //mDatabase.child("borrowers").child(key).setValue(newBorrower);
+                                    //mDatabase.child("lenders").child(key).setValue(newLender);
 
                                     Toast.makeText(loginAct.this, "Authentication success!" + task.getException(),
                                             Toast.LENGTH_SHORT).show();
+                                    SignIn(email,password);
+                                    Intent intent = new Intent(loginAct.this, profile.class);
+                                    startActivity(intent);
                                 }
                             }});
 
@@ -195,46 +186,7 @@ public class loginAct extends AppCompatActivity {
                 }
 
 
-                //authenticate user
-                auth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(loginAct.this,new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(getApplicationContext(), "login ", Toast.LENGTH_SHORT).show();
-
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-                                //progressBar.setVisibility(View.GONE);
-                                if (!task.isSuccessful()) {
-                                    // there was an error
-                                    Toast.makeText(getApplicationContext(), "login failed", Toast.LENGTH_SHORT).show();
-
-
-                                } else {
-                                    FirebaseUser user = auth.getCurrentUser();
-                                    String uid = user.getUid();
-
-                                    // On login button click, storing our username into normalUser,lender borrower classes.
-                                    //Singleton Pattern implemented here
-                                    NormalUser.Instance().setUid(uid);
-                                    borrower.Instance().setUid(uid);
-                                    lender.Instance().setUid(uid);
-
-
-
-                                    Toast.makeText(getApplicationContext(), "login Success!", Toast.LENGTH_SHORT).show();
-
-
-                                    Intent intent = new Intent(loginAct.this, home_page.class);
-                                    startActivity(intent);
-
-
-                                }
-                            }
-
-                        });
-
+                SignIn(email, password);
 
 
 
@@ -242,6 +194,12 @@ public class loginAct extends AppCompatActivity {
 
         });
 
+
+                                    // On login button click, storing our username into normalUser,lender borrower classes.
+                                    //Singleton Pattern implemented here
+                                    //NormalUser.Instance().setUid(uid);
+                                    //borrower.Instance().setUid(uid);
+                                    //lender.Instance().setUid(uid);
     }
 
     /**
@@ -250,9 +208,52 @@ public class loginAct extends AppCompatActivity {
      */
     public String returnCurrentUser(){
         auth = FirebaseAuth.getInstance();
-
         FirebaseUser user = auth.getCurrentUser();
         String uid = user.getUid();
         return uid;
+    }
+
+
+    public void SignIn(String email, String password){
+        //authenticate user
+        auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(loginAct.this,new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Toast.makeText(getApplicationContext(), "login ", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(loginAct.this, home_page.class);
+                        startActivity(intent);
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        //progressBar.setVisibility(View.GONE);
+                        if (!task.isSuccessful()) {
+                            // there was an error
+                            Toast.makeText(getApplicationContext(), "login failed", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            FirebaseUser user = auth.getCurrentUser();
+                            String uid = user.getUid();
+
+                            // On login button click, storing our username into normalUser,lender borrower classes.
+                            //Singleton Pattern implemented here
+                            NormalUser.Instance().setUid(uid);
+                            borrower.Instance().setUid(uid);
+                            lender.Instance().setUid(uid);
+
+
+
+                            Toast.makeText(getApplicationContext(), "login Success!", Toast.LENGTH_SHORT).show();
+
+
+                            Intent i = new Intent(loginAct.this, home_page.class);
+                            startActivity(i);
+
+
+                        }
+                    }
+
+
+                });
     }
 }

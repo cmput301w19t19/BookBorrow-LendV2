@@ -28,13 +28,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * The type Search person adapter.
+ */
 public class SearchPersonAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private ArrayList<NormalUser> myUser;
+
+    /**
+     * Instantiates a new Search person adapter.
+     *
+     * @param context the context
+     * @param data    the data
+     */
     public SearchPersonAdapter(Context context, ArrayList<NormalUser> data) {
         mInflater = LayoutInflater.from(context);
         myUser = data;
@@ -66,7 +77,7 @@ public class SearchPersonAdapter extends BaseAdapter {
             //holder.image = (ImageButton) convertView.findViewById(R.id.userImage);
             holder.userName = (TextView) convertView.findViewById(R.id.UserName);
             holder.userEmail = (TextView) convertView.findViewById(R.id.Email);
-
+            holder.userImage = convertView.findViewById(R.id.profileImage);
             convertView.setTag(holder);
         }
         else{
@@ -77,13 +88,19 @@ public class SearchPersonAdapter extends BaseAdapter {
         holder.userName.setText(NormalUsers.getName());
         //holder.image.setImageDrawable();
         holder.userEmail.setText(NormalUsers.getEmail());
+        holder.userImage.setImageBitmap(NormalUsers.getPhoto());
         return convertView;
 
     }
 
     private class ViewHolder{
-        //ImageButton image;
+
+        ImageView userImage;
+
         TextView userName;
+        /**
+         * The User email.
+         */
         TextView userEmail;
     }
 
