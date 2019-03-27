@@ -23,6 +23,8 @@
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,9 +33,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +46,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import static java.lang.Double.parseDouble;
 
@@ -65,10 +72,14 @@ public class RateToOwner extends AppCompatActivity {
     private TextView bookNameTextView;
     private TextView bookAuthorTextView;
     private TextView bookISBNTextView;
+    private ImageView bookImage;
+    private ImageView ownerImage;
 
     FirebaseAuth auth;
     FirebaseUser user;
     FirebaseDatabase m;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
 
 
     @Override
@@ -85,7 +96,8 @@ public class RateToOwner extends AppCompatActivity {
         ownerCommentEditText = (EditText) findViewById(R.id.edit_owner_comment);
         bookRateEditText = (EditText) findViewById(R.id.edit_book_rate);
         bookCommentEditText = (EditText) findViewById(R.id.edit_book_comment);
-
+        bookImage = (ImageView)findViewById(R.id.Book_image);
+        ownerImage = (ImageView)findViewById(R.id.Owner_image);
         Button saveButton = (Button)findViewById(R.id.RateToOwnerSaveButton);
 
         ownerUserNameTextView = (TextView) findViewById(R.id.Owner_username);
@@ -128,6 +140,23 @@ public class RateToOwner extends AppCompatActivity {
                     if (author != null) {
                         bookAuthorTextView.setText(b.getAuthor());
                     }
+                    StorageReference imageRef = storageRef.child("book/"+bid+"/1.jpg");
+                    final long ONE_MEGABYTE = 10 * 1024 * 1024;
+                    imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Log.i("Result","success");
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                            bookImage.setImageBitmap(bitmap);
+                            b.setImage(bitmap);
+                        }
+
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.i("Result","failed");
+                        }
+                    });
 
 
                     /**
@@ -170,6 +199,23 @@ public class RateToOwner extends AppCompatActivity {
                                 if (userName != null){
                                     ownerUserNameTextView.setText(userName);
                                 }
+                                StorageReference imageRef = storageRef.child("user/"+uid+"/1.jpg");
+                                final long ONE_MEGABYTE = 1024 * 1024;
+                                imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                    @Override
+                                    public void onSuccess(byte[] bytes) {
+                                        Log.i("Result","success");
+                                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                                        ownerImage.setImageBitmap(bitmap);
+                                        owner.setPhoto(bitmap);
+                                    }
+
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.i("Result","failed");
+                                    }
+                                });
 
                                 Log.i("test owner totalrate","hello"+owner.getLenderRating());
                             }

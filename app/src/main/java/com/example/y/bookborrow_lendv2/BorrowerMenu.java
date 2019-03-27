@@ -100,4 +100,11 @@ public class BorrowerMenu extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(BorrowerMenu.this,home_page.class);
+        startActivity(intent);
+    }
+
 }
