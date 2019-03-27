@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.graphics.Bitmap;
@@ -58,6 +60,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * This Class is to show all the detail of a book to the book owner
@@ -81,9 +84,14 @@ public class PrivateBookDetails extends AppCompatActivity {
     private Button requestButton;
     private Button returnButton;
     private ImageView bookPhoto ;
+    private String flag;
 
     private book bookx;
     private FirebaseAuth auth;
+    private String ISBN;
+    private ArrayList<comment> mDatas;
+    private CommentAdapter mAdapter;
+    private ListView listview;
     /**
      * The Database.
      */
@@ -92,6 +100,7 @@ public class PrivateBookDetails extends AppCompatActivity {
      * The Db ref.
      */
     DatabaseReference DbRef = database.getReference();
+    DatabaseReference ISBNRef = database.getReference();
     /**
      * The Storage.
      */
@@ -111,12 +120,14 @@ public class PrivateBookDetails extends AppCompatActivity {
 
     private String locationCode;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_book_details);
         Intent intent = getIntent();
         bookid = intent.getStringExtra("Id");
+        flag = intent.getStringExtra("flag");
         bookNameTV = (TextView)findViewById(R.id.pBookName);
         ISBNTV = (TextView)findViewById(R.id.pBookISBN);
         bookAuthorTV = (TextView)findViewById(R.id.pBookAuthor);
@@ -137,6 +148,7 @@ public class PrivateBookDetails extends AppCompatActivity {
          */
         FirebaseDatabase m = FirebaseDatabase.getInstance();
         DatabaseReference r = m.getReference("book/"+bookid);
+
         ValueEventListener bookListner = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -144,9 +156,10 @@ public class PrivateBookDetails extends AppCompatActivity {
                     bookx = dataSnapshot.getValue(book.class);
                     bookNameTV.setText(bookx.getName());
 
-                    String ISBN = bookx.getISBN();
+                    ISBN = bookx.getISBN();
                     if (ISBN != null) {
                         ISBNTV.setText(ISBN);
+                        Log.i("testISBN","66666666666");
                     }
 
                     String author = bookx.getAuthor();
@@ -172,8 +185,8 @@ public class PrivateBookDetails extends AppCompatActivity {
                     imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                         @Override
                         public void onSuccess(byte[] bytes) {
-                            Log.i("Result","success");
-                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                            Log.i("Result", "success");
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                             bookPhoto.setImageBitmap(bitmap);
                             bookx.setImage(bitmap);
                         }
@@ -181,19 +194,67 @@ public class PrivateBookDetails extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.i("Result","failed");
+                            Log.i("Result", "failed");
                         }
                     });
+
+                    // initial the comment here
+                    ISBNRef = database.getReference("bookISBN/" + ISBN).child("RatingAndComment");
+                    ValueEventListener postListener2 = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
+                            if (dataSnapshot2.exists()) {
+                                for (DataSnapshot ds : dataSnapshot2.getChildren()) {
+                                    final RatingAndComment com = ds.getValue(RatingAndComment.class);
+                                    final String c_rating = com.getRating();
+                                    final String c_userID = com.getID();
+                                    final String c_comment = com.getComment();
+                                    FirebaseDatabase o = FirebaseDatabase.getInstance();
+                                    DatabaseReference userRef = o.getReference("users/" + c_userID);
+                                    ValueEventListener postListener3 = new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot3) {
+                                            if (dataSnapshot3.exists()) {
+                                                final NormalUser user = dataSnapshot3.getValue(NormalUser.class);
+                                                final String c_username = user.getName();
+                                                Log.i("testUname",c_username);
+                                                // need to add the image
+                                                comment comment = new comment(c_username,"", c_rating, c_comment);
+                                                mDatas.add(comment);
+                                                mAdapter.notifyDataSetChanged();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError3) {
+                                            Log.w("load: OnCancelled", databaseError3.toException());
+                                        }
+                                    };
+                                    userRef.addValueEventListener(postListener3);
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError2) {
+                            Log.w("load: OnCancelled", databaseError2.toException());
+                        }
+                    };
+                    ISBNRef.addValueEventListener(postListener2);
                 }
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getApplicationContext(),"Fail to get data from database",Toast.LENGTH_SHORT).show();
-
+            public void onCancelled(@NonNull DatabaseError databaseError1) {
+                Log.w("load: OnCancelled", databaseError1.toException());
             }
         };
         r.addListenerForSingleValueEvent(bookListner);
+
+        // set the adapter of comment
+        mDatas = new ArrayList<comment>();
+        listview = (ListView) findViewById(R.id.c_comment);
+        mAdapter = new CommentAdapter(this, mDatas);
+        listview.setAdapter(mAdapter);
 
 
 
@@ -322,9 +383,16 @@ public class PrivateBookDetails extends AppCompatActivity {
     */
     @Override
     public void onBackPressed(){
-        Intent intent = new Intent();
-        setResult(RESULT_OK,intent);
-        finish();
+        //Intent intent = new Intent();
+        //setResult(RESULT_OK,intent);
+        //finish();
+        if (flag.equals("MyBooks")){
+            Intent intent = new Intent (PrivateBookDetails.this, MyBookList.class);
+            startActivity(intent);
+        } else if (flag.equals("View")){
+            Intent intent = new Intent (PrivateBookDetails.this, ViewRequests.class);
+            startActivity(intent);
+        }
 
 
 

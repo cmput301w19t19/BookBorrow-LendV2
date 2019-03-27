@@ -77,9 +77,11 @@ public class OwnerHomeActivity extends AppCompatActivity {
         TextView myBooks = findViewById(R.id.select_owner_menu_1);
         TextView mySearch = findViewById(R.id.select_owner_menu_2);
         TextView myScan = findViewById(R.id.select_owner_menu_3);
-        Button backButton = findViewById(R.id.back_button);
+
         ImageButton button = findViewById(R.id.Ibutton2);
         final TextView newRequestMessage = findViewById(R.id.newRequest);
+
+        newRequestMessage.setVisibility(View.INVISIBLE);
 
 
 
@@ -120,17 +122,48 @@ public class OwnerHomeActivity extends AppCompatActivity {
                                     }
                                 }
                             }
+                            for (String BookID : BookList){
+                                DatabaseReference Ref = database.getReference("book").
+                                        child(BookID);
+
+
+                                ValueEventListener eventListener3 = new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot ds1 : dataSnapshot.getChildren()) {
+                                            if (ds1.getKey().equals("status")) {
+                                                if (ds1.getValue().equals("accepted")) {
+                                                    BookList.remove(bookID);
+                                                    Log.i("yyyyyyyyy", Integer.toString(BookList.size()));
+
+
+                                                }
+                                            }
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }};
+
+
+                            }
+
+
+
+
+
+
                             if  (BookList.size() > 0){
                                 badge.setText(Integer.toString(BookList.size()));
 
                                 badge.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);
 
+                                newRequestMessage.setVisibility(View.VISIBLE);
 
                                 badge.show();
                             }
-                            else{
-                                newRequestMessage.setVisibility(View.INVISIBLE);
-                            }
+
 
                         }
 
@@ -209,17 +242,7 @@ public class OwnerHomeActivity extends AppCompatActivity {
             }
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            /**
-             * jump to homepage class after click
-             * @param v
-             */
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(OwnerHomeActivity.this, home_page.class);
-                startActivity(intent);
-            }
-        });
+
     }
     @Override
     public void onBackPressed(){

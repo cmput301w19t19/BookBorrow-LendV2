@@ -25,6 +25,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -67,6 +69,7 @@ import com.google.zxing.integration.android.IntentResult;
 public class EditBookDetail extends AppCompatActivity {
 
 
+
     private book b;
     private EditText bookNamkeEditText;
     private EditText authorEditText;
@@ -74,6 +77,7 @@ public class EditBookDetail extends AppCompatActivity {
     private EditText descriptionEditText;
     private ImageView bookPhoto;
     private String id;
+    private Bitmap photo = null;
 
 
     Button ISBNButton;
@@ -107,6 +111,7 @@ public class EditBookDetail extends AppCompatActivity {
         ISBNEditText = (EditText)findViewById(R.id.pt3);
         descriptionEditText = (EditText)findViewById(R.id.editTextDes);
         bookPhoto = findViewById(R.id.BookPhoto);
+
 
 
         Intent i = getIntent();
@@ -190,6 +195,7 @@ public class EditBookDetail extends AppCompatActivity {
                         .setPrompt("Please Point to QR code")
                         .setCameraId(0) //chose camera
                         .initiateScan();
+
             }
         });
 
@@ -201,6 +207,10 @@ public class EditBookDetail extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (photo == null) {
+                    Toast.makeText(EditBookDetail.this, "Please upload image!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 b.setName(bookNamkeEditText.getText().toString());
                 b.setAuthor(authorEditText.getText().toString());
                 b.setDescription(descriptionEditText.getText().toString());
@@ -219,10 +229,11 @@ public class EditBookDetail extends AppCompatActivity {
 
                 b.setToFirebase();
                 String bookid = b.getID();
-                Intent back = new Intent();
-                back.putExtra("ID",bookid);
-                setResult(1,back);
-                finish();
+                Intent back = new Intent(EditBookDetail.this,MyBookList.class);
+                startActivity(back);
+                //back.putExtra("ID",bookid);
+                //setResult(1,back);
+                //finish();
             }
         });
 
@@ -259,7 +270,7 @@ public class EditBookDetail extends AppCompatActivity {
         }
         if (requestCode == CODE_PHOTO_REQUEST) {
             if (Data != null) {
-                Bitmap photo = null;
+                //Bitmap photo = null;
                 try {
                     Uri uri = Data.getData();
                     Log.i("hello22", "22");
@@ -280,7 +291,5 @@ public class EditBookDetail extends AppCompatActivity {
             }
         }
     }
-
-
 
 }

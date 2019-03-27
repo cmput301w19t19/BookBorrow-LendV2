@@ -144,13 +144,17 @@ public class MyBookList extends AppCompatActivity {
                                     myBookAdapter.notifyDataSetChanged();
                                     //bookPhoto.setImageBitmap(bitmap);
                                 }
-
+                                //........................................
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     Log.i("Result","failed");
                                 }
                             });
+
+                            //................................
+
+
                             bookList.add(targetBook);
                             Log.i("testName2",targetBook.getName());
                             myBookAdapter.notifyDataSetChanged();
@@ -199,7 +203,9 @@ public class MyBookList extends AppCompatActivity {
                 Intent intent = new Intent(MyBookList.this, EditBookDetail.class);
                 intent.putExtra("0", "0");
                 Log.i("testlala","555");
-                startActivityForResult(intent, 0);
+                startActivity(intent);
+
+
             }
         });
 
@@ -278,6 +284,7 @@ public class MyBookList extends AppCompatActivity {
             public void onClick(View v) {
                 myBookAdapter = new bookAdapter(MyBookList.this, bookList);
                 myBookList.setAdapter(myBookAdapter);
+                books = bookList;
                 Log.i("step","4");
             }
         });
@@ -294,13 +301,14 @@ public class MyBookList extends AppCompatActivity {
                 String bookId = bookItem.getID();
                 Intent intent = new Intent(MyBookList.this, PrivateBookDetails.class);
                 intent.putExtra("Id", bookId);
-                startActivityForResult(intent,2);
+                intent.putExtra("flag","MyBooks");
+                startActivity(intent);
             }
         });
 
 
 
-        Log.i("step","1");
+                Log.i("step","1");
         bookList = new ArrayList<>();
         myBookAdapter = new bookAdapter(this, bookList);
         myBookList.setAdapter(myBookAdapter);
@@ -312,11 +320,13 @@ public class MyBookList extends AppCompatActivity {
         Intent intent = new Intent(MyBookList.this,OwnerHomeActivity.class);
         startActivity(intent);
     }
-
+/*
     @Override
     protected void onActivityResult(int requestCode,int resultCode ,Intent data){
         super.onActivityResult(requestCode,resultCode,data);
         if(requestCode==0&&resultCode==1){
+            Log.i("step","success0");
+
             final String bookID1 = data.getStringExtra("ID");
             //String BookID = "0f45b9af-ebc7-4449-a6db-f88f9589a7c0";
             DbRef = database.getReference("book/"+bookID1);
@@ -332,8 +342,10 @@ public class MyBookList extends AppCompatActivity {
                             Log.i("step","success1");
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                             targetBook1.setImage(bitmap);
+                            //-------------------------------
                             bookList.add(targetBook1);
                             myBookAdapter.notifyDataSetChanged();
+                            //------------------------------------
                             //bookPhoto.setImageBitmap(bitmap);
                         }
 
@@ -343,8 +355,10 @@ public class MyBookList extends AppCompatActivity {
                             Log.i("Result","failed");
                         }
                     });
-                    //bookList.add(targetBook);
+                    //-------------------------
+                    //bookList.add(targetBook1);
                     //myBookAdapter.notifyDataSetChanged();
+                    //------------------------------------
 
                 }
 
@@ -362,5 +376,6 @@ public class MyBookList extends AppCompatActivity {
         }
 
     }
+    */
 
 }

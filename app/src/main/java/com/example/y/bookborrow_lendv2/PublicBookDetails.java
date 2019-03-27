@@ -33,6 +33,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 
 /**
  * This Class is to show all the detail of a book if the user want to know
@@ -81,6 +84,10 @@ public class PublicBookDetails extends AppCompatActivity {
     private String Keyword;
     private FirebaseAuth auth;
     private DatabaseReference r;
+    private String ISBN;
+    private ArrayList<comment> mDatas;
+    private CommentAdapter mAdapter;
+    private ListView listview;
 
 
     /**
@@ -92,6 +99,7 @@ public class PublicBookDetails extends AppCompatActivity {
      * The Db ref.
      */
     DatabaseReference DbRef = database.getReference();
+    DatabaseReference ISBNRef = database.getReference();
     /**
      * The Db ref.
      */
@@ -179,6 +187,50 @@ public class PublicBookDetails extends AppCompatActivity {
                             Log.i("Result","failed");
                         }
                     });
+                    // initial the comment here
+                    ISBNRef = database.getReference("bookISBN/" + ISBN).child("RatingAndComment");
+                    ValueEventListener postListener2 = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
+                            if (dataSnapshot2.exists()) {
+                                for (DataSnapshot ds : dataSnapshot2.getChildren()) {
+                                    final RatingAndComment com = ds.getValue(RatingAndComment.class);
+                                    final String c_rating = com.getRating();
+                                    final String c_userID = com.getID();
+                                    final String c_comment = com.getComment();
+                                    FirebaseDatabase o = FirebaseDatabase.getInstance();
+                                    DatabaseReference userRef = o.getReference("users/" + c_userID);
+                                    ValueEventListener postListener3 = new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot3) {
+                                            if (dataSnapshot3.exists()) {
+                                                final NormalUser user = dataSnapshot3.getValue(NormalUser.class);
+                                                final String c_username = user.getName();
+                                                Log.i("testUname",c_username);
+                                                // need to add the image
+                                                comment comment = new comment(c_username,"", c_rating, c_comment);
+                                                mDatas.add(comment);
+                                                mAdapter.notifyDataSetChanged();
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError3) {
+                                            Log.w("load: OnCancelled", databaseError3.toException());
+                                        }
+                                    };
+                                    userRef.addValueEventListener(postListener3);
+
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError2) {
+                            Log.w("load: OnCancelled", databaseError2.toException());
+                        }
+                    };
+                    ISBNRef.addValueEventListener(postListener2);
 
                 }
             }
@@ -190,6 +242,11 @@ public class PublicBookDetails extends AppCompatActivity {
             }
         };
         r.addValueEventListener(bookListner);
+
+        mDatas = new ArrayList<comment>();
+        listview = (ListView) findViewById(R.id.ListViewForComment);
+        mAdapter = new CommentAdapter(this, mDatas);
+        listview.setAdapter(mAdapter);
 
         /**
          * If the user want to borrow the book, the user will click request button
