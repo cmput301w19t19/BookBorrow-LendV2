@@ -21,6 +21,7 @@
  */
 package com.example.y.bookborrow_lendv2;
 
+import android.graphics.Bitmap;
 import android.media.Image;
 
 /**
@@ -38,7 +39,8 @@ public class NormalUser extends user {
      * @param phone    the phone
      * @param email    the email
      */
-    public NormalUser(String name, Image photo, String password, String phone, String email){
+    public NormalUser(String name, Bitmap photo, String password, String phone, String email){
+
         super(name, photo, password, phone, email);
     }
 

@@ -103,7 +103,8 @@ public class Request_Book_MyAdapter extends BaseAdapter {
          //holder.checkBox.setChecked(b_request.selected);
          //final B_request request = bookRequest.get(position);
          holder.userName.setText(b_request.getUserName());
-
+         holder.image.setImageBitmap(b_request.getPhoto());
+         //holder.image.setImageBitmap();
          holder.checkBox.setOnClickListener(new View.OnClickListener() {
 
              @Override
@@ -119,21 +120,13 @@ public class Request_Book_MyAdapter extends BaseAdapter {
      };
 
     private class ViewHolder{
-        /**
-         * The Image.
-         */
+
         public ImageView image;
-        /**
-         * The User name.
-         */
+
         public TextView userName;
-        /**
-         * The Rating.
-         */
+
         public TextView rating;
-        /**
-         * The Check box.
-         */
+
         public CheckBox checkBox;
     }
 

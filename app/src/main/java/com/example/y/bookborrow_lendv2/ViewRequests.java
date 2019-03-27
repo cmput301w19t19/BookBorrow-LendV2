@@ -1,6 +1,8 @@
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 
 import java.util.ArrayList;
@@ -48,14 +54,11 @@ public class ViewRequests extends AppCompatActivity {
      * The Db ref.
      */
     DatabaseReference dbRef = database.getReference();
-    /**
-     * The Book list.
-     */
-    ArrayList<book> bookList = new ArrayList<>();
-    /**
-     * The Book id list.
-     */
-    ArrayList<String> bookIDList = new ArrayList<>();
+
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
+    private ArrayList<book> bookList = new ArrayList<>();
+    private ArrayList<String> bookIDList = new ArrayList<>();
 
 
 
@@ -125,7 +128,26 @@ public class ViewRequests extends AppCompatActivity {
                         for (DataSnapshot ds : dataSnapshot1.getChildren()) {
                             for (String bookID1 : bookIDList) {
                                 if (ds.getKey().equals(bookID1)) {
-                                    book targetBook = ds.getValue(book.class);
+                                    final book targetBook = ds.getValue(book.class);
+                                    StorageReference imageRef = storageRef.child("book/"+bookID1+"/1.jpg");
+                                    final long ONE_MEGABYTE = 1024 * 1024;
+                                    imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                        @Override
+                                        public void onSuccess(byte[] bytes) {
+                                            Log.i("step","success1");
+                                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                                            targetBook.setImage(bitmap);
+                                            bookList.add(targetBook);
+                                            myBookAdapter.notifyDataSetChanged();
+                                            //bookPhoto.setImageBitmap(bitmap);
+                                        }
+
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.i("Result","failed");
+                                        }
+                                    });
                                     bookList.add(targetBook);
                                     Log.i("testnn","444"+Integer.toString(bookList.size()));
 

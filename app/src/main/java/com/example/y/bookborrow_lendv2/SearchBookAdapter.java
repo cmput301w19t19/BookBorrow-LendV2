@@ -115,7 +115,7 @@ public class SearchBookAdapter extends BaseAdapter {
         holder.bookName.setText(book.getName());
         holder.status.setText(book.getStatus());
         holder.owner.setText(book.getOwnerID());
-        //holder.image.setImageDrawable();
+        holder.image.setImageBitmap(book.getImage());
         holder.description.setText(book.getDescription());
         return convertView;
 
@@ -125,25 +125,15 @@ public class SearchBookAdapter extends BaseAdapter {
      * a viewHolder object used for SearchBookAdapter
      */
     private class ViewHolder{
-        /**
-         * The Image.
-         */
+
         ImageView image;
-        /**
-         * The Book name.
-         */
+
         TextView bookName;
-        /**
-         * The Status.
-         */
+
         TextView status;
-        /**
-         * The Description.
-         */
+
         TextView description;
-        /**
-         * The Owner.
-         */
+
         TextView owner;
     }
 

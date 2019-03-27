@@ -22,6 +22,8 @@
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -30,6 +32,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +41,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 
 import java.util.ArrayList;
@@ -77,10 +83,13 @@ public class RequestToOwner extends AppCompatActivity {
      * The B.
      */
     book b;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
     private ArrayList<String> borrowerID = new ArrayList<String>();
     private String borrower_username;
     private Button accept, delete;
     private String SelectedBorrower;
+    private B_request request;
 
 
     //private List<HashMap<String, Object>> M_list = null;
@@ -116,16 +125,39 @@ public class RequestToOwner extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
                                 if (dataSnapshot2.exists()) {
                                     Log.i("test22", "fdsuifsiudauisd");
-                                    borrower bor = dataSnapshot2.getValue(borrower.class);
-                                    String b_user = bor.getName();
-                                    String userID = bor.getUid();
+                                    final borrower bor = dataSnapshot2.getValue(borrower.class);
+                                    final String b_user = bor.getName();
+                                    final String userID = bor.getUid();
+                                    StorageReference imageRef = storageRef.child("book/"+userID+"/1.jpg");
+                                    final long ONE_MEGABYTE = 1024 * 1024;
+                                    imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                        @Override
+                                        public void onSuccess(byte[] bytes) {
+                                            Log.i("step","success1");
+                                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                                            bor.setPhoto(bitmap);
+                                            //B_request request = new B_request(b_user, 0.0, userID);
+                                            request.setPhoto(bitmap);
+                                            //mDatas.add(request);
+                                            mAdapter.notifyDataSetChanged();
+                                            //bookPhoto.setImageBitmap(bitmap);
+                                        }
+
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.i("Result","failed");
+                                        }
+                                    });
                                     //Float b_rating = bor.getBorrowerRating();
                                     // test case
-
-                                    // set the username and rating to the adapter array
-                                    B_request request = new B_request(b_user, 0.0, userID);
+                                    request = new B_request(b_user, 0.0, userID);
                                     mDatas.add(request);
                                     mAdapter.notifyDataSetChanged();
+                                    // set the username and rating to the adapter array
+                                    //B_request request = new B_request(b_user, 0.0, userID);
+                                    //mDatas.add(request);
+                                    //mAdapter.notifyDataSetChanged();
                                     //Log.i("Yuanproblem2", mDatas.get(0).getUserID());
                                 }
                                 // get the username and rating from the borrower ID

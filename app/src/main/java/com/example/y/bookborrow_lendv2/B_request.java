@@ -21,6 +21,8 @@
  */
 package com.example.y.bookborrow_lendv2;
 
+import android.graphics.Bitmap;
+
 /**
  * class defined as object in Request_Book_MyAdapter
  *
@@ -34,6 +36,7 @@ public class B_request {
      */
     boolean selected = false;
     private String userID;
+    private Bitmap photo;
 
     /**
      * initialize the object
@@ -46,6 +49,7 @@ public class B_request {
         this.userName = userName;
         this.rating = rating;
         this.userID = userID;
+        //this.photo = photo;
     }
 
     /**
@@ -111,11 +115,21 @@ public class B_request {
         return this.userID;
     }
 
+    public void setPhoto(Bitmap photo) {
+        this.photo = photo;
+    }
+
+    public Bitmap getPhoto() {
+        return photo;
+    }
+
     /**
      * set the object's userID
      *
      * @param userID the user id
      */
+
+
     public void setUserID(String userID){
         this.userID = userID;
     }

@@ -27,46 +27,73 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.UUID;
 
 /**
- * The type Book isbn.
+ *  DO NOT CHANGE ANY INTERFACES FOR THE GETTING AND SETTING
+ *  UNLESS YOU ARE GOING TO COMPLETE THE CHANGES IN OTHER ACTIVITY
+ *
+ *  This class is created for rating to the content of books marked with the same ISBN
+ *
  */
 public class bookISBN {
     private String ISBN;
     private Double totalRate = 0.00;
     private Integer borrowTime = 0;
-    private ArrayList<RatingAndComment> commentList;
+    private ArrayList<RatingAndComment> commentList = new ArrayList<>();
     private FirebaseDatabase m;
     private DatabaseReference r;
 
+    /**
+     * This empty constructor will also be used
+     * when trying to get a instance of the object from firebase
+     */
+    bookISBN(){}
 
     /**
-     * Instantiates a new Book isbn.
-     *
-     * @param ISBN the isbn
+     * This constructor is only use in EditBookDetail when init a new book
+     * @see EditBookDetail
+     * @param ISBN
      */
     bookISBN(String ISBN){
         this.ISBN = ISBN;
     }
 
-    /**
-     * Update borrow time.
-     */
-    public void updateBorrowTime(){
+
+    public void setBookRate(Double rating) {
+        this.totalRate += rating;
         this.borrowTime += 1;
+        m = FirebaseDatabase.getInstance();
+        r = m.getReference("bookISBN/"+this.ISBN);
+        r.child("totalRate").setValue(this.totalRate);
+        r.child("borrowTime").setValue(this.borrowTime);
+
     }
 
     /**
-     * Sets book rate.
-     *
-     * @param rating the rating
+     *  The getter is only used when try to get totalRate from firebase
+     *  i.e. onDataChange method
+     * @return
      */
-    public void setBookRate(Double rating) { this.totalRate += rating; }
+    public Double getTotalRate(){return this.totalRate;}
 
     /**
-     * Gets book rate.
-     *
-     * @return the book rate
+     *  The getter is only used when try to get borrowTime from firebase
+     *  i.e. onDataChange method
+     * @return
+     */
+    public Integer getBorrowTime(){return borrowTime;}
+
+    /**
+     *  The getter is only used when try to get ISBN from firebase
+     *  i.e. onDataChange method
+     * @return
+     */
+    public String getISBN(){return ISBN;};
+
+    /**
+     *  return the book rate by calculate the avarage
+     * @return
      */
     public String getBookRate() {
         if (this.totalRate == 0.00){
@@ -76,28 +103,29 @@ public class bookISBN {
     }
 
     /**
-     * Set to firebse.
+     *  set all the class attribute to firebase
      */
-    public void setToFirebse(){
+    public void setToFirebase(){
         m = FirebaseDatabase.getInstance();
         r = m.getReference("bookISBN/"+this.ISBN);
+        r.child("ISBN").setValue(this.ISBN);
         r.child("totalRate").setValue(this.totalRate);
         r.child("borrowTime").setValue(this.borrowTime);
-        r.child("RatingAndComment").setValue(this.commentList);
     }
 
     /**
-     * Add new rating and comment.
-     *
-     * @param newComment the new comment
+     *  get all a new RatingAndComment object
+     *  set it to commentList or set it to firebase
+     * @param c
      */
-    public void addNewRatingAndComment(RatingAndComment newComment){
-        commentList.add(newComment);
+    public void addNewComment(RatingAndComment c){
+        UUID commentID = UUID.randomUUID();
+        commentList.add(c);
         m = FirebaseDatabase.getInstance();
-        r = m.getReference("book/"+this.ISBN+"/RatingAndComment");
-        r.child("RatingAndComment").setValue(newComment);
+        r = m.getReference("bookISBN/"+this.ISBN + "/RatingAndComment/"+commentID);
+        r.child("ID").setValue(c.getID());
+        r.child("rating").setValue(c.getRating());
+        r.child("comment").setValue(c.getComment());
     }
-
-
 
 }

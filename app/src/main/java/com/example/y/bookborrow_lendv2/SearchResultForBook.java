@@ -24,6 +24,8 @@ package com.example.y.bookborrow_lendv2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,12 +45,16 @@ import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import android.media.Image;
 
@@ -64,10 +70,11 @@ public class SearchResultForBook extends AppCompatActivity {
     private ArrayList<book> books = new ArrayList<>();
     private SearchBookAdapter adapter;
     private DatabaseReference mBookDatabase;
-    /**
-     * The Keyword.
-     */
-//private String flag;
+
+    //private String flag;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
+
     public String Keyword;
 
 
@@ -121,7 +128,27 @@ public class SearchResultForBook extends AppCompatActivity {
                         books.add(bookdFound);
                     }
 
+                    for (final book bookItem: books){
+                        String bookID = bookItem.getID();
+                        StorageReference imageRef = storageRef.child("book/"+bookID+"/1.jpg");
+                        final long ONE_MEGABYTE = 1024 * 1024;
+                        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                            @Override
+                            public void onSuccess(byte[] bytes) {
+                                Log.i("Result","success");
+                                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                                bookItem.setImage(bitmap);
+                                adapter.notifyDataSetChanged();
+                                //bookPhoto.setImageBitmap(bitmap);
+                            }
 
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.i("Result","failed");
+                            }
+                        });
+                    }
                     //check if author contains keyword
 /*
                     found = author.contains(search);
@@ -131,8 +158,9 @@ public class SearchResultForBook extends AppCompatActivity {
                     }
 
 */
+                    //adapter = new SearchBookAdapter(SearchResultForBook.this, books);
+                    //mResultList.setAdapter(adapter);
 
-                    adapter.notifyDataSetChanged();
 
                 }
                 String size = Integer.toString(books.size());

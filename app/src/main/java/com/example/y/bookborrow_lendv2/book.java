@@ -56,11 +56,11 @@ import java.util.ArrayList;
 public class book {
     private UUID ID;
     private String name = null;
-    private Bitmap photo = null;
+    private Bitmap photo;
     private String author = null;
     private String ISBN = null;
-    private Double longitude = 0.0;
-    private Double latitude = 0.0;
+    private Double longitude = 0.00;
+    private Double latitude = 0.00;
     private String description = null;
     private String title = null;
     private ArrayList<String> requestedList = new ArrayList<String>();
@@ -156,8 +156,6 @@ public class book {
         r.child("name").setValue(this.name);
         r.child("author").setValue(this.author);
         r.child("ISBN").setValue(this.ISBN);
-        r.child("longitude").setValue(this.longitude);
-        r.child("latitude").setValue(this.latitude);
         r.child("description").setValue(this.description);
         r.child("title").setValue(this.title);
         r.child("borrowerID").setValue(this.borrowerID);

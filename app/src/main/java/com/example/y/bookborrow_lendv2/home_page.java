@@ -27,14 +27,20 @@ package com.example.y.bookborrow_lendv2;
  * @version 1.0
  */
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,6 +48,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 /**
  * The type Home page.
@@ -55,11 +63,11 @@ public class home_page extends AppCompatActivity {
      */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    /**
-     * The Db ref.
-     */
-    DatabaseReference DbRef = database.getReference();
+    private ImageView head;
 
+    DatabaseReference DbRef = database.getReference();
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
 
 
 
@@ -69,9 +77,9 @@ public class home_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         auth = FirebaseAuth.getInstance();
-
+        head = findViewById(R.id.UserHead);
         FirebaseUser user = auth.getCurrentUser();
-        String uid = user.getUid();
+        final String uid = user.getUid();
 
 
 
@@ -92,6 +100,22 @@ public class home_page extends AppCompatActivity {
                 String UserName = currentUser.getName();
 
                 username.setText(UserName);
+                StorageReference imageRef = storageRef.child("user/"+uid+"/1.jpg");
+                final long ONE_MEGABYTE = 1024 * 1024;
+                imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        Log.i("Result","success");
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                        head.setImageBitmap(bitmap);
+                    }
+
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("Result","failed");
+                    }
+                });
 
 
                 // ...

@@ -38,18 +38,18 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/BookPhoto"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@mipmap/ic_launcher" />
 
 
     <LinearLayout
@@ -64,7 +64,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/BookPhoto">
 
         <TextView
             android:id="@+id/textViewDes"
@@ -153,13 +153,22 @@
             <EditText
                 android:id="@+id/pt3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
                 android:hint="@string/EditBookDetailISBN"
                 android:inputType="text"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
                 android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/ISBNscan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:text="Scan"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="353dp" />
         </LinearLayout>
 
         <LinearLayout

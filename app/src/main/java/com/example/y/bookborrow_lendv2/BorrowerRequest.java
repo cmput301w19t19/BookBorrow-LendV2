@@ -23,6 +23,8 @@
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +34,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +43,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -47,7 +53,9 @@ import java.util.ArrayList;
  * when user login in as a borrower, there is a bookRequested button
  * and this class be able to let user to view the book he/she requested, and the accepted books
  *
- * @param uid, user id that pass by login to search book
+
+ * @param  uid, user id that pass by login to search book
+
  * @return none
  */
 public class BorrowerRequest extends AppCompatActivity {
@@ -72,6 +80,11 @@ public class BorrowerRequest extends AppCompatActivity {
     private BorrowerRequestAdapter myBookAdapter;
     private BorrowerRequestAdapter requestAdapter;
     private BorrowerRequestAdapter acceptAdapter;
+    private DatabaseReference rootRefR;
+    private DatabaseReference rootRefA;
+    private String message;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
     //private BorrowingBookAdapter myBookAdapter;
     //private BorrowingBookAdapter requestAdapter;
     ///private BorrowingBookAdapter acceptAdapter;
@@ -96,43 +109,13 @@ public class BorrowerRequest extends AppCompatActivity {
         String uid = user.getUid();
 
         booksID = new ArrayList<>();
-        DatabaseReference rootRef = database.getReference("borrowers").child(uid).child("requestList");
-        //DatabaseReference rootRef = database.getReference("lender").child(uid).child("MyBookList");
+        rootRefR = database.getReference("borrowers").child(uid).child("requestList");
+        rootRefA = database.getReference("borrowers").child(uid).child("AcceptedList");
 
 
 
 
-        ValueEventListener eventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    String bookID = ds.getKey();
-                    DbRef = database.getReference("book/"+bookID);
-                    ValueEventListener eventListener1 = new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
-                            book targetBook = dataSnapshot1.getValue(book.class);
-                            defaultBookList.add(targetBook);
-                            myBookAdapter.notifyDataSetChanged();
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError1) {
-
-                        }
-                    };
-                    DbRef.addValueEventListener(eventListener1);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        };
-        rootRef.addListenerForSingleValueEvent(eventListener);
 
 
 
@@ -140,17 +123,65 @@ public class BorrowerRequest extends AppCompatActivity {
         showAccepted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                message = "accepted";
+                Log.i("acceptButtonClick", "fuxxxxxxxxxxxxk");
                 acceptedBookList = new ArrayList<>();
+                ValueEventListener eventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for (book bookItem : defaultBookList) {
+                        for(DataSnapshot ds : dataSnapshot.getChildren()){
+                            final String bookID = ds.getKey();
+                            DbRef = database.getReference("book/"+bookID);
+                            ValueEventListener eventListener1 = new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
+                                    final book targetBook = dataSnapshot1.getValue(book.class);
+                                    StorageReference imageRef = storageRef.child("book/"+bookID+"/1.jpg");
+                                    final long ONE_MEGABYTE = 1024 * 1024;
+                                    imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                        @Override
+                                        public void onSuccess(byte[] bytes) {
+                                            Log.i("step","success1");
+                                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                                            targetBook.setImage(bitmap);
+                                            Log.i("testName1",targetBook.getName());
+                                            acceptAdapter.notifyDataSetChanged();
+                                            //bookPhoto.setImageBitmap(bitmap);
+                                        }
 
-                    if (bookItem.getStatus().equals("accepted")) {
-                        acceptedBookList.add(bookItem);
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.i("Result","failed");
+                                        }
+                                    });
+                                    acceptedBookList.add(targetBook);
+                                    acceptAdapter.notifyDataSetChanged();
+                                    Log.i("acceptListDataChange", String.valueOf(acceptedBookList.size()));
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError1) {
+
+                                }
+                            };
+                            DbRef.addValueEventListener(eventListener1);
+
+                        }
 
                     }
-                }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                };
+                rootRefA.addListenerForSingleValueEvent(eventListener);
+                //defaultBookList = acceptedBookList;
+
                 acceptAdapter = new BorrowerRequestAdapter(BorrowerRequest.this, acceptedBookList);
-                //acceptAdapter = new BorrowingBookAdapter(BorrowerRequest.this,acceptedBookList);
+                //acceptAdapter = new BorrowerRequestAdapter(BorrowerRequest.this,acceptedBookList);
                 borrowerRequestbookList.setAdapter(acceptAdapter);
 
             }
@@ -162,11 +193,20 @@ public class BorrowerRequest extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //TODO: Implement this method
-                book bookItem = defaultBookList.get(position);
-                String bookId = bookItem.getID();
-                Intent intent = new Intent(BorrowerRequest.this, PublicBookDetails.class);
-                intent.putExtra("Id", bookId);
-                startActivity(intent);
+                if(message.equals("accepted")){
+                    book bookItem = acceptedBookList.get(position);
+                    String bookId = bookItem.getID();
+                    Intent intent = new Intent(BorrowerRequest.this, PublicBookDetails.class);
+                    intent.putExtra("Id", bookId);
+                    startActivity(intent);
+                }
+                else if(message.equals("requested")){
+                    book bookItem = requestedBookList.get(position);
+                    String bookId = bookItem.getID();
+                    Intent intent = new Intent(BorrowerRequest.this, PublicBookDetails.class);
+                    intent.putExtra("Id", bookId);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -174,24 +214,75 @@ public class BorrowerRequest extends AppCompatActivity {
         showRequested.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                message = "requested";
                 requestedBookList = new ArrayList<>();
-                for (book bookItem : defaultBookList) {
-                    if (bookItem.getStatus().equals("requested")) {
-                        requestedBookList.add(bookItem);
+                ValueEventListener eventListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        for(DataSnapshot ds : dataSnapshot.getChildren()){
+                            final String bookID1 = ds.getKey();
+                            DbRef = database.getReference("book/"+bookID1);
+                            ValueEventListener eventListener1 = new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
+                                    final book targetBook1 = dataSnapshot1.getValue(book.class);
+                                    StorageReference imageRef = storageRef.child("book/"+bookID1+"/1.jpg");
+                                    final long ONE_MEGABYTE = 1024 * 1024;
+                                    imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                        @Override
+                                        public void onSuccess(byte[] bytes) {
+                                            Log.i("step","success1");
+                                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                                            targetBook1.setImage(bitmap);
+                                            Log.i("testName1",targetBook1.getName());
+                                            requestAdapter.notifyDataSetChanged();
+                                            //bookPhoto.setImageBitmap(bitmap);
+                                        }
+
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.i("Result","failed");
+                                        }
+                                    });
+                                    Log.i("testName2",targetBook1.getName());
+                                    //myBookAdapter.notifyDataSetChanged();
+                                    requestedBookList.add(targetBook1);
+                                    requestAdapter.notifyDataSetChanged();
+                                    Log.i("requestListDataChange", String.valueOf(requestedBookList.size()));
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError1) {
+
+                                }
+                            };
+                            DbRef.addValueEventListener(eventListener1);
+                        }
+
                     }
-                }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                };
+                rootRefR.addListenerForSingleValueEvent(eventListener);
+                defaultBookList = requestedBookList;
+
                 requestAdapter = new BorrowerRequestAdapter(BorrowerRequest.this, requestedBookList);
-                //requestAdapter = new BorrowingBookAdapter(BorrowerRequest.this,requestedBookList);
+                //requestAdapter = new BorrowerRequestAdapter(BorrowerRequest.this,requestedBookList);
                 borrowerRequestbookList.setAdapter(requestAdapter);
 
             }
         });
 
         //these three lines what to do?
-        defaultBookList = new ArrayList<>();
-        myBookAdapter = new BorrowerRequestAdapter(this, defaultBookList);
+        //defaultBookList = new ArrayList<>();
+        //myBookAdapter = new BorrowerRequestAdapter(this, defaultBookList);
         //myBookAdapter = new BorrowingBookAdapter(this,defaultBookList);
-        borrowerRequestbookList.setAdapter(myBookAdapter);
+        //borrowerRequestbookList.setAdapter(myBookAdapter);
 
 
     }

@@ -133,6 +133,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         gallery = findViewById(R.id.gallery);
         locationButton = (Button)findViewById(R.id.pBookLocation);
 
+
         /**
          *  Get the information of the book from firebase and show them on the screen
          */
@@ -259,7 +260,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         });
 
 
-        takePhoto.setOnClickListener(new View.OnClickListener() {
+        /*takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -273,7 +274,7 @@ public class PrivateBookDetails extends AppCompatActivity {
                 Log.i("666","77777");
             }
         });
-
+*/
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

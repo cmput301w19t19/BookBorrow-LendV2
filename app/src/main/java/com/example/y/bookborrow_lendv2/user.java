@@ -21,11 +21,15 @@
  */
 package com.example.y.bookborrow_lendv2;
 
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.provider.ContactsContract;
+import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * lender object  abstract class
@@ -43,11 +47,12 @@ import com.google.firebase.auth.FirebaseUser;
  */
 public abstract class user {
     private String name;
-    private Image photo;
+    private Bitmap photo;
     private String password;
     private String phone;
     private String email;
     private String Uid;
+
 
 
     /**
@@ -55,8 +60,9 @@ public abstract class user {
      */
     user(){}
 
+
     /**
-     * another constructoer with parameters @param name the name
+     * another constructor with parameters @param name the name
      *
      * @param name     the name
      * @param photo    the photo
@@ -64,7 +70,9 @@ public abstract class user {
      * @param phone    the phone
      * @param email    the email
      */
-    user(String name, Image photo, String password, String phone, String email){
+    user(String name, Bitmap photo, String password, String phone, String email){
+
+
         this.name = name;
         this.photo = photo;
         this.password =password;
@@ -78,8 +86,19 @@ public abstract class user {
      *
      * @param photo the photo
      */
-    public void setPhoto(Image photo) {
+
+
+    public void setPhoto(Bitmap photo) {
+
         this.photo = photo;
+    }
+
+    public void setToFirebase(){
+        FirebaseDatabase m = FirebaseDatabase.getInstance();
+        DatabaseReference r = m.getReference("users/"+this.Uid);
+        r.child("name").setValue(this.name);
+        r.child("password").setValue(this.password);
+        r.child("phone").setValue(this.phone);
     }
 
     /**
@@ -141,7 +160,9 @@ public abstract class user {
      *
      * @return photo photo
      */
-    public Image getPhoto() {
+
+    public Bitmap getPhoto() {
+
         return photo;
     }
 

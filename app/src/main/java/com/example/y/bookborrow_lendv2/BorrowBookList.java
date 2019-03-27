@@ -23,6 +23,8 @@
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,11 +33,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -49,14 +57,17 @@ public class BorrowBookList extends AppCompatActivity {
     private ListView myBorrowBookList;
     private ArrayList<book> borrowedBooks = new ArrayList<>();
     private BorrowingBookAdapter BorrowedBookAdapter;
-    /**
-     * The Database.
-     */
+
+    private FirebaseAuth auth;
+    private FirebaseUser user;
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     /**
      * The Db ref.
      */
     DatabaseReference dbRef = database.getReference();
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
 
 
     @Override
@@ -89,8 +100,12 @@ public class BorrowBookList extends AppCompatActivity {
         borrowedBooks = new ArrayList<>();
         BorrowedBookAdapter = new BorrowingBookAdapter(this,borrowedBooks);
         myBorrowBookList.setAdapter(BorrowedBookAdapter);
-        String userID = "v1rSbJgp2uPgAxf4ZJXcclTgDyv2";
-        dbRef = database.getReference("borrowers").child(userID).child("acceptList");
+        //String userID = "v1rSbJgp2uPgAxf4ZJXcclTgDyv2";
+        auth = FirebaseAuth.getInstance();
+        user = auth.getCurrentUser();
+        //Log.i("Info","I am here");
+        String userID = user.getUid();
+        dbRef = database.getReference("borrowers").child(userID).child("BorrowBookList");
         ValueEventListener postListener = new ValueEventListener() {
             /**
              * get data from firebase
@@ -99,12 +114,31 @@ public class BorrowBookList extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
-                    String bookID = ds.getKey();
+                    final String bookID = ds.getKey();
                     DatabaseReference DbRef = database.getReference("book/"+bookID);
                     ValueEventListener eventListener1 = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
-                            book targetBook = dataSnapshot1.getValue(book.class);
+                            final book targetBook = dataSnapshot1.getValue(book.class);
+                            StorageReference imageRef = storageRef.child("book/"+bookID+"/1.jpg");
+                            final long ONE_MEGABYTE = 1024 * 1024;
+                            imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                @Override
+                                public void onSuccess(byte[] bytes) {
+                                    Log.i("step","success1");
+                                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                                    targetBook.setImage(bitmap);
+                                    //borrowedBooks.add(targetBook);
+                                    BorrowedBookAdapter.notifyDataSetChanged();
+                                    //bookPhoto.setImageBitmap(bitmap);
+                                }
+
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.i("Result","failed");
+                                }
+                            });
                             borrowedBooks.add(targetBook);
                             BorrowedBookAdapter.notifyDataSetChanged();
                         }
