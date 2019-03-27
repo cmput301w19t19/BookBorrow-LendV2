@@ -73,6 +73,7 @@ public class PrivateBookDetails extends AppCompatActivity {
 
 
     private String bookid;
+    private TextView bookDetailTV;
     private TextView bookNameTV;
     private TextView ISBNTV;
     private TextView bookAuthorTV;
@@ -128,6 +129,8 @@ public class PrivateBookDetails extends AppCompatActivity {
         Intent intent = getIntent();
         bookid = intent.getStringExtra("Id");
         flag = intent.getStringExtra("flag");
+        bookDetailTV = (TextView)findViewById(R.id.pBookDetialTitle);
+        // bookNameTV contains the borrower name
         bookNameTV = (TextView)findViewById(R.id.pBookName);
         ISBNTV = (TextView)findViewById(R.id.pBookISBN);
         bookAuthorTV = (TextView)findViewById(R.id.pBookAuthor);
@@ -154,7 +157,7 @@ public class PrivateBookDetails extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     bookx = dataSnapshot.getValue(book.class);
-                    bookNameTV.setText(bookx.getName());
+                    bookDetailTV.setText(bookx.getName());
 
                     ISBN = bookx.getISBN();
                     if (ISBN != null) {
@@ -170,6 +173,26 @@ public class PrivateBookDetails extends AppCompatActivity {
                     String state = bookx.getStatus();
                     if (state != null) {
                         bookStateTV.setText(state);
+                    }
+                    if(state.equals("borrowed")){
+                        final String bookID = bookx.getBorrowerID();
+                        final DatabaseReference borrowerRef = database.getReference("borrowers/"+bookID);
+                        ValueEventListener bookListner2 = new ValueEventListener(){
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
+                                if (dataSnapshot2.exists()) {
+                                    final borrower bor = dataSnapshot2.getValue(borrower.class);
+                                    bookNameTV.setText(bor.getName());
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError2) {
+                                Log.w("load: OnCancelled", databaseError2.toException());
+                            }
+
+                        };
+                        borrowerRef.addListenerForSingleValueEvent(bookListner2);
+
                     }
 
                     String rate = bookx.getBookRating();
