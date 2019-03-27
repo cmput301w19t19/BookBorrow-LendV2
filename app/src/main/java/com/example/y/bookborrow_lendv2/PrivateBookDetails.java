@@ -295,8 +295,6 @@ public class PrivateBookDetails extends AppCompatActivity {
                 //startActivityForResult(new Intent(PrivateBookDetails.this, MapsActivityOwnerSetLocation.class), 4);
                 pickPointOnMap();
 
-
-
             }
         });
     }
@@ -330,6 +328,7 @@ public class PrivateBookDetails extends AppCompatActivity {
 
 
 
+
     }
 
     /**
@@ -359,6 +358,7 @@ public class PrivateBookDetails extends AppCompatActivity {
             Toast.makeText(PrivateBookDetails.this, "canceled", Toast.LENGTH_LONG).show();
             return;
         }
+
         switch (requestCode) {
             case CODE_CAMERA_REQUEST:
                 Bundle extras = Data.getExtras();
