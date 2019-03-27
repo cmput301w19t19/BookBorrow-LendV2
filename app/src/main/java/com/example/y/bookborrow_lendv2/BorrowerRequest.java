@@ -53,11 +53,6 @@ import java.util.ArrayList;
  * when user login in as a borrower, there is a bookRequested button
  * and this class be able to let user to view the book he/she requested, and the accepted books
  *
-<<<<<<< HEAD
- * //@param  uid, user id that pass by login to search book
- * @return none
-=======
->>>>>>> fda353c90a62586e1af338f230814b9832d5ce56
  */
 public class BorrowerRequest extends AppCompatActivity {
 
@@ -114,6 +109,12 @@ public class BorrowerRequest extends AppCompatActivity {
         rootRefA = database.getReference("borrowers").child(uid).child("AcceptedList");
 
 
+
+
+
+
+
+
         // user click showaccept button, book change to accepted books
         showAccepted.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +127,6 @@ public class BorrowerRequest extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                         for(DataSnapshot ds : dataSnapshot.getChildren()){
-
                             final String bookID = ds.getKey();
                             DbRef = database.getReference("book/"+bookID);
                             ValueEventListener eventListener1 = new ValueEventListener() {
@@ -202,7 +202,6 @@ public class BorrowerRequest extends AppCompatActivity {
                     Intent intent = new Intent(BorrowerRequest.this, PublicBookDetails.class);
                     intent.putExtra("Id", bookId);
                     startActivity(intent);
-                    ///11111
                 }
             }
         });

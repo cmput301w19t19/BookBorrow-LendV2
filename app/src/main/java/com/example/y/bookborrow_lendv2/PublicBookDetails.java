@@ -199,16 +199,16 @@ public class PublicBookDetails extends AppCompatActivity {
                                     final String c_userID = com.getID();
                                     final String c_comment = com.getComment();
                                     FirebaseDatabase o = FirebaseDatabase.getInstance();
-                                    DatabaseReference userRef = o.getReference("borrowers/" + c_userID);
+                                    DatabaseReference userRef = o.getReference("users/" + c_userID);
                                     ValueEventListener postListener3 = new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot3) {
                                             if (dataSnapshot3.exists()) {
-                                                final borrower user = dataSnapshot3.getValue(borrower.class);
+                                                final NormalUser user = dataSnapshot3.getValue(NormalUser.class);
                                                 final String c_username = user.getName();
                                                 Log.i("testUname",c_username);
                                                 // need to add the image
-                                                comment comment = new comment(c_username, c_rating, c_comment);
+                                                comment comment = new comment(c_username,"", c_rating, c_comment);
                                                 mDatas.add(comment);
                                                 mAdapter.notifyDataSetChanged();
                                             }
@@ -242,6 +242,11 @@ public class PublicBookDetails extends AppCompatActivity {
             }
         };
         r.addValueEventListener(bookListner);
+
+        mDatas = new ArrayList<comment>();
+        listview = (ListView) findViewById(R.id.ListViewForComment);
+        mAdapter = new CommentAdapter(this, mDatas);
+        listview.setAdapter(mAdapter);
 
         /**
          * If the user want to borrow the book, the user will click request button

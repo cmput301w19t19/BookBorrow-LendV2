@@ -81,6 +81,7 @@ public class CommentAdapter extends BaseAdapter{
             holder.userName = (TextView) convertView.findViewById(R.id.comment_username);
             holder.rating = (TextView) convertView.findViewById(R.id.comment_rating);
             holder.comment = (TextView )convertView.findViewById(R.id.comment_detail);
+            holder.status = (TextView )convertView.findViewById(R.id.comment_status);
             //holder.currentBorrower = (TextView) convertView.findViewById(R.id.CurrentBorrower);
             //holder.description = (TextView) convertView.findViewById(R.id.descrip);
 
@@ -94,6 +95,7 @@ public class CommentAdapter extends BaseAdapter{
         holder.userName.setText(comment.getUserName());
         holder.rating.setText(comment.getRating());
         holder.comment.setText(comment.getComment());
+        holder.status.setText(comment.getStatus());
         holder.image.setImageBitmap(comment.getPhoto());
 
         return convertView;
@@ -115,6 +117,7 @@ public class CommentAdapter extends BaseAdapter{
 
         TextView rating;
         TextView comment;
+        TextView status;
 
     }
 

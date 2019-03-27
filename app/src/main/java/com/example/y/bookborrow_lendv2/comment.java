@@ -36,6 +36,7 @@ public class comment {
      */
     private String comment;
     private Bitmap photo;
+    private String status;
 
     /**
      * initialize the object
@@ -44,10 +45,11 @@ public class comment {
      * @param rating   the rating
      * @param comment   the comment
      */
-    public comment(String userName, String rating, String comment) {
+    public comment(String userName, String status, String rating, String comment) {
         this.userName = userName;
         this.rating = rating;
         this.comment = comment;
+        this.status = status;
         //this.photo = photo;
     }
 
@@ -89,7 +91,7 @@ public class comment {
     }
 
     /**
-     * get the object's userID
+     * get the object's comment
      *
      * @return userID string
      */
@@ -106,7 +108,7 @@ public class comment {
     }
 
     /**
-     * set the object's userID
+     * set the object's comment
      *
      * @param comment the comments
      */
@@ -114,5 +116,23 @@ public class comment {
 
     public void setComment(String comment){
         this.comment = comment;
+    }
+
+    /**
+     * get the status of the comment object
+     *
+     * @return status string
+     */
+    public String getStatus(){
+        return status;
+    }
+
+    /**
+     * set the status of the comment object
+     *
+     * @param status the user name
+     */
+    public void setStatus(String status){
+        this.status = status;
     }
 }

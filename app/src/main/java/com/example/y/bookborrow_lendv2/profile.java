@@ -170,8 +170,6 @@ public class profile extends AppCompatActivity {
                         Log.i("Result","failed");
                     }
                 });
-
-                // ...
             }
 
             @Override

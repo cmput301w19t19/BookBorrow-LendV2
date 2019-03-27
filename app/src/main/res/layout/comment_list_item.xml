@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/comment_username"
-        android:layout_width="129dp"
+        android:layout_width="177dp"
         android:layout_height="18dp"
         android:layout_marginStart="12dp"
         android:layout_marginLeft="12dp"
@@ -29,8 +29,8 @@
 
     <TextView
         android:id="@+id/comment_detail"
-        android:layout_width="270dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/username"
         android:layout_alignBottom="@id/user_image"
         android:layout_marginStart="12dp"
@@ -47,11 +47,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/username"
-        android:layout_marginStart="80dp"
-        android:layout_marginLeft="80dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp"
         android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/username"
         android:text="Rating:"
+        app:layout_constraintStart_toEndOf="@+id/comment_username"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/comment_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        android:text="Status"
+        app:layout_constraintEnd_toStartOf="@+id/comment_rating"
         app:layout_constraintStart_toEndOf="@+id/comment_username"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
