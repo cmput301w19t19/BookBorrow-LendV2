@@ -81,6 +81,7 @@ public class PrivateBookDetails extends AppCompatActivity {
     private Button requestButton;
     private Button returnButton;
     private ImageView bookPhoto ;
+    private String flag;
 
     private book bookx;
     private FirebaseAuth auth;
@@ -117,6 +118,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         setContentView(R.layout.activity_private_book_details);
         Intent intent = getIntent();
         bookid = intent.getStringExtra("Id");
+        flag = intent.getStringExtra("flag");
         bookNameTV = (TextView)findViewById(R.id.pBookName);
         ISBNTV = (TextView)findViewById(R.id.pBookISBN);
         bookAuthorTV = (TextView)findViewById(R.id.pBookAuthor);
@@ -322,9 +324,16 @@ public class PrivateBookDetails extends AppCompatActivity {
     */
     @Override
     public void onBackPressed(){
-        Intent intent = new Intent();
-        setResult(RESULT_OK,intent);
-        finish();
+        //Intent intent = new Intent();
+        //setResult(RESULT_OK,intent);
+        //finish();
+        if (flag.equals("MyBooks")){
+            Intent intent = new Intent (PrivateBookDetails.this, MyBookList.class);
+            startActivity(intent);
+        } else if (flag.equals("View")){
+            Intent intent = new Intent (PrivateBookDetails.this, ViewRequests.class);
+            startActivity(intent);
+        }
 
 
 

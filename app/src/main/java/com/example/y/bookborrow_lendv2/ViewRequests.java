@@ -186,6 +186,7 @@ public class ViewRequests extends AppCompatActivity {
                 String bookId = bookItem.getID();
                 Intent intent = new Intent(ViewRequests.this, PrivateBookDetails.class);
                 intent.putExtra("Id", bookId);
+                intent.putExtra("flag","View");
 
                 //记得把ViewRequests 里的OnItemCliskListener 点过的 request 的checkByOwner 改成 true，就没有小红点
                 dbRef = database.getReference("lenders").child(uid).child("ListOfNewRequests").child(clickedBookId).

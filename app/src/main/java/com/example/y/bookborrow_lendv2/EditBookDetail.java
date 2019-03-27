@@ -224,10 +224,11 @@ public class EditBookDetail extends AppCompatActivity {
 
                 b.setToFirebase();
                 String bookid = b.getID();
-                Intent back = new Intent();
-                back.putExtra("ID",bookid);
-                setResult(1,back);
-                finish();
+                Intent back = new Intent(EditBookDetail.this,MyBookList.class);
+                startActivity(back);
+                //back.putExtra("ID",bookid);
+                //setResult(1,back);
+                //finish();
             }
         });
 
