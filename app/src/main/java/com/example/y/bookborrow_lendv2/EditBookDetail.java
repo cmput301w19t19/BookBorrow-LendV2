@@ -74,6 +74,7 @@ public class EditBookDetail extends AppCompatActivity {
     private EditText descriptionEditText;
     private ImageView bookPhoto;
     private String id;
+    private Bitmap photo = null;
 
 
     Button ISBNButton;
@@ -201,6 +202,10 @@ public class EditBookDetail extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (photo == null) {
+                    Toast.makeText(EditBookDetail.this, "Please upload image!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 b.setName(bookNamkeEditText.getText().toString());
                 b.setAuthor(authorEditText.getText().toString());
                 b.setDescription(descriptionEditText.getText().toString());
@@ -259,7 +264,7 @@ public class EditBookDetail extends AppCompatActivity {
         }
         if (requestCode == CODE_PHOTO_REQUEST) {
             if (Data != null) {
-                Bitmap photo = null;
+                //Bitmap photo = null;
                 try {
                     Uri uri = Data.getData();
                     Log.i("hello22", "22");

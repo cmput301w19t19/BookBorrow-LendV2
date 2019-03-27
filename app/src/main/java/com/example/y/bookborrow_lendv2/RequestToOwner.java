@@ -57,7 +57,7 @@ public class RequestToOwner extends AppCompatActivity {
 
     private ListView listview;
     private FirebaseAuth auth;
-    private ArrayList<B_request> mDatas;
+    private ArrayList<B_request> mDatas = new ArrayList<>();
     private Request_Book_MyAdapter mAdapter;
     /**
      * The M.
@@ -118,8 +118,9 @@ public class RequestToOwner extends AppCompatActivity {
                 if(dataSnapshot.exists()) {
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         final String b_ID = ds.getKey();
+                        borrowerID.add(b_ID);
                         Holder = m.getReference("borrowers/" + b_ID);
-
+                        Log.i("b_ID",b_ID);
                         ValueEventListener postListener2 = new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
@@ -128,6 +129,7 @@ public class RequestToOwner extends AppCompatActivity {
                                     final borrower bor = dataSnapshot2.getValue(borrower.class);
                                     final String b_user = bor.getName();
                                     final String userID = bor.getUid();
+
                                     StorageReference imageRef = storageRef.child("book/"+userID+"/1.jpg");
                                     final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                     imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -149,10 +151,12 @@ public class RequestToOwner extends AppCompatActivity {
                                             Log.i("Result","failed");
                                         }
                                     });
+
                                     //Float b_rating = bor.getBorrowerRating();
                                     // test case
-                                    request = new B_request(b_user, 0.0, userID);
+                                    B_request request = new B_request(b_user, 0.0, userID);
                                     mDatas.add(request);
+                                    //Log.i("size",Integer.toString(mDatas.size()));
                                     mAdapter.notifyDataSetChanged();
                                     // set the username and rating to the adapter array
                                     //B_request request = new B_request(b_user, 0.0, userID);
@@ -169,8 +173,9 @@ public class RequestToOwner extends AppCompatActivity {
                                 Log.w("load: OnCancelled", databaseError2.toException());
                             }
                         };
-                        Holder.addValueEventListener(postListener2);
+                        Holder.addListenerForSingleValueEvent(postListener2);
                     }
+                    Log.i("size2",Integer.toString(borrowerID.size()));
                 }
             }
 
@@ -270,6 +275,7 @@ public class RequestToOwner extends AppCompatActivity {
 
     private void initData(ArrayList<B_request> mDatas){
         //put the data into the class
+
         mAdapter = new Request_Book_MyAdapter(this, mDatas);
         listview.setAdapter(mAdapter);
     }
