@@ -1,78 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright 2019 TEAM01
-  ~
-  ~ Permission is hereby granted, free of charge, to any person obtaining a copy
-  ~ of this software and associated documentation files (the "Software"), to deal
-  ~ in the Software without restriction, including without limitation the rights
-  ~ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-  ~ copies of the Software, and to permit persons to whom the Software is
-  ~ furnished to do so, subject to the following conditions:
-  ~
-  ~ The above copyright notice and this permission notice shall be included in all
-  ~ copies or substantial portions of the Software.
-  ~
-  ~ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-  ~ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-  ~ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-  ~ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-  ~ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-  ~ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-  ~ SOFTWARE.
-  -->
-
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PrivateBookDetails">
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/BookDetailDelete"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/BookDetailDelete" />
-
-        <Button
-            android:id="@+id/ReturnButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="return" />
-
-        <Button
-            android:id="@+id/bookDetailEdit"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/BookDetailEdit" />
-
-        <Button
-            android:id="@+id/bookDetailRequest"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/BookDetailShowRequest" />
-    </LinearLayout>
+    tools:context=".SearchingUserDetail">
 
     <TextView
         android:id="@+id/searchUserDetailUserName"
@@ -84,7 +16,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:gravity="center"
-        android:text="@string/BookDetail"
+        android:text="@string/SearchUserDetailUserName"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,12 +39,9 @@
             android:id="@+id/LLforImageLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:gravity="start"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/LinearLayoutForInfor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -124,31 +53,27 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
                 android:contentDescription="@string/pBookImage"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@mipmap/ic_launcher" />
 
-            <Button
-                android:id="@+id/pBookLocation"
-                style="@style/Widget.AppCompat.Button.Small"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pLocationButton"
-                android:textSize="14sp"
-                tools:layout_editor_absoluteX="126dp"
-                tools:layout_editor_absoluteY="149dp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/LinearLayoutForInfor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:gravity="top|start"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/LLforImageLocation"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
@@ -165,17 +90,17 @@
                     android:gravity="start"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:text="@string/BookDetailName"
+                    android:text="@string/SearchUserDetailEmailHint"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/pBookName"
+                    android:id="@+id/searchUserDetailUserEmailInput"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:text="@string/pBookName" />
+                    android:text="@string/SearchUserDetailEmail" />
             </LinearLayout>
 
             <LinearLayout
@@ -185,24 +110,24 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/BookISBN"
+                    android:id="@+id/PhoneHint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="start"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:text="@string/BookDetailISBN"
+                    android:text="@string/SearchUserDetailPhoneHint"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/pBookISBN"
+                    android:id="@+id/searchUserDetailPhoneInput"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:text="@string/pBookISBN" />
+                    android:text="@string/SearchUserDetailPhoneInput" />
             </LinearLayout>
 
             <LinearLayout
@@ -219,71 +144,44 @@
                     android:gravity="start"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:text="@string/BookDetailAuthor"
+                    android:text="@string/SearchUserDetailLendBookTimeHint"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/pBookAuthor"
+                    android:id="@+id/searchUserDetaillendBookTimeINput"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:text="@string/pBookAuthor" />
+                    android:text="@string/SearchUserDetailLendBookTimeInput" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/LLBookState"
+                android:id="@+id/LLBorrowerBookTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/BookState"
+                    android:id="@+id/BorrowerBookTimeHint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="start"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:text="@string/BookDetailState"
+                    android:text="@string/SearchUserDetailBorrowerBookTimeHint"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/pBookState"
+                    android:id="@+id/searchUserDetailBorrowerBookTimeInput"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
                     android:paddingTop="4dp"
                     android:paddingBottom="4dp"
-                    android:text="@string/pBookStates" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/LLBookRate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/BookRate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:gravity="start"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:text="@string/Rate"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/pBookRate"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:paddingTop="4dp"
-                    android:paddingBottom="4dp"
-                    android:text="@string/pBookRate" />
+                    android:text="@string/SearchUserDetailBorrowBookTimeInput" />
             </LinearLayout>
 
 
@@ -292,67 +190,79 @@
     </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
-        android:id="@+id/LL"
+        android:id="@+id/AsAOwnerLL"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <TextView
-            android:id="@+id/Description"
-            android:layout_width="match_parent"
+            android:id="@+id/AsAOwner"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
-            android:text="@string/BookDetailDescription"
+            android:layout_weight="5"
+            android:text="@string/SearchUserDetailAsAOwner"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/pBookDescription"
-            android:layout_width="match_parent"
+            android:id="@+id/searchUserDetailOwnerRating"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
-            android:paddingTop="8dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="8dp"
-            android:text="@string/pBookDescription" />
+            android:layout_weight="1"
+            android:text="@string/SearchUserDetailLenderRating"
+            android:textSize="18sp" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/comment"
+    <ListView
+        android:id="@+id/ListViewOwner"
+        android:layout_width="0dp"
+        android:layout_height="62dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/AsAOwnerLL"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/AsAOwnerLL"
+        app:layout_constraintTop_toBottomOf="@+id/AsAOwnerLL" />
+
+    <LinearLayout
+        android:id="@+id/AsABorrowerLL"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:text="@string/bookDetailComment"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/LL"
-        app:layout_constraintStart_toStartOf="@+id/LL"
-        app:layout_constraintTop_toBottomOf="@+id/LL" />
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="@+id/ListViewOwner"
+        app:layout_constraintStart_toStartOf="@+id/ListViewOwner"
+        app:layout_constraintTop_toBottomOf="@+id/ListViewOwner">
+
+        <TextView
+            android:id="@+id/AsABorrower"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:text="@string/SearchUserDetailAsABorrowerHint"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/searchUserDetaiBorrowerRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/SearchUserDetailBorrowerRating"
+            android:textSize="18sp" />
+    </LinearLayout>
 
     <ListView
-        android:layout_width="0dp"
-        android:layout_height="83dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_width="368dp"
+        android:layout_height="58dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/comment" />
-
+        app:layout_constraintEnd_toEndOf="@+id/AsABorrowerLL"
+        app:layout_constraintStart_toStartOf="@+id/AsABorrowerLL"
+        app:layout_constraintTop_toBottomOf="@+id/AsABorrowerLL" />
 
 </android.support.constraint.ConstraintLayout>

@@ -117,4 +117,18 @@
     <string name="loginPageHint">Don\'t have an account?</string>
     <string name="registerButton">register</string>
     <string name="signUp">signup</string>
+    <string name="SearchUserDetailEmailHint">Email:</string>
+    <string name="SearchUserDetailUserNameHint">User name:</string>
+    <string name="SearchUserDetailPhoneHint">Phone:</string>
+    <string name="SearchUserDetailAsAOwner">As a owner:</string>
+    <string name="SearchUserDetailAsABorrowerHint">As a borrower:</string>
+    <string name="SearchUserDetailEmail">Missing user email!</string>
+    <string name="SearchUserDetailUserName">Missing user name!</string>
+    <string name="SearchUserDetailBorrowerRating">Missing Rating!</string>
+    <string name="SearchUserDetailLenderRating">Missing!</string>
+    <string name="SearchUserDetailPhoneInput">Missing phone number!</string>
+    <string name="SearchUserDetailLendBookTimeHint">Lend books:</string>
+    <string name="SearchUserDetailLendBookTimeInput">Missing</string>
+    <string name="SearchUserDetailBorrowerBookTimeHint">Borrow books:</string>
+    <string name="SearchUserDetailBorrowBookTimeInput">Missing</string>
 </resources>

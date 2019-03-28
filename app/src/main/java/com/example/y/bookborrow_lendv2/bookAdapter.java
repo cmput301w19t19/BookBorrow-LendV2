@@ -96,7 +96,7 @@ public class bookAdapter extends BaseAdapter {
             holder = new ViewHolder();
 
             holder.image = (ImageView) convertView.findViewById(R.id.BookImage);
-            holder.bookName = (TextView) convertView.findViewById(R.id.BookName);
+            holder.bookName = (TextView) convertView.findViewById(R.id.EmailHint);
             //holder.info = (ImageButton) convertView.findViewById(R.id.infoButton);
             //holder.currentBorrower = (TextView) convertView.findViewById(R.id.CurrentBorrower);
             //holder.description = (TextView) convertView.findViewById(R.id.descrip);
