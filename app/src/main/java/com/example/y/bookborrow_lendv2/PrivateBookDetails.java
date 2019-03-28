@@ -80,6 +80,7 @@ public class PrivateBookDetails extends AppCompatActivity {
     private TextView bookStateTV;
     private TextView bookRateTV;
     private TextView bookDescriptionTV;
+    private TextView see_more;
     private Button deleteButton;
     private Button editButton;
     private Button requestButton;
@@ -129,6 +130,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         Intent intent = getIntent();
         bookid = intent.getStringExtra("Id");
         flag = intent.getStringExtra("flag");
+        see_more = (TextView)findViewById(R.id.see_more);
         bookDetailTV = (TextView)findViewById(R.id.pBookDetialTitle);
         // bookNameTV contains the borrower name
         bookNameTV = (TextView)findViewById(R.id.pBookName);
@@ -379,6 +381,16 @@ public class PrivateBookDetails extends AppCompatActivity {
                 //startActivityForResult(new Intent(PrivateBookDetails.this, MapsActivityOwnerSetLocation.class), 4);
                 pickPointOnMap();
 
+            }
+        });
+
+        see_more.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(PrivateBookDetails.this, CommentDetail.class);
+                intent.putExtra("id",ISBN);
+                intent.putExtra("type","bookISBN");
+                startActivity(intent);
             }
         });
     }
