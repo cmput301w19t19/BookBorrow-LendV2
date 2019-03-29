@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -56,7 +57,7 @@ public class SearchingUserDetail extends AppCompatActivity {
         final TextView userNameTextView = (TextView)findViewById(R.id.pBookDetialTitle);
         final TextView userEmailTextView = (TextView)findViewById(R.id.searchUserDetailUserEmailInput);
         final TextView phoneNumberTextView = (TextView)findViewById(R.id.searchUserDetailPhoneInput);
-
+        final ImageView userPhoto = (ImageView) findViewById(R.id.userPhoto);
         final TextView lendBookTimeTextView = (TextView)findViewById(R.id.searchUserDetaillendBookTimeINput);
         final TextView lenderRateTextView = (TextView)findViewById(R.id.searchUserDetaiBorrowerRating);
         final TextView lenderSeeMore = (TextView)findViewById(R.id.see_more2);
@@ -73,6 +74,23 @@ public class SearchingUserDetail extends AppCompatActivity {
 
         Intent i = getIntent();
         profileID = i.getStringExtra("profileID");
+
+        StorageReference imageRef = storageRef.child("user/"+profileID+"/1.jpg");
+        final long ONE_MEGABYTE = 10 * 1024 * 1024;
+        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Log.i("Result","success");
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                userPhoto.setImageBitmap(bitmap);
+            }
+
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i("Result","failed");
+            }
+        });
 
 
         // get lender infor from firebase
@@ -105,7 +123,7 @@ public class SearchingUserDetail extends AppCompatActivity {
                                         final String c_userID = com.getID();
                                         final String c_comment = com.getComment();
 
-                                        // get commenter's username and
+                                        // get commenter's username
                                         FirebaseDatabase o = FirebaseDatabase.getInstance();
                                         DatabaseReference userRef = o.getReference("users/" + c_userID);
                                         ValueEventListener photoListern = new ValueEventListener() {
@@ -115,8 +133,8 @@ public class SearchingUserDetail extends AppCompatActivity {
                                                     final NormalUser n = dataSnapshot3.getValue(NormalUser.class);
                                                     final String c_username = n.getName();
 
-                                                    comment = new comment(c_username,"", c_rating, c_comment);
-                                                    lenderCommentList.add(comment);
+                                                    //comment = new comment(c_username,"", c_rating, c_comment);
+                                                    //lenderCommentList.add(comment);
                                                     lenderCommentAdapter.notifyDataSetChanged();
 
                                                     //get commenter's photo
@@ -127,8 +145,9 @@ public class SearchingUserDetail extends AppCompatActivity {
                                                         public void onSuccess(byte[] bytes) {
                                                             Log.i("Result", "success");
                                                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                                            comment = new comment(c_username,"", c_rating, c_comment);
                                                             comment.setPhoto(bitmap);
-
+                                                            lenderCommentList.add(comment);
                                                             lenderCommentAdapter.notifyDataSetChanged();
                                                         }
 
@@ -206,6 +225,8 @@ public class SearchingUserDetail extends AppCompatActivity {
                         }
                         borrowBookTimeTextView.setText(Integer.toString(borrowBookTime));
                         borrowRateTextView.setText(b.getBorrowerRating());
+
+                        // get comment item from the firebase
                         DatabaseReference commentR2 =r2.child("RatingAndComment");
                         ValueEventListener photoListner = new ValueEventListener() {
                             @Override
@@ -219,12 +240,15 @@ public class SearchingUserDetail extends AppCompatActivity {
                                         FirebaseDatabase o = FirebaseDatabase.getInstance();
                                         DatabaseReference userRef = o.getReference("users/" + c_userID);
 
+                                        // get commenter's username
                                         ValueEventListener photoListern = new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot3) {
                                                 if (dataSnapshot3.exists()){
                                                     final NormalUser n = dataSnapshot3.getValue(NormalUser.class);
                                                     final String c_username = n.getName();
+
+                                                    // get commenter's photo
                                                     StorageReference imageRef = storageRef.child("user/" + c_userID + "/1.jpg");
                                                     final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                                     imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -232,8 +256,10 @@ public class SearchingUserDetail extends AppCompatActivity {
                                                         public void onSuccess(byte[] bytes) {
                                                             Log.i("Result", "success");
                                                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                                                            comment1.setPhoto(bitmap);
+                                                            comment1 = new comment(c_username,"", c_rating, c_comment);
 
+                                                            comment1.setPhoto(bitmap);
+                                                            borrowerCommentList.add(comment1);
                                                             lenderCommentAdapter.notifyDataSetChanged();
                                                         }
 
@@ -243,8 +269,8 @@ public class SearchingUserDetail extends AppCompatActivity {
                                                             Log.i("Result", "failed");
                                                         }
                                                     });
-                                                    comment1 = new comment(c_username,"", c_rating, c_comment);
-                                                    borrowerCommentList.add(comment1);
+
+
                                                     borrowerCommentAdapter.notifyDataSetChanged();
                                                 }
                                             }
@@ -278,6 +304,7 @@ public class SearchingUserDetail extends AppCompatActivity {
         r2.addListenerForSingleValueEvent(borrowerListern);
         borrowerListView.setAdapter(borrowerCommentAdapter);
 
+        // get user basic infor from firebase
         DatabaseReference r3 = FirebaseDatabase.getInstance().getReference("users/"+profileID);
         ValueEventListener userListern = new ValueEventListener() {
             @Override

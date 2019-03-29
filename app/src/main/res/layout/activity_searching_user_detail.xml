@@ -76,7 +76,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/bookPhoto"
+                android:id="@+id/userPhoto"
                 android:layout_width="71dp"
                 android:layout_height="105dp"
                 android:layout_marginStart="8dp"

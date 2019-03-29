@@ -219,9 +219,9 @@ public class PublicBookDetails extends AppCompatActivity {
                                                         Log.i("step","success1");
                                                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                                         user.setPhoto(bitmap);
-
+                                                        comment = new comment(c_username,"", c_rating, c_comment);
                                                         comment.setPhoto(bitmap);
-
+                                                        mDatas.add(comment);
                                                         mAdapter.notifyDataSetChanged();
                                                         //bookPhoto.setImageBitmap(bitmap);
                                                     }
@@ -232,8 +232,8 @@ public class PublicBookDetails extends AppCompatActivity {
                                                         Log.i("Result","failed");
                                                     }
                                                 });
-                                                comment = new comment(c_username,"", c_rating, c_comment);
-                                                mDatas.add(comment);
+
+
                                                 mAdapter.notifyDataSetChanged();
                                             }
                                         }
