@@ -117,4 +117,5 @@
     <string name="loginPageHint">Don\'t have an account?</string>
     <string name="registerButton">register</string>
     <string name="signUp">signup</string>
+    <string name="see_more"><u>see more</u></string>
 </resources>

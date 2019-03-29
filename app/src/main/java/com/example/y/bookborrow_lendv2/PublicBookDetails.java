@@ -69,6 +69,7 @@ public class PublicBookDetails extends AppCompatActivity {
     private lender bookOwner;
     private String title1;
     private book requestedBook;
+    private TextView see_more;
     private TextView bookNameTV;
     private TextView ISBNTV;
     private TextView bookAuthorTV;
@@ -122,6 +123,7 @@ public class PublicBookDetails extends AppCompatActivity {
         bookid = intent.getStringExtra("Id");
         Keyword = intent.getStringExtra("Keyword");
         flag = intent.getStringExtra("flag");
+        see_more = (TextView)findViewById(R.id.public_see_more);
         bookNameTV = (TextView)findViewById(R.id.puBookName);
         ISBNTV = (TextView)findViewById(R.id.puBookISBN);
         bookAuthorTV = (TextView)findViewById(R.id.puBookAuthor);
@@ -149,7 +151,7 @@ public class PublicBookDetails extends AppCompatActivity {
                     Log.i("test22",b.getName());
                     bookNameTV.setText(b.getName());
 
-                    String ISBN = b.getISBN();
+                    ISBN = b.getISBN();
                     if (ISBN != null) {
                         ISBNTV.setText(ISBN);
                     }
@@ -402,7 +404,16 @@ public class PublicBookDetails extends AppCompatActivity {
             }
         });
 
-
+        see_more.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Log.i("public book detail", "666");
+                Intent intent = new Intent(PublicBookDetails.this, CommentDetail.class);
+                intent.putExtra("id",ISBN);
+                intent.putExtra("type","bookISBN");
+                startActivity(intent);
+            }
+        });
 
     }
 }
