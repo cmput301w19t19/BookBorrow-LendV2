@@ -37,7 +37,7 @@
     <string name="bookDetailComment">Comment from Borrowers:</string>
     <string name="BookDetailState">State</string>
     <string name="BookDetailDescription">Description from Owner:</string>
-    <string name="BookDetailName">"Book Name: "</string>
+    <string name="BookDetailName">"Borrower Name: "</string>
     <string name="BookDetailISBN">"ISBN: "</string>
     <string name="BookDetailAuthor">Author</string>
     <string name="BookDetail">Details of the Book</string>

@@ -42,6 +42,7 @@ public class CommentDetail extends AppCompatActivity {
     private static final int CODE_CAMERA_REQUEST = 6;
     private static final int CODE_PHOTO_CLIP = 7;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +61,6 @@ public class CommentDetail extends AppCompatActivity {
                     if (dataSnapshot2.exists()) {
                         for (DataSnapshot ds : dataSnapshot2.getChildren()) {
                             final RatingAndComment com = ds.getValue(RatingAndComment.class);
-                            RatingAndCommentArrayList.add(com);
                             final String c_rating = com.getRating();
                             final String c_userID = com.getID();
                             final String c_comment = com.getComment();
@@ -95,7 +95,7 @@ public class CommentDetail extends AppCompatActivity {
                                                 Log.i("Result","failed");
                                             }
                                         });
-                                        comment = new comment(c_username,"", c_rating, c_comment);
+                                        comment = new comment(c_username,c_userID, c_rating, c_comment);
                                         mDatas.add(comment);
                                         mAdapter.notifyDataSetChanged();
                                     }
@@ -122,6 +122,7 @@ public class CommentDetail extends AppCompatActivity {
 
         }
         else if(type.equals("borrower")){
+            Log.i("test comment","borrower else if ");
             // initial the comment here
             ISBNRef = database.getReference("borrowers/" + commonID).child("RatingAndComment");
             ValueEventListener postListener2 = new ValueEventListener() {
@@ -130,7 +131,6 @@ public class CommentDetail extends AppCompatActivity {
                     if (dataSnapshot2.exists()) {
                         for (DataSnapshot ds : dataSnapshot2.getChildren()) {
                             final RatingAndComment com = ds.getValue(RatingAndComment.class);
-                            RatingAndCommentArrayList.add(com);
                             final String c_rating = com.getRating();
                             final String c_userID = com.getID();
                             final String c_comment = com.getComment();
@@ -165,7 +165,7 @@ public class CommentDetail extends AppCompatActivity {
                                                 Log.i("Result","failed");
                                             }
                                         });
-                                        comment = new comment(c_username,"", c_rating, c_comment);
+                                        comment = new comment(c_username,c_userID, c_rating, c_comment);
                                         mDatas.add(comment);
                                         mAdapter.notifyDataSetChanged();
                                     }
@@ -190,6 +190,7 @@ public class CommentDetail extends AppCompatActivity {
             ISBNRef.addValueEventListener(postListener2);
         }
         else if(type.equals("owner")){
+            Log.i("test comment","owner else if ");
             // initial the comment here
             ISBNRef = database.getReference("lenders/" + commonID).child("RatingAndComment");
             ValueEventListener postListener2 = new ValueEventListener() {
@@ -198,7 +199,7 @@ public class CommentDetail extends AppCompatActivity {
                     if (dataSnapshot2.exists()) {
                         for (DataSnapshot ds : dataSnapshot2.getChildren()) {
                             final RatingAndComment com = ds.getValue(RatingAndComment.class);
-                            RatingAndCommentArrayList.add(com);
+                            //RatingAndCommentArrayList.add(com);
                             final String c_rating = com.getRating();
                             final String c_userID = com.getID();
                             final String c_comment = com.getComment();
@@ -233,7 +234,7 @@ public class CommentDetail extends AppCompatActivity {
                                                 Log.i("Result","failed");
                                             }
                                         });
-                                        comment = new comment(c_username,"", c_rating, c_comment);
+                                        comment = new comment(c_username,c_comment, c_rating, c_comment);
                                         mDatas.add(comment);
                                         mAdapter.notifyDataSetChanged();
                                     }
@@ -265,10 +266,11 @@ public class CommentDetail extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                RatingAndComment c = RatingAndCommentArrayList.get(position);
+                comment c = mDatas.get(position);
                 String uid = c.getID();
                 Intent i = new Intent(CommentDetail.this,SearchingUserDetail.class);
                 i.putExtra("profileID",uid);
+                Log.i("test comment","list view click");
                 startActivity(i);
             }
         });

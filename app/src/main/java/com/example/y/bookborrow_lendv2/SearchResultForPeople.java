@@ -157,15 +157,6 @@ public class SearchResultForPeople extends AppCompatActivity {
         usersRef.addListenerForSingleValueEvent(eventListener);
 
 
-
-
-
-
-
-
-
-
-
         newSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
