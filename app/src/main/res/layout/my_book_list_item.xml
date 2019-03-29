@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/BookName"
+        android:id="@+id/EmailHint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -30,8 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
 
-        android:layout_below="@id/BookName"
-        android:layout_alignLeft="@id/BookName"
+        android:layout_below="@id/EmailHint"
+        android:layout_alignLeft="@id/EmailHint"
         android:text="Rating" />
 
     <TextView

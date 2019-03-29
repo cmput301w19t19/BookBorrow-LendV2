@@ -157,15 +157,6 @@ public class SearchResultForPeople extends AppCompatActivity {
         usersRef.addListenerForSingleValueEvent(eventListener);
 
 
-
-
-
-
-
-
-
-
-
         newSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -186,6 +177,17 @@ public class SearchResultForPeople extends AppCompatActivity {
         users = new ArrayList<>();
         adapter = new SearchPersonAdapter(this, users);
         mResultList.setAdapter(adapter);
+
+        mResultList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                NormalUser u = users.get(position);
+                String uid = u.getUid();
+                Intent i = new Intent(SearchResultForPeople.this,SearchingUserDetail.class);
+                i.putExtra("profileID",uid);
+                startActivity(i);
+            }
+        });
 
 
 
