@@ -24,22 +24,11 @@ public class CommentDetail extends AppCompatActivity {
     private ArrayList<comment> mDatas;
     private CommentAdapter mAdapter;
 
-    /**
-     * The Database.
-     */
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    /**
-     * The Db ref.
-     */
     DatabaseReference DbRef = database.getReference();
     DatabaseReference ISBNRef = database.getReference();
-    /**
-     * The Storage.
-     */
     FirebaseStorage storage = FirebaseStorage.getInstance();
-    /**
-     * The Storage ref.
-     */
     StorageReference storageRef = storage.getReference();
     //private static final File USER_ICON = new File(Environment.getExternalStorageDirectory(), "user_icon.jpg");
     private static final int CODE_PHOTO_REQUEST = 5;

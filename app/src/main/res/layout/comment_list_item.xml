@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/comment_username"
-        android:layout_width="177dp"
+        android:layout_width="149dp"
         android:layout_height="18dp"
         android:layout_marginStart="12dp"
         android:layout_marginLeft="12dp"

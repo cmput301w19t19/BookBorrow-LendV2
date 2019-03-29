@@ -27,7 +27,7 @@
     <string name="borrower_request_view">Borrower Request View</string>
     <string name="request_accept">Request Accept</string>
     <string name="request_unaccept">Watch List</string>
-    <string name="rate_info">"Enter the rate(1 - 10): "</string>
+    <string name="rate_info">"Enter the rate:  "</string>
     <string name="rate_comment">"Enter the comment: "</string>
     <string name="rate_to_owner">Rate To Owner and Book</string>
     <string name="rate_to_borrower">Rate To Borrower</string>
@@ -101,14 +101,13 @@
 
     <string name="RateToOwnerUserName">Missing owner user name!</string>
     <string name="RateToOwnerUserDesciption">Missing user rating!</string>
-    <string name="RateToOwnerUserRatePrompt">A number between 1 and 10</string>
-    <string name="RateToOwnerUserCommentPrompt">Please enter comment about your lender. Is he be on time?Is he be on time?</string>
+    <string name="RateToOwnerUserCommentPrompt">Is he be on time?</string>
     <string name="RateToOwnerBookName">Missing Book Name!</string>
     <string name="RateToOwnerBookISBN">Missing ISBN!</string>
     <string name="RateToOwnerBookAuthor">Missing Author!</string>
-    <string name="RateToOwnerBookComment">Is this book interesting? Do you like it?</string>
+    <string name="RateToOwnerBookComment">Is this book interesting?</string>
     <string name="RateToOwnerUserEmail">Missing lender email!</string>
-    <string name="RateToOwnerCommentPrompt">Please enter a comment for the book owner.Is he on time for lending your book?</string>
+    <string name="RateToOwnerCommentPrompt">Is the lender on time for lending your book?</string>
     <string name="RateToBorrowerName">Missing Borrower Name!</string>
     <string name="RateToBorrowerUserEmail">Missing Borrower email!</string>
     <string name="RateToOwnerSaveButton">save</string>
@@ -117,5 +116,20 @@
     <string name="loginPageHint">Don\'t have an account?</string>
     <string name="registerButton">register</string>
     <string name="signUp">signup</string>
+    <string name="SearchUserDetailEmailHint">Email:</string>
+    <string name="SearchUserDetailUserNameHint">User name:</string>
+    <string name="SearchUserDetailPhoneHint">Phone:</string>
+    <string name="SearchUserDetailAsAOwner">As a owner:</string>
+    <string name="SearchUserDetailAsABorrowerHint">As a borrower:</string>
+    <string name="SearchUserDetailEmail">Missing user email!</string>
+    <string name="SearchUserDetailUserName">Missing user name!</string>
+    <string name="SearchUserDetailBorrowerRating">Missing Rating!</string>
+    <string name="SearchUserDetailLenderRating">Missing!</string>
+    <string name="SearchUserDetailPhoneInput">Missing phone number!</string>
+    <string name="SearchUserDetailLendBookTimeHint">Lend books:</string>
+    <string name="SearchUserDetailLendBookTimeInput">Missing</string>
+    <string name="SearchUserDetailBorrowerBookTimeHint">Borrow books:</string>
+    <string name="SearchUserDetailBorrowBookTimeInput">Missing</string>
     <string name="see_more"><u>see more</u></string>
+    <string name="RateToOwnerUserRatePrompt">1-10</string>
 </resources>

@@ -223,6 +223,8 @@ public class EditBookDetail extends AppCompatActivity {
                 FirebaseUser user = auth.getCurrentUser();
                 DatabaseReference r = FirebaseDatabase.getInstance().getReference();
 
+                String email = user.getEmail();
+                b.setOwnerEmail(email);
                 String uid = user.getUid();
                 b.setOwnerID(uid);
                 r.child("lenders").child(uid).child("MyBookList").child(id).setValue(true);

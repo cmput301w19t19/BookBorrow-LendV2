@@ -94,30 +94,17 @@ public class PrivateBookDetails extends AppCompatActivity {
     private ArrayList<comment> mDatas;
     private CommentAdapter mAdapter;
     private ListView listview;
-    /**
-     * The Database.
-     */
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    /**
-     * The Db ref.
-     */
     DatabaseReference DbRef = database.getReference();
     DatabaseReference ISBNRef = database.getReference();
-    /**
-     * The Storage.
-     */
     FirebaseStorage storage = FirebaseStorage.getInstance();
-    /**
-     * The Storage ref.
-     */
     StorageReference storageRef = storage.getReference();
     //private static final File USER_ICON = new File(Environment.getExternalStorageDirectory(), "user_icon.jpg");
     private static final int CODE_PHOTO_REQUEST = 5;
     private static final int CODE_CAMERA_REQUEST = 6;
     private static final int CODE_PHOTO_CLIP = 7;
-    /**
-     * The Location button.
-     */
+
     Button locationButton;
 
     private String locationCode;
@@ -164,7 +151,6 @@ public class PrivateBookDetails extends AppCompatActivity {
                     ISBN = bookx.getISBN();
                     if (ISBN != null) {
                         ISBNTV.setText(ISBN);
-                        Log.i("testISBN","66666666666");
                     }
 
                     String author = bookx.getAuthor();
