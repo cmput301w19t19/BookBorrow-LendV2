@@ -1,6 +1,8 @@
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -11,22 +13,29 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
 import static android.view.View.GONE;
 
 public class SearchingUserDetail extends AppCompatActivity {
-
-    lender l;
-    borrower b;
-    NormalUser u;
-    String profileID;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
+    private lender l;
+    private borrower b;
+    private NormalUser u;
+    private String profileID;
+    private comment comment;
+    private comment comment1;
 
 
     @Override
@@ -94,7 +103,25 @@ public class SearchingUserDetail extends AppCompatActivity {
                                                 if (dataSnapshot3.exists()){
                                                     final NormalUser n = dataSnapshot3.getValue(NormalUser.class);
                                                     final String c_username = n.getName();
-                                                    comment comment = new comment(c_username,"", c_rating, c_comment);
+                                                    StorageReference imageRef = storageRef.child("user/" + c_userID + "/1.jpg");
+                                                    final long ONE_MEGABYTE = 10 * 1024 * 1024;
+                                                    imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                                        @Override
+                                                        public void onSuccess(byte[] bytes) {
+                                                            Log.i("Result", "success");
+                                                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                                            comment.setPhoto(bitmap);
+
+                                                            lenderCommentAdapter.notifyDataSetChanged();
+                                                        }
+
+                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Log.i("Result", "failed");
+                                                        }
+                                                    });
+                                                    comment = new comment(c_username,"", c_rating, c_comment);
                                                     lenderCommentList.add(comment);
                                                     lenderCommentAdapter.notifyDataSetChanged();
                                                 }
@@ -178,8 +205,26 @@ public class SearchingUserDetail extends AppCompatActivity {
                                                 if (dataSnapshot3.exists()){
                                                     final NormalUser n = dataSnapshot3.getValue(NormalUser.class);
                                                     final String c_username = n.getName();
-                                                    comment comment = new comment(c_username,"", c_rating, c_comment);
-                                                    borrowerCommentList.add(comment);
+                                                    StorageReference imageRef = storageRef.child("user/" + c_userID + "/1.jpg");
+                                                    final long ONE_MEGABYTE = 10 * 1024 * 1024;
+                                                    imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                                        @Override
+                                                        public void onSuccess(byte[] bytes) {
+                                                            Log.i("Result", "success");
+                                                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                                            comment1.setPhoto(bitmap);
+
+                                                            lenderCommentAdapter.notifyDataSetChanged();
+                                                        }
+
+                                                    }).addOnFailureListener(new OnFailureListener() {
+                                                        @Override
+                                                        public void onFailure(@NonNull Exception e) {
+                                                            Log.i("Result", "failed");
+                                                        }
+                                                    });
+                                                    comment1 = new comment(c_username,"", c_rating, c_comment);
+                                                    borrowerCommentList.add(comment1);
                                                     borrowerCommentAdapter.notifyDataSetChanged();
                                                 }
                                             }
