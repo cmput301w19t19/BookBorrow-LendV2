@@ -107,7 +107,7 @@
     <string name="RateToOwnerBookAuthor">Missing Author!</string>
     <string name="RateToOwnerBookComment">Is this book interesting?</string>
     <string name="RateToOwnerUserEmail">Missing lender email!</string>
-    <string name="RateToOwnerCommentPrompt">Is the lender on time for lending your book?</string>
+    <string name="RateToOwnerCommentPrompt">Is the borrower on time?</string>
     <string name="RateToBorrowerName">Missing Borrower Name!</string>
     <string name="RateToBorrowerUserEmail">Missing Borrower email!</string>
     <string name="RateToOwnerSaveButton">save</string>
