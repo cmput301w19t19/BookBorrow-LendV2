@@ -252,6 +252,7 @@ public class loginAct extends AppCompatActivity {
 
 
                             Intent i = new Intent(loginAct.this, home_page.class);
+                            //Intent i = new Intent(loginAct.this,SearchingUserDetail.class);
                             startActivity(i);
 
 

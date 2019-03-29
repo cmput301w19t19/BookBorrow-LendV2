@@ -52,6 +52,7 @@
 
         <Button
             android:id="@+id/ReturnButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -75,14 +76,12 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/searchUserDetailUserName"
+        android:id="@+id/pBookDetialTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:gravity="center"
         android:text="@string/BookDetail"
         android:textSize="24sp"
@@ -101,18 +100,15 @@
         android:layout_marginRight="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchUserDetailUserName">
+        app:layout_constraintTop_toBottomOf="@+id/pBookDetialTitle">
 
         <LinearLayout
             android:id="@+id/LLforImageLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:gravity="start"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/LinearLayoutForInfor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -143,12 +139,15 @@
             android:id="@+id/LinearLayoutForInfor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:gravity="top|start"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/LLforImageLocation"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
@@ -341,8 +340,9 @@
         app:layout_constraintTop_toBottomOf="@+id/LL" />
 
     <ListView
+        android:id="@+id/c_comment"
         android:layout_width="0dp"
-        android:layout_height="83dp"
+        android:layout_height="66dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
@@ -353,6 +353,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/comment" />
+
+    <TextView
+        android:id="@+id/see_more"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center"
+        android:text="@string/see_more"
+        android:textColor="@color/design_default_color_primary"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@+id/c_comment" />
 
 
 </android.support.constraint.ConstraintLayout>

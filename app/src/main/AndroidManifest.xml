@@ -73,6 +73,8 @@
             android:label="@string/title_activity_search"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SearchingUserDetail"></activity>
+        <activity android:name=".PersonDetail" />
+        <activity android:name=".CommentDetail"></activity>
     </application>
 
 </manifest>

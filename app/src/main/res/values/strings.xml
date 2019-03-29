@@ -46,7 +46,7 @@
     <string name="BookDetailEdit">Edit</string>
     <string name="BookDetailShowRequest">Requests</string>
     <string name="BookDetailOwner">Owner</string>
-    <string name="pBookName">Missing book name!</string>
+    <string name="pBookName">Missing borrower name!</string>
     <string name="pBookISBN">Missing ISBN!</string>
     <string name="pBookAuthor">Missing author!</string>
     <string name="pBookStates">Missing States!</string>
@@ -131,4 +131,5 @@
     <string name="SearchUserDetailLendBookTimeInput">Missing</string>
     <string name="SearchUserDetailBorrowerBookTimeHint">Borrow books:</string>
     <string name="SearchUserDetailBorrowBookTimeInput">Missing</string>
+    <string name="see_more"><u>see more</u></string>
 </resources>

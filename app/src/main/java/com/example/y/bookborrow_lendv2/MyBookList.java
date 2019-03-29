@@ -203,7 +203,7 @@ public class MyBookList extends AppCompatActivity {
                 Intent intent = new Intent(MyBookList.this, EditBookDetail.class);
                 intent.putExtra("0", "0");
                 Log.i("testlala","555");
-                startActivityForResult(intent, 0);
+                startActivity(intent);
 
 
             }
@@ -284,6 +284,7 @@ public class MyBookList extends AppCompatActivity {
             public void onClick(View v) {
                 myBookAdapter = new bookAdapter(MyBookList.this, bookList);
                 myBookList.setAdapter(myBookAdapter);
+                books = bookList;
                 Log.i("step","4");
             }
         });
@@ -300,7 +301,8 @@ public class MyBookList extends AppCompatActivity {
                 String bookId = bookItem.getID();
                 Intent intent = new Intent(MyBookList.this, PrivateBookDetails.class);
                 intent.putExtra("Id", bookId);
-                startActivityForResult(intent,2);
+                intent.putExtra("flag","MyBooks");
+                startActivity(intent);
             }
         });
 
@@ -318,7 +320,7 @@ public class MyBookList extends AppCompatActivity {
         Intent intent = new Intent(MyBookList.this,OwnerHomeActivity.class);
         startActivity(intent);
     }
-
+/*
     @Override
     protected void onActivityResult(int requestCode,int resultCode ,Intent data){
         super.onActivityResult(requestCode,resultCode,data);
@@ -374,5 +376,6 @@ public class MyBookList extends AppCompatActivity {
         }
 
     }
+    */
 
 }

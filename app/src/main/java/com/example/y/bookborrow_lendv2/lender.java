@@ -115,7 +115,8 @@ public class lender extends user {
         if (this.totalRate == 0.00000001){
             return "No one lend his lending yet!";
         }
-        return Double.toString(this.totalRate/lendBookTime);
+        String s = String.format("%.2f",this.totalRate/lendBookTime);
+        return s;
     }
 
 

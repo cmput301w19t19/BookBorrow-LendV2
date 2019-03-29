@@ -55,7 +55,7 @@
         tools:context=".PrivateBookDetails">
 
         <TextView
-            android:id="@+id/searchUserDetailUserName"
+            android:id="@+id/pBookDetialTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -81,18 +81,15 @@
             android:layout_marginRight="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/searchUserDetailUserName">
+            app:layout_constraintTop_toBottomOf="@+id/pBookDetialTitle">
 
             <LinearLayout
                 android:id="@+id/LLforImageLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
                 android:gravity="start"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/LinearLayoutForInfor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -123,12 +120,15 @@
                 android:id="@+id/LinearLayoutForInfor"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:gravity="top|start"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/LLforImageLocation"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <LinearLayout
@@ -350,7 +350,7 @@
         <ListView
             android:id="@+id/ListViewForComment"
             android:layout_width="0dp"
-            android:layout_height="83dp"
+            android:layout_height="73dp"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
@@ -366,7 +366,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
@@ -375,8 +374,8 @@
             android:text="@string/BookDetailRequestTheBook"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/puReturnButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ListViewForComment" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/puReturnButton"
@@ -394,6 +393,21 @@
             android:text="Return"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/public_see_more"
+            android:clickable="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="@string/see_more"
+            android:textColor="@color/design_default_color_primary"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/puReturnButton"
+            app:layout_constraintEnd_toEndOf="@id/ListViewForComment" />
 
 
     </android.support.constraint.ConstraintLayout>
