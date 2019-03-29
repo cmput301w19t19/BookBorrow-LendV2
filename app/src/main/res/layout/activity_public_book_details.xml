@@ -374,9 +374,11 @@
             android:text="@string/BookDetailRequestTheBook"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/puReturnButton"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
 
+            app:layout_constraintHorizontal_bias="0.814"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ListViewForComment"
+            app:layout_constraintVertical_bias="1.0" />
         <Button
             android:id="@+id/puReturnButton"
             android:layout_width="180dp"
