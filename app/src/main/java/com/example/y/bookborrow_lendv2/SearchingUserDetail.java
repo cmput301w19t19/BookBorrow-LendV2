@@ -27,6 +27,9 @@ import java.util.ArrayList;
 
 import static android.view.View.GONE;
 
+/**
+ *
+ */
 public class SearchingUserDetail extends AppCompatActivity {
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();

@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +24,7 @@ public class CommentDetail extends AppCompatActivity {
     private String commonID;
     private String type;
     private ArrayList<comment> mDatas;
+    private ArrayList<RatingAndComment> RatingAndCommentArrayList;
     private CommentAdapter mAdapter;
 
 
@@ -53,6 +56,7 @@ public class CommentDetail extends AppCompatActivity {
                     if (dataSnapshot2.exists()) {
                         for (DataSnapshot ds : dataSnapshot2.getChildren()) {
                             final RatingAndComment com = ds.getValue(RatingAndComment.class);
+                            RatingAndCommentArrayList.add(com);
                             final String c_rating = com.getRating();
                             final String c_userID = com.getID();
                             final String c_comment = com.getComment();
@@ -89,6 +93,8 @@ public class CommentDetail extends AppCompatActivity {
                 }
             };
             ISBNRef.addValueEventListener(postListener2);
+
+
         }
         else if(type.equals("borrower")){
             // initial the comment here
@@ -99,6 +105,7 @@ public class CommentDetail extends AppCompatActivity {
                     if (dataSnapshot2.exists()) {
                         for (DataSnapshot ds : dataSnapshot2.getChildren()) {
                             final RatingAndComment com = ds.getValue(RatingAndComment.class);
+                            RatingAndCommentArrayList.add(com);
                             final String c_rating = com.getRating();
                             final String c_userID = com.getID();
                             final String c_comment = com.getComment();
@@ -145,6 +152,7 @@ public class CommentDetail extends AppCompatActivity {
                     if (dataSnapshot2.exists()) {
                         for (DataSnapshot ds : dataSnapshot2.getChildren()) {
                             final RatingAndComment com = ds.getValue(RatingAndComment.class);
+                            RatingAndCommentArrayList.add(com);
                             final String c_rating = com.getRating();
                             final String c_userID = com.getID();
                             final String c_comment = com.getComment();
@@ -186,6 +194,17 @@ public class CommentDetail extends AppCompatActivity {
         mDatas = new ArrayList<comment>();
         mAdapter = new CommentAdapter(this, mDatas);
         listView.setAdapter(mAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                RatingAndComment c = RatingAndCommentArrayList.get(position);
+                String uid = c.getID();
+                Intent i = new Intent(CommentDetail.this,SearchingUserDetail.class);
+                i.putExtra("profileID",uid);
+                startActivity(i);
+            }
+        });
 
 
     }
