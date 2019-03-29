@@ -222,7 +222,7 @@ public class CommentDetail extends AppCompatActivity {
                                                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                                 user.setPhoto(bitmap);
                                                 //mDatas.add(comment);
-                                                comment = new comment(c_username,c_comment, c_rating, c_comment);
+                                                comment = new comment(c_username,c_userID, c_rating, c_comment);
 
                                                 comment.setPhoto(bitmap);
                                                 mDatas.add(comment);
@@ -270,9 +270,11 @@ public class CommentDetail extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 comment c = mDatas.get(position);
                 String uid = c.getID();
+                Log.i("test commentDetail","uid"+uid);
                 Intent i = new Intent(CommentDetail.this,SearchingUserDetail.class);
                 i.putExtra("profileID",uid);
-                Log.i("test comment","list view click");
+                i.putExtra("flag","0");
+                Log.i("profileID","aaa");
                 startActivity(i);
             }
         });

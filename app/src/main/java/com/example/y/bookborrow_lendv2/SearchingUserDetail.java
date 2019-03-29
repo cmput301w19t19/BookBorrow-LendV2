@@ -58,6 +58,7 @@ public class SearchingUserDetail extends AppCompatActivity {
         final TextView userEmailTextView = (TextView)findViewById(R.id.searchUserDetailUserEmailInput);
         final TextView phoneNumberTextView = (TextView)findViewById(R.id.searchUserDetailPhoneInput);
         final ImageView userPhoto = (ImageView) findViewById(R.id.userPhoto);
+
         final TextView lendBookTimeTextView = (TextView)findViewById(R.id.searchUserDetaillendBookTimeINput);
         final TextView lenderRateTextView = (TextView)findViewById(R.id.searchUserDetaiBorrowerRating);
         final TextView lenderSeeMore = (TextView)findViewById(R.id.see_more2);
@@ -74,6 +75,16 @@ public class SearchingUserDetail extends AppCompatActivity {
 
         Intent i = getIntent();
         profileID = i.getStringExtra("profileID");
+        try{
+            String flag = i.getStringExtra("flag");
+            if (flag.equals("0")){
+                borrowerSeeMore.setVisibility(GONE);
+                lenderSeeMore.setVisibility(GONE);
+            }
+        }catch (Exception e){
+
+        }
+        Log.i("test userdetail","profileid"+profileID);
 
         StorageReference imageRef = storageRef.child("user/"+profileID+"/1.jpg");
         final long ONE_MEGABYTE = 10 * 1024 * 1024;
@@ -260,7 +271,7 @@ public class SearchingUserDetail extends AppCompatActivity {
 
                                                             comment1.setPhoto(bitmap);
                                                             borrowerCommentList.add(comment1);
-                                                            lenderCommentAdapter.notifyDataSetChanged();
+                                                            borrowerCommentAdapter.notifyDataSetChanged();
                                                         }
 
                                                     }).addOnFailureListener(new OnFailureListener() {
