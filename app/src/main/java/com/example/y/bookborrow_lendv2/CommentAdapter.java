@@ -106,13 +106,8 @@ public class CommentAdapter extends BaseAdapter{
      */
     private class ViewHolder{
 
-        /**
-         * The user name.
-         */
         TextView userName;
-        /**
-         * The Image.
-         */
+
         ImageView image;
 
         TextView rating;

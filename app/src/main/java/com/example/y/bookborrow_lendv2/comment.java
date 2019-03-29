@@ -59,9 +59,9 @@ public class comment {
      *
      * @return the bitmap
      */
-    public Bitmap getImage(){
-        return this.photo;
-    }
+    //public Bitmap getImage(){
+        //return this.photo;
+    //}
 
     /**
      * get the username of the comment object

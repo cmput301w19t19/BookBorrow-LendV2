@@ -154,7 +154,7 @@ public class RequestToOwner extends AppCompatActivity {
 
                                     //Float b_rating = bor.getBorrowerRating();
                                     // test case
-                                    B_request request = new B_request(b_user, 0.0, userID);
+                                    request = new B_request(b_user, 0.0, userID);
                                     mDatas.add(request);
                                     //Log.i("size",Integer.toString(mDatas.size()));
                                     mAdapter.notifyDataSetChanged();
