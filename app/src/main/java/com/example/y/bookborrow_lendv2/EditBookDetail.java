@@ -25,6 +25,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -65,6 +67,7 @@ import com.google.zxing.integration.android.IntentResult;
  * @see PrivateBookDetails
  */
 public class EditBookDetail extends AppCompatActivity {
+
 
 
     private book b;
@@ -108,6 +111,7 @@ public class EditBookDetail extends AppCompatActivity {
         ISBNEditText = (EditText)findViewById(R.id.pt3);
         descriptionEditText = (EditText)findViewById(R.id.editTextDes);
         bookPhoto = findViewById(R.id.BookPhoto);
+
 
 
         Intent i = getIntent();
@@ -191,6 +195,7 @@ public class EditBookDetail extends AppCompatActivity {
                         .setPrompt("Please Point to QR code")
                         .setCameraId(0) //chose camera
                         .initiateScan();
+
             }
         });
 
@@ -218,6 +223,8 @@ public class EditBookDetail extends AppCompatActivity {
                 FirebaseUser user = auth.getCurrentUser();
                 DatabaseReference r = FirebaseDatabase.getInstance().getReference();
 
+                String email = user.getEmail();
+                b.setOwnerEmail(email);
                 String uid = user.getUid();
                 b.setOwnerID(uid);
                 r.child("lenders").child(uid).child("MyBookList").child(id).setValue(true);
@@ -286,7 +293,5 @@ public class EditBookDetail extends AppCompatActivity {
             }
         }
     }
-
-
 
 }

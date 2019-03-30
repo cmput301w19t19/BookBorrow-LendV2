@@ -59,12 +59,12 @@ public class check_to_scan extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_to_scan);
-        B_status = "borrow";
 
         FirebaseAuth Auth = FirebaseAuth.getInstance();
         FirebaseUser users = Auth.getCurrentUser();
         uid = users.getUid();
         Log.i("start the app", "fuck this bullshit");
+        B_status = "borrow";
 
         Intent intent = getIntent();
         // need the message to know if it is borrower to scan or is owner to scan
@@ -117,7 +117,7 @@ public class check_to_scan extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 new IntentIntegrator(check_to_scan.this)
-                        .setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES)//any type of ISBN
+                        .setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES)//any type of ISBN
                         .setOrientationLocked(true)
                         .setPrompt("Please Point to QR code")
                         .setCameraId(0) //chose camera
@@ -171,6 +171,7 @@ public class check_to_scan extends AppCompatActivity{
                                     if(selectedID != null) {
                                         DbRef = m.getReference("book/" + selectedID);
 
+
                                         ValueEventListener eventListener2 = new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
@@ -207,14 +208,6 @@ public class check_to_scan extends AppCompatActivity{
                                                     if (bookStatus.equals("accepted") && BookfirstScanned.equals("false")) {
                                                         DbRef = m.getReference("book");
                                                         // set the checkmate to true
-                                                        DbRef.child(selectedID).child("firstScanned").setValue("true");
-                                                    } else {
-                                                        Toast.makeText(check_to_scan.this, "The Book is not ready to scan yet", Toast.LENGTH_LONG).show();
-                                                    }
-                                                } else if (B_status.equals("return") && user.equals("borrower")) {
-                                                    if (bookStatus.equals("borrowed") && BookfirstScanned.equals("false")) {
-                                                        DbRef = m.getReference("book");
-                                                        // set the checkmate to false
                                                         DbRef.child(selectedID).child("firstScanned").setValue("true");
                                                     } else {
                                                         Toast.makeText(check_to_scan.this, "The Book is not ready to scan yet", Toast.LENGTH_LONG).show();
@@ -269,7 +262,6 @@ public class check_to_scan extends AppCompatActivity{
                                                 }
                                             }
 
-
                                             @Override
                                             public void onCancelled(@NonNull DatabaseError databaseError2) {
                                                 Log.w("loadPost:onCancelled", databaseError2.toException());
@@ -297,11 +289,6 @@ public class check_to_scan extends AppCompatActivity{
                 };
                 dbHolder.addListenerForSingleValueEvent(eventListener);
             }
-
-
-
-
-
         }
     }
 }

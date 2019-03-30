@@ -36,6 +36,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -102,7 +103,8 @@ public class SearchResultForPeople extends AppCompatActivity {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Boolean found;
+                Boolean found1;
+                Boolean found2;
                 // String search = "Elements";
                 //String search = Keyword;
 
@@ -111,9 +113,11 @@ public class SearchResultForPeople extends AppCompatActivity {
 
                     final NormalUser user = ds.getValue(NormalUser.class);
                     String userName = user.getName();
-                    if (userName != null) {
-                        found = userName.contains(Keyword);
-                        if (found) {
+                    String userEmail = user.getEmail();
+                    if (userName != null && userEmail != null) {
+                        found1 = userName.contains(Keyword);
+                        found2 = userEmail.contains(Keyword);
+                        if (found1 || found2) {
                             String id = user.getUid();
                             StorageReference imageRef = storageRef.child("user/" + id + "/1.jpg");
                             final long ONE_MEGABYTE = 10 * 1024 * 1024;
@@ -144,6 +148,7 @@ public class SearchResultForPeople extends AppCompatActivity {
 
 
 
+
                     String size = Integer.toString(users.size());
                     adapter.notifyDataSetChanged();
                 }
@@ -154,15 +159,6 @@ public class SearchResultForPeople extends AppCompatActivity {
             }
         };
         usersRef.addListenerForSingleValueEvent(eventListener);
-
-
-
-
-
-
-
-
-
 
 
         newSearch.setOnClickListener(new View.OnClickListener() {
@@ -186,6 +182,24 @@ public class SearchResultForPeople extends AppCompatActivity {
         adapter = new SearchPersonAdapter(this, users);
         mResultList.setAdapter(adapter);
 
+        mResultList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                NormalUser u = users.get(position);
+                String uid = u.getUid();
+                Intent i = new Intent(SearchResultForPeople.this,SearchingUserDetail.class);
+                i.putExtra("profileID",uid);
+                startActivity(i);
+            }
+        });
+
+
+
+    }
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(SearchResultForPeople.this,Search.class);
+        startActivity(intent);
     }
 
 

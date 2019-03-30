@@ -159,6 +159,7 @@ public class profile extends AppCompatActivity {
                     public void onSuccess(byte[] bytes) {
                         Log.i("Result","success");
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                        photo = bitmap;
                         portrait.setImageBitmap(bitmap);
                         currentU.setPhoto(bitmap);
                         currentB.setPhoto(bitmap);
@@ -171,8 +172,6 @@ public class profile extends AppCompatActivity {
                         Log.i("Result","failed");
                     }
                 });
-
-                // ...
             }
 
             @Override

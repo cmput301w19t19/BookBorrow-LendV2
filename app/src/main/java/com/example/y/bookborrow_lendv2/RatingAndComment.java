@@ -28,7 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 public class RatingAndComment {
     private String ID;
-    private Double rating;
+    private String rating;
     private String comment = null;
 
     /**
@@ -52,12 +52,12 @@ public class RatingAndComment {
         if (borrowerRating < 0 || borrowerRating >10){
             return false;
         }
-        this.rating = borrowerRating;
+        this.rating = Double.toString(borrowerRating);
         return true;
     }
 
     public String getRating() {
-        return Double.toString(rating);
+        return rating;
     }
 
     public void setComment(String comment) {

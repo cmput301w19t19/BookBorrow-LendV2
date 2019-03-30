@@ -207,7 +207,8 @@ public class borrower extends user {
         if (this.totalRate == 0.00000001){
             return "No one rate borrowring yet!";
         }
-        return Double.toString(this.totalRate/this.borrowBookTime);
+        String s = String.format("%.2f",this.totalRate/this.borrowBookTime);
+        return s;
     }
 
     /**

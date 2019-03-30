@@ -210,6 +210,11 @@ public class SearchResultForBook extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(SearchResultForBook.this,Search.class);
+        startActivity(intent);
+    }
 /*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){

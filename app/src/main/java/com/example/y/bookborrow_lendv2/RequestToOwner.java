@@ -154,7 +154,7 @@ public class RequestToOwner extends AppCompatActivity {
 
                                     //Float b_rating = bor.getBorrowerRating();
                                     // test case
-                                    B_request request = new B_request(b_user, 0.0, userID);
+                                    request = new B_request(b_user, 0.0, userID);
                                     mDatas.add(request);
                                     //Log.i("size",Integer.toString(mDatas.size()));
                                     mAdapter.notifyDataSetChanged();
@@ -220,7 +220,6 @@ public class RequestToOwner extends AppCompatActivity {
         dbBorrower = m.getReference();
 
         // accept the chosen request
-        //////////////////////////////////////////need         change//////////////////////////////////////////////////////////////////
         accept.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -237,10 +236,15 @@ public class RequestToOwner extends AppCompatActivity {
                             mDatas.get(i).selected = true;
                         }
                         deleteRequest(mDatas, dbBorrower, dbHolder, book_ID);
+                        //mAdapter.notifyDataSetChanged();
+                        //refresh();
+                        //Intent i = new Intent(RequestToOwner.this,PrivateBookDetails.class);
+                        //startActivity(i);
                         mAdapter.notifyDataSetChanged();
                         setContentView(R.layout.activity_request_to_owner);
 
                         //Log.i("Sucess", mDatas.get(j).getUserID());
+                        ///////////////////////////////////////////////////need to intend to map/////////////////////////////////////////
                     }
                 }
             }
@@ -262,12 +266,14 @@ public class RequestToOwner extends AppCompatActivity {
                 setContentView(R.layout.activity_request_to_owner);
 
                 mAdapter.notifyDataSetChanged();
+                //refresh();
             }
         });
 
 
 
     }
+
 
     private void initView(){
         listview = (ListView) findViewById(R.id.requestList);
@@ -302,6 +308,8 @@ public class RequestToOwner extends AppCompatActivity {
             }
         }
         mAdapter.notifyDataSetChanged();
+
+
     }
 
     /**

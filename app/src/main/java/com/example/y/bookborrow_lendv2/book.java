@@ -71,6 +71,8 @@ public class book {
     private FirebaseDatabase m;
     private DatabaseReference r;
     private String firstScanned = "false";
+    private String ownerEmail = null;
+
 
     private Map<String, Boolean> requestList;
 
@@ -162,6 +164,7 @@ public class book {
         r.child("ownerID").setValue(this.ownerID);
         r.child("status").setValue(this.status);
         r.child("firstScanned").setValue(this.firstScanned);
+        r.child("ownerEmail").setValue(this.ownerEmail);
     }
 
     /**
@@ -181,6 +184,9 @@ public class book {
      */
     public String getID(){return this.ID.toString();}
 
+    public void setOwnerEmail(String email){this.ownerEmail = email;}
+
+    public String getOwnerEmail(){return this.ownerEmail;}
 
     /**
      * this method set a array of books that are requested by users except owner
