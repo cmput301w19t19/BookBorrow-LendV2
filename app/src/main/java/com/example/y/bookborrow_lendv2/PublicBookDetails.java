@@ -170,6 +170,11 @@ public class PublicBookDetails extends AppCompatActivity {
                     String rate = b.getBookRating();
                     bookRateTV.setText(rate);
 
+                    String email = b.getOwnerEmail();
+                    if (email != null){
+                        bookAuthorTV.setText(email);
+                    }
+
                     String description = b.getDescription();
                     if (description != null) {
                         bookDescriptionTV.setText(description);

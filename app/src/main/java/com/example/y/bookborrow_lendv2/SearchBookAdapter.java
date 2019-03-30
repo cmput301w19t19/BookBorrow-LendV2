@@ -114,7 +114,7 @@ public class SearchBookAdapter extends BaseAdapter {
         book book = myBook.get(position);
         holder.bookName.setText(book.getName());
         holder.status.setText(book.getStatus());
-        holder.owner.setText(book.getOwnerID());
+        holder.owner.setText(book.getOwnerEmail());
         holder.image.setImageBitmap(book.getImage());
         holder.description.setText(book.getDescription());
         return convertView;
