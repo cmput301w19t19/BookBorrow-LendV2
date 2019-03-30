@@ -103,7 +103,8 @@ public class SearchResultForPeople extends AppCompatActivity {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Boolean found;
+                Boolean found1;
+                Boolean found2;
                 // String search = "Elements";
                 //String search = Keyword;
 
@@ -112,9 +113,11 @@ public class SearchResultForPeople extends AppCompatActivity {
 
                     final NormalUser user = ds.getValue(NormalUser.class);
                     String userName = user.getName();
-                    if (userName != null) {
-                        found = userName.contains(Keyword);
-                        if (found) {
+                    String userEmail = user.getEmail();
+                    if (userName != null && userEmail != null) {
+                        found1 = userName.contains(Keyword);
+                        found2 = userEmail.contains(Keyword);
+                        if (found1 || found2) {
                             String id = user.getUid();
                             StorageReference imageRef = storageRef.child("user/" + id + "/1.jpg");
                             final long ONE_MEGABYTE = 10 * 1024 * 1024;
@@ -145,6 +148,7 @@ public class SearchResultForPeople extends AppCompatActivity {
 
 
 
+
                     String size = Integer.toString(users.size());
                     adapter.notifyDataSetChanged();
                 }
@@ -155,15 +159,6 @@ public class SearchResultForPeople extends AppCompatActivity {
             }
         };
         usersRef.addListenerForSingleValueEvent(eventListener);
-
-
-
-
-
-
-
-
-
 
 
         newSearch.setOnClickListener(new View.OnClickListener() {
@@ -200,6 +195,11 @@ public class SearchResultForPeople extends AppCompatActivity {
 
 
 
+    }
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(SearchResultForPeople.this,Search.class);
+        startActivity(intent);
     }
 
 

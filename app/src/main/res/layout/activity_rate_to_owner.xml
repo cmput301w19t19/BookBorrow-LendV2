@@ -68,8 +68,8 @@
 
             <ImageView
                 android:id="@+id/Owner_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 app:srcCompat="@mipmap/ic_launcher"
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="81dp" />
@@ -108,7 +108,8 @@
             android:id="@+id/LLLenderRating"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="4dp">
 
             <TextView
                 android:id="@+id/Owner_rate_text"
@@ -164,7 +165,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:orientation="vertical"
@@ -181,8 +182,8 @@
 
             <ImageView
                 android:id="@+id/Book_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
                 app:srcCompat="@mipmap/ic_launcher"
                 tools:layout_editor_absoluteX="16dp"
                 tools:layout_editor_absoluteY="303dp" />
@@ -198,8 +199,8 @@
                     android:id="@+id/Book_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/RateToOwnerBookName"
                     android:layout_weight="1"
+                    android:text="@string/RateToOwnerBookName"
                     tools:layout_editor_absoluteX="106dp"
                     tools:layout_editor_absoluteY="303dp" />
 
@@ -207,8 +208,8 @@
                     android:id="@+id/Book_author"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/RateToOwnerBookAuthor"
                     android:layout_weight="1"
+                    android:text="@string/RateToOwnerBookAuthor"
                     tools:layout_editor_absoluteX="106dp"
                     tools:layout_editor_absoluteY="330dp" />
 
@@ -216,8 +217,8 @@
                     android:id="@+id/Book_ISBN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/RateToOwnerBookISBN"
                     android:layout_weight="1"
+                    android:text="@string/RateToOwnerBookISBN"
                     tools:layout_editor_absoluteX="106dp"
                     tools:layout_editor_absoluteY="357dp" />
             </LinearLayout>
@@ -227,7 +228,8 @@
             android:id="@+id/LLBookRating"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="4dp">
 
             <TextView
                 android:id="@+id/Book_rate_text"
@@ -284,13 +286,13 @@
 
     <Button
         android:id="@+id/RateToOwnerSaveButton"
-        android:layout_width="307dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
-        android:layout_marginLeft="161dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="161dp"
-        android:layout_marginRight="161dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
         android:backgroundTint="@android:color/white"
         android:text="@string/RateToOwnerSaveButton"
         app:layout_constraintEnd_toEndOf="parent"

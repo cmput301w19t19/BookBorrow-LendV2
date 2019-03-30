@@ -73,6 +73,7 @@ public class book {
     private String firstScanned = "false";
     private String ownerEmail = null;
 
+
     private Map<String, Boolean> requestList;
 
 
@@ -185,7 +186,7 @@ public class book {
 
     public void setOwnerEmail(String email){this.ownerEmail = email;}
 
-    public String getOwnerEmail(String email){return this.ownerEmail;}
+    public String getOwnerEmail(){return this.ownerEmail;}
 
     /**
      * this method set a array of books that are requested by users except owner

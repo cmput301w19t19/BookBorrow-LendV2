@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,6 +28,16 @@ import java.util.ArrayList;
 
 import static android.view.View.GONE;
 
+/**
+ *  This class display user basic infor,
+ *  the rate and commment the user recieved as a lender and
+ *  the rate and comment the user recieved as a borrower.
+ *  The class will be invoked when user try to see detail inform after done searching for people.
+ *  The class will allow users to see more comments if the number of comments are more than 1
+ *  @see CommentDetail
+ *  @see SearchResultForPeople
+ *
+ */
 public class SearchingUserDetail extends AppCompatActivity {
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
@@ -46,6 +57,7 @@ public class SearchingUserDetail extends AppCompatActivity {
         final TextView userNameTextView = (TextView)findViewById(R.id.pBookDetialTitle);
         final TextView userEmailTextView = (TextView)findViewById(R.id.searchUserDetailUserEmailInput);
         final TextView phoneNumberTextView = (TextView)findViewById(R.id.searchUserDetailPhoneInput);
+        final ImageView userPhoto = (ImageView) findViewById(R.id.userPhoto);
 
         final TextView lendBookTimeTextView = (TextView)findViewById(R.id.searchUserDetaillendBookTimeINput);
         final TextView lenderRateTextView = (TextView)findViewById(R.id.searchUserDetaiBorrowerRating);
@@ -61,12 +73,36 @@ public class SearchingUserDetail extends AppCompatActivity {
         final ArrayList<comment> borrowerCommentList = new ArrayList<>();
         final CommentAdapter borrowerCommentAdapter = new CommentAdapter(this,borrowerCommentList);
 
-
-
         Intent i = getIntent();
         profileID = i.getStringExtra("profileID");
+        try{
+            String flag = i.getStringExtra("flag");
+            if (flag.equals("0")){
+                borrowerSeeMore.setVisibility(GONE);
+                lenderSeeMore.setVisibility(GONE);
+            }
+        }catch (Exception e){
 
-        //profileID = "TUM3OMZKJuch4R3qj7a6oYi1WeO2";
+        }
+        Log.i("test userdetail","profileid"+profileID);
+
+        StorageReference imageRef = storageRef.child("user/"+profileID+"/1.jpg");
+        final long ONE_MEGABYTE = 10 * 1024 * 1024;
+        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Log.i("Result","success");
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                userPhoto.setImageBitmap(bitmap);
+            }
+
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i("Result","failed");
+            }
+        });
+
 
         // get lender infor from firebase
         final DatabaseReference r1 = FirebaseDatabase.getInstance().getReference("lenders/"+profileID);
@@ -77,6 +113,8 @@ public class SearchingUserDetail extends AppCompatActivity {
                     l = dataSnapshot.getValue(lender.class);
                     Integer lendBookTime = l.getLendBookTime();
 
+                    //show the listview if there is at least a comment
+                    //show the see more if there is more than one comment
                     if (lendBookTime != 0){
                         lendBookTimeTextView.setText(Integer.toString(lendBookTime));
                         lenderRateTextView.setText(l.getLenderRating());
@@ -85,7 +123,7 @@ public class SearchingUserDetail extends AppCompatActivity {
                             lenderSeeMore.setVisibility(GONE);
                         }
 
-
+                        // get comment item from the firebase
                         ValueEventListener lenderCommentListern = new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
@@ -95,6 +133,8 @@ public class SearchingUserDetail extends AppCompatActivity {
                                         final String c_rating = com.getRating();
                                         final String c_userID = com.getID();
                                         final String c_comment = com.getComment();
+
+                                        // get commenter's username
                                         FirebaseDatabase o = FirebaseDatabase.getInstance();
                                         DatabaseReference userRef = o.getReference("users/" + c_userID);
                                         ValueEventListener photoListern = new ValueEventListener() {
@@ -103,6 +143,12 @@ public class SearchingUserDetail extends AppCompatActivity {
                                                 if (dataSnapshot3.exists()){
                                                     final NormalUser n = dataSnapshot3.getValue(NormalUser.class);
                                                     final String c_username = n.getName();
+
+                                                    //comment = new comment(c_username,"", c_rating, c_comment);
+                                                    //lenderCommentList.add(comment);
+                                                    lenderCommentAdapter.notifyDataSetChanged();
+
+                                                    //get commenter's photo
                                                     StorageReference imageRef = storageRef.child("user/" + c_userID + "/1.jpg");
                                                     final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                                     imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -110,8 +156,9 @@ public class SearchingUserDetail extends AppCompatActivity {
                                                         public void onSuccess(byte[] bytes) {
                                                             Log.i("Result", "success");
                                                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                                            comment = new comment(c_username,"", c_rating, c_comment);
                                                             comment.setPhoto(bitmap);
-
+                                                            lenderCommentList.add(comment);
                                                             lenderCommentAdapter.notifyDataSetChanged();
                                                         }
 
@@ -121,9 +168,6 @@ public class SearchingUserDetail extends AppCompatActivity {
                                                             Log.i("Result", "failed");
                                                         }
                                                     });
-                                                    comment = new comment(c_username,"", c_rating, c_comment);
-                                                    lenderCommentList.add(comment);
-                                                    lenderCommentAdapter.notifyDataSetChanged();
                                                 }
                                             }
                                             @Override
@@ -142,13 +186,14 @@ public class SearchingUserDetail extends AppCompatActivity {
                         };
                         commentR1.addListenerForSingleValueEvent(lenderCommentListern);
 
+                        // if there is no comment, do not show see more and list view
                     }else{
                         lenderRateTextView.setText("has not lent any book yet!");
                         lenderSeeMore.setVisibility(GONE);
+                        lenderListView.setVisibility(GONE);
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -163,6 +208,7 @@ public class SearchingUserDetail extends AppCompatActivity {
                 Intent intent = new Intent(SearchingUserDetail.this, CommentDetail.class);
                 intent.putExtra("id",profileID);
                 intent.putExtra("type","owner");
+                Log.i("test searchingUser","borrower see more click");
                 startActivity(intent);
             }
         });
@@ -175,17 +221,23 @@ public class SearchingUserDetail extends AppCompatActivity {
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()){
                     b = dataSnapshot.getValue(borrower.class);
-
                     Integer borrowBookTime = b.getborrowBookTime();
+
+                    //show the listview if there is at least a comment
+                    //show the see more if there is more than one comment
                     if (borrowBookTime == 0){
                         borrowBookTimeTextView.setText("Has not borrowed any book yet!");
-                        lenderSeeMore.setVisibility(GONE);
+                        borrowerSeeMore.setVisibility(GONE);
+                        borrowerListView.setVisibility(GONE);
+
                     }else{
                         if(borrowBookTime == 1){
-                            lenderSeeMore.setVisibility(GONE);
+                            borrowerSeeMore.setVisibility(GONE);
                         }
                         borrowBookTimeTextView.setText(Integer.toString(borrowBookTime));
                         borrowRateTextView.setText(b.getBorrowerRating());
+
+                        // get comment item from the firebase
                         DatabaseReference commentR2 =r2.child("RatingAndComment");
                         ValueEventListener photoListner = new ValueEventListener() {
                             @Override
@@ -199,12 +251,15 @@ public class SearchingUserDetail extends AppCompatActivity {
                                         FirebaseDatabase o = FirebaseDatabase.getInstance();
                                         DatabaseReference userRef = o.getReference("users/" + c_userID);
 
+                                        // get commenter's username
                                         ValueEventListener photoListern = new ValueEventListener() {
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot3) {
                                                 if (dataSnapshot3.exists()){
                                                     final NormalUser n = dataSnapshot3.getValue(NormalUser.class);
                                                     final String c_username = n.getName();
+
+                                                    // get commenter's photo
                                                     StorageReference imageRef = storageRef.child("user/" + c_userID + "/1.jpg");
                                                     final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                                     imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -212,9 +267,11 @@ public class SearchingUserDetail extends AppCompatActivity {
                                                         public void onSuccess(byte[] bytes) {
                                                             Log.i("Result", "success");
                                                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                                                            comment1.setPhoto(bitmap);
+                                                            comment1 = new comment(c_username,"", c_rating, c_comment);
 
-                                                            lenderCommentAdapter.notifyDataSetChanged();
+                                                            comment1.setPhoto(bitmap);
+                                                            borrowerCommentList.add(comment1);
+                                                            borrowerCommentAdapter.notifyDataSetChanged();
                                                         }
 
                                                     }).addOnFailureListener(new OnFailureListener() {
@@ -223,8 +280,8 @@ public class SearchingUserDetail extends AppCompatActivity {
                                                             Log.i("Result", "failed");
                                                         }
                                                     });
-                                                    comment1 = new comment(c_username,"", c_rating, c_comment);
-                                                    borrowerCommentList.add(comment1);
+
+
                                                     borrowerCommentAdapter.notifyDataSetChanged();
                                                 }
                                             }
@@ -258,6 +315,7 @@ public class SearchingUserDetail extends AppCompatActivity {
         r2.addListenerForSingleValueEvent(borrowerListern);
         borrowerListView.setAdapter(borrowerCommentAdapter);
 
+        // get user basic infor from firebase
         DatabaseReference r3 = FirebaseDatabase.getInstance().getReference("users/"+profileID);
         ValueEventListener userListern = new ValueEventListener() {
             @Override
@@ -300,7 +358,9 @@ public class SearchingUserDetail extends AppCompatActivity {
                 Intent intent = new Intent(SearchingUserDetail.this, CommentDetail.class);
                 intent.putExtra("id",profileID);
                 intent.putExtra("type","borrower");
+                Log.i("test searchingUser","borrower see more click");
                 startActivity(intent);
+
             }
         });
 

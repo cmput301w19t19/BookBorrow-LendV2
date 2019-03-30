@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,6 +28,7 @@ public class CommentDetail extends AppCompatActivity {
     private String commonID;
     private String type;
     private ArrayList<comment> mDatas;
+    private ArrayList<RatingAndComment> RatingAndCommentArrayList;
     private CommentAdapter mAdapter;
     private comment comment;
 
@@ -38,6 +41,7 @@ public class CommentDetail extends AppCompatActivity {
     private static final int CODE_PHOTO_REQUEST = 5;
     private static final int CODE_CAMERA_REQUEST = 6;
     private static final int CODE_PHOTO_CLIP = 7;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +74,7 @@ public class CommentDetail extends AppCompatActivity {
                                         final String c_username = user.getName();
                                         Log.i("testUname",c_username);
                                         //add the image
-                                        StorageReference imageRef = storageRef.child("book/"+c_userID+"/1.jpg");
+                                        StorageReference imageRef = storageRef.child("user/"+c_userID+"/1.jpg");
                                         final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                         imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                             @Override
@@ -78,9 +82,9 @@ public class CommentDetail extends AppCompatActivity {
                                                 Log.i("step","success1");
                                                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                                 user.setPhoto(bitmap);
-
+                                                comment = new comment(c_username,c_userID, c_rating, c_comment);
                                                 comment.setPhoto(bitmap);
-
+                                                mDatas.add(comment);
                                                 mAdapter.notifyDataSetChanged();
                                                 //bookPhoto.setImageBitmap(bitmap);
                                             }
@@ -91,8 +95,8 @@ public class CommentDetail extends AppCompatActivity {
                                                 Log.i("Result","failed");
                                             }
                                         });
-                                        comment = new comment(c_username,"", c_rating, c_comment);
-                                        mDatas.add(comment);
+                                        //comment = new comment(c_username,c_userID, c_rating, c_comment);
+                                        //mDatas.add(comment);
                                         mAdapter.notifyDataSetChanged();
                                     }
                                 }
@@ -114,8 +118,11 @@ public class CommentDetail extends AppCompatActivity {
                 }
             };
             ISBNRef.addValueEventListener(postListener2);
+
+
         }
         else if(type.equals("borrower")){
+            Log.i("test comment","borrower else if ");
             // initial the comment here
             ISBNRef = database.getReference("borrowers/" + commonID).child("RatingAndComment");
             ValueEventListener postListener2 = new ValueEventListener() {
@@ -137,7 +144,7 @@ public class CommentDetail extends AppCompatActivity {
                                         final String c_username = user.getName();
                                         Log.i("testUname",c_username);
                                         // need to add the image
-                                        StorageReference imageRef = storageRef.child("book/"+c_userID+"/1.jpg");
+                                        StorageReference imageRef = storageRef.child("user/"+c_userID+"/1.jpg");
                                         final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                         imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                             @Override
@@ -145,9 +152,9 @@ public class CommentDetail extends AppCompatActivity {
                                                 Log.i("step","success1");
                                                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                                 user.setPhoto(bitmap);
-
+                                                comment = new comment(c_username,c_userID, c_rating, c_comment);
                                                 comment.setPhoto(bitmap);
-
+                                                mDatas.add(comment);
                                                 mAdapter.notifyDataSetChanged();
                                                 //bookPhoto.setImageBitmap(bitmap);
                                             }
@@ -158,8 +165,8 @@ public class CommentDetail extends AppCompatActivity {
                                                 Log.i("Result","failed");
                                             }
                                         });
-                                        comment = new comment(c_username,"", c_rating, c_comment);
-                                        mDatas.add(comment);
+                                        //comment = new comment(c_username,c_userID, c_rating, c_comment);
+                                        //mDatas.add(comment);
                                         mAdapter.notifyDataSetChanged();
                                     }
                                 }
@@ -183,6 +190,7 @@ public class CommentDetail extends AppCompatActivity {
             ISBNRef.addValueEventListener(postListener2);
         }
         else if(type.equals("owner")){
+            Log.i("test comment","owner else if ");
             // initial the comment here
             ISBNRef = database.getReference("lenders/" + commonID).child("RatingAndComment");
             ValueEventListener postListener2 = new ValueEventListener() {
@@ -191,6 +199,7 @@ public class CommentDetail extends AppCompatActivity {
                     if (dataSnapshot2.exists()) {
                         for (DataSnapshot ds : dataSnapshot2.getChildren()) {
                             final RatingAndComment com = ds.getValue(RatingAndComment.class);
+                            //RatingAndCommentArrayList.add(com);
                             final String c_rating = com.getRating();
                             final String c_userID = com.getID();
                             final String c_comment = com.getComment();
@@ -204,7 +213,7 @@ public class CommentDetail extends AppCompatActivity {
                                         final String c_username = user.getName();
                                         Log.i("testUname",c_username);
                                         // need to add the image
-                                        StorageReference imageRef = storageRef.child("book/"+c_userID+"/1.jpg");
+                                        StorageReference imageRef = storageRef.child("user/"+c_userID+"/1.jpg");
                                         final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                         imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                             @Override
@@ -212,9 +221,11 @@ public class CommentDetail extends AppCompatActivity {
                                                 Log.i("step","success1");
                                                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                                 user.setPhoto(bitmap);
+                                                //mDatas.add(comment);
+                                                comment = new comment(c_username,c_userID, c_rating, c_comment);
 
                                                 comment.setPhoto(bitmap);
-
+                                                mDatas.add(comment);
                                                 mAdapter.notifyDataSetChanged();
                                                 //bookPhoto.setImageBitmap(bitmap);
                                             }
@@ -225,8 +236,8 @@ public class CommentDetail extends AppCompatActivity {
                                                 Log.i("Result","failed");
                                             }
                                         });
-                                        comment = new comment(c_username,"", c_rating, c_comment);
-                                        mDatas.add(comment);
+                                        //comment = new comment(c_username,c_comment, c_rating, c_comment);
+                                        //mDatas.add(comment);
                                         mAdapter.notifyDataSetChanged();
                                     }
                                 }
@@ -253,6 +264,20 @@ public class CommentDetail extends AppCompatActivity {
         mDatas = new ArrayList<comment>();
         mAdapter = new CommentAdapter(this, mDatas);
         listView.setAdapter(mAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                comment c = mDatas.get(position);
+                String uid = c.getID();
+                Log.i("test commentDetail","uid"+uid);
+                Intent i = new Intent(CommentDetail.this,SearchingUserDetail.class);
+                i.putExtra("profileID",uid);
+                i.putExtra("flag","0");
+                Log.i("profileID","aaa");
+                startActivity(i);
+            }
+        });
 
 
     }

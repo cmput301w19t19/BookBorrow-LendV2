@@ -372,6 +372,7 @@
             android:paddingLeft="4dp"
             android:paddingBottom="4dp"
             android:text="@string/BookDetailRequestTheBook"
+            android:backgroundTint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/puReturnButton"
 
@@ -393,6 +394,7 @@
             android:paddingRight="8dp"
             android:paddingBottom="8dp"
             android:text="Return"
+            android:backgroundTint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

@@ -199,7 +199,7 @@ public class RateToOwner extends AppCompatActivity {
                                 if (userName != null){
                                     ownerUserNameTextView.setText(userName);
                                 }
-                                StorageReference imageRef = storageRef.child("user/"+uid+"/1.jpg");
+                                StorageReference imageRef = storageRef.child("user/"+lenderUid+"/1.jpg");
                                 final long ONE_MEGABYTE = 1024 * 1024;
                                 imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                     @Override
