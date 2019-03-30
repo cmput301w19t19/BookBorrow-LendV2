@@ -137,8 +137,9 @@ public class ViewRequests extends AppCompatActivity {
                                             Log.i("step","success1");
                                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                             targetBook.setImage(bitmap);
-                                            bookList.add(targetBook);
+                                            //bookList.add(targetBook);
                                             myBookAdapter.notifyDataSetChanged();
+
                                             //bookPhoto.setImageBitmap(bitmap);
                                         }
 
@@ -149,7 +150,6 @@ public class ViewRequests extends AppCompatActivity {
                                         }
                                     });
                                     bookList.add(targetBook);
-                                    Log.i("testnn","444"+Integer.toString(bookList.size()));
 
                                 }
                             }
