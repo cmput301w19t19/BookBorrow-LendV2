@@ -134,13 +134,9 @@ public class BorrowerRequestAdapter extends BaseAdapter {
      */
     private class ViewHolder{
 
-        /**
-         * The Book name.
-         */
+
         TextView bookName;
-        /**
-         * The Image.
-         */
+
         ImageView image;
 
         TextView rating;

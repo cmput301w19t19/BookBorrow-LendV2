@@ -49,7 +49,7 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
     LocationListener locationListener;
     book b;
 
-    //#################
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

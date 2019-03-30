@@ -69,25 +69,15 @@ public class profile extends AppCompatActivity {
     private TextView inputEmail,uneditableUserName;
     private EditText inputUserName, inputPhone,inputMessage;
     private Bitmap photo;
-    /**
-     * The Database.
-     */
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    /**
-     * The Db ref.
-     */
+
     DatabaseReference dbRef = database.getReference();
-    /**
-     * The Db ref.
-     */
+
     DatabaseReference DbRef = database.getReference();
-    /**
-     * The Borrower ref.
-     */
+
     DatabaseReference borrowerRef = database.getReference();
-    /**
-     * The Lender ref.
-     */
+
     DatabaseReference lenderRef = database.getReference();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
