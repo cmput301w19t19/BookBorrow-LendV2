@@ -139,6 +139,7 @@ public class ViewRequests extends AppCompatActivity {
                                             targetBook.setImage(bitmap);
                                             //bookList.add(targetBook);
                                             myBookAdapter.notifyDataSetChanged();
+
                                             //bookPhoto.setImageBitmap(bitmap);
                                         }
 
@@ -149,7 +150,6 @@ public class ViewRequests extends AppCompatActivity {
                                         }
                                     });
                                     bookList.add(targetBook);
-                                    Log.i("testnn","444"+Integer.toString(bookList.size()));
 
                                 }
                             }
@@ -184,14 +184,15 @@ public class ViewRequests extends AppCompatActivity {
                 String clickedBookId = bookIDList.get(position);
                 Toast.makeText(ViewRequests.this,bookItem.getAuthor(),Toast.LENGTH_SHORT).show();
                 String bookId = bookItem.getID();
+                //记得把ViewRequests 里的OnItemCliskListener 点过的 request 的checkByOwner 改成 true，就没有小红点
+                dbRef = database.getReference("lenders").child(uid).child("ListOfNewRequests").child(clickedBookId).
+                        child("checkedByOwner");
+                dbRef.setValue("true");
                 Intent intent = new Intent(ViewRequests.this, PrivateBookDetails.class);
                 intent.putExtra("Id", bookId);
                 intent.putExtra("flag","View");
 
-                //记得把ViewRequests 里的OnItemCliskListener 点过的 request 的checkByOwner 改成 true，就没有小红点
-                dbRef = database.getReference("lenders").child(uid).child("ListOfNewRequests").child(clickedBookId).
-                child("checkedByOwner");
-                dbRef.setValue("true");
+
 
 
                 startActivity(intent);

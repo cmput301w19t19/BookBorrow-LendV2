@@ -89,7 +89,7 @@ public class BorrowBookList extends AppCompatActivity {
                 book bookItem = borrowedBooks.get(position);
                 String bookId = bookItem.getID();
                 Intent intent = new Intent(BorrowBookList.this, PublicBookDetails.class);
-                intent.putExtra("ID",bookId);
+                intent.putExtra("Id",bookId);
                 startActivity(intent);
 
             }

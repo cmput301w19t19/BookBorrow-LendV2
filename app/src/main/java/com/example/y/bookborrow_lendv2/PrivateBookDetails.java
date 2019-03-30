@@ -95,6 +95,7 @@ public class PrivateBookDetails extends AppCompatActivity {
     private CommentAdapter mAdapter;
     private ListView listview;
     private comment comment;
+    private Boolean bookExist;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference DbRef = database.getReference();
@@ -141,10 +142,12 @@ public class PrivateBookDetails extends AppCompatActivity {
          */
         FirebaseDatabase m = FirebaseDatabase.getInstance();
         DatabaseReference r = m.getReference("book/"+bookid);
+        bookExist = true;
 
         ValueEventListener bookListner = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               // if (bookExist == true){
                 if (dataSnapshot.exists()) {
                     bookx = dataSnapshot.getValue(book.class);
                     bookDetailTV.setText(bookx.getName());
@@ -239,9 +242,9 @@ public class PrivateBookDetails extends AppCompatActivity {
                                                         Log.i("step","success1");
                                                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                                         user.setPhoto(bitmap);
-
+                                                        comment = new comment(c_username,"", c_rating, c_comment);
                                                         comment.setPhoto(bitmap);
-
+                                                        mDatas.add(comment);
                                                         mAdapter.notifyDataSetChanged();
                                                         //bookPhoto.setImageBitmap(bitmap);
                                                     }
@@ -252,8 +255,8 @@ public class PrivateBookDetails extends AppCompatActivity {
                                                         Log.i("Result","failed");
                                                     }
                                                 });
-                                                comment = new comment(c_username,"", c_rating, c_comment);
-                                                mDatas.add(comment);
+
+
                                                 mAdapter.notifyDataSetChanged();
                                             }
                                         }
@@ -275,8 +278,8 @@ public class PrivateBookDetails extends AppCompatActivity {
                         }
                     };
                     ISBNRef.addValueEventListener(postListener2);
-                }
-            }
+                }}
+            //}
             public void onCancelled(@NonNull DatabaseError databaseError1) {
                 Log.w("load: OnCancelled", databaseError1.toException());
             }
@@ -315,14 +318,36 @@ public class PrivateBookDetails extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bookx.deleteFromFirebase();
-                auth = FirebaseAuth.getInstance();
-                FirebaseUser user = auth.getCurrentUser();
-                DatabaseReference r = FirebaseDatabase.getInstance().getReference();
-                String uid = user.getUid();
-                r.child("lenders").child(uid).child("MyBookList").child(bookid).setValue(null,null);
-                Intent i = new Intent(PrivateBookDetails.this,MyBookList.class);
-                startActivity(i);
+
+                String status = bookx.getStatus();
+                if (status == "accepted"|| status == "borrowed"){
+                    Log.w("if accepted/borrowed", "accepted/borrowed");
+
+                    Toast.makeText(getApplicationContext(), "Book is borrowed or to be borrowed, can't delete now!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else{
+                    Log.w("else", "start delete");
+                    bookExist =false;
+                    bookx.deleteFromFirebase();
+                    String owner = bookx.getOwnerID();
+                    String bookID = bookx.getID();
+                    DatabaseReference requestRef = database.getReference("lenders").child(owner).child("ListOfNewRequests").child(bookID).
+                            child("checkedByOwner");
+                    requestRef.setValue("true");
+                    //deletetBookRequest(bookx);
+                    Log.w("test", "delete request functionrun");
+
+                    auth = FirebaseAuth.getInstance();
+                    FirebaseUser user = auth.getCurrentUser();
+                    DatabaseReference r = FirebaseDatabase.getInstance().getReference();
+                    String uid = user.getUid();
+                    r.child("lenders").child(uid).child("MyBookList").child(bookid).setValue(null,null);
+                    Intent i = new Intent(PrivateBookDetails.this,MyBookList.class);
+
+                    startActivity(i);
+                }
+
 
             }
         });
@@ -618,6 +643,46 @@ public class PrivateBookDetails extends AppCompatActivity {
 
 
     }
+
+   /** public void deletetBookRequest(book selectedBook){
+        final String ownerID = selectedBook.getOwnerID();
+        final String bookID = selectedBook.getID();
+
+
+
+       final FirebaseDatabase m = FirebaseDatabase.getInstance();
+        DatabaseReference r = m.getReference("lenders/"+ownerID+"/ListOfNewRequests");
+
+        ValueEventListener bookListner = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    final String storedBookID = ds.getKey();
+                    if (storedBookID == bookID){
+                        Log.i("test","if statement");
+
+                        DatabaseReference R = m.getReference("lenders/"+ownerID+"/ListOfNewRequests/"+bookID);
+                        R.removeValue();
+
+
+                    }
+                    else{
+                        Log.i("test","else statement");
+
+                    }
+
+                }
+
+               }
+             @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(),"Fail to delete book request data",Toast.LENGTH_SHORT).show();
+
+            }
+
+    };
+        r.addListenerForSingleValueEvent(bookListner);
+    }*/
 
 
 

@@ -131,7 +131,7 @@ public class MyBookList extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
                             Log.i("test22","hello");
                             final book targetBook = dataSnapshot1.getValue(book.class);
-                            Log.i("testName",targetBook.getName());
+                           // Log.i("testName",targetBook.getName());
                             StorageReference imageRef = storageRef.child("book/"+bookID+"/1.jpg");
                             final long ONE_MEGABYTE = 10 * 1024 * 1024;
                             imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -156,7 +156,7 @@ public class MyBookList extends AppCompatActivity {
 
 
                             bookList.add(targetBook);
-                            Log.i("testName2",targetBook.getName());
+                            //Log.i("testName2",targetBook.getName());
                             myBookAdapter.notifyDataSetChanged();
                             //bookList.add(targetBook);
                             //myBookAdapter = new bookAdapter(MyBookList.this,bookList);

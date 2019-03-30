@@ -93,7 +93,9 @@ public class RateToBorrower extends AppCompatActivity {
 
         Log.i("test RateToBorrower","bookid"+bookID);
 
+
         String bid = "J0WloTnZcAcds7lT7dCR9PtzH5x2";
+
         DatabaseReference r3 = m.getReference("borrowers/" + bid);
         ValueEventListener borrowerListener = new ValueEventListener() {
             @Override

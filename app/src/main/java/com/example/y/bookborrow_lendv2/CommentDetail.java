@@ -74,7 +74,7 @@ public class CommentDetail extends AppCompatActivity {
                                         final String c_username = user.getName();
                                         Log.i("testUname",c_username);
                                         //add the image
-                                        StorageReference imageRef = storageRef.child("book/"+c_userID+"/1.jpg");
+                                        StorageReference imageRef = storageRef.child("user/"+c_userID+"/1.jpg");
                                         final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                         imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                             @Override
@@ -82,9 +82,9 @@ public class CommentDetail extends AppCompatActivity {
                                                 Log.i("step","success1");
                                                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                                 user.setPhoto(bitmap);
-
+                                                comment = new comment(c_username,c_userID, c_rating, c_comment);
                                                 comment.setPhoto(bitmap);
-
+                                                mDatas.add(comment);
                                                 mAdapter.notifyDataSetChanged();
                                                 //bookPhoto.setImageBitmap(bitmap);
                                             }
@@ -95,8 +95,8 @@ public class CommentDetail extends AppCompatActivity {
                                                 Log.i("Result","failed");
                                             }
                                         });
-                                        comment = new comment(c_username,c_userID, c_rating, c_comment);
-                                        mDatas.add(comment);
+                                        //comment = new comment(c_username,c_userID, c_rating, c_comment);
+                                        //mDatas.add(comment);
                                         mAdapter.notifyDataSetChanged();
                                     }
                                 }
@@ -144,7 +144,7 @@ public class CommentDetail extends AppCompatActivity {
                                         final String c_username = user.getName();
                                         Log.i("testUname",c_username);
                                         // need to add the image
-                                        StorageReference imageRef = storageRef.child("book/"+c_userID+"/1.jpg");
+                                        StorageReference imageRef = storageRef.child("user/"+c_userID+"/1.jpg");
                                         final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                         imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                             @Override
@@ -152,9 +152,9 @@ public class CommentDetail extends AppCompatActivity {
                                                 Log.i("step","success1");
                                                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                                 user.setPhoto(bitmap);
-
+                                                comment = new comment(c_username,c_userID, c_rating, c_comment);
                                                 comment.setPhoto(bitmap);
-
+                                                mDatas.add(comment);
                                                 mAdapter.notifyDataSetChanged();
                                                 //bookPhoto.setImageBitmap(bitmap);
                                             }
@@ -165,8 +165,8 @@ public class CommentDetail extends AppCompatActivity {
                                                 Log.i("Result","failed");
                                             }
                                         });
-                                        comment = new comment(c_username,c_userID, c_rating, c_comment);
-                                        mDatas.add(comment);
+                                        //comment = new comment(c_username,c_userID, c_rating, c_comment);
+                                        //mDatas.add(comment);
                                         mAdapter.notifyDataSetChanged();
                                     }
                                 }
@@ -213,7 +213,7 @@ public class CommentDetail extends AppCompatActivity {
                                         final String c_username = user.getName();
                                         Log.i("testUname",c_username);
                                         // need to add the image
-                                        StorageReference imageRef = storageRef.child("book/"+c_userID+"/1.jpg");
+                                        StorageReference imageRef = storageRef.child("user/"+c_userID+"/1.jpg");
                                         final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                         imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                             @Override
@@ -221,9 +221,11 @@ public class CommentDetail extends AppCompatActivity {
                                                 Log.i("step","success1");
                                                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                                 user.setPhoto(bitmap);
+                                                //mDatas.add(comment);
+                                                comment = new comment(c_username,c_userID, c_rating, c_comment);
 
                                                 comment.setPhoto(bitmap);
-
+                                                mDatas.add(comment);
                                                 mAdapter.notifyDataSetChanged();
                                                 //bookPhoto.setImageBitmap(bitmap);
                                             }
@@ -234,8 +236,8 @@ public class CommentDetail extends AppCompatActivity {
                                                 Log.i("Result","failed");
                                             }
                                         });
-                                        comment = new comment(c_username,c_comment, c_rating, c_comment);
-                                        mDatas.add(comment);
+                                        //comment = new comment(c_username,c_comment, c_rating, c_comment);
+                                        //mDatas.add(comment);
                                         mAdapter.notifyDataSetChanged();
                                     }
                                 }
@@ -268,9 +270,11 @@ public class CommentDetail extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 comment c = mDatas.get(position);
                 String uid = c.getID();
+                Log.i("test commentDetail","uid"+uid);
                 Intent i = new Intent(CommentDetail.this,SearchingUserDetail.class);
                 i.putExtra("profileID",uid);
-                Log.i("test comment","list view click");
+                i.putExtra("flag","0");
+                Log.i("profileID","aaa");
                 startActivity(i);
             }
         });

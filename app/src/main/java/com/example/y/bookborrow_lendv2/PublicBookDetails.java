@@ -170,6 +170,11 @@ public class PublicBookDetails extends AppCompatActivity {
                     String rate = b.getBookRating();
                     bookRateTV.setText(rate);
 
+                    String email = b.getOwnerEmail();
+                    if (email != null){
+                        bookAuthorTV.setText(email);
+                    }
+
                     String description = b.getDescription();
                     if (description != null) {
                         bookDescriptionTV.setText(description);
@@ -219,9 +224,9 @@ public class PublicBookDetails extends AppCompatActivity {
                                                         Log.i("step","success1");
                                                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                                         user.setPhoto(bitmap);
-
+                                                        comment = new comment(c_username,"", c_rating, c_comment);
                                                         comment.setPhoto(bitmap);
-
+                                                        mDatas.add(comment);
                                                         mAdapter.notifyDataSetChanged();
                                                         //bookPhoto.setImageBitmap(bitmap);
                                                     }
@@ -232,8 +237,8 @@ public class PublicBookDetails extends AppCompatActivity {
                                                         Log.i("Result","failed");
                                                     }
                                                 });
-                                                comment = new comment(c_username,"", c_rating, c_comment);
-                                                mDatas.add(comment);
+
+
                                                 mAdapter.notifyDataSetChanged();
                                             }
                                         }
