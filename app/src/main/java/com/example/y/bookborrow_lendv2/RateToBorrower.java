@@ -168,7 +168,9 @@ public class RateToBorrower extends AppCompatActivity {
 
                 Intent i = new Intent(RateToBorrower.this,PrivateBookDetails.class);
                 i.putExtra("Id",bookID);
+                i.putExtra("flag","RateToBorrower");
                 startActivity(i);
+                finish();
 
             }
         });

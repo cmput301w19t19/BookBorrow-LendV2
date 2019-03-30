@@ -460,6 +460,10 @@ public class PrivateBookDetails extends AppCompatActivity {
         } else if (flag.equals("View")){
             Intent intent = new Intent (PrivateBookDetails.this, ViewRequests.class);
             startActivity(intent);
+        } else if(flag.equals("RateToBorrower")){
+            Intent intent = new Intent(PrivateBookDetails.this,home_page.class);
+            startActivity(intent);
+            finish();
         }
 
 
