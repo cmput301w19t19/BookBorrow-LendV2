@@ -312,12 +312,5 @@ public class RequestToOwner extends AppCompatActivity {
 
     }
 
-    /**
-     * Refresh.
-     */
-    public void refresh() {
 
-        onCreate(null);
-
-    }
 }
