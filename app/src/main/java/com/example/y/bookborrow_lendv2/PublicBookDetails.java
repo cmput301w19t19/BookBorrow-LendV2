@@ -70,14 +70,15 @@ public class PublicBookDetails extends AppCompatActivity {
     private String title1;
     private book requestedBook;
     private TextView see_more;
-    private TextView borrowerNameTV;
+    private TextView bookNameTV;
     private TextView ISBNTV;
     private TextView bookAuthorTV;
     private TextView bookStateTV;
     private TextView bookRateTV;
     private TextView bookOwnerTV;
+    private TextView DescriptionTV;
     private TextView bookDescriptionTV;
-    private TextView booktitle;
+    //private TextView booktitle;
     private ImageView bookPhoto;
     private Button requestButton;
     //private Button returnButton;
@@ -91,6 +92,7 @@ public class PublicBookDetails extends AppCompatActivity {
     private CommentAdapter mAdapter;
     private ListView listview;
     private comment comment;
+    private  Bitmap photo;
 
 
 
@@ -118,14 +120,15 @@ public class PublicBookDetails extends AppCompatActivity {
         Keyword = intent.getStringExtra("Keyword");
         flag = intent.getStringExtra("flag");
         see_more = (TextView)findViewById(R.id.public_see_more);
-        booktitle = findViewById(R.id.pBookDetialTitle);
-        borrowerNameTV = (TextView)findViewById(R.id.puBookName);
+        //booktitle = findViewById(R.id.pBookDetialTitle);
+        bookNameTV = (TextView)findViewById(R.id.puBookName);
         ISBNTV = (TextView)findViewById(R.id.puBookISBN);
         bookAuthorTV = (TextView)findViewById(R.id.puBookAuthor);
         bookStateTV = (TextView)findViewById(R.id.puBookState);
         bookRateTV = (TextView)findViewById(R.id.puBookRate);
         bookOwnerTV = (TextView)findViewById(R.id.puBookOwner);
         bookDescriptionTV = (TextView)findViewById(R.id.puBookDescription);
+        DescriptionTV = (TextView)findViewById(R.id.comment);
         requestButton = (Button)findViewById(R.id.requestTheBook);
         //returnButton = (Button)findViewById(R.id.puReturnButton);
         locationButton = (Button)findViewById(R.id.pubBookLocation);
@@ -134,6 +137,10 @@ public class PublicBookDetails extends AppCompatActivity {
         r = m.getReference("book/"+bookid);
         final Intent intent1 = new Intent(PublicBookDetails.this, SeeImageActivity.class);
 
+        requestButton.setVisibility(View.INVISIBLE);
+        if (!flag.equals("BorrowBook") ) {
+            requestButton.setVisibility(View.VISIBLE);
+        }
 
         /**
          *  Get the information of the book from firebase and show them on the screen
@@ -144,7 +151,7 @@ public class PublicBookDetails extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     b = dataSnapshot.getValue(book.class);
                     Log.i("test22",b.getName());
-                    booktitle.setText(b.getName());
+                    bookNameTV.setText(b.getName());
 
                     ISBN = b.getISBN();
                     if (ISBN != null) {
@@ -165,6 +172,7 @@ public class PublicBookDetails extends AppCompatActivity {
                     bookRateTV.setText(rate);
 
                     String email = b.getOwnerEmail();
+                    Log.i("test ownerEmail","hello"+email);
                     if (email != null){
                         bookOwnerTV.setText(email);
                     }
@@ -182,6 +190,7 @@ public class PublicBookDetails extends AppCompatActivity {
                             Log.i("Result","success");
                             intent1.putExtra("image",bytes);
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                            photo = bitmap;
                             bookPhoto.setImageBitmap(bitmap);
                         }
 
@@ -200,6 +209,7 @@ public class PublicBookDetails extends AppCompatActivity {
                             if (!dataSnapshot2.exists()){
                                 see_more.setVisibility(View.GONE);
                                 listview.setVisibility(View.GONE);
+                                DescriptionTV.setText("No one borrow it yet!");
                             }else{
                                 for (DataSnapshot ds : dataSnapshot2.getChildren()) {
                                     final RatingAndComment com = ds.getValue(RatingAndComment.class);
@@ -288,11 +298,6 @@ public class PublicBookDetails extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // get id
-                Log.i("qqqqqqqqq","0000000");
-                Log.w("qqqqqqqqqq",bookid);
-
-
 
                 auth = FirebaseAuth.getInstance();
                 FirebaseUser user = auth.getCurrentUser();
@@ -305,7 +310,6 @@ public class PublicBookDetails extends AppCompatActivity {
                 r2.child("book").child(bookid).child("status").setValue("requested");
 
                 //set book status to requested
-                Log.i("ooooooooo","0000000");
 
 
                 //get book by bookid
@@ -373,26 +377,20 @@ public class PublicBookDetails extends AppCompatActivity {
         /**
          * Return to the activity which all this one, using flag to distinct caller
          */
-/*
-        returnButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(flag.equals("searchbook")) {
 
-                    Intent back = new Intent(PublicBookDetails.this, SearchResultForBook.class);
-                    back.putExtra("key",Keyword);
-                    startActivity(back);
-                } else {
-                    finish();
-               }
-            }
-        });
-        */
+
+
+
 
         bookPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(intent1);
+                if(photo==null){
+                    return;
+                }
+                else {
+                    startActivity(intent1);
+                }
             }
         });
 
@@ -465,6 +463,10 @@ public class PublicBookDetails extends AppCompatActivity {
             finish();
         }else if (flag.equals("BorrowerRequest")){
             Intent back = new Intent(PublicBookDetails.this, BorrowerRequest.class);
+            startActivity(back);
+            finish();
+        } else if (flag.equals("BorrowBook")){
+            Intent back = new Intent(PublicBookDetails.this,BorrowBookList.class);
             startActivity(back);
             finish();
         }

@@ -67,9 +67,17 @@ import java.util.ArrayList;
 public class SearchResultForBook extends AppCompatActivity {
 
     private ListView mResultList;
+    private ListView userResultList;
     private ArrayList<book> books = new ArrayList<>();
+    private ArrayList<NormalUser> users = new ArrayList<>();
+
     private SearchBookAdapter adapter;
+    private SearchPersonAdapter adapter2;
+
     private DatabaseReference mBookDatabase;
+    private DatabaseReference mUserDatabase;
+
+
 
     //private String flag;
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -90,6 +98,7 @@ public class SearchResultForBook extends AppCompatActivity {
         Button backHome = (Button) findViewById(R.id.HomeButton1);
 
         mResultList = findViewById(R.id.ListBook);
+        userResultList = findViewById(R.id.ListUser);
 
         Intent intent = getIntent();
         Keyword = intent.getStringExtra("key");
@@ -109,8 +118,8 @@ public class SearchResultForBook extends AppCompatActivity {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Boolean found1;
-                Boolean found2;
+                Boolean found1_;
+                Boolean found2_;
                 // String search = "Elements";
                 String search = Keyword;
                 //String search = "Trevor Hastie Robert Tibshirani Jerome Friedman";
@@ -120,22 +129,23 @@ public class SearchResultForBook extends AppCompatActivity {
                     String author = bookdFound.getAuthor();
                     String stat = bookdFound.getStatus();
                     //check if title contains keyword
-                    found1 = title.contains(search);
-                    found2 = author.contains(search);
-                    if (found1 && !stat.equals("accepted") && !stat.equals("borrowed") ) {
+                    found1_ = title.contains(search);
+                    found2_ = author.contains(search);
+                    if (found1_ && !stat.equals("accepted") && !stat.equals("borrowed") ) {
                         books.add(bookdFound);
-                    } else if ( found2 && !stat.equals("accepted") && !stat.equals("borrowed")) {
+                    } else if ( found2_ && !stat.equals("accepted") && !stat.equals("borrowed")) {
                         books.add(bookdFound);
                     }
 
                     for (final book bookItem: books){
                         String bookID = bookItem.getID();
                         StorageReference imageRef = storageRef.child("book/"+bookID+"/1.jpg");
+
                         final long ONE_MEGABYTE = 10 * 1024 * 1024;
                         imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                             @Override
                             public void onSuccess(byte[] bytes) {
-                                Log.i("Result","success");
+                                Log.i("Result","search book success");
                                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                 bookItem.setImage(bitmap);
                                 adapter.notifyDataSetChanged();
@@ -164,6 +174,8 @@ public class SearchResultForBook extends AppCompatActivity {
 
                 }
                 String size = Integer.toString(books.size());
+                Log.i("Result","bookList size:"+size);
+
 
             }
 
@@ -173,6 +185,9 @@ public class SearchResultForBook extends AppCompatActivity {
         };
         booksRef.addListenerForSingleValueEvent(eventListener);
 
+
+
+        searchPeopleResult(Keyword);
 
 
 
@@ -224,6 +239,88 @@ public class SearchResultForBook extends AppCompatActivity {
         }
     }
 */
+
+
+
+  public void searchPeopleResult(final String Keyword){
+      users = new ArrayList<>();
+      adapter2 = new SearchPersonAdapter(this, users);
+      userResultList.setAdapter(adapter2);
+
+    ValueEventListener eventListener = new ValueEventListener() {
+
+
+
+
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            Boolean found1;
+            Boolean found2;
+            mUserDatabase = FirebaseDatabase.getInstance().getReference("users");
+            userResultList = (ListView) findViewById(R.id.peopleList);
+
+            // String search = "Elements";
+            //String search = Keyword;
+
+            //String search = "Trevor Hastie Robert Tibshirani Jerome Friedman";
+            for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                final NormalUser SearchedUser = ds.getValue(NormalUser.class);
+                String userName = SearchedUser.getName();
+                String userEmail = SearchedUser.getEmail();
+                if (userName != null && userEmail != null) {
+                    found1 = userName.contains(Keyword);
+                    found2 = userEmail.contains(Keyword);
+                    if (found1 || found2) {
+                        String id = SearchedUser.getUid();
+                        StorageReference imageRef = storageRef.child("user/" + id + "/1.jpg");
+                        Log.i("Result","test"+imageRef.toString());
+
+                        final long ONE_MEGABYTE = 10 * 1024 * 1024;
+                        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                            @Override
+                            public void onSuccess(byte[] bytes) {
+                                Log.i("Result", " search people success");
+                                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                SearchedUser.setPhoto(bitmap);
+
+                                adapter2.notifyDataSetChanged();
+                            }
+
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.i("Result", "failed");
+                            }
+                        });
+                        users.add(SearchedUser);
+                        adapter2.notifyDataSetChanged();
+
+                        //check if user's name contains keyword
+
+                    }
+                }
+
+
+
+
+
+                String size2 = Integer.toString(users.size());
+                adapter2.notifyDataSetChanged();
+                Log.i("Result","userList size:"+size2);
+
+            }
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+        }
+      };
+      DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+
+      DatabaseReference usersRef = rootRef.child("users");
+      usersRef.addListenerForSingleValueEvent(eventListener);
+  }
 
 
 

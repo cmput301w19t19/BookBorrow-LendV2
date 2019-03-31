@@ -208,10 +208,11 @@ public class EditBookDetail extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (photo == null) {
+                /*if (photo == null) {
                     Toast.makeText(EditBookDetail.this, "Please upload image!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                */
                 b.setName(bookNamkeEditText.getText().toString());
                 b.setAuthor(authorEditText.getText().toString());
                 b.setDescription(descriptionEditText.getText().toString());

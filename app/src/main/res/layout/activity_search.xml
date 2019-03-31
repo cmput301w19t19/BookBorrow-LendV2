@@ -67,19 +67,7 @@
         android:layout_alignLeft="@+id/keyword"
         android:layout_alignRight="@id/keyword"
         android:layout_marginTop="129dp"
-        android:text="Search For books" />
-
-    <Button
-        android:id="@+id/See_Result_of_PersonButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/keyword"
-        android:layout_alignLeft="@+id/keyword"
-        android:layout_alignRight="@id/keyword"
-        android:layout_marginTop="49dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="95dp"
-        android:text="Search For Person" />
+        android:text="Search " />
 
 
 </RelativeLayout>

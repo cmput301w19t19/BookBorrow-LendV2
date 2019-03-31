@@ -88,6 +88,7 @@ public class BorrowBookList extends AppCompatActivity {
                 String bookId = bookItem.getID();
                 Intent intent = new Intent(BorrowBookList.this, PublicBookDetails.class);
                 intent.putExtra("Id",bookId);
+                intent.putExtra("flag","BorrowBook");
                 startActivity(intent);
 
             }

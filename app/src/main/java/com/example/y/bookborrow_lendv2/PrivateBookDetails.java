@@ -25,8 +25,6 @@ package com.example.y.bookborrow_lendv2;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Environment;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -34,7 +32,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -57,11 +54,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 /**
  * This Class is to show all the detail of a book to the book owner
@@ -87,6 +81,7 @@ public class PrivateBookDetails extends AppCompatActivity {
     private Button requestButton;
     private ImageView bookPhoto ;
     private String flag;
+    private Bitmap photo;
 
     private book bookx;
     private FirebaseAuth auth;
@@ -120,7 +115,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         bookid = intent.getStringExtra("Id");
         flag = intent.getStringExtra("flag");
         see_more = (TextView)findViewById(R.id.see_more);
-        bookDetailTV = (TextView)findViewById(R.id.pBookDetialTitle);
+        bookDetailTV = (TextView)findViewById(R.id.puBookName);
         // bookNameTV contains the borrower name
         bookNameTV = (TextView)findViewById(R.id.pBookName);
         ISBNTV = (TextView)findViewById(R.id.pBookISBN);
@@ -204,6 +199,7 @@ public class PrivateBookDetails extends AppCompatActivity {
                             intent1.putExtra("image",bytes);
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                             bookPhoto.setImageBitmap(bitmap);
+                            photo = bitmap;
                             bookx.setImage(bitmap);
                         }
 
@@ -299,7 +295,11 @@ public class PrivateBookDetails extends AppCompatActivity {
         bookPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(intent1);
+                if(photo == null){
+                    return;
+                } else {
+                    startActivity(intent1);
+                }
             }
         });
 
@@ -327,13 +327,13 @@ public class PrivateBookDetails extends AppCompatActivity {
             public void onClick(View v) {
 
                 String status = bookx.getStatus();
-                if (status == "accepted"|| status == "borrowed"){
+                if (status.equals("accepted")|| status.equals("borrowed")){
                     Log.w("if accepted/borrowed", "accepted/borrowed");
 
                     Toast.makeText(getApplicationContext(), "Book is borrowed or to be borrowed, can't delete now!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                else{
+                else if (status.equals("available") || status.equals("requested")){
                     Log.w("else", "start delete");
                     bookExist =false;
                     bookx.deleteFromFirebase();
@@ -426,7 +426,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         //Intent intent = new Intent();
         //setResult(RESULT_OK,intent);
         //finish();
-        if (flag.equals("MyBooks")){
+        if (flag.equals("MyBooks")||flag.equals("scan") ){
             Intent intent = new Intent (PrivateBookDetails.this, MyBookList.class);
             startActivity(intent);
         } else if (flag.equals("View")){
@@ -547,10 +547,6 @@ public class PrivateBookDetails extends AppCompatActivity {
         if (requestCode == 2 && resultCode == 1){
             bookid = Data.getStringExtra("ID");
         }
-
-        if (requestCode == 3){
-        }
-
 
         /*return from map activity and
         toast the location user long click in map view activity
