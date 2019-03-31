@@ -83,6 +83,7 @@ public class BorrowerMenu extends AppCompatActivity {
              */
             public void onClick(View v) {
                 Intent intent = new Intent(BorrowerMenu.this, Search.class);
+                intent.putExtra("flag","borrower");
                 startActivity(intent);
                 //BorrowerMenu.this.finish();
 

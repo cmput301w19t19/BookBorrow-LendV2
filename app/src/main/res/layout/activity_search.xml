@@ -42,7 +42,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginTop="67dp"
         android:text="Please Enter A Keyword"
-        android:textSize="30dp" />
+        android:textSize="30sp" />
 
     <EditText
         android:id="@+id/keyword"

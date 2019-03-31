@@ -76,7 +76,6 @@ public class SearchResultForBook extends AppCompatActivity {
 
     private DatabaseReference mBookDatabase;
     private DatabaseReference mUserDatabase;
-    private NormalUser SearchedUser ;
 
 
 
@@ -141,6 +140,7 @@ public class SearchResultForBook extends AppCompatActivity {
                     for (final book bookItem: books){
                         String bookID = bookItem.getID();
                         StorageReference imageRef = storageRef.child("book/"+bookID+"/1.jpg");
+
                         final long ONE_MEGABYTE = 10 * 1024 * 1024;
                         imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                             @Override
@@ -265,7 +265,7 @@ public class SearchResultForBook extends AppCompatActivity {
             //String search = "Trevor Hastie Robert Tibshirani Jerome Friedman";
             for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                SearchedUser = ds.getValue(NormalUser.class);
+                final NormalUser SearchedUser = ds.getValue(NormalUser.class);
                 String userName = SearchedUser.getName();
                 String userEmail = SearchedUser.getEmail();
                 if (userName != null && userEmail != null) {
@@ -274,6 +274,8 @@ public class SearchResultForBook extends AppCompatActivity {
                     if (found1 || found2) {
                         String id = SearchedUser.getUid();
                         StorageReference imageRef = storageRef.child("user/" + id + "/1.jpg");
+                        Log.i("Result","test"+imageRef.toString());
+
                         final long ONE_MEGABYTE = 10 * 1024 * 1024;
                         imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                             @Override

@@ -60,6 +60,7 @@ public class RateToBorrower extends AppCompatActivity {
     private ImageView borrowerImage;
     private String uid;
     private String bookID;
+    private String borrowerID;
 
     FirebaseAuth auth;
     FirebaseUser user;
@@ -86,15 +87,15 @@ public class RateToBorrower extends AppCompatActivity {
 
         // need to get the borrower id from the last activity
         Intent i = getIntent();
-        //String bid = i.getStringExtra("borrowerID");
+        String bid = i.getStringExtra("borrowerID");
         //bookID = i.getStringExtra("bookID");
 
-        bookID = "3543da43-5d5d-4fb6-a488-5881782fb6eb";
+        //bookID = "3543da43-5d5d-4fb6-a488-5881782fb6eb";
 
         Log.i("test RateToBorrower","bookid"+bookID);
 
 
-        String bid = "J0WloTnZcAcds7lT7dCR9PtzH5x2";
+        //String bid = "J0WloTnZcAcds7lT7dCR9PtzH5x2";
 
         DatabaseReference r3 = m.getReference("borrowers/" + bid);
         ValueEventListener borrowerListener = new ValueEventListener() {
@@ -103,7 +104,8 @@ public class RateToBorrower extends AppCompatActivity {
                 borrowerx = dataSnapshot.getValue(borrower.class);
                 borrowerNameTextView.setText(borrowerx.getName());
                 borrowerEmailTextView.setText(borrowerx.getEmail());
-                StorageReference imageRef = storageRef.child("user/"+uid+"/1.jpg");
+                borrowerID = borrowerx.getUid();
+                StorageReference imageRef = storageRef.child("user/"+borrowerID+"/1.jpg");
                 final long ONE_MEGABYTE = 10 * 1024 * 1024;
                 imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                     @Override

@@ -58,7 +58,10 @@ public class Request_Book_MyAdapter extends BaseAdapter {
         bookRequest = datas;
      }
 
-
+    public void clear(){
+        bookRequest.clear();
+        notifyDataSetChanged();
+    }
      // get the length of the data
      @Override
     public int getCount(){
@@ -105,6 +108,7 @@ public class Request_Book_MyAdapter extends BaseAdapter {
          holder.userName.setText(b_request.getUserName());
          holder.image.setImageBitmap(b_request.getPhoto());
          //holder.image.setImageBitmap();
+         holder.rating.setText(b_request.getRating());
          holder.checkBox.setOnClickListener(new View.OnClickListener() {
 
              @Override

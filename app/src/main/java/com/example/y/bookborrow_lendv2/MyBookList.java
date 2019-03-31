@@ -111,7 +111,7 @@ public class MyBookList extends AppCompatActivity {
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                bookList.clear();
                 Log.i("testnn","333");
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -121,7 +121,7 @@ public class MyBookList extends AppCompatActivity {
                     ValueEventListener eventListener1 = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
-                            Log.i("test22", "hello");
+                            //Log.i("test22", "hello");
                             book book1 = dataSnapshot1.getValue(book.class);
                             if (book1 != null) {
                                 String name = book1.getName();
@@ -137,41 +137,47 @@ public class MyBookList extends AppCompatActivity {
                                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                         targetBook.setImage(bitmap);
                                         Log.i("testName1", targetBook.getName());
+                                        //bookList.add(targetBook);
                                         myBookAdapter.notifyDataSetChanged();
                                         //bookPhoto.setImageBitmap(bitmap);
+                                        //books = bookList;
+                                        Log.i("size0000",Integer.toString(bookList.size()));
                                     }
                                     //........................................
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         Log.i("Result", "failed");
+
                                     }
                                 });
+
 
                                 //................................
 
 
-                                bookList.add(targetBook);
+
                                 //Log.i("testName2",targetBook.getName());
-                                myBookAdapter.notifyDataSetChanged();
-                                //bookList.add(targetBook);
+                                //myBookAdapter.notifyDataSetChanged();
+                                bookList.add(targetBook);
                                 //myBookAdapter = new bookAdapter(MyBookList.this,bookList);
 
                                 //myBookList.setAdapter(myBookAdapter);
-                                //myBookAdapter.notifyDataSetChanged();
+                                myBookAdapter.notifyDataSetChanged();
+                                books = bookList;
                                 //if (targetBook.getImage()!=null) {
                                 Log.i("step", "3");
                                 //}
-                                books = bookList;
+
                             }}
 
                             @Override
                             public void onCancelled (@NonNull DatabaseError databaseError1){
 
                             }
-                        }
 
-                        ;
+                        };
+
                     DbRef.addValueEventListener(eventListener1);
 
                     //booksID.add(book);
@@ -216,7 +222,6 @@ public class MyBookList extends AppCompatActivity {
                     if (bookItem.getStatus().equals("available")) {
                         availableBookList.add(bookItem);
                         //Integer
-                        Toast.makeText(MyBookList.this, "hello", Toast.LENGTH_SHORT).show();
                     }
                 }
                 availableBookAdapter = new bookAdapter(MyBookList.this, availableBookList);
@@ -294,8 +299,6 @@ public class MyBookList extends AppCompatActivity {
                 //TODO: Implement this method
                // book bookItem = bookList.get(position);
                 book bookItem = books.get(position);
-
-                Toast.makeText(MyBookList.this,bookItem.getAuthor(),Toast.LENGTH_SHORT).show();
                 String bookId = bookItem.getID();
                 Intent intent = new Intent(MyBookList.this, PrivateBookDetails.class);
                 intent.putExtra("Id", bookId);

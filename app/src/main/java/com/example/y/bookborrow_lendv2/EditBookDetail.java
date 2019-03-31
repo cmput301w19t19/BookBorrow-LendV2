@@ -77,7 +77,7 @@ public class EditBookDetail extends AppCompatActivity {
     private EditText descriptionEditText;
     private ImageView bookPhoto;
     private String id;
-    private Bitmap photo = null;
+    private Bitmap photo;
 
 
     Button ISBNButton;
@@ -159,6 +159,7 @@ public class EditBookDetail extends AppCompatActivity {
                                 Log.i("Result","success");
                                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                 b.setImage(bitmap);
+                                photo = bitmap;
                                 bookPhoto.setImageBitmap(bitmap);
                                 //bookPhoto.setImageBitmap(bitmap);
                             }
@@ -207,10 +208,11 @@ public class EditBookDetail extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (photo == null) {
+                /*if (photo == null) {
                     Toast.makeText(EditBookDetail.this, "Please upload image!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                */
                 b.setName(bookNamkeEditText.getText().toString());
                 b.setAuthor(authorEditText.getText().toString());
                 b.setDescription(descriptionEditText.getText().toString());

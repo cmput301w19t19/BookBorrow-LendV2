@@ -30,7 +30,7 @@ import android.graphics.Bitmap;
  */
 public class B_request {
     private String userName;
-    private double rating;
+    private String rating;
     boolean selected = false;
     private String userID;
     private Bitmap photo;
@@ -42,7 +42,7 @@ public class B_request {
      * @param rating   the rating
      * @param userID   the user id
      */
-    public B_request(String userName, double rating, String userID) {
+    public B_request(String userName, String rating, String userID) {
         this.userName = userName;
         this.rating = rating;
         this.userID = userID;
@@ -72,7 +72,7 @@ public class B_request {
      *
      * @return rating double
      */
-    public double getRating(){
+    public String getRating(){
         return rating;
     }
 
@@ -81,7 +81,7 @@ public class B_request {
      *
      * @param rating the rating
      */
-    public void setRating(double rating){
+    public void setRating(String rating){
         this.rating = rating;
     }
 

@@ -101,7 +101,7 @@
 
     <string name="RateToOwnerUserName">Missing owner user name!</string>
     <string name="RateToOwnerUserDesciption">Missing user rating!</string>
-    <string name="RateToOwnerUserCommentPrompt">Is he be on time?</string>
+    <string name="RateToOwnerUserCommentPrompt">Is he on time?</string>
     <string name="RateToOwnerBookName">Missing Book Name!</string>
     <string name="RateToOwnerBookISBN">Missing ISBN!</string>
     <string name="RateToOwnerBookAuthor">Missing Author!</string>
