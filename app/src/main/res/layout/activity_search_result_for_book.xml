@@ -34,18 +34,12 @@
     <TextView
         android:id="@+id/SearchResultPeople"
         android:layout_width="match_parent"
-<<<<<<< HEAD
-        android:layout_height="79dp"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-=======
+
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_weight="3"
         android:gravity="center"
->>>>>>> ffc899484d6f6ec77e3cda418ba420b52b6540b8
+
         android:text="People Search Result"
         android:textSize="24sp" />
 
@@ -75,13 +69,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="36dp"
         android:layout_marginRight="36dp"
-<<<<<<< HEAD
-        android:layout_marginBottom="4dp"
-        android:layout_weight="1"
-=======
+
         android:layout_weight="0.5"
         android:backgroundTint="@android:color/white"
->>>>>>> ffc899484d6f6ec77e3cda418ba420b52b6540b8
+
         android:text="Back to Home" />
 
     <Space

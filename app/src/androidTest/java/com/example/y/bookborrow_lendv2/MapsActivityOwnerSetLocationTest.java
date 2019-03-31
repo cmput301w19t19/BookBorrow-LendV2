@@ -42,6 +42,9 @@ public class MapsActivityOwnerSetLocationTest extends ActivityTestRule<MapsActiv
         solo.assertCurrentActivity("Wrong Activity",MapsActivityOwnerSetLocation.class);
         solo.clickOnScreen(1,1);
         solo.searchText("set here");
+
+        solo.clickLongOnScreen(5,5);
+        solo.assertCurrentActivity("ac",PrivateBookDetails.class);
     }
 
 }
