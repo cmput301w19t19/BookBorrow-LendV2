@@ -18,6 +18,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:gravity="center"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:text="Requests"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,12 +29,14 @@
     <ListView
         android:id="@+id/requestList"
         android:layout_width="match_parent"
-        android:layout_height="255dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/B_R_acceptButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/request" />
@@ -41,25 +45,33 @@
     <Button
         android:id="@+id/B_R_acceptButton"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@android:color/white"
         android:text="accept"
-        android:textSize="20sp"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/B_R_declineButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/requestList" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/B_R_declineButton"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginLeft="36dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
         android:layout_marginBottom="8dp"
+        android:backgroundTint="@android:color/white"
         android:text="decline"
-        android:textSize="20sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/B_R_acceptButton" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

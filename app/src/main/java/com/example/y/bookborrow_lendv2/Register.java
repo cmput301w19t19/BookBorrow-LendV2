@@ -1,3 +1,24 @@
+/*
+ * Copyright 2019 TEAM19
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Intent;
@@ -21,6 +42,17 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.BitSet;
 
+/**
+ * After the user press the sign up button from loginAct page,
+ * this page will be shown.
+ * UserName, Email, password and phone are prompted but only email and password are neccesary.
+ * If email and password are valid,
+ * init the basic user, borrower and lender infor to firebase and jumpt to homepage.
+ *
+ * @see user
+ * @see borrower
+ * @see lender
+ */
 public class Register extends AppCompatActivity {
     private FirebaseAuth auth;
     private DatabaseReference mDatabase;
@@ -32,7 +64,6 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-
         auth = FirebaseAuth.getInstance();
 
         inputEmail = (EditText) findViewById(R.id.InputRegisterEmail);
@@ -40,10 +71,6 @@ public class Register extends AppCompatActivity {
         userName = (EditText) findViewById(R.id.InputName_);
         phone = (EditText) findViewById(R.id.InputPhone_);
         button = (Button) findViewById(R.id.ButtonDone);
-
-
-
-
 
         button.setOnClickListener(new View.OnClickListener() {
 
@@ -64,21 +91,11 @@ public class Register extends AppCompatActivity {
 
             }});
 
-
-
-
-
     }
 
     public void register(final String email,final String password, final String username, final String phone){
-        Log.w("aaaaaaaa","dddddd");
-
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-
-
-
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(getApplicationContext(), "Enter email address you want to register with!", Toast.LENGTH_SHORT).show();

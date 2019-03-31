@@ -114,6 +114,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/pLocationButton"
                     android:textSize="14sp"
+                    android:backgroundTint="@android:color/white"
                     tools:layout_editor_absoluteX="126dp"
                     tools:layout_editor_absoluteY="149dp" />
             </LinearLayout>
