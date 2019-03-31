@@ -62,9 +62,7 @@ public class BorrowBookList extends AppCompatActivity {
     private FirebaseUser user;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    /**
-     * The Db ref.
-     */
+
     DatabaseReference dbRef = database.getReference();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();

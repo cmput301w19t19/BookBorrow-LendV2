@@ -62,13 +62,9 @@ public class BorrowerRequest extends AppCompatActivity {
     private ArrayList<book> requestedBookList = new ArrayList<>();
     private ArrayList<book> acceptedBookList = new ArrayList<>();
     private ArrayList<String> booksID;
-    /**
-     * The Database.
-     */
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    /**
-     * The Db ref.
-     */
+
     DatabaseReference DbRef = database.getReference();
 
     private FirebaseAuth auth;

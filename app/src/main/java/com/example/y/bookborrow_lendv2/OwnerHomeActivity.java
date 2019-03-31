@@ -54,13 +54,9 @@ import java.util.ArrayList;
  */
 public class OwnerHomeActivity extends AppCompatActivity {
 
-    /**
-     * The Database.
-     */
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    /**
-     * The Db ref.
-     */
+
     DatabaseReference DbRef = database.getReference();
     private FirebaseAuth auth;
     private book targetBook;

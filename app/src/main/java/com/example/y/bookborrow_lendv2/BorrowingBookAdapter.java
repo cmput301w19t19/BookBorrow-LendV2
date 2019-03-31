@@ -120,25 +120,15 @@ public class BorrowingBookAdapter extends BaseAdapter {
      * the viewHolder object used for this adapter
      */
     private class ViewHolder{
-        /**
-         * The Image.
-         */
+
         ImageView image;
-        /**
-         * The Book name.
-         */
+
         TextView bookName;
-        /**
-         * The Owner name.
-         */
+
         TextView OwnerName;
-        /**
-         * The Description.
-         */
+
         TextView description;
-        /**
-         * The Rating.
-         */
+
         TextView rating;
     }
 

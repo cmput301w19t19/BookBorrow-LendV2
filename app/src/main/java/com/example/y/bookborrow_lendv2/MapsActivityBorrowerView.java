@@ -74,13 +74,9 @@ public class MapsActivityBorrowerView extends FragmentActivity implements OnMapR
     private double newLat;
     private double newLong;
 
-    /**
-     * The Location manager.
-     */
+
     LocationManager locationManager;
-    /**
-     * The Location listener.
-     */
+
     LocationListener locationListener;
 
     @Override

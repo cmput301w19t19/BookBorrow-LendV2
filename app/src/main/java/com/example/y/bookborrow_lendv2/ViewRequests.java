@@ -40,19 +40,10 @@ public class ViewRequests extends AppCompatActivity {
     private ListView BookListView2;
     private ListView BookListView;
     private Button backButton;
-    /**
-     * The Database.
-     */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-
-    /**
-     * The Db ref.
-     */
     DatabaseReference DbRef = database.getReference();
-    /**
-     * The Db ref.
-     */
+
     DatabaseReference dbRef = database.getReference();
 
     FirebaseStorage storage = FirebaseStorage.getInstance();

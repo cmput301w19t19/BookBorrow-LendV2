@@ -253,7 +253,7 @@ public class loginAct extends AppCompatActivity {
 
                             Intent i = new Intent(loginAct.this, home_page.class);
                             //Intent i = new Intent(loginAct.this,RateToBorrower.class);
-                            //Log.i("ready to intent","666");
+
                             startActivity(i);
 
 
