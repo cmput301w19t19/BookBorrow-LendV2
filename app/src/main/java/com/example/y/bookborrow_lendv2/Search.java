@@ -53,7 +53,6 @@ public class Search extends AppCompatActivity {
 
         inputKeyword = (EditText) findViewById(R.id.keyword);
         sBookButton= (Button) findViewById(R.id.See_Result_of_BookButton);
-        sPersonButton= (Button) findViewById(R.id.See_Result_of_PersonButton);
 
 
 
@@ -80,26 +79,7 @@ public class Search extends AppCompatActivity {
             }
         });
 
-        sPersonButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                String Person = inputKeyword.getText().toString();
 
-                if (TextUtils.isEmpty(Person)) {
-                    Toast.makeText(getApplicationContext(), "Please enter a Keyword!", Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-                    Intent intent= new Intent();
-                    intent.setClass(Search.this, SearchResultForPeople.class);
-                    intent.putExtra("key",Person);
-                    startActivity(intent);
-
-                }
-
-
-
-            }
-        });
     }
 
 }
