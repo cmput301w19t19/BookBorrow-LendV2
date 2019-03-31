@@ -72,7 +72,7 @@ public class SearchingUserDetail extends AppCompatActivity {
         final ListView borrowerListView = (ListView)findViewById(R.id.ListViewBorrower);
         final ArrayList<comment> borrowerCommentList = new ArrayList<>();
         final CommentAdapter borrowerCommentAdapter = new CommentAdapter(this,borrowerCommentList);
-
+        final Intent intent1 = new Intent(SearchingUserDetail.this,SeeImageActivity.class);
         Intent i = getIntent();
         profileID = i.getStringExtra("profileID");
         try{
@@ -92,6 +92,7 @@ public class SearchingUserDetail extends AppCompatActivity {
             @Override
             public void onSuccess(byte[] bytes) {
                 Log.i("Result","success");
+                intent1.putExtra("image",bytes);
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                 userPhoto.setImageBitmap(bitmap);
             }
@@ -201,6 +202,13 @@ public class SearchingUserDetail extends AppCompatActivity {
         };
         r1.addListenerForSingleValueEvent(lenderListern);
         lenderListView.setAdapter(lenderCommentAdapter);
+
+        userPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent1);
+            }
+        });
 
         lenderSeeMore.setOnClickListener(new View.OnClickListener() {
             @Override

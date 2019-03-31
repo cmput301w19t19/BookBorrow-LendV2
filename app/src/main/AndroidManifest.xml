@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.y.bookborrow_lendv2">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -14,6 +13,8 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
         android:allowBackup="true"
@@ -22,9 +23,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".Notification"></activity>
-
+        <activity android:name=".SeeImageActivity"></activity>
+        <activity android:name=".Notification" />
         <activity android:name=".Register" />
         <activity android:name=".ViewRequests" />
         <!--
@@ -75,9 +75,23 @@
             android:name=".SearchResultForPeople"
             android:label="@string/title_activity_search"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SearchingUserDetail"></activity>
+        <activity android:name=".SearchingUserDetail" />
         <activity android:name=".PersonDetail" />
+
         <activity android:name=".CommentDetail"></activity>
+
+
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name=".MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

@@ -116,56 +116,62 @@ public class MyBookList extends AppCompatActivity {
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     final String bookID = ds.getKey();
-                    Log.i("bookID",bookID);
+                    Log.i("bookID","hello"+bookID);
                     DbRef = database.getReference("book/"+bookID);
                     ValueEventListener eventListener1 = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
-                            Log.i("test22","hello");
-                            final book targetBook = dataSnapshot1.getValue(book.class);
-                           // Log.i("testName",targetBook.getName());
-                            StorageReference imageRef = storageRef.child("book/"+bookID+"/1.jpg");
-                            final long ONE_MEGABYTE = 10 * 1024 * 1024;
-                            imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                @Override
-                                public void onSuccess(byte[] bytes) {
-                                    Log.i("step","success1");
-                                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                                    targetBook.setImage(bitmap);
-                                    Log.i("testName1",targetBook.getName());
-                                    myBookAdapter.notifyDataSetChanged();
-                                    //bookPhoto.setImageBitmap(bitmap);
-                                }
-                                //........................................
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.i("Result","failed");
-                                }
-                            });
+                            Log.i("test22", "hello");
+                            book book1 = dataSnapshot1.getValue(book.class);
+                            if (book1 != null) {
+                                String name = book1.getName();
+                                Log.i("test22", name);
+                                final book targetBook = dataSnapshot1.getValue(book.class);
+                                // Log.i("testName",targetBook.getName());
+                                StorageReference imageRef = storageRef.child("book/" + bookID + "/1.jpg");
+                                final long ONE_MEGABYTE = 10 * 1024 * 1024;
+                                imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                    @Override
+                                    public void onSuccess(byte[] bytes) {
+                                        Log.i("step", "success1");
+                                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                        targetBook.setImage(bitmap);
+                                        Log.i("testName1", targetBook.getName());
+                                        myBookAdapter.notifyDataSetChanged();
+                                        //bookPhoto.setImageBitmap(bitmap);
+                                    }
+                                    //........................................
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.i("Result", "failed");
+                                    }
+                                });
 
-                            //................................
+                                //................................
 
 
-                            bookList.add(targetBook);
-                            //Log.i("testName2",targetBook.getName());
-                            myBookAdapter.notifyDataSetChanged();
-                            //bookList.add(targetBook);
-                            //myBookAdapter = new bookAdapter(MyBookList.this,bookList);
+                                bookList.add(targetBook);
+                                //Log.i("testName2",targetBook.getName());
+                                myBookAdapter.notifyDataSetChanged();
+                                //bookList.add(targetBook);
+                                //myBookAdapter = new bookAdapter(MyBookList.this,bookList);
 
-                            //myBookList.setAdapter(myBookAdapter);
-                            //myBookAdapter.notifyDataSetChanged();
-                            //if (targetBook.getImage()!=null) {
+                                //myBookList.setAdapter(myBookAdapter);
+                                //myBookAdapter.notifyDataSetChanged();
+                                //if (targetBook.getImage()!=null) {
                                 Log.i("step", "3");
-                            //}
-                            books = bookList;
+                                //}
+                                books = bookList;
+                            }}
+
+                            @Override
+                            public void onCancelled (@NonNull DatabaseError databaseError1){
+
+                            }
                         }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError1) {
-
-                        }
-                    };
+                        ;
                     DbRef.addValueEventListener(eventListener1);
 
                     //booksID.add(book);

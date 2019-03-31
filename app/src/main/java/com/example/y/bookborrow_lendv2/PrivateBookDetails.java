@@ -61,6 +61,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This Class is to show all the detail of a book to the book owner
@@ -133,7 +134,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         requestButton = (Button)findViewById(R.id.bookDetailRequest);
         returnButton = (Button)findViewById(R.id.ReturnButton);
         bookPhoto = findViewById(R.id.bookPhoto);
-
+        final Intent intent1 = new Intent(PrivateBookDetails.this,SeeImageActivity.class);
         locationButton = (Button)findViewById(R.id.pBookLocation);
 
 
@@ -201,6 +202,7 @@ public class PrivateBookDetails extends AppCompatActivity {
                         @Override
                         public void onSuccess(byte[] bytes) {
                             Log.i("Result", "success");
+                            intent1.putExtra("image",bytes);
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                             bookPhoto.setImageBitmap(bitmap);
                             bookx.setImage(bitmap);
@@ -240,6 +242,7 @@ public class PrivateBookDetails extends AppCompatActivity {
                                                     @Override
                                                     public void onSuccess(byte[] bytes) {
                                                         Log.i("step","success1");
+
                                                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                                         user.setPhoto(bitmap);
                                                         comment = new comment(c_username,"", c_rating, c_comment);
@@ -294,7 +297,12 @@ public class PrivateBookDetails extends AppCompatActivity {
 
 
 
-
+        bookPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent1);
+            }
+        });
 
         /**
          * Prompt the user to edit book detail if the user want
@@ -342,8 +350,10 @@ public class PrivateBookDetails extends AppCompatActivity {
                     FirebaseUser user = auth.getCurrentUser();
                     DatabaseReference r = FirebaseDatabase.getInstance().getReference();
                     String uid = user.getUid();
-                    r.child("lenders").child(uid).child("MyBookList").child(bookid).setValue(null,null);
+                    r.child("lenders").child(uid).child("MyBookList").child(bookid).removeValue();
+                    //r.child("lenders").child(uid).child("MyBookList").child(bookid).setValue(null,null);
                     Intent i = new Intent(PrivateBookDetails.this,MyBookList.class);
+
 
                     startActivity(i);
                 }
@@ -460,6 +470,10 @@ public class PrivateBookDetails extends AppCompatActivity {
         } else if (flag.equals("View")){
             Intent intent = new Intent (PrivateBookDetails.this, ViewRequests.class);
             startActivity(intent);
+        } else if(flag.equals("RateToBorrower")){
+            Intent intent = new Intent(PrivateBookDetails.this,home_page.class);
+            startActivity(intent);
+            finish();
         }
 
 

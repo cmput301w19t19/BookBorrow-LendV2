@@ -181,6 +181,7 @@ public class check_to_scan extends AppCompatActivity{
 
                                                 bookStatus = FoundBook.getStatus();
                                                 BookfirstScanned = FoundBook.getFirstScanned();
+                                                String BorrowerID = FoundBook.getBorrowerID();
 
                                                 Log.i("B_status", B_status);
 
@@ -203,7 +204,7 @@ public class check_to_scan extends AppCompatActivity{
                                                         DbRef.child(selectedID).child("firstScanned").setValue("false");
                                                     } else {
                                                         Toast.makeText(check_to_scan.this, "The Book is not ready to scan yet", Toast.LENGTH_LONG).show();
-
+                                                        Log.i("Acceptborrower","6766");
                                                     }
                                                 } else if (B_status.equals("borrow") && user.equals("owner")) {
                                                     if (bookStatus.equals("accepted") && BookfirstScanned.equals("false")) {
@@ -212,6 +213,7 @@ public class check_to_scan extends AppCompatActivity{
                                                         DbRef.child(selectedID).child("firstScanned").setValue("true");
                                                     } else {
                                                         Toast.makeText(check_to_scan.this, "The Book is not ready to scan yet", Toast.LENGTH_LONG).show();
+                                                        Log.i("AcceptOwner","6766");
                                                     }
                                                 } else if (B_status.equals("return") && user.equals("borrower")) {
                                                     if (bookStatus.equals("borrowed") && BookfirstScanned.equals("false")) {
@@ -231,11 +233,12 @@ public class check_to_scan extends AppCompatActivity{
                                                         return;
                                                     } else {
                                                         Toast.makeText(check_to_scan.this, "The Book is not ready to scan yet", Toast.LENGTH_LONG).show();
+                                                        Log.i("ReturnBorrower","6766");
                                                     }
                                                 } else if (B_status.equals("return") && user.equals("owner")) {
                                                     if (bookStatus.equals("borrowed") && BookfirstScanned.equals("true")) {
                                                         //first delete the book in borrow List
-                                                        m.getReference("borrowers").child(uid).child("BorrowBookList").child(selectedID).removeValue();
+                                                        m.getReference("borrowers").child(BorrowerID).child("BorrowBookList").child(selectedID).removeValue();
 
                                                         DbRef = m.getReference("book");
                                                         // change the status to available
@@ -246,7 +249,6 @@ public class check_to_scan extends AppCompatActivity{
                                                         Log.i("test checkToScan", "rateToBorrowerStart");
 
                                                         DatabaseReference r = FirebaseDatabase.getInstance().getReference("book/" + selectedID);
-                                                        String BorrowerID = FoundBook.getBorrowerID();
                                                         r.child("borrowerID").removeValue();
 
                                                         Intent i = new Intent(getApplicationContext(), RateToBorrower.class);
@@ -259,6 +261,7 @@ public class check_to_scan extends AppCompatActivity{
                                                         return;
                                                     } else {
                                                         Toast.makeText(check_to_scan.this, "The Book is not ready to scan yet", Toast.LENGTH_LONG).show();
+                                                        Log.i("ReturnOwner","6766");
                                                     }
                                                 }
                                             }
@@ -268,7 +271,7 @@ public class check_to_scan extends AppCompatActivity{
                                                 Log.w("loadPost:onCancelled", databaseError2.toException());
                                             }
                                         };
-                                        DbRef.addValueEventListener(eventListener2);
+                                        DbRef.addListenerForSingleValueEvent(eventListener2);
 
                                     }
                                 }
@@ -279,7 +282,7 @@ public class check_to_scan extends AppCompatActivity{
 
                                 }
                             };
-                            DbRef.addValueEventListener(eventListener1);
+                            DbRef.addListenerForSingleValueEvent(eventListener1);
                         }
 
                     }
