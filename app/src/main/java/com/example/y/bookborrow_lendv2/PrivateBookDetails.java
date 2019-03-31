@@ -133,7 +133,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         requestButton = (Button)findViewById(R.id.bookDetailRequest);
         returnButton = (Button)findViewById(R.id.ReturnButton);
         bookPhoto = findViewById(R.id.bookPhoto);
-
+        final Intent intent1 = new Intent(PrivateBookDetails.this,SeeImageActivity.class);
         locationButton = (Button)findViewById(R.id.pBookLocation);
 
 
@@ -201,6 +201,7 @@ public class PrivateBookDetails extends AppCompatActivity {
                         @Override
                         public void onSuccess(byte[] bytes) {
                             Log.i("Result", "success");
+                            intent1.putExtra("image",bytes);
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                             bookPhoto.setImageBitmap(bitmap);
                             bookx.setImage(bitmap);
@@ -240,6 +241,7 @@ public class PrivateBookDetails extends AppCompatActivity {
                                                     @Override
                                                     public void onSuccess(byte[] bytes) {
                                                         Log.i("step","success1");
+
                                                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                                         user.setPhoto(bitmap);
                                                         comment = new comment(c_username,"", c_rating, c_comment);
@@ -294,7 +296,12 @@ public class PrivateBookDetails extends AppCompatActivity {
 
 
 
-
+        bookPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent1);
+            }
+        });
 
         /**
          * Prompt the user to edit book detail if the user want

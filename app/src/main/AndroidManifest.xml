@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.y.bookborrow_lendv2">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -22,9 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".Notification"></activity>
-
+        <activity android:name=".SeeImageActivity"></activity>
+        <activity android:name=".Notification" />
         <activity android:name=".Register" />
         <activity android:name=".ViewRequests" />
         <!--
@@ -75,9 +73,9 @@
             android:name=".SearchResultForPeople"
             android:label="@string/title_activity_search"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SearchingUserDetail"></activity>
+        <activity android:name=".SearchingUserDetail" />
         <activity android:name=".PersonDetail" />
-        <activity android:name=".CommentDetail"></activity>
+        <activity android:name=".CommentDetail" />
     </application>
 
 </manifest>

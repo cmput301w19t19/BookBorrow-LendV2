@@ -138,9 +138,9 @@ public class RequestToOwner extends AppCompatActivity {
                                             Log.i("step","success1");
                                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                             bor.setPhoto(bitmap);
-                                            //B_request request = new B_request(b_user, 0.0, userID);
+                                            B_request request = new B_request(b_user, 0.0, userID);
                                             request.setPhoto(bitmap);
-                                            //mDatas.add(request);
+                                            mDatas.add(request);
                                             mAdapter.notifyDataSetChanged();
                                             //bookPhoto.setImageBitmap(bitmap);
                                         }
@@ -154,8 +154,8 @@ public class RequestToOwner extends AppCompatActivity {
 
                                     //Float b_rating = bor.getBorrowerRating();
                                     // test case
-                                    request = new B_request(b_user, 0.0, userID);
-                                    mDatas.add(request);
+                                    //request = new B_request(b_user, 0.0, userID);
+                                    //mDatas.add(request);
                                     //Log.i("size",Integer.toString(mDatas.size()));
                                     mAdapter.notifyDataSetChanged();
                                     // set the username and rating to the adapter array

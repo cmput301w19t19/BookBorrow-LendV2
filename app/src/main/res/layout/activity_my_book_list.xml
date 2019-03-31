@@ -88,12 +88,5 @@
         android:layout_height="40dp"
         android:text="Show All" />
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/BookList"
-        android:text="Back" />
-
 
 </RelativeLayout>

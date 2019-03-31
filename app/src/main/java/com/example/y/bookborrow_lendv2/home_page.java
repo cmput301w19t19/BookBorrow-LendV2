@@ -58,6 +58,7 @@ public class home_page extends AppCompatActivity {
     private FirebaseAuth auth;
     private TextView username;
     private DatabaseReference mDatabase;
+
     /**
      * The Database.
      */
@@ -81,6 +82,7 @@ public class home_page extends AppCompatActivity {
         FirebaseUser user = auth.getCurrentUser();
         final String uid = user.getUid();
 
+        final Intent intent1 = new Intent(home_page.this,SeeImageActivity.class);
 
 
         //get current logged in user name
@@ -91,7 +93,7 @@ public class home_page extends AppCompatActivity {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                username = (TextView) findViewById(R.id.UserName);
+                //username = (TextView) findViewById(R.id.UserName);
 
                 // Get Post object and use the values to update the UI
                 NormalUser currentUser = dataSnapshot.getValue(NormalUser.class);
@@ -106,6 +108,7 @@ public class home_page extends AppCompatActivity {
                     @Override
                     public void onSuccess(byte[] bytes) {
                         Log.i("Result","success");
+                        intent1.putExtra("image",bytes);
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                         head.setImageBitmap(bitmap);
                     }
@@ -143,7 +146,12 @@ public class home_page extends AppCompatActivity {
 
 
       //need to modify the intent activities after other activites are done
-
+        head.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent1);
+            }
+        });
 
         ownerLayout.setOnClickListener(new View.OnClickListener() {
 

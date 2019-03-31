@@ -138,7 +138,7 @@ public class PublicBookDetails extends AppCompatActivity {
         bookPhoto = findViewById(R.id.bookPhoto1);
         FirebaseDatabase m = FirebaseDatabase.getInstance();
         r = m.getReference("book/"+bookid);
-
+        final Intent intent1 = new Intent(PublicBookDetails.this, SeeImageActivity.class);
 
 
         /**
@@ -185,6 +185,7 @@ public class PublicBookDetails extends AppCompatActivity {
                         @Override
                         public void onSuccess(byte[] bytes) {
                             Log.i("Result","success");
+                            intent1.putExtra("image",bytes);
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                             bookPhoto.setImageBitmap(bitmap);
                         }
@@ -387,6 +388,12 @@ public class PublicBookDetails extends AppCompatActivity {
             }
         });
 
+        bookPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent1);
+            }
+        });
 
         //borrower click location button than can view
         //this book's location on map
