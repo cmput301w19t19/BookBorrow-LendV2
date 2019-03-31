@@ -226,6 +226,7 @@ public class OwnerHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(OwnerHomeActivity.this, Search.class);
+                intent.putExtra("flag","owner");
                 startActivity(intent);
             }
         });

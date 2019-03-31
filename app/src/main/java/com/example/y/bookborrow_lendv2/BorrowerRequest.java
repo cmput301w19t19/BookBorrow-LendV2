@@ -129,32 +129,34 @@ public class BorrowerRequest extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
                                     final book targetBook = dataSnapshot1.getValue(book.class);
-                                    StorageReference imageRef = storageRef.child("book/"+bookID+"/1.jpg");
-                                    final long ONE_MEGABYTE = 10 * 1024 * 1024;
-                                    imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                        @Override
-                                        public void onSuccess(byte[] bytes) {
-                                            Log.i("step","success1");
-                                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                                            targetBook.setImage(bitmap);
-                                            Log.i("testName1",targetBook.getName());
-                                            acceptAdapter.notifyDataSetChanged();
-                                            //bookPhoto.setImageBitmap(bitmap);
-                                        }
+                                    if (targetBook != null) {
+                                        StorageReference imageRef = storageRef.child("book/" + bookID + "/1.jpg");
+                                        final long ONE_MEGABYTE = 10 * 1024 * 1024;
+                                        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                            @Override
+                                            public void onSuccess(byte[] bytes) {
+                                                Log.i("step", "success1");
+                                                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                                targetBook.setImage(bitmap);
+                                                Log.i("testName1", targetBook.getName());
+                                                acceptAdapter.notifyDataSetChanged();
+                                                //bookPhoto.setImageBitmap(bitmap);
+                                            }
 
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.i("Result","failed");
-                                        }
-                                    });
-                                    acceptedBookList.add(targetBook);
-                                    acceptAdapter.notifyDataSetChanged();
-                                    Log.i("acceptListDataChange", String.valueOf(acceptedBookList.size()));
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.i("Result", "failed");
+                                            }
+                                        });
+                                        acceptedBookList.add(targetBook);
+                                        acceptAdapter.notifyDataSetChanged();
+                                        Log.i("acceptListDataChange", String.valueOf(acceptedBookList.size()));
+                                    }
                                 }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError1) {
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError1) {
 
                                 }
                             };
@@ -190,6 +192,7 @@ public class BorrowerRequest extends AppCompatActivity {
                     String bookId = bookItem.getID();
                     Intent intent = new Intent(BorrowerRequest.this, PublicBookDetails.class);
                     intent.putExtra("Id", bookId);
+                    intent.putExtra("flag","BorrowerRequest");
                     startActivity(intent);
                 }
                 else if(message.equals("requested")){
@@ -197,6 +200,7 @@ public class BorrowerRequest extends AppCompatActivity {
                     String bookId = bookItem.getID();
                     Intent intent = new Intent(BorrowerRequest.this, PublicBookDetails.class);
                     intent.putExtra("Id", bookId);
+                    intent.putExtra("flag","BorrowerRequest");
                     startActivity(intent);
                 }
             }
@@ -219,30 +223,32 @@ public class BorrowerRequest extends AppCompatActivity {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
                                     final book targetBook1 = dataSnapshot1.getValue(book.class);
-                                    StorageReference imageRef = storageRef.child("book/"+bookID1+"/1.jpg");
-                                    final long ONE_MEGABYTE = 1024 * 1024;
-                                    imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                        @Override
-                                        public void onSuccess(byte[] bytes) {
-                                            Log.i("step","success1");
-                                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                                            targetBook1.setImage(bitmap);
-                                            Log.i("testName1",targetBook1.getName());
-                                            requestAdapter.notifyDataSetChanged();
-                                            //bookPhoto.setImageBitmap(bitmap);
-                                        }
+                                    if (targetBook1 != null) {
+                                        StorageReference imageRef = storageRef.child("book/" + bookID1 + "/1.jpg");
+                                        final long ONE_MEGABYTE = 1024 * 1024;
+                                        imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                            @Override
+                                            public void onSuccess(byte[] bytes) {
+                                                Log.i("step", "success1");
+                                                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                                                targetBook1.setImage(bitmap);
+                                                Log.i("testName1", targetBook1.getName());
+                                                requestAdapter.notifyDataSetChanged();
+                                                //bookPhoto.setImageBitmap(bitmap);
+                                            }
 
-                                    }).addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.i("Result","failed");
-                                        }
-                                    });
-                                    Log.i("testName2",targetBook1.getName());
-                                    //myBookAdapter.notifyDataSetChanged();
-                                    requestedBookList.add(targetBook1);
-                                    requestAdapter.notifyDataSetChanged();
-                                    Log.i("requestListDataChange", String.valueOf(requestedBookList.size()));
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Log.i("Result", "failed");
+                                            }
+                                        });
+                                        Log.i("testName2", targetBook1.getName());
+                                        //myBookAdapter.notifyDataSetChanged();
+                                        requestedBookList.add(targetBook1);
+                                        requestAdapter.notifyDataSetChanged();
+                                        Log.i("requestListDataChange", String.valueOf(requestedBookList.size()));
+                                    }
                                 }
 
                                 @Override
