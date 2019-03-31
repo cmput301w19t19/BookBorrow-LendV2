@@ -321,7 +321,9 @@ public class RateToOwner extends AppCompatActivity {
                 //go back to public book detail
                 Intent i = new Intent(RateToOwner.this,PublicBookDetails.class);
                 i.putExtra("Id",bid);
+                i.putExtra("flag","RateToOwner");
                 startActivity(i);
+                finish();
 
 
             }

@@ -6,94 +6,144 @@
     android:layout_height="match_parent"
     tools:context=".MyBookList">
 
-    <TextView
-        android:id="@+id/MyBookList"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:layout_toRightOf="@id/filterBy"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="10dp"
-        android:text="MyBookList" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/availableFilter"
-        android:layout_width="79dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/MyBookList"
-        android:layout_marginTop="20dp"
-        android:text="available" />
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/MyBookList">
 
-    <Button
-        android:id="@+id/requestedFilter"
-        android:layout_width="79dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/MyBookList"
-        android:layout_toRightOf="@+id/availableFilter"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:text="requested" />
+            <Button
+                android:id="@+id/availableFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/MyBookList"
+                android:layout_weight="1"
+                android:text="available"
+                android:textSize="10sp"
+                tools:layout_editor_absoluteY="20dp" />
 
-    <Button
-        android:id="@+id/acceptedFilter"
-        android:layout_width="79dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/MyBookList"
-        android:layout_toRightOf="@+id/requestedFilter"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:text="accepted" />
+            <Button
+                android:id="@+id/requestedFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/MyBookList"
+                android:layout_toRightOf="@+id/availableFilter"
+                android:layout_weight="1"
+                android:text="requested"
+                android:textSize="10sp"
+                tools:layout_editor_absoluteX="30dp"
+                tools:layout_editor_absoluteY="20dp" />
 
-    <Button
-        android:id="@+id/borrowedFilter"
-        android:layout_width="79dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/MyBookList"
-        android:layout_toRightOf="@+id/acceptedFilter"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:text="borrowed" />
+            <Button
+                android:id="@+id/acceptedFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/MyBookList"
+                android:layout_toRightOf="@+id/requestedFilter"
+                android:layout_weight="1"
+                android:text="accepted"
+                android:textSize="10sp"
+                tools:layout_editor_absoluteX="30dp"
+                tools:layout_editor_absoluteY="20dp" />
 
-    <ImageButton
-        android:id="@+id/addBook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="10dp"
-        app:srcCompat="@android:drawable/ic_input_add" />
+            <Button
+                android:id="@+id/borrowedFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/MyBookList"
+                android:layout_toRightOf="@+id/acceptedFilter"
+                android:layout_weight="1"
+                android:text="borrowed"
+                android:textSize="10sp"
+                tools:layout_editor_absoluteX="30dp"
+                tools:layout_editor_absoluteY="20dp" />
+        </LinearLayout>
 
-    <ListView
-        android:id="@+id/BookList"
-        android:layout_width="390dp"
-        android:layout_height="400dp"
-        android:layout_below="@id/availableFilter"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp" />
+        <TextView
+            android:id="@+id/MyBookList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_toRightOf="@id/filterBy"
+            android:padding="8dp"
+            android:text="MyBookList"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/filterBy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="40dp"
-        android:text="Filter by:" />
+        <Button
+            android:id="@+id/allButton"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Show All"
+            android:textSize="10sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/allButton"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:text="Show All" />
+        <TextView
+            android:id="@+id/filterBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Filter by:"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout5"
+            app:layout_constraintTop_toBottomOf="@+id/allButton" />
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/BookList"
-        android:text="Back" />
+        <ImageButton
+            android:id="@+id/addBook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/MyBookList"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+        <ListView
+            android:id="@+id/BookList"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+    </android.support.constraint.ConstraintLayout>
 
 
 </RelativeLayout>

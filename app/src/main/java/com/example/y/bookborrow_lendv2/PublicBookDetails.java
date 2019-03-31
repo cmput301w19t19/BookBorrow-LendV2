@@ -76,10 +76,11 @@ public class PublicBookDetails extends AppCompatActivity {
     private TextView bookStateTV;
     private TextView bookRateTV;
     private TextView bookOwnerTV;
+    private TextView DescriptionTV;
     private TextView bookDescriptionTV;
     private ImageView bookPhoto;
     private Button requestButton;
-    private Button returnButton;
+    //private Button returnButton;
     private Button locationButton;
     private book b;
     private String Keyword;
@@ -104,8 +105,6 @@ public class PublicBookDetails extends AppCompatActivity {
     StorageReference storageRef = storage.getReference();
 
 
-
-
     private double latFromFirebase;  //location code from firebase
     private double longFromFirebase;
 
@@ -126,13 +125,14 @@ public class PublicBookDetails extends AppCompatActivity {
         bookRateTV = (TextView)findViewById(R.id.puBookRate);
         bookOwnerTV = (TextView)findViewById(R.id.puBookOwner);
         bookDescriptionTV = (TextView)findViewById(R.id.puBookDescription);
+        DescriptionTV = (TextView)findViewById(R.id.comment);
         requestButton = (Button)findViewById(R.id.requestTheBook);
-        returnButton = (Button)findViewById(R.id.puReturnButton);
+        //returnButton = (Button)findViewById(R.id.puReturnButton);
         locationButton = (Button)findViewById(R.id.pubBookLocation);
         bookPhoto = findViewById(R.id.bookPhoto1);
         FirebaseDatabase m = FirebaseDatabase.getInstance();
         r = m.getReference("book/"+bookid);
-
+        final Intent intent1 = new Intent(PublicBookDetails.this, SeeImageActivity.class);
 
 
         /**
@@ -165,8 +165,9 @@ public class PublicBookDetails extends AppCompatActivity {
                     bookRateTV.setText(rate);
 
                     String email = b.getOwnerEmail();
+                    Log.i("test ownerEmail","hello"+email);
                     if (email != null){
-                        bookAuthorTV.setText(email);
+                        bookOwnerTV.setText(email);
                     }
 
                     String description = b.getDescription();
@@ -179,6 +180,7 @@ public class PublicBookDetails extends AppCompatActivity {
                         @Override
                         public void onSuccess(byte[] bytes) {
                             Log.i("Result","success");
+                            intent1.putExtra("image",bytes);
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                             bookPhoto.setImageBitmap(bitmap);
                         }
@@ -189,12 +191,17 @@ public class PublicBookDetails extends AppCompatActivity {
                             Log.i("Result","failed");
                         }
                     });
+
                     // initial the comment here
                     ISBNRef = database.getReference("bookISBN/" + ISBN).child("RatingAndComment");
                     ValueEventListener postListener2 = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
-                            if (dataSnapshot2.exists()) {
+                            if (!dataSnapshot2.exists()){
+                                see_more.setVisibility(View.GONE);
+                                listview.setVisibility(View.GONE);
+                                DescriptionTV.setText("No one borrow it yet!");
+                            }else{
                                 for (DataSnapshot ds : dataSnapshot2.getChildren()) {
                                     final RatingAndComment com = ds.getValue(RatingAndComment.class);
                                     final String c_rating = com.getRating();
@@ -282,11 +289,6 @@ public class PublicBookDetails extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // get id
-                Log.i("qqqqqqqqq","0000000");
-                Log.w("qqqqqqqqqq",bookid);
-
-
 
                 auth = FirebaseAuth.getInstance();
                 FirebaseUser user = auth.getCurrentUser();
@@ -299,7 +301,6 @@ public class PublicBookDetails extends AppCompatActivity {
                 r2.child("book").child(bookid).child("status").setValue("requested");
 
                 //set book status to requested
-                Log.i("ooooooooo","0000000");
 
 
                 //get book by bookid
@@ -367,6 +368,7 @@ public class PublicBookDetails extends AppCompatActivity {
         /**
          * Return to the activity which all this one, using flag to distinct caller
          */
+        /*
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -379,8 +381,14 @@ public class PublicBookDetails extends AppCompatActivity {
                     finish();
                }
             }
-        });
+        });*/
 
+        bookPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent1);
+            }
+        });
 
         //borrower click location button than can view
         //this book's location on map
@@ -436,5 +444,21 @@ public class PublicBookDetails extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        if(flag.equals("searchbook")) {
+
+            Intent back = new Intent(PublicBookDetails.this, SearchResultForBook.class);
+            back.putExtra("key",Keyword);
+            startActivity(back);
+        } else if (flag.equals("RateToOwner")) {
+            Intent back = new Intent(PublicBookDetails.this,home_page.class);
+            startActivity(back);
+            finish();
+        }else {
+            finish();
+        }
     }
 }

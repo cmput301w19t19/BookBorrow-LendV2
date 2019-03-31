@@ -3,11 +3,9 @@ package com.example.y.bookborrow_lendv2;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -54,7 +52,7 @@ public class SearchingUserDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searching_user_detail);
 
-        final TextView userNameTextView = (TextView)findViewById(R.id.pBookDetialTitle);
+        final TextView userNameTextView = (TextView)findViewById(R.id.puBookName);
         final TextView userEmailTextView = (TextView)findViewById(R.id.searchUserDetailUserEmailInput);
         final TextView phoneNumberTextView = (TextView)findViewById(R.id.searchUserDetailPhoneInput);
         final ImageView userPhoto = (ImageView) findViewById(R.id.userPhoto);
@@ -72,7 +70,7 @@ public class SearchingUserDetail extends AppCompatActivity {
         final ListView borrowerListView = (ListView)findViewById(R.id.ListViewBorrower);
         final ArrayList<comment> borrowerCommentList = new ArrayList<>();
         final CommentAdapter borrowerCommentAdapter = new CommentAdapter(this,borrowerCommentList);
-
+        final Intent intent1 = new Intent(SearchingUserDetail.this,SeeImageActivity.class);
         Intent i = getIntent();
         profileID = i.getStringExtra("profileID");
         try{
@@ -92,6 +90,7 @@ public class SearchingUserDetail extends AppCompatActivity {
             @Override
             public void onSuccess(byte[] bytes) {
                 Log.i("Result","success");
+                intent1.putExtra("image",bytes);
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                 userPhoto.setImageBitmap(bitmap);
             }
@@ -201,6 +200,13 @@ public class SearchingUserDetail extends AppCompatActivity {
         };
         r1.addListenerForSingleValueEvent(lenderListern);
         lenderListView.setAdapter(lenderCommentAdapter);
+
+        userPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(intent1);
+            }
+        });
 
         lenderSeeMore.setOnClickListener(new View.OnClickListener() {
             @Override

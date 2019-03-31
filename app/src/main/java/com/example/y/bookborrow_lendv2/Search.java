@@ -39,6 +39,7 @@ import com.google.firebase.database.FirebaseDatabase;
  * This is our search pages that allow user to enter keayword
  */
 public class Search extends AppCompatActivity {
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference DbRef;
     private FirebaseAuth auth;
@@ -54,9 +55,7 @@ public class Search extends AppCompatActivity {
         inputKeyword = (EditText) findViewById(R.id.keyword);
         sBookButton= (Button) findViewById(R.id.See_Result_of_BookButton);
 
-
-
-
+        Intent i = getIntent();
         sBookButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -81,5 +80,11 @@ public class Search extends AppCompatActivity {
 
 
     }
+    /*@Override
+    public void onBackPressed(){
+        Intent intent = new Intent(Search.this,)
+    }
+    */
+
 
 }
