@@ -98,9 +98,6 @@ public class SearchPersonAdapter extends BaseAdapter {
         ImageView userImage;
 
         TextView userName;
-        /**
-         * The User email.
-         */
         TextView userEmail;
     }
 

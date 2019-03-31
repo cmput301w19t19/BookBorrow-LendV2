@@ -86,13 +86,16 @@ public class RateToBorrower extends AppCompatActivity {
 
         // need to get the borrower id from the last activity
         Intent i = getIntent();
-        String bid = i.getStringExtra("borrowerID");
-        bookID = i.getStringExtra("bookID");
+        //String bid = i.getStringExtra("borrowerID");
+        //bookID = i.getStringExtra("bookID");
+
+        bookID = "3543da43-5d5d-4fb6-a488-5881782fb6eb";
 
         Log.i("test RateToBorrower","bookid"+bookID);
 
-        //String bid = "J0WloTnZcAcds7lT7dCR9PtzH5x2";
-        //bookID = "55c1c2d9-e85b-4753-88f7-e20b8a7a0f19";
+
+        String bid = "J0WloTnZcAcds7lT7dCR9PtzH5x2";
+
         DatabaseReference r3 = m.getReference("borrowers/" + bid);
         ValueEventListener borrowerListener = new ValueEventListener() {
             @Override
@@ -168,7 +171,9 @@ public class RateToBorrower extends AppCompatActivity {
 
                 Intent i = new Intent(RateToBorrower.this,PrivateBookDetails.class);
                 i.putExtra("Id",bookID);
+                i.putExtra("flag","RateToBorrower");
                 startActivity(i);
+                finish();
 
             }
         });

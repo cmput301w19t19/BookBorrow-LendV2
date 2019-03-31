@@ -31,9 +31,6 @@ import android.graphics.Bitmap;
 public class B_request {
     private String userName;
     private double rating;
-    /**
-     * The Selected.
-     */
     boolean selected = false;
     private String userID;
     private Bitmap photo;

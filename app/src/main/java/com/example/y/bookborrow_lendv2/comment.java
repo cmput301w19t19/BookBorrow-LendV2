@@ -31,9 +31,7 @@ package com.example.y.bookborrow_lendv2;
 public class comment {
     private String userName;
     private String rating;
-    /**
-     * The Selected.
-     */
+
     private String comment;
     private Bitmap photo;
     private String ID;

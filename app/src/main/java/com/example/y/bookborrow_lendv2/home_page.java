@@ -51,17 +51,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-/**
- * The type Home page.
- */
+
 public class home_page extends AppCompatActivity {
     private FirebaseAuth auth;
     private TextView username;
     private DatabaseReference mDatabase;
 
-    /**
-     * The Database.
-     */
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     private ImageView head;

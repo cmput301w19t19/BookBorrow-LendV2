@@ -55,7 +55,10 @@ dependencies {
     //})
 
     implementation files('../gradle/wrapper/android-viewbadger 1.37.14 PM.jar')
+    implementation 'com.google.firebase:firebase-messaging:9.0.0'
+
 }
 com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
+apply plugin: 'com.google.gms.google-services'
 //must add this line for using google map
 

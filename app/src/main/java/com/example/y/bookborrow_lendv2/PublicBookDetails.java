@@ -92,24 +92,16 @@ public class PublicBookDetails extends AppCompatActivity {
     private comment comment;
 
 
-    /**
-     * The Database.
-     */
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    /**
-     * The Db ref.
-     */
+
     DatabaseReference DbRef = database.getReference();
     DatabaseReference ISBNRef = database.getReference();
-    /**
-     * The Db ref.
-     */
+
     DatabaseReference dbRef = database.getReference();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
-
-
 
 
     private double latFromFirebase;  //location code from firebase
@@ -196,12 +188,16 @@ public class PublicBookDetails extends AppCompatActivity {
                             Log.i("Result","failed");
                         }
                     });
+
                     // initial the comment here
                     ISBNRef = database.getReference("bookISBN/" + ISBN).child("RatingAndComment");
                     ValueEventListener postListener2 = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
-                            if (dataSnapshot2.exists()) {
+                            if (!dataSnapshot2.exists()){
+                                see_more.setVisibility(View.GONE);
+                                listview.setVisibility(View.GONE);
+                            }else{
                                 for (DataSnapshot ds : dataSnapshot2.getChildren()) {
                                     final RatingAndComment com = ds.getValue(RatingAndComment.class);
                                     final String c_rating = com.getRating();
@@ -449,5 +445,21 @@ public class PublicBookDetails extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed(){
+        if(flag.equals("searchbook")) {
+
+            Intent back = new Intent(PublicBookDetails.this, SearchResultForBook.class);
+            back.putExtra("key",Keyword);
+            startActivity(back);
+        } else if (flag.equals("RateToOwner")) {
+            Intent back = new Intent(PublicBookDetails.this,home_page.class);
+            startActivity(back);
+            finish();
+        }else {
+            finish();
+        }
     }
 }
