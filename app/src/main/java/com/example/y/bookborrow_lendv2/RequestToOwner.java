@@ -236,6 +236,9 @@ public class RequestToOwner extends AppCompatActivity {
                 }
                 Intent intent1 = new Intent(RequestToOwner.this,MyBookList.class);
                 startActivity(intent1);
+
+                //Intent pickPointIntent = new Intent(RequestToOwner.this,MapsActivityOwnerSetLocation.class);
+                //startActivity(pickPointIntent);
             }
         });
 
@@ -310,6 +313,9 @@ public class RequestToOwner extends AppCompatActivity {
 
 
     }
+
+
+
 
 
 }

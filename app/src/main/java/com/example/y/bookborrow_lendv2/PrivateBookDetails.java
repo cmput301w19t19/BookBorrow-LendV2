@@ -130,6 +130,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         final Intent intent1 = new Intent(PrivateBookDetails.this,SeeImageActivity.class);
         locationButton = (Button)findViewById(R.id.pBookLocation);
 
+        final Intent mapIntent = getIntent();
 
         /**
          *  Get the information of the book from firebase and show them on the screen
@@ -398,29 +399,46 @@ public class PrivateBookDetails extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-/*
-    private void photoClip(Uri uri) {
-        Intent intent = new Intent();
-        intent.setAction("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-        intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", 150);
-        intent.putExtra("outputY", 150);
-        intent.putExtra("return-data", true);
-        startActivityForResult(intent, CODE_PHOTO_CLIP);
-    }
 
-    private void setImageToHeadView(Intent intent) {
-        Bundle extras = intent.getExtras();
-        if (extras != null) {
-            Bitmap photo = extras.getParcelable("data");
-            bookPhoto.setImageBitmap(photo);
-        }
+
+        /**
+         * get location code from map Set location activity
+         */
+
+
+/*
+        LatLng latLng = (LatLng) mapIntent.getParcelableExtra("picked_point");
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference rMap = db.getReference("book/"+bookx.getID());
+        rMap.child("longitude").setValue(latLng.longitude);
+        rMap.child("latitude").setValue(latLng.latitude);
+
+        Toast.makeText(this, "Book Location Saved!", Toast.LENGTH_LONG).show();
+*/
+
     }
-    */
+    /*
+        private void photoClip(Uri uri) {
+            Intent intent = new Intent();
+            intent.setAction("com.android.camera.action.CROP");
+            intent.setDataAndType(uri, "image/*");
+            intent.putExtra("crop", "true");
+            intent.putExtra("aspectX", 1);
+            intent.putExtra("aspectY", 1);
+            intent.putExtra("outputX", 150);
+            intent.putExtra("outputY", 150);
+            intent.putExtra("return-data", true);
+            startActivityForResult(intent, CODE_PHOTO_CLIP);
+        }
+
+        private void setImageToHeadView(Intent intent) {
+            Bundle extras = intent.getExtras();
+            if (extras != null) {
+                Bitmap photo = extras.getParcelable("data");
+                bookPhoto.setImageBitmap(photo);
+            }
+        }
+        */
     @Override
     public void onBackPressed(){
         //Intent intent = new Intent();
@@ -551,6 +569,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         /*return from map activity and
         toast the location user long click in map view activity
          */
+
         if (requestCode == pickMapPointRequest){
             LatLng latLng = (LatLng) Data.getParcelableExtra("picked_point");
 

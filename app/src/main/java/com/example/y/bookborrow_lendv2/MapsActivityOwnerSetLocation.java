@@ -73,7 +73,7 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
+/*
         Intent intent = getIntent();
         final String book_ID = intent.getStringExtra("bookid");
 
@@ -96,7 +96,7 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
             }
         };
         r.addListenerForSingleValueEvent(bookListener);
-
+*/
     }
 
 
@@ -128,13 +128,10 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
 
 
                 LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(userLocation,15));
 
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(userLocation, 13);
-                mMap.animateCamera(cameraUpdate);
-                locationManager.removeUpdates(this);
-
-
+                //CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(userLocation, 13);
+                //mMap.animateCamera(cameraUpdate);
+                //locationManager.removeUpdates(this);
             }
 
             @Override
@@ -157,7 +154,8 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
         } else {
 
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 2, 2, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1, 1, locationListener);
+
             mMap.setMyLocationEnabled(true);
 
 
@@ -169,10 +167,12 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
             @Override
             public void onMapLongClick(LatLng latLng) {
 
-                Intent returnIntent = new Intent();
+                Intent returnIntent = new Intent(getApplicationContext(),PrivateBookDetails.class);
                 returnIntent.putExtra("picked_point", latLng);
+                //startActivity(returnIntent);
                 setResult(Activity.RESULT_OK, returnIntent);
                 finish();
+
 
             }
         });
