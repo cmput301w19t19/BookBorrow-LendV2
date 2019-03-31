@@ -33,41 +33,79 @@
     tools:context="com.example.y.bookborrow_lendv2.Search">
 
 
-    <TextView
-        android:id="@+id/keywordText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="67dp"
+
+        android:layout_margin="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="0dp"
+        android:orientation="vertical">
         android:text="Please Enter A Keyword"
-        android:textSize="30dp" />
+        android:textSize="24sp" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
 
-    <EditText
-        android:id="@+id/keyword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="72dp"
-        android:layout_marginLeft="72dp"
-        android:layout_marginTop="160dp"
-        android:ems="10"
-        android:hint="Enter Keyword Here"
-        android:inputType="textPersonName" />
+        <TextView
+            android:id="@+id/keywordText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="Please Enter A Keyword"
+            android:textSize="24sp" />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5" />
 
-    <Button
-        android:id="@+id/See_Result_of_BookButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/keyword"
-        android:layout_alignLeft="@+id/keyword"
-        android:layout_alignRight="@id/keyword"
-        android:layout_marginTop="129dp"
-        android:text="Search " />
+        <EditText
+            android:id="@+id/keyword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="Enter Keyword Here"
+            android:inputType="textPersonName" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="8" />
+
+        <Button
+            android:id="@+id/See_Result_of_BookButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/keyword"
+            android:layout_alignLeft="@+id/keyword"
+            android:layout_alignRight="@id/keyword"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="36dp"
+            android:backgroundTint="@android:color/white"
+            android:text="Search " />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
 
 
 </RelativeLayout>

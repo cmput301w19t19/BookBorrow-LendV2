@@ -32,7 +32,7 @@ import java.util.UUID;
 
 /**
  * borrower object class extends user class
- * contain two ArrayList borrowedBook and requestedList
+ * contain three ArrayList borrowedBook, requestedList and commentList
  *
  * @param
  * @return none
@@ -61,7 +61,12 @@ public class borrower extends user {
 
     public Integer getborrowBookTime(){return borrowBookTime;}
 
-
+    /**
+     *  When a user register,set the basic infor as a borrower to firebase
+     * @param uid
+     * @param email
+     * @see Register
+     */
     public void setToFirebase(String uid,String email){
         m = FirebaseDatabase.getInstance();
         r = m.getReference("borrowers/"+uid);
@@ -71,12 +76,24 @@ public class borrower extends user {
         r.child("borrowBookTime").setValue(this.borrowBookTime);
     }
 
+    /**
+     *  When a user change his username, set the name to firebase
+     * @param uid
+     * @param name
+     * @see profile
+     */
     public void setNameToFireBase(String uid,String name){
         FirebaseDatabase m = FirebaseDatabase.getInstance();
         DatabaseReference r = m.getReference("borrowers/"+uid);
         r.child("name").setValue(name);
     }
 
+    /**
+     *  When the borrower recieved a rating and comment from a lender,
+     *  update the total rate and borrow book time and set to firebase
+     * @param rating
+     * @see RateToBorrower
+     */
     public void setBorrowerRating(Double rating) {
         this.totalRate += rating;
         this.borrowBookTime += 1;
@@ -86,6 +103,12 @@ public class borrower extends user {
         r.child("borrowBookTime").setValue(this.borrowBookTime);
     }
 
+    /**
+     * When the borrower recieved a rating and comment from a lender,
+     * set the new RatingAndComment object to firebase
+     * @param c
+     * @see RateToBorrower
+     */
     public void addNewComment(RatingAndComment c){
         UUID commentID = UUID.randomUUID();
         commentList.add(c);
@@ -99,7 +122,6 @@ public class borrower extends user {
 
     /**
      * set the list of array list of books the borrower has requested
-     *
      * @param list the list
      */
     public void setRequestedBookList(ArrayList<book> list) {

@@ -45,7 +45,7 @@ public class Search extends AppCompatActivity {
     private FirebaseAuth auth;
     private EditText inputKeyword;
     private Button sPersonButton, sBookButton;
-
+    private String flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +56,7 @@ public class Search extends AppCompatActivity {
         sBookButton= (Button) findViewById(R.id.See_Result_of_BookButton);
 
         Intent i = getIntent();
+        flag = i.getStringExtra("flag");
         sBookButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -80,11 +81,17 @@ public class Search extends AppCompatActivity {
 
 
     }
-    /*@Override
+    @Override
     public void onBackPressed(){
-        Intent intent = new Intent(Search.this,)
+        if (flag.equals("owner")) {
+            Intent intent1 = new Intent(Search.this, OwnerHomeActivity.class);
+            startActivity(intent1);
+        } else if(flag.equals("borrower")){
+            Intent intent1 = new Intent(Search.this,BorrowerMenu.class);
+            startActivity(intent1);
+        }
     }
-    */
+
 
 
 }

@@ -51,6 +51,15 @@ import com.google.firebase.storage.StorageReference;
 
 import static java.lang.Double.parseDouble;
 
+/**
+ * After a borrower return his borrowed book back from scan activity,
+ * the borrower will see this activity
+ * and be prompted to enter rate and comment for the lender and the borrowed book.
+ * After finishing rating, the page will be back to PublicBookDetail.
+ *
+ * @see check_to_scan
+ * @see PublicBookDetails
+ */
 public class RateToOwner extends AppCompatActivity {
 
     private book b;
@@ -244,10 +253,6 @@ public class RateToOwner extends AppCompatActivity {
 
         r1.addValueEventListener(bookLister);
         Log.i("testnn","333");
-
-
-
-
 
 
         saveButton.setOnClickListener(new View.OnClickListener() {

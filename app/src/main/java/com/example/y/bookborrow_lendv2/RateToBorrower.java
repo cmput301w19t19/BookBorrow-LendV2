@@ -49,6 +49,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+/**
+ * After a owner get his lended book back from scan activity,
+ * the owner will see this activity and be prompted to enter rate and comment for the borrower.
+ * After finishing rating, the page will be back to PrivateBookDetail.
+ *
+ * @see check_to_scan
+ * @see PrivateBookDetails
+ */
 public class RateToBorrower extends AppCompatActivity {
 
     private borrower borrowerx;
@@ -60,6 +68,7 @@ public class RateToBorrower extends AppCompatActivity {
     private ImageView borrowerImage;
     private String uid;
     private String bookID;
+    private String borrowerID;
 
     FirebaseAuth auth;
     FirebaseUser user;
@@ -86,15 +95,8 @@ public class RateToBorrower extends AppCompatActivity {
 
         // need to get the borrower id from the last activity
         Intent i = getIntent();
-        //String bid = i.getStringExtra("borrowerID");
-        //bookID = i.getStringExtra("bookID");
-
-        bookID = "3543da43-5d5d-4fb6-a488-5881782fb6eb";
-
-        Log.i("test RateToBorrower","bookid"+bookID);
-
-
-        String bid = "J0WloTnZcAcds7lT7dCR9PtzH5x2";
+        String bid = i.getStringExtra("borrowerID");
+        bookID = i.getStringExtra("bookID");
 
         DatabaseReference r3 = m.getReference("borrowers/" + bid);
         ValueEventListener borrowerListener = new ValueEventListener() {
@@ -103,7 +105,8 @@ public class RateToBorrower extends AppCompatActivity {
                 borrowerx = dataSnapshot.getValue(borrower.class);
                 borrowerNameTextView.setText(borrowerx.getName());
                 borrowerEmailTextView.setText(borrowerx.getEmail());
-                StorageReference imageRef = storageRef.child("user/"+uid+"/1.jpg");
+                borrowerID = borrowerx.getUid();
+                StorageReference imageRef = storageRef.child("user/"+borrowerID+"/1.jpg");
                 final long ONE_MEGABYTE = 10 * 1024 * 1024;
                 imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                     @Override

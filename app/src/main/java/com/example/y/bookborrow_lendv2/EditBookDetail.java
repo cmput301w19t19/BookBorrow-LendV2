@@ -65,6 +65,7 @@ import com.google.zxing.integration.android.IntentResult;
  * @author Team 19
  * @version 1.0
  * @see PrivateBookDetails
+ * @see MyBookList
  */
 public class EditBookDetail extends AppCompatActivity {
 
@@ -77,7 +78,7 @@ public class EditBookDetail extends AppCompatActivity {
     private EditText descriptionEditText;
     private ImageView bookPhoto;
     private String id;
-    private Bitmap photo = null;
+    private Bitmap photo;
 
 
     Button ISBNButton;
@@ -159,6 +160,7 @@ public class EditBookDetail extends AppCompatActivity {
                                 Log.i("Result","success");
                                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                 b.setImage(bitmap);
+                                photo = bitmap;
                                 bookPhoto.setImageBitmap(bitmap);
                                 //bookPhoto.setImageBitmap(bitmap);
                             }
@@ -207,17 +209,44 @@ public class EditBookDetail extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (photo == null) {
+                /*if (photo == null) {
                     Toast.makeText(EditBookDetail.this, "Please upload image!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                */
+
+                final String ISBNString = ISBNEditText.getText().toString();
+                if (ISBNString.isEmpty()){
+                    Toast.makeText(getApplicationContext(),"Please enter ISBN",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 b.setName(bookNamkeEditText.getText().toString());
                 b.setAuthor(authorEditText.getText().toString());
                 b.setDescription(descriptionEditText.getText().toString());
-                b.setISBN(ISBNEditText.getText().toString());
+                b.setISBN(ISBNString);
 
-                bookISBN ISBN = new bookISBN(ISBNEditText.getText().toString());
-                ISBN.setToFirebase();
+                FirebaseDatabase m = FirebaseDatabase.getInstance();
+                DatabaseReference r0 = m.getReference("bookISBN/"+ISBNString);
+
+                ValueEventListener ISBNListner = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (!dataSnapshot.exists()){
+                            bookISBN ISBN = new bookISBN(ISBNString);
+                            ISBN.setToFirebase();
+
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                };
+
+                r0.addListenerForSingleValueEvent(ISBNListner);
+
 
 
                 FirebaseUser user = auth.getCurrentUser();

@@ -114,6 +114,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/pLocationButton"
                     android:textSize="14sp"
+                    android:backgroundTint="@android:color/white"
                     tools:layout_editor_absoluteX="126dp"
                     tools:layout_editor_absoluteY="149dp" />
             </LinearLayout>
@@ -339,10 +340,12 @@
             android:id="@+id/requestTheBook"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+
             android:layout_marginStart="36dp"
             android:layout_marginLeft="36dp"
             android:layout_marginEnd="36dp"
             android:layout_marginRight="36dp"
+
             android:layout_marginBottom="8dp"
             android:backgroundTint="@android:color/white"
             android:paddingLeft="4dp"
@@ -350,7 +353,9 @@
 
             android:text="@string/BookDetailRequestTheBook"
             app:layout_constraintBottom_toBottomOf="parent"
+
             app:layout_constraintEnd_toEndOf="parent"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ListViewForComment"
             app:layout_constraintVertical_bias="1.0" />
@@ -361,14 +366,18 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
+
             android:layout_marginBottom="8dp"
+
             android:clickable="true"
             android:gravity="center"
             android:text="@string/see_more"
             android:textColor="@color/design_default_color_primary"
             android:textSize="14sp"
+
             app:layout_constraintBottom_toTopOf="@+id/requestTheBook"
             app:layout_constraintEnd_toEndOf="@id/ListViewForComment" />
+
 
 
     </android.support.constraint.ConstraintLayout>

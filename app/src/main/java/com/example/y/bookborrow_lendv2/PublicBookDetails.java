@@ -78,6 +78,7 @@ public class PublicBookDetails extends AppCompatActivity {
     private TextView bookOwnerTV;
     private TextView DescriptionTV;
     private TextView bookDescriptionTV;
+    //private TextView booktitle;
     private ImageView bookPhoto;
     private Button requestButton;
     //private Button returnButton;
@@ -91,6 +92,7 @@ public class PublicBookDetails extends AppCompatActivity {
     private CommentAdapter mAdapter;
     private ListView listview;
     private comment comment;
+    private  Bitmap photo;
 
 
 
@@ -118,6 +120,7 @@ public class PublicBookDetails extends AppCompatActivity {
         Keyword = intent.getStringExtra("Keyword");
         flag = intent.getStringExtra("flag");
         see_more = (TextView)findViewById(R.id.public_see_more);
+        //booktitle = findViewById(R.id.pBookDetialTitle);
         bookNameTV = (TextView)findViewById(R.id.puBookName);
         ISBNTV = (TextView)findViewById(R.id.puBookISBN);
         bookAuthorTV = (TextView)findViewById(R.id.puBookAuthor);
@@ -134,6 +137,10 @@ public class PublicBookDetails extends AppCompatActivity {
         r = m.getReference("book/"+bookid);
         final Intent intent1 = new Intent(PublicBookDetails.this, SeeImageActivity.class);
 
+        requestButton.setVisibility(View.INVISIBLE);
+        if (!flag.equals("BorrowBook") ) {
+            requestButton.setVisibility(View.VISIBLE);
+        }
 
         /**
          *  Get the information of the book from firebase and show them on the screen
@@ -174,6 +181,7 @@ public class PublicBookDetails extends AppCompatActivity {
                     if (description != null) {
                         bookDescriptionTV.setText(description);
                     }
+
                     StorageReference imageRef = storageRef.child("book/"+bookid+"/1.jpg");
                     final long ONE_MEGABYTE = 10 * 1024 * 1024;
                     imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -182,6 +190,7 @@ public class PublicBookDetails extends AppCompatActivity {
                             Log.i("Result","success");
                             intent1.putExtra("image",bytes);
                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+                            photo = bitmap;
                             bookPhoto.setImageBitmap(bitmap);
                         }
 
@@ -364,29 +373,24 @@ public class PublicBookDetails extends AppCompatActivity {
 
             }
         });
-
+/*
         /**
          * Return to the activity which all this one, using flag to distinct caller
          */
-        /*
-        returnButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(flag.equals("searchbook")) {
 
-                    Intent back = new Intent(PublicBookDetails.this, SearchResultForBook.class);
-                    back.putExtra("key",Keyword);
-                    startActivity(back);
-                } else {
-                    finish();
-               }
-            }
-        });*/
+
+
+
 
         bookPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(intent1);
+                if(photo==null){
+                    return;
+                }
+                else {
+                    startActivity(intent1);
+                }
             }
         });
 
@@ -457,7 +461,16 @@ public class PublicBookDetails extends AppCompatActivity {
             Intent back = new Intent(PublicBookDetails.this,home_page.class);
             startActivity(back);
             finish();
-        }else {
+        }else if (flag.equals("BorrowerRequest")){
+            Intent back = new Intent(PublicBookDetails.this, BorrowerRequest.class);
+            startActivity(back);
+            finish();
+        } else if (flag.equals("BorrowBook")){
+            Intent back = new Intent(PublicBookDetails.this,BorrowBookList.class);
+            startActivity(back);
+            finish();
+        }
+        else{
             finish();
         }
     }

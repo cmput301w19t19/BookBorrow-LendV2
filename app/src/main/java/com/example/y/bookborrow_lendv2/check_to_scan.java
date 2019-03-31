@@ -189,7 +189,8 @@ public class check_to_scan extends AppCompatActivity{
                                                     Intent intent = new Intent(check_to_scan.this, PrivateBookDetails.class);
                                                     // put the result code to private detail
                                                     intent.putExtra("Id", selectedID);
-                                                    startActivityForResult(intent, 3);
+                                                    intent.putExtra("flag","scan");
+                                                    startActivity(intent);
                                                 } else if (B_status.equals("borrow") && user.equals("borrower")) {
                                                     if (bookStatus.equals("accepted") && BookfirstScanned.equals("true")) {
                                                         //first delete the book in accept List

@@ -44,34 +44,25 @@
 
         <Button
             android:id="@+id/BookDetailDelete"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:backgroundTint="@android:color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:backgroundTint="@android:color/white"
             android:text="@string/BookDetailDelete" />
 
         <Button
-            android:id="@+id/ReturnButton"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="return" />
-
-        <Button
             android:id="@+id/bookDetailEdit"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/white"
             android:layout_weight="1"
             android:text="@string/BookDetailEdit" />
 
         <Button
             android:id="@+id/bookDetailRequest"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/white"
             android:layout_weight="1"
             android:text="@string/BookDetailShowRequest" />
     </LinearLayout>
@@ -127,11 +118,11 @@
 
             <Button
                 android:id="@+id/pBookLocation"
-                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/pLocationButton"
                 android:textSize="14sp"
+                android:backgroundTint="@android:color/white"
                 tools:layout_editor_absoluteX="126dp"
                 tools:layout_editor_absoluteY="149dp" />
         </LinearLayout>
