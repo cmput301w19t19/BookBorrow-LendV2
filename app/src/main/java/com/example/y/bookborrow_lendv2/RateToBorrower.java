@@ -88,7 +88,7 @@ public class RateToBorrower extends AppCompatActivity {
         // need to get the borrower id from the last activity
         Intent i = getIntent();
         String bid = i.getStringExtra("borrowerID");
-        //bookID = i.getStringExtra("bookID");
+        bookID = i.getStringExtra("bookID");
 
         //bookID = "3543da43-5d5d-4fb6-a488-5881782fb6eb";
 

@@ -1,11 +1,13 @@
 package com.example.y.bookborrow_lendv2;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -78,6 +80,8 @@ public class EditBookDetail extends AppCompatActivity {
     private ImageView bookPhoto;
     private String id;
     private Bitmap photo;
+    private String storageUrl;
+    private Uri urii;
 
 
     Button ISBNButton;
@@ -114,9 +118,18 @@ public class EditBookDetail extends AppCompatActivity {
 
 
 
+
         Intent i = getIntent();
         id = i.getStringExtra("0");
-
+        final StorageReference storageReference1 = storageRef.child("book/" + id + "/1.jpg");
+        storageReference1.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                urii = uri;
+                Log.i("downloadURI","success");
+            }
+        });
+        storageUrl = "https://console.firebase.google.com/project/booklendborrow/storage/booklendborrow.appspot.com/files~2Fbook~2F"+id+"~2F";
         if (id.equals("0")){
             b = new book();
             id = b.getID();
@@ -258,8 +271,52 @@ public class EditBookDetail extends AppCompatActivity {
             }
         });
 
+        bookPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showNormalDialog();
+            }
+        });
+
 
     }
+    private void showNormalDialog(){
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(EditBookDetail.this);
+        //normalDialog.setIcon(R.drawable.icon_dialog);
+        normalDialog.setTitle("Dialog");
+        normalDialog.setMessage("Choose an option");
+        normalDialog.setPositiveButton("Delete",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...To-do
+
+                        StorageReference storageReference = FirebaseStorage.getInstance().getReferenceFromUrl(urii.toString());
+                        storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.i("deletePhoto","success");
+                                bookPhoto.setImageBitmap(null);
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.i("deletePhoto","failed");
+                            }
+                        });
+                    }
+                });
+        normalDialog.setNegativeButton("Exit",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...To-do
+                    }
+                });
+        normalDialog.show();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent Data) {
         super.onActivityResult(requestCode, resultCode, Data);
@@ -276,17 +333,26 @@ public class EditBookDetail extends AppCompatActivity {
             if (Data != null) {
                 //Bitmap photo = null;
                 try {
-                    Uri uri = Data.getData();
+                    Uri uri1 = Data.getData();
                     Log.i("hello22", "22");
                     //if (extra != null) {
                     //  Log.i("hello22","slslsl");
-                    photo = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                    photo = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri1);
                     bookPhoto.setImageBitmap(photo);
-                    StorageReference storageReference = storageRef.child("book/" + id + "/" + "1.jpg");
-                    storageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    final StorageReference storageReference = storageRef.child("book/" + id + "/" + "1.jpg");
+                    storageReference.putFile(uri1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Uri downloadUrl = taskSnapshot.getUploadSessionUri();
+                            //Url downloadUrl = taskSnapshot.getUploadSessionUri();
+                            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    urii = uri;
+                                    Log.i("downloadURI","success");
+                                }
+                            });
+
+
                         }
                     });
                 } catch (IOException e) {

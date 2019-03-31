@@ -231,7 +231,7 @@ public class PrivateBookDetails extends AppCompatActivity {
                                                 final String c_username = user.getName();
                                                 Log.i("testUname",c_username);
                                                 // need to add the image
-                                                StorageReference imageRef = storageRef.child("book/"+c_userID+"/1.jpg");
+                                                StorageReference imageRef = storageRef.child("user/"+c_userID+"/1.jpg");
                                                 final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                                 imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                                     @Override
@@ -344,7 +344,8 @@ public class PrivateBookDetails extends AppCompatActivity {
                     requestRef.setValue("true");
                     //deletetBookRequest(bookx);
                     Log.w("test", "delete request functionrun");
-
+                    StorageReference Sref = storage.getReference();
+                    Sref.child("book").child(bookid).delete();
                     auth = FirebaseAuth.getInstance();
                     FirebaseUser user = auth.getCurrentUser();
                     DatabaseReference r = FirebaseDatabase.getInstance().getReference();
