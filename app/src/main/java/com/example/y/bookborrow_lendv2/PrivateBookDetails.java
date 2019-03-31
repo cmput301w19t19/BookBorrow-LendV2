@@ -85,7 +85,6 @@ public class PrivateBookDetails extends AppCompatActivity {
     private Button deleteButton;
     private Button editButton;
     private Button requestButton;
-    private Button returnButton;
     private ImageView bookPhoto ;
     private String flag;
 
@@ -132,7 +131,6 @@ public class PrivateBookDetails extends AppCompatActivity {
         deleteButton = (Button)findViewById(R.id.BookDetailDelete);
         editButton = (Button)findViewById(R.id.bookDetailEdit);
         requestButton = (Button)findViewById(R.id.bookDetailRequest);
-        returnButton = (Button)findViewById(R.id.ReturnButton);
         bookPhoto = findViewById(R.id.bookPhoto);
         final Intent intent1 = new Intent(PrivateBookDetails.this,SeeImageActivity.class);
         locationButton = (Button)findViewById(R.id.pBookLocation);
@@ -167,6 +165,7 @@ public class PrivateBookDetails extends AppCompatActivity {
                     if (state != null) {
                         bookStateTV.setText(state);
                     }
+
                     if(state.equals("borrowed")){
                         final String bookID = bookx.getBorrowerID();
                         final DatabaseReference borrowerRef = database.getReference("borrowers/"+bookID);
@@ -175,7 +174,7 @@ public class PrivateBookDetails extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
                                 if (dataSnapshot2.exists()) {
                                     final borrower bor = dataSnapshot2.getValue(borrower.class);
-                                    bookNameTV.setText(bor.getName());
+                                    bookNameTV.setText(bor.getEmail());
                                 }
                             }
                             @Override
@@ -376,45 +375,8 @@ public class PrivateBookDetails extends AppCompatActivity {
             }
         });
 
-        /**
-         * Return to the activity which all this one, using flag to distinct caller
-         */
-        returnButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(PrivateBookDetails.this,MyBookList.class);
-                startActivity(i);
-            }
-        });
 
 
-        /*takePhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                //intent.setAction(MediaStore.ACTION_IMAGE_CAPTURE);
-                //intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(USER_ICON));
-                Log.i("666","66666");
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(intent, CODE_CAMERA_REQUEST);
-                }
-                //startActivityForResult(intent,CODE_CAMERA_REQUEST);
-                Log.i("666","77777");
-            }
-        });
-*/
-        /*gallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                //intent.setAction(Intent.ACTION_GET_CONTENT);
-                //intent.setType("image/*");
-                intent.setAction(Intent.ACTION_PICK);
-                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-                startActivityForResult(intent,CODE_PHOTO_REQUEST);
-            }
-        });
-        */
 
         locationButton.setOnClickListener(new View.OnClickListener() {
             @Override

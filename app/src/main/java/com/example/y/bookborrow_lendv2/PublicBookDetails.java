@@ -70,16 +70,17 @@ public class PublicBookDetails extends AppCompatActivity {
     private String title1;
     private book requestedBook;
     private TextView see_more;
-    private TextView bookNameTV;
+    private TextView borrowerNameTV;
     private TextView ISBNTV;
     private TextView bookAuthorTV;
     private TextView bookStateTV;
     private TextView bookRateTV;
     private TextView bookOwnerTV;
     private TextView bookDescriptionTV;
+    private TextView booktitle;
     private ImageView bookPhoto;
     private Button requestButton;
-    private Button returnButton;
+    //private Button returnButton;
     private Button locationButton;
     private book b;
     private String Keyword;
@@ -117,7 +118,8 @@ public class PublicBookDetails extends AppCompatActivity {
         Keyword = intent.getStringExtra("Keyword");
         flag = intent.getStringExtra("flag");
         see_more = (TextView)findViewById(R.id.public_see_more);
-        bookNameTV = (TextView)findViewById(R.id.puBookName);
+        booktitle = findViewById(R.id.pBookDetialTitle);
+        borrowerNameTV = (TextView)findViewById(R.id.puBookName);
         ISBNTV = (TextView)findViewById(R.id.puBookISBN);
         bookAuthorTV = (TextView)findViewById(R.id.puBookAuthor);
         bookStateTV = (TextView)findViewById(R.id.puBookState);
@@ -125,7 +127,7 @@ public class PublicBookDetails extends AppCompatActivity {
         bookOwnerTV = (TextView)findViewById(R.id.puBookOwner);
         bookDescriptionTV = (TextView)findViewById(R.id.puBookDescription);
         requestButton = (Button)findViewById(R.id.requestTheBook);
-        returnButton = (Button)findViewById(R.id.puReturnButton);
+        //returnButton = (Button)findViewById(R.id.puReturnButton);
         locationButton = (Button)findViewById(R.id.pubBookLocation);
         bookPhoto = findViewById(R.id.bookPhoto1);
         FirebaseDatabase m = FirebaseDatabase.getInstance();
@@ -142,7 +144,7 @@ public class PublicBookDetails extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     b = dataSnapshot.getValue(book.class);
                     Log.i("test22",b.getName());
-                    bookNameTV.setText(b.getName());
+                    booktitle.setText(b.getName());
 
                     ISBN = b.getISBN();
                     if (ISBN != null) {
@@ -164,13 +166,14 @@ public class PublicBookDetails extends AppCompatActivity {
 
                     String email = b.getOwnerEmail();
                     if (email != null){
-                        bookAuthorTV.setText(email);
+                        bookOwnerTV.setText(email);
                     }
 
                     String description = b.getDescription();
                     if (description != null) {
                         bookDescriptionTV.setText(description);
                     }
+
                     StorageReference imageRef = storageRef.child("book/"+bookid+"/1.jpg");
                     final long ONE_MEGABYTE = 10 * 1024 * 1024;
                     imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -366,10 +369,11 @@ public class PublicBookDetails extends AppCompatActivity {
 
             }
         });
-
+/*
         /**
          * Return to the activity which all this one, using flag to distinct caller
          */
+/*
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -383,6 +387,7 @@ public class PublicBookDetails extends AppCompatActivity {
                }
             }
         });
+        */
 
         bookPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -458,7 +463,12 @@ public class PublicBookDetails extends AppCompatActivity {
             Intent back = new Intent(PublicBookDetails.this,home_page.class);
             startActivity(back);
             finish();
-        }else {
+        }else if (flag.equals("BorrowerRequest")){
+            Intent back = new Intent(PublicBookDetails.this, BorrowerRequest.class);
+            startActivity(back);
+            finish();
+        }
+        else{
             finish();
         }
     }

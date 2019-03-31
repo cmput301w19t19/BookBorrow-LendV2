@@ -121,7 +121,7 @@ public class MyBookList extends AppCompatActivity {
                     ValueEventListener eventListener1 = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
-                            Log.i("test22", "hello");
+                            //Log.i("test22", "hello");
                             book book1 = dataSnapshot1.getValue(book.class);
                             if (book1 != null) {
                                 String name = book1.getName();
@@ -216,7 +216,6 @@ public class MyBookList extends AppCompatActivity {
                     if (bookItem.getStatus().equals("available")) {
                         availableBookList.add(bookItem);
                         //Integer
-                        Toast.makeText(MyBookList.this, "hello", Toast.LENGTH_SHORT).show();
                     }
                 }
                 availableBookAdapter = new bookAdapter(MyBookList.this, availableBookList);
@@ -294,8 +293,6 @@ public class MyBookList extends AppCompatActivity {
                 //TODO: Implement this method
                // book bookItem = bookList.get(position);
                 book bookItem = books.get(position);
-
-                Toast.makeText(MyBookList.this,bookItem.getAuthor(),Toast.LENGTH_SHORT).show();
                 String bookId = bookItem.getID();
                 Intent intent = new Intent(MyBookList.this, PrivateBookDetails.class);
                 intent.putExtra("Id", bookId);

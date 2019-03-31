@@ -71,7 +71,7 @@ public class RequestToOwner extends AppCompatActivity {
     private String borrower_username;
     private Button accept, delete;
     private String SelectedBorrower;
-    private B_request request;
+    //private B_request request;
 
 
     //private List<HashMap<String, Object>> M_list = null;
@@ -111,8 +111,9 @@ public class RequestToOwner extends AppCompatActivity {
                                     final borrower bor = dataSnapshot2.getValue(borrower.class);
                                     final String b_user = bor.getName();
                                     final String userID = bor.getUid();
-
-                                    StorageReference imageRef = storageRef.child("book/"+userID+"/1.jpg");
+                                    final String userRating = bor.getBorrowerRating();
+                                    //final B_request request = new B_request(b_user, userRating, userID);
+                                    StorageReference imageRef = storageRef.child("user/"+userID+"/1.jpg");
                                     final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                     imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                         @Override
@@ -120,8 +121,10 @@ public class RequestToOwner extends AppCompatActivity {
                                             Log.i("step","success1");
                                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                             bor.setPhoto(bitmap);
-                                            B_request request = new B_request(b_user, 0.0, userID);
+
+                                            B_request request = new B_request(b_user,userRating, userID);
                                             request.setPhoto(bitmap);
+                                            Log.i("photo","hello"+request.getPhoto());
                                             mDatas.add(request);
                                             mAdapter.notifyDataSetChanged();
                                             //bookPhoto.setImageBitmap(bitmap);
@@ -134,11 +137,8 @@ public class RequestToOwner extends AppCompatActivity {
                                         }
                                     });
 
-                                    //Float b_rating = bor.getBorrowerRating();
-                                    // test case
-                                    //request = new B_request(b_user, 0.0, userID);
+
                                     //mDatas.add(request);
-                                    //Log.i("size",Integer.toString(mDatas.size()));
                                     mAdapter.notifyDataSetChanged();
                                     // set the username and rating to the adapter array
                                     //B_request request = new B_request(b_user, 0.0, userID);
@@ -163,7 +163,7 @@ public class RequestToOwner extends AppCompatActivity {
 
                 //ArrayList<String> borrowerID = (ArrayList<String>)dataSnapshot.getValue();
 
-
+            //setContentView(R.layout.activity_request_to_owner);
 
 
             @Override
@@ -176,7 +176,7 @@ public class RequestToOwner extends AppCompatActivity {
         dbHolder.addValueEventListener(postListener);
 
         // initial view layout and data
-        mDatas = new ArrayList<B_request>();
+        //mDatas = new ArrayList<B_request>();
         initView();
         initData(mDatas);
 
@@ -207,6 +207,7 @@ public class RequestToOwner extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i("Accept", mDatas.get(0).toString());
+                //mAdapter.clear();
                 for(B_request bRequest: mDatas){
                     if(bRequest.isSelected()){
                         dbBook.child("book").child(book_ID).child("status").setValue("accepted");
@@ -223,7 +224,7 @@ public class RequestToOwner extends AppCompatActivity {
                         //Intent i = new Intent(RequestToOwner.this,PrivateBookDetails.class);
                         //startActivity(i);
                         mAdapter.notifyDataSetChanged();
-                        setContentView(R.layout.activity_request_to_owner);
+                        //setContentView(R.layout.activity_request_to_owner);
 
                         //Log.i("Sucess", mDatas.get(j).getUserID());
                         ///////////////////////////////////////////////////need to intend to map/////////////////////////////////////////
@@ -238,6 +239,7 @@ public class RequestToOwner extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                //mAdapter.clear();
                 Log.i("Delete", mDatas.get(0).getUserID());
                 deleteRequest(mDatas, dbBorrower, dbHolder, book_ID);
                 // have not test yet
@@ -245,9 +247,12 @@ public class RequestToOwner extends AppCompatActivity {
                 {
                     dbBook.child("book").child(book_ID).child("status").setValue("available");
                 }
-                setContentView(R.layout.activity_request_to_owner);
 
                 mAdapter.notifyDataSetChanged();
+                //setContentView(R.layout.activity_request_to_owner);
+
+
+                //mAdapter.notifyDataSetChanged();
                 //refresh();
             }
         });

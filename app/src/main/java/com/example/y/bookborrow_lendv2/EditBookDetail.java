@@ -77,7 +77,7 @@ public class EditBookDetail extends AppCompatActivity {
     private EditText descriptionEditText;
     private ImageView bookPhoto;
     private String id;
-    private Bitmap photo = null;
+    private Bitmap photo;
 
 
     Button ISBNButton;
@@ -159,6 +159,7 @@ public class EditBookDetail extends AppCompatActivity {
                                 Log.i("Result","success");
                                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                 b.setImage(bitmap);
+                                photo = bitmap;
                                 bookPhoto.setImageBitmap(bitmap);
                                 //bookPhoto.setImageBitmap(bitmap);
                             }
