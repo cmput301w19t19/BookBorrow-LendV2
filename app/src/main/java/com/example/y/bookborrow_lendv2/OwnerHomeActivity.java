@@ -54,13 +54,9 @@ import java.util.ArrayList;
  */
 public class OwnerHomeActivity extends AppCompatActivity {
 
-    /**
-     * The Database.
-     */
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    /**
-     * The Db ref.
-     */
+
     DatabaseReference DbRef = database.getReference();
     private FirebaseAuth auth;
     private book targetBook;
@@ -145,6 +141,8 @@ public class OwnerHomeActivity extends AppCompatActivity {
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                                     }};
+                                Ref.addValueEventListener(eventListener3);
+
 
 
                             }

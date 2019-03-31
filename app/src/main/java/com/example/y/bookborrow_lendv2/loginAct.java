@@ -226,8 +226,8 @@ public class loginAct extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Toast.makeText(getApplicationContext(), "login ", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(loginAct.this, home_page.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent(loginAct.this, home_page.class);
+                       // startActivity(intent);
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
@@ -253,7 +253,7 @@ public class loginAct extends AppCompatActivity {
 
                             Intent i = new Intent(loginAct.this, home_page.class);
                             //Intent i = new Intent(loginAct.this,RateToBorrower.class);
-                            //Log.i("ready to intent","666");
+
                             startActivity(i);
 
 

@@ -61,6 +61,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This Class is to show all the detail of a book to the book owner
@@ -342,8 +343,10 @@ public class PrivateBookDetails extends AppCompatActivity {
                     FirebaseUser user = auth.getCurrentUser();
                     DatabaseReference r = FirebaseDatabase.getInstance().getReference();
                     String uid = user.getUid();
-                    r.child("lenders").child(uid).child("MyBookList").child(bookid).setValue(null,null);
+                    r.child("lenders").child(uid).child("MyBookList").child(bookid).removeValue();
+                    //r.child("lenders").child(uid).child("MyBookList").child(bookid).setValue(null,null);
                     Intent i = new Intent(PrivateBookDetails.this,MyBookList.class);
+
 
                     startActivity(i);
                 }

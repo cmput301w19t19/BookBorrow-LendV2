@@ -92,19 +92,13 @@ public class PublicBookDetails extends AppCompatActivity {
     private comment comment;
 
 
-    /**
-     * The Database.
-     */
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-    /**
-     * The Db ref.
-     */
+
     DatabaseReference DbRef = database.getReference();
     DatabaseReference ISBNRef = database.getReference();
-    /**
-     * The Db ref.
-     */
+
     DatabaseReference dbRef = database.getReference();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();

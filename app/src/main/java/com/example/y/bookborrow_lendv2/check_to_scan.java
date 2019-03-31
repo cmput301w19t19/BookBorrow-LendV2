@@ -34,6 +34,7 @@ import java.util.ArrayList;
  * and return a book
  *
  * @author Yuan Feng
+ * @author bingqiWang
  * @since 1.0
  */
 public class check_to_scan extends AppCompatActivity{
