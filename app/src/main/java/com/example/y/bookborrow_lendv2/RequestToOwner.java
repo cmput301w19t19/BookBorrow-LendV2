@@ -240,11 +240,13 @@ public class RequestToOwner extends AppCompatActivity {
                         ///////////////////////////////////////////////////need to intend to map/////////////////////////////////////////
                     }
                 }
-                final int pickMapPointRequest = 100;
-                Intent pickPointIntent = new Intent(RequestToOwner.this,MapsActivityOwnerSetLocation.class);
-                startActivityForResult(pickPointIntent, pickMapPointRequest);
-                //Intent intent1 = new Intent(RequestToOwner.this,Map.class);
-                //startActivity(intent1);
+
+                Intent intent1 = new Intent(RequestToOwner.this,MyBookList.class);
+                startActivity(intent1);
+
+                //Intent pickPointIntent = new Intent(RequestToOwner.this,MapsActivityOwnerSetLocation.class);
+                //startActivity(pickPointIntent);
+
             }
         });
 
@@ -319,6 +321,9 @@ public class RequestToOwner extends AppCompatActivity {
 
 
     }
+
+
+
 
 
 }
