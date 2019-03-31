@@ -213,9 +213,12 @@ public class PrivateBookDetails extends AppCompatActivity {
                     ISBNRef = database.getReference("bookISBN/" + ISBN).child("RatingAndComment");
                     ValueEventListener postListener2 = new ValueEventListener() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot2) {
-                            if (dataSnapshot2.exists()) {
-                                for (DataSnapshot ds : dataSnapshot2.getChildren()) {
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot3) {
+                            if (!dataSnapshot3.exists()){
+                                Log.i("test","Jiuda");
+                            }
+                            if (dataSnapshot3.exists()) {
+                                for (DataSnapshot ds : dataSnapshot3.getChildren()) {
                                     final RatingAndComment com = ds.getValue(RatingAndComment.class);
                                     final String c_rating = com.getRating();
                                     final String c_userID = com.getID();
@@ -224,9 +227,9 @@ public class PrivateBookDetails extends AppCompatActivity {
                                     DatabaseReference userRef = o.getReference("users/" + c_userID);
                                     ValueEventListener postListener3 = new ValueEventListener() {
                                         @Override
-                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot3) {
-                                            if (dataSnapshot3.exists()) {
-                                                final NormalUser user = dataSnapshot3.getValue(NormalUser.class);
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot4) {
+                                            if (dataSnapshot4.exists()) {
+                                                final NormalUser user = dataSnapshot4.getValue(NormalUser.class);
                                                 final String c_username = user.getName();
                                                 Log.i("testUname",c_username);
                                                 // need to add the image
