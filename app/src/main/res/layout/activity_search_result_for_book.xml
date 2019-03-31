@@ -70,7 +70,9 @@
         android:layout_marginLeft="36dp"
         android:layout_marginRight="36dp"
 
+
         android:layout_marginBottom="4dp"
+
 
 
         android:layout_weight="0.5"
