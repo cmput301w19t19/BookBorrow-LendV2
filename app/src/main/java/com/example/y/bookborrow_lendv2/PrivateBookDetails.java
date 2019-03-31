@@ -25,8 +25,6 @@ package com.example.y.bookborrow_lendv2;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Environment;
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -34,7 +32,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -57,11 +54,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 /**
  * This Class is to show all the detail of a book to the book owner
@@ -121,7 +115,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         bookid = intent.getStringExtra("Id");
         flag = intent.getStringExtra("flag");
         see_more = (TextView)findViewById(R.id.see_more);
-        bookDetailTV = (TextView)findViewById(R.id.pBookDetialTitle);
+        bookDetailTV = (TextView)findViewById(R.id.puBookName);
         // bookNameTV contains the borrower name
         bookNameTV = (TextView)findViewById(R.id.pBookName);
         ISBNTV = (TextView)findViewById(R.id.pBookISBN);
