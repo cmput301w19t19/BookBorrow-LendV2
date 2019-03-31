@@ -145,6 +145,8 @@ public class OwnerHomeActivity extends AppCompatActivity {
                                     public void onCancelled(@NonNull DatabaseError databaseError) {
 
                                     }};
+                                Ref.addValueEventListener(eventListener3);
+
 
 
                             }
