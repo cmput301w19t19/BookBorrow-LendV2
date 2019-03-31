@@ -33,9 +33,9 @@
         android:id="@+id/MyBorrowedBooks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="30sp"
         android:gravity="center_horizontal"
-        android:text="My Borrowed books" />
+        android:text="My Borrowed books"
+        android:textSize="24sp" />
 
     <ListView
         android:id='@+id/BorrowBookList'
