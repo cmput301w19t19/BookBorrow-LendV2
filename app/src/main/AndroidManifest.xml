@@ -15,7 +15,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,7 +22,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SeeImageActivity"></activity>
+        <activity android:name=".ViewAcceptedRequests"></activity>
+        <activity android:name=".SeeImageActivity" />
         <activity android:name=".Notification" />
         <activity android:name=".Register" />
         <activity android:name=".ViewRequests" />
@@ -77,16 +77,13 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SearchingUserDetail" />
         <activity android:name=".PersonDetail" />
-
-        <activity android:name=".CommentDetail"></activity>
-
+        <activity android:name=".CommentDetail" />
 
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
         <service android:name=".MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />

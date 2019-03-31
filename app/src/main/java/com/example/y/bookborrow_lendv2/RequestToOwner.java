@@ -216,6 +216,12 @@ public class RequestToOwner extends AppCompatActivity {
                     if(bRequest.isSelected()){
                         dbBook.child("book").child(book_ID).child("status").setValue("accepted");
                         SelectedBorrower = bRequest.getUserID();
+
+                        //add accepted request to borrowers acceptedRequests list
+                        DatabaseReference ref = m.getReference().child("borrowers").child(SelectedBorrower).child("AcceptedRequests").
+                                child(book_ID).child("checkedByBorrower");
+                        ref.setValue(false);
+
                         dbBorrower.child("borrowers").child(bRequest.getUserID()).child("AcceptedList").child(book_ID).setValue(true);
                         //dbBorrower = m.getReference();
                          for(int i = 0; i < mDatas.size();i++)
@@ -234,8 +240,13 @@ public class RequestToOwner extends AppCompatActivity {
                         ///////////////////////////////////////////////////need to intend to map/////////////////////////////////////////
                     }
                 }
+
                 Intent intent1 = new Intent(RequestToOwner.this,MyBookList.class);
                 startActivity(intent1);
+
+                //Intent pickPointIntent = new Intent(RequestToOwner.this,MapsActivityOwnerSetLocation.class);
+                //startActivity(pickPointIntent);
+
             }
         });
 
@@ -310,6 +321,9 @@ public class RequestToOwner extends AppCompatActivity {
 
 
     }
+
+
+
 
 
 }
