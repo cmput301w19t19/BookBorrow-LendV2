@@ -65,6 +65,7 @@ import com.google.zxing.integration.android.IntentResult;
  * @author Team 19
  * @version 1.0
  * @see PrivateBookDetails
+ * @see MyBookList
  */
 public class EditBookDetail extends AppCompatActivity {
 

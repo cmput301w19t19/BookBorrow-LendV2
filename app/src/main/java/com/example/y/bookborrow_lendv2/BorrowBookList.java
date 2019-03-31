@@ -155,10 +155,7 @@ public class BorrowBookList extends AppCompatActivity {
                 */
             }
 
-            /**
-             * get data failed
-             * @param databaseError
-             */
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 // Getting Post failed, log a message

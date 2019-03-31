@@ -51,7 +51,7 @@ import com.google.firebase.storage.StorageReference;
 
 /**
  * After a owner get his lended book back from scan activity,
- * the owner will seen this activity and be prompted to enter rate and comment for the borrower.
+ * the owner will see this activity and be prompted to enter rate and comment for the borrower.
  * After finishing rating, the page will be back to PrivateBookDetail.
  *
  * @see check_to_scan
@@ -97,13 +97,6 @@ public class RateToBorrower extends AppCompatActivity {
         Intent i = getIntent();
         String bid = i.getStringExtra("borrowerID");
         bookID = i.getStringExtra("bookID");
-
-        //bookID = "3543da43-5d5d-4fb6-a488-5881782fb6eb";
-
-        Log.i("test RateToBorrower","bookid"+bookID);
-
-
-        //String bid = "J0WloTnZcAcds7lT7dCR9PtzH5x2";
 
         DatabaseReference r3 = m.getReference("borrowers/" + bid);
         ValueEventListener borrowerListener = new ValueEventListener() {
