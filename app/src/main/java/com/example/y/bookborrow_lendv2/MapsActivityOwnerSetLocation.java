@@ -121,6 +121,7 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
 
 
 
+
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
