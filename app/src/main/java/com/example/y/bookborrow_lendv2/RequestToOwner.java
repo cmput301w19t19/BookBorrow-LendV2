@@ -143,11 +143,11 @@ public class RequestToOwner extends AppCompatActivity {
 
 
                                     //mDatas.add(request);
-                                    mAdapter.notifyDataSetChanged();
+                                    //mAdapter.notifyDataSetChanged();
                                     // set the username and rating to the adapter array
                                     //B_request request = new B_request(b_user, 0.0, userID);
                                     //mDatas.add(request);
-                                    //mAdapter.notifyDataSetChanged();
+                                    mAdapter.notifyDataSetChanged();
                                     //Log.i("Yuanproblem2", mDatas.get(0).getUserID());
                                 }
                                 // get the username and rating from the borrower ID
