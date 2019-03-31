@@ -111,7 +111,7 @@ public class MyBookList extends AppCompatActivity {
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                bookList.clear();
                 Log.i("testnn","333");
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
@@ -137,21 +137,26 @@ public class MyBookList extends AppCompatActivity {
                                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                         targetBook.setImage(bitmap);
                                         Log.i("testName1", targetBook.getName());
+                                        bookList.add(targetBook);
                                         myBookAdapter.notifyDataSetChanged();
                                         //bookPhoto.setImageBitmap(bitmap);
+                                        books = bookList;
+                                        Log.i("size0000",Integer.toString(bookList.size()));
                                     }
                                     //........................................
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
                                         Log.i("Result", "failed");
+
                                     }
                                 });
+
 
                                 //................................
 
 
-                                bookList.add(targetBook);
+
                                 //Log.i("testName2",targetBook.getName());
                                 myBookAdapter.notifyDataSetChanged();
                                 //bookList.add(targetBook);
@@ -162,16 +167,16 @@ public class MyBookList extends AppCompatActivity {
                                 //if (targetBook.getImage()!=null) {
                                 Log.i("step", "3");
                                 //}
-                                books = bookList;
+
                             }}
 
                             @Override
                             public void onCancelled (@NonNull DatabaseError databaseError1){
 
                             }
-                        }
 
-                        ;
+                        };
+
                     DbRef.addValueEventListener(eventListener1);
 
                     //booksID.add(book);

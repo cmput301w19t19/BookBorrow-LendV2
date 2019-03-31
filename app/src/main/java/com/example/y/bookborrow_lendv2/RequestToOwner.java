@@ -97,7 +97,10 @@ public class RequestToOwner extends AppCompatActivity {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mDatas.clear();
+
                 if(dataSnapshot.exists()) {
+
                     for (DataSnapshot ds : dataSnapshot.getChildren()) {
                         final String b_ID = ds.getKey();
                         borrowerID.add(b_ID);
@@ -112,7 +115,7 @@ public class RequestToOwner extends AppCompatActivity {
                                     final String b_user = bor.getName();
                                     final String userID = bor.getUid();
 
-                                    StorageReference imageRef = storageRef.child("book/"+userID+"/1.jpg");
+                                    StorageReference imageRef = storageRef.child("user/"+userID+"/1.jpg");
                                     final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                     imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                         @Override
@@ -245,9 +248,11 @@ public class RequestToOwner extends AppCompatActivity {
                 {
                     dbBook.child("book").child(book_ID).child("status").setValue("available");
                 }
-                setContentView(R.layout.activity_request_to_owner);
 
-                mAdapter.notifyDataSetChanged();
+                //setContentView(R.layout.activity_request_to_owner);
+
+
+                // mAdapter.notifyDataSetChanged();
                 //refresh();
             }
         });
@@ -270,23 +275,28 @@ public class RequestToOwner extends AppCompatActivity {
 
 
     private void deleteRequest(ArrayList<B_request> mDatas, DatabaseReference dbBorrower, DatabaseReference dbHolder, String book_ID){
-        for(B_request bRequest: mDatas){
-            if(bRequest.isSelected()){
-                dbHolder.child(bRequest.getUserID()).removeValue();
-                dbBorrower.child("borrowers").child(bRequest.getUserID()).child("requestList").child(book_ID).removeValue() ;
-                if (bRequest.getUserID().equals( SelectedBorrower)){
+        for(int j = mDatas.size()-1; j >= 0; j--){
+
+            if(mDatas.get(j).isSelected()){
+                dbHolder.child(mDatas.get(j).getUserID()).removeValue();
+                dbBorrower.child("borrowers").child(mDatas.get(j).getUserID()).child("requestList").child(book_ID).removeValue() ;
+                if (mDatas.get(j).getUserID().equals( SelectedBorrower)){
                     dbBorrower.child("borrowers").child(SelectedBorrower).child("newAcceptedRequestList").child(book_ID).setValue("true");
 
                 }
                 else{
-                    dbBorrower.child("borrowers").child(bRequest.getUserID()).child("newNotAcceptedList").child(book_ID).setValue("true");
+                    dbBorrower.child("borrowers").child(mDatas.get(j).getUserID()).child("newNotAcceptedList").child(book_ID).setValue("true");
                 }
 
 
                 //FirebaseUser user = auth.getCurrentUser();
                 //String uid = user.getUid();
                 //dbBorrower.child("lenders").child(uid).child("requestList").child(book_ID).removeValue();
-                mDatas.remove(bRequest);
+                mDatas.remove(j);
+
+               // initData(mDatas);
+               // initView();
+
             }
         }
         mAdapter.notifyDataSetChanged();
