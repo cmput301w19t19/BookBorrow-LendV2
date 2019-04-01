@@ -30,6 +30,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -57,6 +58,11 @@ public class BorrowerMenu extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     private ArrayList<String> books = new ArrayList<>();
 
+    private ImageButton NA1;
+    private ImageButton NA2;
+    private ImageButton NA3;
+    private ImageButton NA4;
+
 
 
 
@@ -64,6 +70,11 @@ public class BorrowerMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_borrower_menu);
+
+        NA1 = (ImageButton)findViewById(R.id.NA21);
+        NA2 = (ImageButton)findViewById(R.id.NA22);
+        NA3 = (ImageButton)findViewById(R.id.NA23);
+        NA4 = (ImageButton)findViewById(R.id.NA24);
 
         TextView requested = (TextView) findViewById(R.id.select_borrow_menu_1);
         ImageButton acceptedButton = (ImageButton) findViewById(R.id.newRequestButton);
@@ -219,9 +230,59 @@ public class BorrowerMenu extends AppCompatActivity {
             }
         });
 
+        NA1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BorrowerMenu.this, home_page.class);
+                startActivity(intent);
+            }
+        });
+
+        NA2.setOnClickListener(new View.OnClickListener() {
+
+
+            //hello
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),
+                        "Already in borrower page",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        NA3.setOnClickListener(new View.OnClickListener() {
+
+
+            //hello
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BorrowerMenu.this, BorrowerMenu.class);
+                startActivity(intent);
+                //finish();
+
+            }
+        });
+
+        NA4.setOnClickListener(new View.OnClickListener() {
+
+
+            //hello
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(BorrowerMenu.this, SearchingUserDetail.class);
+                intent.putExtra("profileID",uid);
+                startActivity(intent);
+                //finish();
+
+            }
+        });
+
 
 
     }
+
+
+
 
     @Override
     public void onBackPressed(){

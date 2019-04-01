@@ -134,15 +134,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
 
         <ImageButton
             android:id="@+id/NA1"
             android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:scaleType="fitCenter"
             app:srcCompat="@drawable/drawble_home_logo" />
 
         <ImageButton
