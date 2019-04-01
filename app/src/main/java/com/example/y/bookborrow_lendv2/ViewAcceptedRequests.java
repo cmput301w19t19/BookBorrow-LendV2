@@ -55,6 +55,11 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
+/**
+ * Borrower views his new accepted requests in this activity
+ * @author Yuan Tian
+ * @version 1.0
+ */
 public class ViewAcceptedRequests extends AppCompatActivity {
 
     private FirebaseAuth auth;
@@ -89,15 +94,9 @@ public class ViewAcceptedRequests extends AppCompatActivity {
         text = (TextView) findViewById(R.id.textView2) ;
 
 
-
-
-        Log.i("testnn","2222222");
-
         FirebaseUser user = auth.getCurrentUser();
         final String uid = user.getUid();
         DatabaseReference rootRef = database.getReference("borrowers").child(uid).child("AcceptedRequests");
-
-        Log.i("testnn","222");
 
         final ValueEventListener eventListener = new ValueEventListener() {
 
@@ -105,7 +104,6 @@ public class ViewAcceptedRequests extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                Log.i("testnn","go to the onDataChange");
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     final String bookID = ds.getKey();
@@ -117,7 +115,6 @@ public class ViewAcceptedRequests extends AppCompatActivity {
                                 if (ds1.getKey().equals("checkedByBorrower")) {
                                     if (ds1.getValue().equals(false)) {
                                         bookIDList.add(bookID);
-                                        Log.i("Result bbokIdList",Integer.toString(bookIDList.size()));
 
 
                                     }
@@ -172,8 +169,6 @@ public class ViewAcceptedRequests extends AppCompatActivity {
 
                                 }
                             }
-                            //book targetBook = dataSnapshot1.getValue(book.class);
-
 
                             myBookAdapter.notifyDataSetChanged();
                         }
@@ -206,7 +201,7 @@ public class ViewAcceptedRequests extends AppCompatActivity {
                 dbRef = database.getReference("borrowers").child(uid).child("AcceptedRequests").child(clickedBookId).
                         child("checkedByBorrower");
                 dbRef.setValue("true");
-                Intent intent = new Intent(ViewAcceptedRequests.this, PrivateBookDetails.class);
+                Intent intent = new Intent(ViewAcceptedRequests.this, PublicBookDetails.class);
                 intent.putExtra("Id", bookId);
                 intent.putExtra("flag","View");
 
@@ -232,24 +227,11 @@ public class ViewAcceptedRequests extends AppCompatActivity {
             }
         });
 
-
-        //Log.i("testsize3",Integer.toString(booksID.size()));
-
-
         rootRef.addListenerForSingleValueEvent(eventListener);
-
-
 
         myBookAdapter = new bookAdapter(this, bookList);
         BookListView.setAdapter(myBookAdapter);
 
-
-
-
-
-
-
     }
-
 
 }

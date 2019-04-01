@@ -81,9 +81,11 @@ public class home_page extends AppCompatActivity {
     private ImageButton NA4;
     private ListView myBookList;
 
+
     private bookAdapter myBookAdapter;
 
     private ArrayList<book> displayBooks = new ArrayList<>();
+    private ArrayList<book> Books = new ArrayList<>();
 
     DatabaseReference DbRef = database.getReference();
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -187,7 +189,7 @@ public class home_page extends AppCompatActivity {
                         Log.i("step", "success1");
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         book1.setImage(bitmap);
-                        Log.i("testName1", book1.getName());
+//                        Log.i("testName1", book1.getName());
                         //bookList.add(targetBook);
                         myBookAdapter.notifyDataSetChanged();
                         //bookPhoto.setImageBitmap(bitmap);
@@ -209,7 +211,9 @@ public class home_page extends AppCompatActivity {
 
 
                 if (status.equals("available") ){
-                    displayBooks.add(book1);
+                    if (displayBooks.size()<6){
+                    displayBooks.add(book1);}
+
 
 
                     myBookAdapter.notifyDataSetChanged();
@@ -219,7 +223,8 @@ public class home_page extends AppCompatActivity {
 
                 }
                 if (status.equals("requested")){
-                    displayBooks.add(book1);
+                    if (displayBooks.size()<6){
+                        displayBooks.add(book1);}
 
 
                     myBookAdapter.notifyDataSetChanged();
@@ -229,10 +234,14 @@ public class home_page extends AppCompatActivity {
                 }
 
 
+                Log.i("display Books size","success"+Integer.toString(Books.size()));
 
 
 
-            }}
+
+
+
+                }}
             @Override
             public void onCancelled (@NonNull DatabaseError databaseError1){
 

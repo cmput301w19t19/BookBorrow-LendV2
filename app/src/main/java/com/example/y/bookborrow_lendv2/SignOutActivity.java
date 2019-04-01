@@ -37,7 +37,8 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
- * The type Sign out activity.
+ * No longer used.
+ * @deprecated
  */
 public class SignOutActivity extends AppCompatActivity {
 

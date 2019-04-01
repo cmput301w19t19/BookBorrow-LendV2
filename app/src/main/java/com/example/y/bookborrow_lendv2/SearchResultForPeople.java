@@ -69,6 +69,8 @@ import java.util.ArrayList;
 
 /**
  * This activity does the people search using keyword and shows the search results
+ * No longer used.
+ * @deprecated
  */
 public class SearchResultForPeople extends AppCompatActivity {
 
