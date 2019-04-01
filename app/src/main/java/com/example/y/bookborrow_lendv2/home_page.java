@@ -35,6 +35,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -322,7 +323,17 @@ public class home_page extends AppCompatActivity {
             }
         });
 
-
+        myBookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                book bookItem = displayBooks.get(position);
+                String bookId = bookItem.getID();
+                Intent intent = new Intent(home_page.this, PublicBookDetails.class);
+                intent.putExtra("Id", bookId);
+                intent.putExtra("flag","homepage");
+                startActivity(intent);
+            }
+        });
 
         final EditText inputKeyword = (EditText) findViewById(R.id.SearchInput);
         Button BookButton= (Button) findViewById(R.id.searchButton3);
@@ -343,18 +354,11 @@ public class home_page extends AppCompatActivity {
                     intent.putExtra("key",Keyword);
                     startActivity(intent);
                 }
-
-
-
             }
         });
-
-
-
-
-
-
     }
-
-
+    @Override
+    public void onBackPressed(){
+        return;
+    }
 }
