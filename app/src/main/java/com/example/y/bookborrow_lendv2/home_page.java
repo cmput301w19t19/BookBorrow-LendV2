@@ -205,7 +205,8 @@ public class home_page extends AppCompatActivity {
 
 
                 if (status.equals("available") ){
-                    displayBooks.add(book1);
+                    if (displayBooks.size()<6){
+                    displayBooks.add(book1);}
 
 
 
@@ -216,7 +217,8 @@ public class home_page extends AppCompatActivity {
 
                 }
                 if (status.equals("requested")){
-                    displayBooks.add(book1);
+                    if (displayBooks.size()<6){
+                        displayBooks.add(book1);}
 
 
                     myBookAdapter.notifyDataSetChanged();
@@ -225,9 +227,7 @@ public class home_page extends AppCompatActivity {
 
                 }
 
-                if (Books.size()<6){
-                    Books = displayBooks;
-                }
+
                 Log.i("display Books size","success"+Integer.toString(Books.size()));
 
 
