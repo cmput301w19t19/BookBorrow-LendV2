@@ -354,18 +354,11 @@ public class home_page extends AppCompatActivity {
                     intent.putExtra("key",Keyword);
                     startActivity(intent);
                 }
-
-
-
             }
         });
-
-
-
-
-
-
     }
-
-
+    @Override
+    public void onBackPressed(){
+        return;
+    }
 }
