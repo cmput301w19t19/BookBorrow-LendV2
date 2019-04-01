@@ -123,7 +123,7 @@ public class profile extends AppCompatActivity {
         portrait = findViewById(R.id.head);
         uneditableUserName = (TextView) findViewById(R.id.UserName) ;
 
-        
+
         DbRef = database.getReference("users/"+uid);
         ValueEventListener postListener = new ValueEventListener() {
             @Override
