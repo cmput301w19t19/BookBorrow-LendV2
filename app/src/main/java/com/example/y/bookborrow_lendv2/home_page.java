@@ -23,8 +23,9 @@ package com.example.y.bookborrow_lendv2;
 
 /**
  * This activity handles home_page, allow user select as borrower or owner view and edit profield and
- * log out
+ * and search keyword for book or person. Also a listView display suggested books.
  * @version 1.0
+ * @see SeeImageActivity; OwnerHomeActivity; BorrowerMenu; SearchingUserDetail, PublicBookDetails, SearchResultForBook
  */
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -290,7 +291,7 @@ public class home_page extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(home_page.this, OwnerHomeActivity.class);
                 startActivity(intent);
-                //finish();
+                finish();
 
             }
         });
@@ -303,7 +304,7 @@ public class home_page extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(home_page.this, BorrowerMenu.class);
                 startActivity(intent);
-                //finish();
+                finish();
 
             }
         });
@@ -318,7 +319,7 @@ public class home_page extends AppCompatActivity {
                 intent.putExtra("profileID",uid);
                 intent.putExtra("flag", "owner");
                 startActivity(intent);
-                //finish();
+                finish();
 
             }
         });
@@ -332,6 +333,7 @@ public class home_page extends AppCompatActivity {
                 intent.putExtra("Id", bookId);
                 intent.putExtra("flag","homepage");
                 startActivity(intent);
+                finish();
             }
         });
 

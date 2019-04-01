@@ -256,6 +256,7 @@ public class OwnerHomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(OwnerHomeActivity.this, home_page.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -279,8 +280,7 @@ public class OwnerHomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(OwnerHomeActivity.this, BorrowerMenu.class);
                 startActivity(intent);
-
-                //finish();
+                finish();
 
             }
         });
@@ -295,7 +295,7 @@ public class OwnerHomeActivity extends AppCompatActivity {
                 intent.putExtra("profileID",uid);
                 intent.putExtra("flag", "owner");
                 startActivity(intent);
-                //finish();
+                finish();
 
             }
         });

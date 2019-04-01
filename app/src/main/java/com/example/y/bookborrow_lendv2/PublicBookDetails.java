@@ -54,11 +54,11 @@ import java.util.ArrayList;
 
 /**
  * This Class is to show all the detail of a book if the user want to know
- * when the user is seeing other activity
+ * when the user is seeing other activity.
  *
  * @author Team 19
  * @version 1.0
- * @see SearchResultForBook
+ * @see SearchResultForBook, RatingAndComment, CommentDetail
  * @see BorrowerRequest
  */
 public class PublicBookDetails extends AppCompatActivity {

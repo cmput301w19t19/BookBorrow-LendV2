@@ -24,7 +24,7 @@
             android:layout_weight="2"
             android:gravity="left|center_vertical"
             android:paddingLeft="36dp"
-            android:text="Suggestted for you:"
+            android:text="Suggested for you:"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
