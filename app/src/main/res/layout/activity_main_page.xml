@@ -54,7 +54,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="16dp"
             android:layout_weight="18"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
             app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="enter search keyword"
+                android:hint="Enter search keyword"
                 android:inputType="textPersonName" />
 
             <Button
@@ -101,10 +101,6 @@
             android:layout_width="match_parent"
 
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -112,48 +108,131 @@
             app:layout_constraintStart_toStartOf="parent">
 
 
-            <LinearLayout
+            <Space
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:id="@+id/NA1LL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <ImageButton
                     android:id="@+id/NA1"
-                    android:layout_width="24dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_gravity="center"
                     android:backgroundTint="@android:color/transparent"
 
                     android:scaleType="fitCenter"
 
                     app:srcCompat="@drawable/drawble_home_logo" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Home"
+                    android:textSize="12sp" />
+
             </LinearLayout>
 
-            <ImageButton
-                android:id="@+id/NA2"
-                style="@style/Widget.AppCompat.ImageButton"
+            <Space
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="@android:color/transparent"
-                app:srcCompat="@drawable/ic_book_black_24dp" />
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
-            <ImageButton
-                android:id="@+id/NA3"
+            <LinearLayout
+                android:id="@+id/NA2LL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@android:color/transparent"
-                app:srcCompat="@drawable/ic_bookmark_black_24dp" />
+                android:orientation="vertical">
 
-            <ImageButton
-                android:id="@+id/NA4"
+                <ImageButton
+                    android:id="@+id/NA2"
+                    style="@style/Widget.AppCompat.ImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_book_black_24dp" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Owner"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:id="@+id/NA3LL"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:backgroundTint="@android:color/transparent"
-                app:srcCompat="@drawable/ic_info_black_24dp" />
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/NA3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_bookmark_black_24dp" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Borrower"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:id="@+id/NA4LL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/NA4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:backgroundTint="@android:color/transparent"
+                    app:srcCompat="@drawable/ic_info_black_24dp" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Profile"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
         </LinearLayout>
 
