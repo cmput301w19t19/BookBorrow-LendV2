@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,6 +45,7 @@ import com.readystatesoftware.viewbadger.BadgeView;
 
 import org.w3c.dom.Text;
 
+import java.security.acl.Owner;
 import java.util.ArrayList;
 
 /**
@@ -63,7 +65,10 @@ public class OwnerHomeActivity extends AppCompatActivity {
     private ArrayList<String> BookList = new ArrayList<>();
     private String newRequestListSize;
 
-
+    private ImageButton NA1;
+    private ImageButton NA2;
+    private ImageButton NA3;
+    private ImageButton NA4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +78,11 @@ public class OwnerHomeActivity extends AppCompatActivity {
         TextView myBooks = findViewById(R.id.select_owner_menu_1);
         TextView mySearch = findViewById(R.id.select_owner_menu_2);
         TextView myScan = findViewById(R.id.select_owner_menu_3);
+
+        NA1 = (ImageButton)findViewById(R.id.NA31);
+        NA2 = (ImageButton)findViewById(R.id.NA32);
+        NA3 = (ImageButton)findViewById(R.id.NA33);
+        NA4 = (ImageButton)findViewById(R.id.NA34);
 
         ImageButton button = findViewById(R.id.Ibutton2);
         final TextView newRequestMessage = findViewById(R.id.newRequest);
@@ -238,6 +248,55 @@ public class OwnerHomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(OwnerHomeActivity.this, check_to_scan.class);
                 intent.putExtra("user","owner");
                 startActivityForResult(intent, 3);
+            }
+        });
+
+        NA1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OwnerHomeActivity.this, home_page.class);
+                startActivity(intent);
+            }
+        });
+
+        NA2.setOnClickListener(new View.OnClickListener() {
+
+
+            //hello
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),
+                        "Already in owner page",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+        NA3.setOnClickListener(new View.OnClickListener() {
+
+
+            //hello
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OwnerHomeActivity.this, BorrowerMenu.class);
+                startActivity(intent);
+
+                //finish();
+
+            }
+        });
+
+        NA4.setOnClickListener(new View.OnClickListener() {
+
+
+            //hello
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OwnerHomeActivity.this, SearchingUserDetail.class);
+                intent.putExtra("profileID",uid);
+                intent.putExtra("flag", "owner");
+                startActivity(intent);
+                //finish();
+
             }
         });
 

@@ -219,5 +219,55 @@
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_book_black_24dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <ImageButton
+            android:id="@+id/NA31"
+            android:layout_width="24dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/drawble_home_logo" />
+
+        <ImageButton
+            android:id="@+id/NA32"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/ic_book_black_24dp" />
+
+        <ImageButton
+            android:id="@+id/NA33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/ic_bookmark_black_24dp" />
+
+        <ImageButton
+            android:id="@+id/NA34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/ic_info_black_24dp" />
+
+    </LinearLayout>
+
 
 </android.support.constraint.ConstraintLayout>

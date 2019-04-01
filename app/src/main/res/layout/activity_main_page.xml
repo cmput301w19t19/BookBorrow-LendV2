@@ -6,29 +6,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/recommendTextView"
-        android:layout_width="wrap_content"
+    <Space
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="3"
-        android:text="Welcome to BookFlow"
-        android:textSize="24sp" />
+        android:layout_weight="2" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:src="@drawable/welcome" />
 
     <LinearLayout
         android:id="@+id/BorrowerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginRight="8dp"
+        android:layout_weight="2"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="25dp">
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
 
         <EditText
             android:id="@+id/SearchInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:ems="10"
             android:hint="enter search keyword"
             android:inputType="textPersonName" />
 
@@ -46,22 +53,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|left"
-        android:text="Suggest for you"
+        android:layout_weight="2"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="36dp"
+        android:text="Suggestted for you:"
         android:textColor="@color/common_google_signin_btn_text_dark_focused"
-        android:textSize="24sp" />
+        android:textSize="18sp" />
 
     <ListView
         android:id="@+id/RecommendBook"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_weight="3" />
+        android:layout_height="110dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="18" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="8dp"
 
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:orientation="horizontal">
 
 
@@ -70,9 +85,9 @@
             android:layout_width="24dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:scaleType="fitCenter"
-
             android:backgroundTint="@android:color/transparent"
+
+            android:scaleType="fitCenter"
 
             app:srcCompat="@drawable/drawble_home_logo" />
 
