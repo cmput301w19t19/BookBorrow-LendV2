@@ -63,16 +63,33 @@ public class SearchPersonAdapter extends BaseAdapter {
         return myUser.size();
     }
 
+    /**
+     * To get item from user with specified information
+     * @param position
+     * @return
+     */
     @Override
     public Object getItem(int position){
         return myUser.get(position);
     }
 
+    /**
+     * With a particular user, to get the item id
+     * @param position
+     * @return
+     */
     @Override
     public long getItemId(int position){
         return position;
     }
 
+    /**
+     * Get a view holder
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         SearchPersonAdapter.ViewHolder holder = null;
@@ -99,6 +116,10 @@ public class SearchPersonAdapter extends BaseAdapter {
 
     }
 
+
+    /**
+     * The viewholder object used for this adapter
+     */
     private class ViewHolder{
 
         ImageView userImage;

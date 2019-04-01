@@ -56,7 +56,7 @@ import java.util.ArrayList;
 /**
  * this class is a page allow borrower request book, books are displayed on listview
  *
- * @author
+ * @author Team 19
  * @version 1.0
  */
 public class RequestToOwner extends AppCompatActivity {
@@ -298,6 +298,13 @@ public class RequestToOwner extends AppCompatActivity {
     }
 
 
+    /**
+     * Owner to delete the borrowers when they want to canceal the requests
+     * @param mDatas
+     * @param dbBorrower
+     * @param dbHolder
+     * @param book_ID
+     */
     private void deleteRequest(ArrayList<B_request> mDatas, DatabaseReference dbBorrower, DatabaseReference dbHolder, String book_ID){
         for(int j = mDatas.size()-1; j >= 0; j--){
 

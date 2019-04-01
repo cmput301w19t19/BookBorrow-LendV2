@@ -69,6 +69,7 @@ import java.util.ArrayList;
 
 /**
  * This activity does the book search using keyword and shows the search results
+ * @version 1.0
  */
 public class SearchResultForBook extends AppCompatActivity {
 
@@ -131,6 +132,7 @@ public class SearchResultForBook extends AppCompatActivity {
                 //String search = "Trevor Hastie Robert Tibshirani Jerome Friedman";
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     book bookdFound = ds.getValue(book.class);
+                    //get the name of book from database
                     String title = bookdFound.getName();
                     Log.i("BookName",title);
                     String author = bookdFound.getAuthor();
@@ -138,6 +140,8 @@ public class SearchResultForBook extends AppCompatActivity {
                     //check if title contains keyword
                     found1_ = title.contains(search);
                     found2_ = author.contains(search);
+                    //check if the book contains keywords is still available for other borrower
+                    // if the book is still available, then show the book on the list
                     if (found1_ && !stat.equals("accepted") && !stat.equals("borrowed") ) {
                         books.add(bookdFound);
                     } else if ( found2_ && !stat.equals("accepted") && !stat.equals("borrowed")) {
@@ -148,6 +152,7 @@ public class SearchResultForBook extends AppCompatActivity {
                         String bookID = bookItem.getID();
                         StorageReference imageRef = storageRef.child("book/"+bookID+"/1.jpg");
 
+                        //when showing the book on adapter, attach the image of book
                         final long ONE_MEGABYTE = 10 * 1024 * 1024;
                         imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                             @Override
@@ -219,6 +224,8 @@ public class SearchResultForBook extends AppCompatActivity {
         adapter = new SearchBookAdapter(this, books);
         mResultList.setAdapter(adapter);
 
+
+        //after found the book contains keyworks, then turn to the publicBookDetails to show the list of book
         mResultList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -232,7 +239,7 @@ public class SearchResultForBook extends AppCompatActivity {
             }
         });
 
-
+        //Show the detail of searching person with keywords
         userResultList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -288,6 +295,8 @@ public class SearchResultForBook extends AppCompatActivity {
                         StorageReference imageRef = storageRef.child("user/" + id + "/1.jpg");
                         Log.i("Result","test"+imageRef.toString());
 
+
+                        //attach image with the result
                         final long ONE_MEGABYTE = 10 * 1024 * 1024;
                         imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                             @Override

@@ -42,7 +42,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 /**
- * This is our search pages that allow user to enter keayword
+ * This is our search pages that allow user to enter keyword
+ * For find the detail of user, and books
+ * @version 1.0
+ * @since 1.0
+ * @author Team 19
  */
 public class Search extends AppCompatActivity {
 

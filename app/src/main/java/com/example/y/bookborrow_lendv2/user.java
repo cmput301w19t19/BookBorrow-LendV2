@@ -99,6 +99,9 @@ public abstract class user {
         this.photo = photo;
     }
 
+    /**
+     * set the name/passwords/phone into firebase
+     */
     public void setToFirebase(){
         FirebaseDatabase m = FirebaseDatabase.getInstance();
         DatabaseReference r = m.getReference("users/"+this.Uid);
