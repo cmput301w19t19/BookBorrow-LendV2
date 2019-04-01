@@ -29,12 +29,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -66,12 +70,16 @@ public class SearchingUserDetail extends AppCompatActivity {
     private String profileID;
     private comment comment;
     private comment comment1;
+    private String flag;
+    private Button signout;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searching_user_detail);
+
+        final ImageButton editButton = (ImageButton)findViewById(R.id.editProfile);
 
         final TextView userNameTextView = (TextView)findViewById(R.id.puBookName);
         final TextView userEmailTextView = (TextView)findViewById(R.id.searchUserDetailUserEmailInput);
@@ -91,9 +99,23 @@ public class SearchingUserDetail extends AppCompatActivity {
         final ListView borrowerListView = (ListView)findViewById(R.id.ListViewBorrower);
         final ArrayList<comment> borrowerCommentList = new ArrayList<>();
         final CommentAdapter borrowerCommentAdapter = new CommentAdapter(this,borrowerCommentList);
+        signout = (Button)findViewById(R.id.signOut);
         final Intent intent1 = new Intent(SearchingUserDetail.this,SeeImageActivity.class);
+
         Intent i = getIntent();
         profileID = i.getStringExtra("profileID");
+        flag = i.getStringExtra("flag");
+        Log.i("testIntent", flag);
+
+
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        FirebaseUser user = auth.getCurrentUser();
+        String uid = user.getUid();
+
+        if (!uid.equals(profileID)){
+            editButton.setVisibility(View.GONE);
+        }
+
         try{
             String flag = i.getStringExtra("flag");
             if (flag.equals("0")){
@@ -208,7 +230,7 @@ public class SearchingUserDetail extends AppCompatActivity {
 
                         // if there is no comment, do not show see more and list view
                     }else{
-                        lenderRateTextView.setText("has not lent any book yet!");
+                        lendBookTimeTextView.setText("has not lent any book yet!");
                         lenderSeeMore.setVisibility(GONE);
                         lenderListView.setVisibility(GONE);
                     }
@@ -253,7 +275,7 @@ public class SearchingUserDetail extends AppCompatActivity {
                     //show the listview if there is at least a comment
                     //show the see more if there is more than one comment
                     if (borrowBookTime == 0){
-                        borrowBookTimeTextView.setText("Has not borrowed any book yet!");
+                        borrowBookTimeTextView.setText(getText(R.string.HasNotBorrowed));
                         borrowerSeeMore.setVisibility(GONE);
                         borrowerListView.setVisibility(GONE);
 
@@ -391,9 +413,36 @@ public class SearchingUserDetail extends AppCompatActivity {
             }
         });
 
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(SearchingUserDetail.this,profile.class);
+                startActivity(i);
+            }
+        });
+
+        signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchingUserDetail.this, loginAct.class);
+                startActivity(intent);
+            }
+        });
+
 
 
 
 
     }
+    @Override
+    public void onBackPressed(){
+        if (flag.equals("owner")) {
+            Intent intent1 = new Intent(SearchingUserDetail.this, home_page.class);
+            startActivity(intent1);
+        } else if(flag.equals("borrower")){
+            Intent intent1 = new Intent(SearchingUserDetail.this,Search.class);
+            startActivity(intent1);
+        }
+    }
+
 }

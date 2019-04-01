@@ -237,7 +237,7 @@ public class PrivateBookDetails extends AppCompatActivity {
                                                 final String c_username = user.getName();
                                                 Log.i("testUname",c_username);
                                                 // need to add the image
-                                                StorageReference imageRef = storageRef.child("book/"+c_userID+"/1.jpg");
+                                                StorageReference imageRef = storageRef.child("user/"+c_userID+"/1.jpg");
                                                 final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                                 imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                                     @Override
@@ -350,7 +350,8 @@ public class PrivateBookDetails extends AppCompatActivity {
                     requestRef.setValue("true");
                     //deletetBookRequest(bookx);
                     Log.w("test", "delete request functionrun");
-
+                    StorageReference Sref = storage.getReference();
+                    Sref.child("book").child(bookid).delete();
                     auth = FirebaseAuth.getInstance();
                     FirebaseUser user = auth.getCurrentUser();
                     DatabaseReference r = FirebaseDatabase.getInstance().getReference();
@@ -361,6 +362,7 @@ public class PrivateBookDetails extends AppCompatActivity {
 
 
                     startActivity(i);
+                    Toast.makeText(getApplicationContext(),"deleted",Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -387,7 +389,13 @@ public class PrivateBookDetails extends AppCompatActivity {
         locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String status = bookx.getStatus();
+                if (status.equals("available")|| status.equals("borrowed")||status.equals("requested")){
+                    Log.w("if accepted/borrowed", "accepted/borrowed");
 
+                    Toast.makeText(getApplicationContext(), "Book is not currently accepted, can't set location!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 //Intent intent = new Intent(getApplicationContext(), MapsActivityOwnerSetLocation.class);
                 //startActivityForResult(new Intent(PrivateBookDetails.this, MapsActivityOwnerSetLocation.class), 4);
                 pickPointOnMap();

@@ -293,11 +293,12 @@ public class PublicBookDetails extends AppCompatActivity {
          * set the book to the requester's requested list
          */
         requestButton.setOnClickListener(new View.OnClickListener() {
-           NormalUser user1 = new NormalUser();
-
-
             @Override
             public void onClick(View v) {
+                if(b.getStatus().equals("accepted")||b.getStatus().equals("borrowed")){
+                    Toast.makeText(getApplicationContext(),"can't be borrowed",Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 auth = FirebaseAuth.getInstance();
                 FirebaseUser user = auth.getCurrentUser();
@@ -409,7 +410,13 @@ public class PublicBookDetails extends AppCompatActivity {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         book bookFromFirebase = dataSnapshot.getValue(book.class);
+                        String status = bookFromFirebase.getStatus();
+                        if (status.equals("available")|| status.equals("borrowed")||status.equals("requested")){
+                            Log.w("if accepted/borrowed", "accepted/borrowed");
 
+                            Toast.makeText(getApplicationContext(), "Book is not currently accepted, can't see location!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         if (bookFromFirebase.getLatitude() != null){
                             latFromFirebase = bookFromFirebase.getLatitude();
                         }

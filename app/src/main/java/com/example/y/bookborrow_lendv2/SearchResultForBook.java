@@ -126,6 +126,7 @@ public class SearchResultForBook extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     book bookdFound = ds.getValue(book.class);
                     String title = bookdFound.getName();
+                    Log.i("BookName",title);
                     String author = bookdFound.getAuthor();
                     String stat = bookdFound.getStatus();
                     //check if title contains keyword
@@ -136,7 +137,7 @@ public class SearchResultForBook extends AppCompatActivity {
                     } else if ( found2_ && !stat.equals("accepted") && !stat.equals("borrowed")) {
                         books.add(bookdFound);
                     }
-
+                    adapter.notifyDataSetChanged();
                     for (final book bookItem: books){
                         String bookID = bookItem.getID();
                         StorageReference imageRef = storageRef.child("book/"+bookID+"/1.jpg");
@@ -224,6 +225,24 @@ public class SearchResultForBook extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        userResultList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                NormalUser u = users.get(position);
+                String uid = u.getUid();
+                Log.i("testProcess", "666");
+                Intent i = new Intent(SearchResultForBook.this,SearchingUserDetail.class);
+                i.putExtra("profileID",uid);
+                i.putExtra("flag", "borrower");
+                Log.i("testFlag", "666");
+                startActivity(i);
+            }
+        });
+
+
+
     }
     @Override
     public void onBackPressed(){

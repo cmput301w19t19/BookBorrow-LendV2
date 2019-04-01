@@ -187,8 +187,11 @@ public class SearchResultForPeople extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 NormalUser u = users.get(position);
                 String uid = u.getUid();
+                Log.i("testProcess", "666");
                 Intent i = new Intent(SearchResultForPeople.this,SearchingUserDetail.class);
                 i.putExtra("profileID",uid);
+                i.putExtra("flag", "borrower");
+                Log.i("testFlag", "666");
                 startActivity(i);
             }
         });

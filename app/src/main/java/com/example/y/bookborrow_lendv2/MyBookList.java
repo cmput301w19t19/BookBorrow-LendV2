@@ -26,10 +26,12 @@ package com.example.y.bookborrow_lendv2;
  * @version 1.0
  */
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -71,6 +73,7 @@ public class MyBookList extends AppCompatActivity {
     private ArrayList<book> borrowedBookList = new ArrayList<>();
     private ArrayList<book> availableBookList = new ArrayList<>();
     private ArrayList<String> booksID;
+    private int yourChoice;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -93,12 +96,9 @@ public class MyBookList extends AppCompatActivity {
 
 
         ImageButton addBook = findViewById(R.id.addBook);
-        final Button available = (Button) findViewById(R.id.availableFilter);
-        Button requested = (Button) findViewById(R.id.requestedFilter);
-        Button accepted = (Button) findViewById(R.id.acceptedFilter);
-        Button borrowed = (Button) findViewById(R.id.borrowedFilter);
-        Button all = (Button) findViewById(R.id.allButton);
+
         myBookList = (ListView) findViewById(R.id.BookList);
+        Button filter = findViewById(R.id.allButton);
         //final List<String> booksID = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
@@ -213,85 +213,6 @@ public class MyBookList extends AppCompatActivity {
             }
         });
 
-        available.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                availableBookList = new ArrayList<>();
-                for (book bookItem : bookList) {
-                    //Toast.makeText(MyBookList.this,"boweiLi",Toast.LENGTH_SHORT).show();
-                    if (bookItem.getStatus().equals("available")) {
-                        availableBookList.add(bookItem);
-                        //Integer
-                    }
-                }
-                availableBookAdapter = new bookAdapter(MyBookList.this, availableBookList);
-                myBookList.setAdapter(availableBookAdapter);
-                books = availableBookList;
-
-            }
-        });
-
-
-        requested.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestedBookList = new ArrayList<>();
-                for (book bookItem : bookList) {
-                    if (bookItem.getStatus().equals("requested")) {
-                        requestedBookList.add(bookItem);
-                    }
-                }
-                requestedBookAdapter = new bookAdapter(MyBookList.this, requestedBookList);
-                myBookList.setAdapter(requestedBookAdapter);
-                books = requestedBookList;
-
-
-            }
-        });
-
-        accepted.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                acceptedBookList = new ArrayList<>();
-                for (book bookItem : bookList) {
-                    if (bookItem.getStatus().equals("accepted")) {
-                        acceptedBookList.add(bookItem);
-
-                    }
-                }
-                acceptedBookAdapter = new bookAdapter(MyBookList.this, acceptedBookList);
-                myBookList.setAdapter(acceptedBookAdapter);
-                books = acceptedBookList;
-
-            }
-        });
-
-        borrowed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                borrowedBookList = new ArrayList<>();
-                for (book bookItem : bookList) {
-                    if (bookItem.getStatus().equals("borrowed")) {
-                        borrowedBookList.add(bookItem);
-                    }
-                }
-                borrowedBookAdapter = new bookAdapter(MyBookList.this, borrowedBookList);
-                myBookList.setAdapter(borrowedBookAdapter);
-                books = borrowedBookList;
-
-            }
-        });
-
-        all.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myBookAdapter = new bookAdapter(MyBookList.this, bookList);
-                myBookList.setAdapter(myBookAdapter);
-                books = bookList;
-                Log.i("step","4");
-            }
-        });
-
 
         myBookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -307,6 +228,12 @@ public class MyBookList extends AppCompatActivity {
             }
         });
 
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showSingleChoiceDialog();
+            }
+        });
 
 
                 Log.i("step","1");
@@ -321,62 +248,83 @@ public class MyBookList extends AppCompatActivity {
         Intent intent = new Intent(MyBookList.this,OwnerHomeActivity.class);
         startActivity(intent);
     }
-/*
-    @Override
-    protected void onActivityResult(int requestCode,int resultCode ,Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
-        if(requestCode==0&&resultCode==1){
-            Log.i("step","success0");
 
-            final String bookID1 = data.getStringExtra("ID");
-            //String BookID = "0f45b9af-ebc7-4449-a6db-f88f9589a7c0";
-            DbRef = database.getReference("book/"+bookID1);
-            ValueEventListener postListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    final book targetBook1 = dataSnapshot.getValue(book.class);
-                    StorageReference imageRef = storageRef.child("book/"+bookID1+"/1.jpg");
-                    final long ONE_MEGABYTE = 1024 * 1024;
-                    imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                        @Override
-                        public void onSuccess(byte[] bytes) {
-                            Log.i("step","success1");
-                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                            targetBook1.setImage(bitmap);
-                            //-------------------------------
-                            bookList.add(targetBook1);
-                            myBookAdapter.notifyDataSetChanged();
-                            //------------------------------------
-                            //bookPhoto.setImageBitmap(bitmap);
+    private void showSingleChoiceDialog() {
+        final String[] items = {"available", "requested", "accepted", "borrowed", "show all"};
+        yourChoice = -1;
+        AlertDialog.Builder singleChoiceDialog =
+                new AlertDialog.Builder(MyBookList.this);
+        singleChoiceDialog.setTitle("Filter By");
+        singleChoiceDialog.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                yourChoice = which;
+            }
+        });
+        singleChoiceDialog.setPositiveButton("Next",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.i("yourChoice","hahaaa");
+                        if(yourChoice == 0) {
+                            Log.i("yourChoice","0");
+                            availableBookList = new ArrayList<>();
+                            for (book bookItem : bookList) {
+                                if (bookItem.getStatus().equals("available")) {
+                                    availableBookList.add(bookItem);
+                                }
+                            }
+                            availableBookAdapter = new bookAdapter(MyBookList.this, availableBookList);
+                            myBookList.setAdapter(availableBookAdapter);
+                            books = availableBookList;
+                            Toast.makeText(MyBookList.this, "Filtered by " + items[yourChoice], Toast.LENGTH_SHORT).show();
+                        } else if(yourChoice == 1) {
+                            Log.i("yourChoice","1");
+                            requestedBookList = new ArrayList<>();
+                            for (book bookItem : bookList) {
+                                if (bookItem.getStatus().equals("requested")) {
+                                    requestedBookList.add(bookItem);
+                                }
+                            }
+                            requestedBookAdapter = new bookAdapter(MyBookList.this, requestedBookList);
+                            myBookList.setAdapter(requestedBookAdapter);
+                            books = requestedBookList;
+                        } else if(yourChoice == 2) {
+                            Log.i("yourChoice","2");
+                            acceptedBookList = new ArrayList<>();
+                            for (book bookItem : bookList) {
+                                if (bookItem.getStatus().equals("accepted")) {
+                                    acceptedBookList.add(bookItem);
+
+                                }
+                            }
+                            acceptedBookAdapter = new bookAdapter(MyBookList.this, acceptedBookList);
+                            myBookList.setAdapter(acceptedBookAdapter);
+                            books = acceptedBookList;
+                        } else if(yourChoice == 3) {
+                            Log.i("yourChoice","3");
+                            borrowedBookList = new ArrayList<>();
+                            for (book bookItem : bookList) {
+                                if (bookItem.getStatus().equals("borrowed")) {
+                                    borrowedBookList.add(bookItem);
+                                }
+                            }
+                            borrowedBookAdapter = new bookAdapter(MyBookList.this, borrowedBookList);
+                            myBookList.setAdapter(borrowedBookAdapter);
+                            books = borrowedBookList;
+                        } else if(yourChoice == 4) {
+                            Log.i("yourChoice","4");
+                            myBookAdapter = new bookAdapter(MyBookList.this, bookList);
+                            myBookList.setAdapter(myBookAdapter);
+                            books = bookList;
+                            Log.i("step","4");
+                        } else{
+                            Log.i("yourChoice","hello"+Integer.toString(yourChoice));
                         }
 
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Log.i("Result","failed");
-                        }
-                    });
-                    //-------------------------
-                    //bookList.add(targetBook1);
-                    //myBookAdapter.notifyDataSetChanged();
-                    //------------------------------------
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    // Getting Post failed, log a message
-                    Log.w( "loadPost:onCancelled", databaseError.toException());
-                }
-            };
-            DbRef.addValueEventListener(postListener);
-
-        }
-        else if (requestCode==2&&resultCode==RESULT_OK){
-            Log.i("finish","true");
-        }
-
+                    }
+                });
+        singleChoiceDialog.show();
     }
-    */
 
 }

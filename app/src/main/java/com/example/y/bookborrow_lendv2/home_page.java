@@ -34,6 +34,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -60,6 +61,10 @@ public class home_page extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     private ImageView head;
+    private ImageButton NA1;
+    private ImageButton NA2;
+    private ImageButton NA3;
+    private ImageButton NA4;
 
     DatabaseReference DbRef = database.getReference();
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -76,6 +81,10 @@ public class home_page extends AppCompatActivity {
         head = findViewById(R.id.UserHead);
         FirebaseUser user = auth.getCurrentUser();
         final String uid = user.getUid();
+        NA1 = (ImageButton)findViewById(R.id.NA1);
+        NA2 = (ImageButton)findViewById(R.id.NA2);
+        NA3 = (ImageButton)findViewById(R.id.NA3);
+        NA4 = (ImageButton)findViewById(R.id.NA4);
 
         final Intent intent1 = new Intent(home_page.this,SeeImageActivity.class);
 
@@ -202,6 +211,58 @@ public class home_page extends AppCompatActivity {
 
             }
         });
+
+        NA1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),
+                        "Already in home page",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        NA2.setOnClickListener(new View.OnClickListener() {
+
+
+            //hello
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(home_page.this, OwnerHomeActivity.class);
+                startActivity(intent);
+                //finish();
+
+            }
+        });
+
+        NA3.setOnClickListener(new View.OnClickListener() {
+
+
+            //hello
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(home_page.this, BorrowerMenu.class);
+                startActivity(intent);
+                //finish();
+
+            }
+        });
+
+        NA4.setOnClickListener(new View.OnClickListener() {
+
+
+            //hello
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(home_page.this, SearchingUserDetail.class);
+                intent.putExtra("profileID",uid);
+                intent.putExtra("flag", "owner");
+                startActivity(intent);
+                //finish();
+
+            }
+        });
+
+
+
 
 
 
