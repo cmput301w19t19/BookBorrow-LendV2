@@ -105,14 +105,15 @@ public class book {
      * @param latitude     the latitude
      * @param description  the description
      * @param title        the title
-     * @param bookRating   the book rating
-     * @param borrowerName the borrower name
-     * @param ownerName    the owner name
+     * @param borrowerID   the borrower name
+     * @param ownerID    the owner name
      * @param status       the status
      * @param firstScanned the first scanned
      */
-    book(String name, String author, String ISBN, Double longitude, Double latitude, String description
-            , String title, Double bookRating, String borrowerName, String ownerName, String status, String firstScanned) {
+    book(UUID id,String name, String author, String ISBN, Double longitude, Double latitude, String description
+            , String title, String borrowerID, String ownerID, String status, String firstScanned,String ownerEmail) {
+
+        this.ID = id;
         this.name = name;
         //this.photo = photo;
         this.author = author;
@@ -121,11 +122,11 @@ public class book {
         this.latitude = latitude;
         this.description = description;
         this.title = title;
-        //this.bookRating = bookRating;
-        this.borrowerID = borrowerName;
-        this.ownerID = ownerName;
+        this.borrowerID = borrowerID;
+        this.ownerID = ownerID;
         this.status = status;
         this.firstScanned = firstScanned;
+        this.ownerEmail = ownerEmail;
     }
 
     /**

@@ -239,7 +239,8 @@ public class profile extends AppCompatActivity {
 
 
                 //Update the static object as well
-                Intent intent = new Intent(profile.this, home_page.class);
+                Intent intent = new Intent(profile.this, SearchingUserDetail.class);
+                intent.putExtra("profileID",uid);
                 startActivity(intent);
 
 

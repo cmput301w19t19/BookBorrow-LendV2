@@ -362,6 +362,7 @@ public class PrivateBookDetails extends AppCompatActivity {
 
 
                     startActivity(i);
+                    Toast.makeText(getApplicationContext(),"deleted",Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -388,7 +389,13 @@ public class PrivateBookDetails extends AppCompatActivity {
         locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String status = bookx.getStatus();
+                if (status.equals("available")|| status.equals("borrowed")||status.equals("requested")){
+                    Log.w("if accepted/borrowed", "accepted/borrowed");
 
+                    Toast.makeText(getApplicationContext(), "Book is not currently accepted, can't set location!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 //Intent intent = new Intent(getApplicationContext(), MapsActivityOwnerSetLocation.class);
                 //startActivityForResult(new Intent(PrivateBookDetails.this, MapsActivityOwnerSetLocation.class), 4);
                 pickPointOnMap();

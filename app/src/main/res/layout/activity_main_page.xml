@@ -1,157 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
+    <TextView
+        android:id="@+id/recommendTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"/>
+        android:layout_gravity="center"
+        android:layout_weight="3"
+        android:text="Welcome to BookFlow"
+        android:textSize="24sp" />
 
-    <android.support.v4.widget.NestedScrollView
+    <LinearLayout
+        android:id="@+id/BorrowerLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal"
+        android:paddingLeft="25dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/SearchInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="enter search keyword"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/searchButton3"
+            android:layout_width="23dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
+            android:text="Search" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/UserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|left"
+        android:text="Suggest for you"
+        android:textColor="@color/common_google_signin_btn_text_dark_focused"
+        android:textSize="24sp" />
+
+    <ListView
+        android:id="@+id/RecommendBook"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="3" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal">
+
+
+        <ImageButton
+            android:id="@+id/NA1"
+            android:layout_width="24dp"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/drawble_home_logo" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="240dp">
+        <ImageButton
+            android:id="@+id/NA2"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
+            app:srcCompat="@drawable/ic_book_black_24dp" />
 
-                <LinearLayout
-                    android:background="@color/colorPrimary"
-                    android:layout_width="match_parent"
-                    android:layout_height="240dp"
-                    android:orientation="vertical">
+        <ImageButton
+            android:id="@+id/NA3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
+            app:srcCompat="@drawable/ic_bookmark_black_24dp" />
 
-                    <ImageView
-                        android:id="@+id/UserHead"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="25dp"
-                        app:srcCompat="@mipmap/ic_launcher" />
+        <ImageButton
+            android:id="@+id/NA4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
+            app:srcCompat="@drawable/ic_info_black_24dp" />
 
-                    <TextView
-                        android:id="@+id/UserName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="15dp"
-                        android:text="UserName"
-                        android:textColor="#fff"
-                        android:textSize="21sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+    </LinearLayout>
 
-            </RelativeLayout>
-
-            <LinearLayout
-                android:layout_width="360dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center"
-                android:layout_marginTop="35dp">
-
-                <LinearLayout
-                    android:id="@+id/OwnerLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp">
-
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/ic_book_black_24dp" />
-
-                    <TextView
-                        android:id="@+id/Owner"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:text="Owner"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/BorrowerLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/ic_bookmark_black_24dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:text="Borrower"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/ProfileLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/ic_info_black_24dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:text="Profile"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/SignOutlayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    android:orientation="horizontal"
-                    android:paddingLeft="25dp">
-
-                    <ImageView
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:src="@drawable/ic_lock_open_black_24dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="20dp"
-                        android:text="Sign Out"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
-
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
