@@ -232,7 +232,7 @@ public class check_to_scan extends AppCompatActivity{
                                                         DbRef.child(selectedID).child("firstScanned").setValue("false");
                                                     } else {
                                                         Toast.makeText(check_to_scan.this, "The Book is not ready to scan yet", Toast.LENGTH_LONG).show();
-                                                        Log.i("Acceptborrower","6766");
+
                                                     }
                                                 } else if (B_status.equals("borrow") && user.equals("owner")) {
                                                     if (bookStatus.equals("accepted") && BookfirstScanned.equals("false")) {
@@ -241,7 +241,7 @@ public class check_to_scan extends AppCompatActivity{
                                                         DbRef.child(selectedID).child("firstScanned").setValue("true");
                                                     } else {
                                                         Toast.makeText(check_to_scan.this, "The Book is not ready to scan yet", Toast.LENGTH_LONG).show();
-                                                        Log.i("AcceptOwner","6766");
+
                                                     }
                                                 } else if (B_status.equals("return") && user.equals("borrower")) {
                                                     if (bookStatus.equals("borrowed") && BookfirstScanned.equals("false")) {
@@ -249,19 +249,17 @@ public class check_to_scan extends AppCompatActivity{
                                                         // set the checkmate to false
                                                         DbRef.child(selectedID).child("firstScanned").setValue("true");
 
-                                                        Log.i("test checkToScan", "rateToOwnerStart");
 
                                                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                                         Intent i = new Intent(getApplicationContext(), RateToOwner.class);
                                                         i.putExtra("bookID", selectedID);
                                                         startActivity(i);
 
-                                                        Log.i("test checkToScan", "RateToOwnerFinish");
                                                         finish();
                                                         return;
                                                     } else {
                                                         Toast.makeText(check_to_scan.this, "The Book is not ready to scan yet", Toast.LENGTH_LONG).show();
-                                                        Log.i("ReturnBorrower","6766");
+
                                                     }
                                                 } else if (B_status.equals("return") && user.equals("owner")) {
                                                     if (bookStatus.equals("borrowed") && BookfirstScanned.equals("true")) {

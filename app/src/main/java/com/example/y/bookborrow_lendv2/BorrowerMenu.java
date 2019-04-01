@@ -54,7 +54,9 @@ import java.util.ArrayList;
  * user has four option , requested book, booklist. search for book and scan the book
  *
  * @author Team19
- * @version 1.0
+ * @version 2.0
+ * @SEE BorrowerBookList, Search, check_to_scan ;  ViewAcceptedRequests;
+ * @SEE SearchingUserDetail; home_page
  */
 
 

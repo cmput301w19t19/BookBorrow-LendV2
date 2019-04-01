@@ -37,6 +37,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * list adapter for comment
+ * @VERSION 1.0
+ * @SEE comment.class
+ */
 public class CommentAdapter extends BaseAdapter{
     private LayoutInflater mInflater;
     private ArrayList<comment> myComment;

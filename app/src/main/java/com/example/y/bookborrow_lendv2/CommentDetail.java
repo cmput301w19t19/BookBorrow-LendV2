@@ -50,6 +50,12 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @Version 1.0
+ * @SEE RatingAndComment; SearchUserDetail;
+ */
+
+
 public class CommentDetail extends AppCompatActivity {
     private String commonID;
     private String type;
@@ -191,8 +197,7 @@ public class CommentDetail extends AppCompatActivity {
                                                 Log.i("Result","failed");
                                             }
                                         });
-                                        //comment = new comment(c_username,c_userID, c_rating, c_comment);
-                                        //mDatas.add(comment);
+
                                         mAdapter.notifyDataSetChanged();
                                     }
                                 }

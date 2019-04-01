@@ -30,7 +30,7 @@ package com.example.y.bookborrow_lendv2;
 /**
  * This activity handles home_page, allow user select as borrower or owner view and edit profield and
  * and search keyword for book or person. Also a listView display suggested books.
- * @version 1.0
+ * @version 2.0
  * @see SeeImageActivity; OwnerHomeActivity; BorrowerMenu; SearchingUserDetail, PublicBookDetails, SearchResultForBook
  */
 import android.content.Intent;
@@ -116,51 +116,6 @@ public class home_page extends AppCompatActivity {
         //username = (TextView) findViewById(R.id.UserName);
         myBookList = findViewById(R.id.RecommendBook);
 
-       /** ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //username = (TextView) findViewById(R.id.UserName);
-
-                // Get Post object and use the values to update the UI
-                NormalUser currentUser = dataSnapshot.getValue(NormalUser.class);
-
-
-                String UserName = currentUser.getName();
-
-                username.setText(UserName);
-                StorageReference imageRef = storageRef.child("user/"+uid+"/1.jpg");
-                final long ONE_MEGABYTE = 1024 * 1024;
-                imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                    @Override
-                    public void onSuccess(byte[] bytes) {
-                        Log.i("Result","success");
-                        intent1.putExtra("image",bytes);
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                        head.setImageBitmap(bitmap);
-                    }
-
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.i("Result","failed");
-                    }
-                });
-
-
-                // ...
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w( "loadPost:onCancelled", databaseError.toException());
-                // ...
-            }
-        };
-
-        DbRef.addValueEventListener(postListener);*/
-
-
 
         DatabaseReference ref = database.getReference().child("book");
 
@@ -172,7 +127,7 @@ public class home_page extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                //String search = "Trevor Hastie Robert Tibshirani Jerome Friedman";
+
                 final book book1 = ds.getValue(book.class);
                 String status = book1.getStatus();
                 String bookID = book1.getID();
@@ -192,8 +147,7 @@ public class home_page extends AppCompatActivity {
 //                        Log.i("testName1", book1.getName());
                         //bookList.add(targetBook);
                         myBookAdapter.notifyDataSetChanged();
-                        //bookPhoto.setImageBitmap(bitmap);
-                        //books = bookList;
+
                         Log.i("size0000",Integer.toString(displayBooks.size()));
                     }
 
@@ -258,21 +212,6 @@ public class home_page extends AppCompatActivity {
         // First get the LinearLayout object.
 
         LinearLayout borrowerLayout = (LinearLayout)findViewById(R.id.BorrowerLayout);
-
-
-
-
-      //need to modify the intent activities after other activites are done
-      /**  head.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(intent1);
-            }
-        });*/
-
-
-
-
         borrowerLayout.setOnClickListener(new View.OnClickListener() {
 
 

@@ -104,30 +104,7 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-/*
-        Intent intent = getIntent();
-        final String book_ID = intent.getStringExtra("bookid");
 
-        FirebaseDatabase m = FirebaseDatabase.getInstance();
-        DatabaseReference r = m.getReference("book/"+book_ID);
-
-        ValueEventListener bookListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()){
-                    b = dataSnapshot.getValue(book.class);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getApplicationContext(),"Fail to get data from database",Toast.LENGTH_SHORT).show();
-
-            }
-        };
-        r.addListenerForSingleValueEvent(bookListener);
-*/
     }
 
 
