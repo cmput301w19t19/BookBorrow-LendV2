@@ -56,9 +56,22 @@ import java.util.ArrayList;
 
 /**
  * The type Owner home activity.
+ * This activity show the menu of things that user can do when user want to share his book
+ * Legal things that a owner can do include:
+ * 1> See my book list which is ready to share;
+ * 2> Search for books that are in available and requested status;
+ * 3> and scan a ISBN on a book to check self-book detail or ready to lend a book
+ * 4> There is a bottom navigation bar help user to jump to HomePage, Borrower Menu and Profile page
  *
  * @version 1.0
  * @author: Bowei Li
+ * @see MyBookList
+ * @see Search
+ * @see check_to_scan
+ * @see home_page
+ * @see BorrowerMenu
+ * @see profile
+ *
  */
 public class OwnerHomeActivity extends AppCompatActivity {
 
@@ -102,7 +115,6 @@ public class OwnerHomeActivity extends AppCompatActivity {
         final String uid = user.getUid();
 
         DatabaseReference rootRef = database.getReference("lenders").child(uid).child("ListOfNewRequests");
-        Log.i("ttttttttt3",uid);
 
         //set badge view
         final BadgeView badge = new BadgeView(this,button );
@@ -125,7 +137,6 @@ public class OwnerHomeActivity extends AppCompatActivity {
                                 if (ds1.getKey().equals("checkedByOwner")) {
                                     if (ds1.getValue().equals(false)) {
                                         BookList.add(bookID);
-                                        Log.i("yyyyyyyyy",Integer.toString(BookList.size()));
                                         newRequestListSize = Integer.toString(BookList.size());
 
 
@@ -146,7 +157,6 @@ public class OwnerHomeActivity extends AppCompatActivity {
                                             if (ds1.getKey().equals("status")) {
                                                 if (ds1.getValue().equals("accepted")) {
                                                     BookList.remove(bookID);
-                                                    Log.i("yyyyyyyyy", Integer.toString(BookList.size()));
 
 
                                                 }
@@ -199,8 +209,6 @@ public class OwnerHomeActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {}
         };
 
-        Log.i("testnn","444");
-
         rootRef.addListenerForSingleValueEvent(eventListener);
 
 
@@ -217,9 +225,6 @@ public class OwnerHomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
 
 
         myBooks.setOnClickListener(new View.OnClickListener() {

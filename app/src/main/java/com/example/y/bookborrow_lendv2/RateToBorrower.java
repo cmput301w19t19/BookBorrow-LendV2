@@ -60,6 +60,7 @@ import com.google.firebase.storage.StorageReference;
  * the owner will see this activity and be prompted to enter rate and comment for the borrower.
  * After finishing rating, the page will be back to PrivateBookDetail.
  *
+ * @author Yizhou Wen
  * @see check_to_scan
  * @see PrivateBookDetails
  */

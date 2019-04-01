@@ -64,7 +64,9 @@ import java.util.ArrayList;
  *
  * @author Team 19
  * @version 1.0
- * @see SearchResultForBook, RatingAndComment, CommentDetail
+ * @see SearchResultForBook
+ * @see RatingAndComment
+ * @see CommentDetail
  * @see BorrowerRequest
  */
 public class PublicBookDetails extends AppCompatActivity {
