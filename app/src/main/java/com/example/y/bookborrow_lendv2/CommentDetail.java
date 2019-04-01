@@ -274,6 +274,7 @@ public class CommentDetail extends AppCompatActivity {
                 Intent i = new Intent(CommentDetail.this,SearchingUserDetail.class);
                 i.putExtra("profileID",uid);
                 i.putExtra("flag","0");
+                //i.putExtra("type",type);
                 Log.i("profileID","aaa");
                 startActivity(i);
             }
