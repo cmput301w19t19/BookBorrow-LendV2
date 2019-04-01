@@ -46,31 +46,6 @@ public class AllTest extends ActivityTestRule<loginAct> {
     public void loginTest() {
 
         // login page
-        // sign up
-        /*solo.assertCurrentActivity("wrong activity", loginAct.class);
-        solo.clickOnButton("Sign up");
-        solo.assertCurrentActivity("wrong activity", Register.class);
-
-
-        // Register
-        // register
-        solo.assertCurrentActivity("wrong activity", Register.class);
-        solo.enterText((EditText) solo.getView(R.id.InputName_), "test UserName");
-        solo.enterText((EditText) solo.getView(R.id.InputRegisterEmail), "test@ualberta.ca");
-        solo.enterText((EditText) solo.getView(R.id.InputRegisterPassword), "123456");
-        solo.enterText((EditText) solo.getView(R.id.InputPhone_), "1234567890");
-        solo.clickOnButton("Done");
-        solo.assertCurrentActivity("wrong activity", home_page.class);
-
-
-        // HomePageActivityTest
-        // sign out
-        solo.assertCurrentActivity("wrong activity",home_page.class);
-        solo.clickOnText("Sign Out");
-        solo.assertCurrentActivity("login page",loginAct.class);*/
-
-
-        // login page
         // login
         solo.assertCurrentActivity("wrong activity", loginAct.class);
         solo.enterText((EditText) solo.getView(R.id.loginEmail), "jlin7@ualberta.ca");
@@ -78,12 +53,12 @@ public class AllTest extends ActivityTestRule<loginAct> {
         solo.clickOnButton("log in");
         solo.assertCurrentActivity("wrong activity", home_page.class);
 
-/*
+
         // HomePageActivityTest
         // Search and Recommend
         solo.assertCurrentActivity("wrong activity",home_page.class);
         solo.searchButton("Search");
-        solo.enterText((EditText) solo.getView(R.id.SearchInput), "Element");
+        solo.enterText((EditText) solo.getView(R.id.SearchInput), "test");
         solo.clickOnText("Search");
         solo.assertCurrentActivity("Search page",SearchResultForBook.class);
 
@@ -99,7 +74,6 @@ public class AllTest extends ActivityTestRule<loginAct> {
 
         // Public Book detail
         // try to find the new added book deatil and back to click new search
-        //////////////////////////////       not finish                           //////////////////////
         solo.assertCurrentActivity("wrong activity",PublicBookDetails.class);
         solo.searchText("ISBN:");
         solo.searchText("Author");
@@ -194,7 +168,7 @@ public class AllTest extends ActivityTestRule<loginAct> {
         solo.clickOnText("My Book List");
         solo.assertCurrentActivity("MyBookList page",MyBookList.class);
 
-/*
+
         // MyBookListTest
         // Test the MyBookList
         solo.assertCurrentActivity("wrong activity",MyBookList.class);
@@ -385,7 +359,7 @@ public class AllTest extends ActivityTestRule<loginAct> {
         solo.assertCurrentActivity("br page",Search.class);
         solo.goBack();
 
-*/
+
 
         // HomePageTest
         // click the image button to the other layout
