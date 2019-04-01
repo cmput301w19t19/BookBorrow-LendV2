@@ -73,12 +73,12 @@ public class AllTest extends ActivityTestRule<loginAct> {
         // login page
         // login
         solo.assertCurrentActivity("wrong activity", loginAct.class);
-        solo.enterText((EditText) solo.getView(R.id.loginEmail), "yf1@ualberta.ca");
+        solo.enterText((EditText) solo.getView(R.id.loginEmail), "jlin7@ualberta.ca");
         solo.enterText((EditText) solo.getView(R.id.password_editText), "123456");
         solo.clickOnButton("log in");
         solo.assertCurrentActivity("wrong activity", home_page.class);
 
-
+/*
         // HomePageActivityTest
         // Search and Recommend
         solo.assertCurrentActivity("wrong activity",home_page.class);
@@ -128,7 +128,7 @@ public class AllTest extends ActivityTestRule<loginAct> {
 
 
         //add the book detail
-        //solo.clickOnButton("Request It!");
+        solo.clickOnButton("Request It!");
         solo.goBack();
         solo.assertCurrentActivity("wrong activity",SearchResultForBook.class);
         // SearchResultForBook
@@ -171,8 +171,14 @@ public class AllTest extends ActivityTestRule<loginAct> {
         solo.clickInList(0);
         solo.assertCurrentActivity("wrong activity",PublicBookDetails.class);
         solo.goBack();
+        solo.assertCurrentActivity("wrong activity",home_page.class);
 
-        /*solo.clickOnImageButton(0);
+
+        // HomePageTest
+        // click the image button to the other layout
+        // OwnerHomePage
+        solo.clickOnImageButton(1);
+        solo.assertCurrentActivity("Owner activity",OwnerHomeActivity.class);
 
 
         // OwnerHomeActivityTest
@@ -186,21 +192,111 @@ public class AllTest extends ActivityTestRule<loginAct> {
         solo.searchText("Scan");
         solo.searchText("Click to scan a book");
         solo.clickOnText("My Book List");
-        solo.assertCurrentActivity("br page",MyBookList.class);
-        solo.goBack();
+        solo.assertCurrentActivity("MyBookList page",MyBookList.class);
 
-
+/*
         // MyBookListTest
+        // Test the MyBookList
+        solo.assertCurrentActivity("wrong activity",MyBookList.class);
+
+        // Filter button (available)
+        solo.clickOnButton("Filter");
+        solo.clickOnText("available");
+        solo.clickOnText("Next");
+        solo.clickInList(0);
+        solo.assertCurrentActivity("wrong activity",PrivateBookDetails.class);
+        solo.searchText("available");
+        solo.clickOnButton("Edit");
+        solo.assertCurrentActivity("wrong activity",EditBookDetail.class);
+
+        // Edit Book Detail
+        // delete photo
+        solo.clickOnImage(0);
+        solo.clickOnText("Delete");
+
+        // Edit Book Detail
+        // click back button
+        solo.clearEditText((EditText) solo.getView(R.id.pt2));
+        solo.enterText((EditText) solo.getView(R.id.pt2), "King");
+        solo.goBack();
+        solo.clickOnButton("Edit");
+        solo.assertCurrentActivity("wrong activity",EditBookDetail.class);
+
+        // Edit Book Detail
+        // click save button
+        solo.clearEditText((EditText) solo.getView(R.id.pt2));
+        solo.enterText((EditText) solo.getView(R.id.pt2), "King");
+        solo.clickOnButton("Save");
+        solo.assertCurrentActivity("wrong activity",MyBookList.class);
+        solo.searchText("King");
+
+        // Edit Book Detail
+        // Delete a book
+        solo.clickInList(0);
+        solo.clickOnButton("Delete");
+        solo.assertCurrentActivity("wrong activity",MyBookList.class);
+
+        // Filter button (requested)
+        solo.clickOnButton("Filter");
+        solo.clickOnText("requested");
+        solo.clickOnText("Next");
+        solo.clickInList(0);
+        solo.assertCurrentActivity("wrong activity",PrivateBookDetails.class);
+        solo.searchText("requested");
+        solo.clickOnButton("Request");
+        // go to the request list
+        // RequestToOwnerTest
+        solo.assertCurrentActivity("wrong activity",RequestToOwner.class);
+        solo.clickOnCheckBox(0);
+        solo.clickOnButton("decline");
+        solo.clickOnCheckBox(0);
+        solo.clickOnButton("accept");
+        solo.assertCurrentActivity("wrong activity",MyBookList.class);
+
+        // Filter button (accepted)
+        solo.clickOnButton("Filter");
+        solo.clickOnText("accepted");
+        solo.clickOnText("Next");
+        solo.clickInList(0);
+        solo.assertCurrentActivity("wrong activity",PrivateBookDetails.class);
+        solo.searchText("accepted");
+        solo.clickOnButton("Location");
+        solo.assertCurrentActivity("wrong activity",MapsActivityOwnerSetLocation.class);
+        solo.goBack();
+        solo.goBack();
+        solo.assertCurrentActivity("wrong activity",MyBookList.class);
+
+        // Filter button (borrowed)
+        solo.clickOnButton("Filter");
+        solo.clickOnText("borrowed");
+        solo.clickOnText("Next");
+        solo.clickInList(0);
+        solo.assertCurrentActivity("wrong activity",PrivateBookDetails.class);
+        solo.searchText("borrowed");
+        solo.goBack();
+        solo.assertCurrentActivity("wrong activity",MyBookList.class);
+
+        // Filter button (show all)
+        solo.clickOnButton("Filter");
+        solo.clickOnText("show all");
+        solo.clickOnText("Next");
+        solo.clickInList(0);
+        solo.assertCurrentActivity("wrong activity",PrivateBookDetails.class);
+        solo.searchText("available");
+        solo.searchText("requested");
+        solo.searchText("accepted");
+        solo.searchText("borrowed");
+        solo.goBack();
+        solo.assertCurrentActivity("wrong activity",MyBookList.class);
+
 
 
         // OwnerHomeActivityTest
-        // Search
+        // Request Notified
         solo.assertCurrentActivity("wrong activity",OwnerHomeActivity.class);
-        solo.searchText("Please Enter A Keyword");
-        solo.clickOnText("Search");
-        solo.assertCurrentActivity("br page",Search.class);
-        //solo.goBack();
-
+        solo.clickOnImageButton(0);
+        solo.assertCurrentActivity("br page",ViewRequests.class);
+        solo.goBack();
 
 
         // OwnerHomeActivityTest
@@ -209,38 +305,116 @@ public class AllTest extends ActivityTestRule<loginAct> {
         solo.clickOnText("Scan");
         solo.assertCurrentActivity("br page",check_to_scan.class);
         solo.goBack();
+
+
+        // OwnerHomeActivityTest
+        // Search
+        solo.assertCurrentActivity("wrong activity",OwnerHomeActivity.class);
+        solo.clickOnText("Search");
+        solo.assertCurrentActivity("br page",Search.class);
         solo.goBack();
 
 
-        // HomePageActivityTest
-        // borrower menu
-        solo.assertCurrentActivity("wrong activity",home_page.class);
-        solo.clickOnText("Borrower");
-        solo.assertCurrentActivity("Borrower home page",BorrowerMenu.class);
+        // HomePageTest
+        // click the image button to the other layout
+        // BorrowerHomePage
+        solo.clickOnImageButton(2);
+        solo.assertCurrentActivity("Borrower activity",BorrowerMenu.class);
+
+
+        // BorrowerMenuTest
+        // BorrowerMenu
+        solo.searchText("Borrower");
+        solo.searchText("My Book List");
+        solo.searchText("Book Requested");
+        solo.searchText("Search");
+        solo.searchText("Click to search");
+        solo.searchText("Scan");
+        solo.searchText("Click to scan a book");
+
+
+        // BorrowerMenuTest
+        // BorrowerBookListTest
+        solo.clickOnText("My Book List");
+        solo.assertCurrentActivity("BorrowBookList page",BorrowBookList.class);
+        solo.searchText("My Borrowed books");
+        solo.clickLongInList(0);
+        solo.assertCurrentActivity("publicBookDetail page",PublicBookDetails.class);
+        solo.goBack();
+        solo.goBack();
+        solo.assertCurrentActivity("Borrower activity",BorrowerMenu.class);
+
+
+        // BorrowerMenuTest
+        // BookRequest
+        solo.assertCurrentActivity("wrong activity",BorrowerMenu.class);
+        solo.clickOnText("Book Requested");
+        solo.assertCurrentActivity("BorrowerRequestTest activity",BorrowerRequest.class);
+        solo.clickOnButton("show accepted");
+        solo.searchText("accepted");  //there is a book title with element appear when accepted button click
+        solo.clickInList(0);
+        solo.assertCurrentActivity("should be book detail",PublicBookDetails.class);
+        solo.goBack();
+        solo.clickOnButton("show requested");
+        solo.searchText("requested");
+        solo.clickInList(0);
+        solo.assertCurrentActivity("should be book detail",PublicBookDetails.class);
+        solo.goBack();
         solo.goBack();
 
-        // HomePageActivityTest
-        //self profile
-        solo.assertCurrentActivity("wrong activity",home_page.class);
-        solo.clickOnText("Profile");
+        // BorrowerMenuTest
+        // Scan
+        solo.assertCurrentActivity("wrong activity",BorrowerMenu.class);
+        solo.clickOnText("Scan");
+        solo.assertCurrentActivity("br page",check_to_scan.class);
+        solo.goBack();
+
+
+        // BorrowerMenuTest
+        // Request Notified
+        solo.assertCurrentActivity("wrong activity",BorrowerMenu.class);
+        solo.clickOnImageButton(0);
+        solo.assertCurrentActivity("br page",ViewAcceptedRequests.class);
+        solo.goBack();
+
+
+        // BorrowerMenuTest
+        // Search
+        solo.assertCurrentActivity("wrong activity",BorrowerMenu.class);
+        solo.clickOnText("Search");
+        solo.assertCurrentActivity("br page",Search.class);
+        solo.goBack();
+
+*/
+
+        // HomePageTest
+        // click the image button to the other layout
+        // Profile
+        solo.clickOnImageButton(3);
+        solo.assertCurrentActivity("Borrower activity",SearchingUserDetail.class);
+
+
+        // ProfileTest
+        // edit profile
+        solo.assertCurrentActivity("profile page",SearchingUserDetail.class);
+        solo.clickOnImageButton(0);
         solo.assertCurrentActivity("profile page",profile.class);
-        solo.goBack();
+        solo.clearEditText(R.id.InputPhone);
+        solo.enterText((EditText) solo.getView(R.id.InputPhone), "1234567890");
+        solo.clickOnButton("Done");
+        solo.searchText("1234567890");
 
-        // HomePageActivityTest
+        // ProfileTest
         // bigger image
-        solo.assertCurrentActivity("wrong activity",home_page.class);
-        //ImageButton photo = (ImageButton) solo.getView("UserHead") ;
-        //solo.clickOnView(photo);
         solo.clickOnImage(0);
         solo.assertCurrentActivity("owner home page",SeeImageActivity.class);
         solo.goBack();
 
         // HomePageActivityTest
         // sign out
-        solo.assertCurrentActivity("wrong activity",home_page.class);
+        solo.assertCurrentActivity("wrong activity",SearchingUserDetail.class);
         solo.clickOnText("Sign Out");
         solo.assertCurrentActivity("login page",loginAct.class);
-        solo.goBack();*/
 
     }
 
