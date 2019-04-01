@@ -244,8 +244,8 @@ public class BorrowerMenu extends AppCompatActivity {
             //hello
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(),
-                        "Already in borrower page",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(BorrowerMenu.this, OwnerHomeActivity.class);
+                startActivity(intent);
 
             }
         });
@@ -256,8 +256,8 @@ public class BorrowerMenu extends AppCompatActivity {
             //hello
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BorrowerMenu.this, BorrowerMenu.class);
-                startActivity(intent);
+                Toast.makeText(getApplicationContext(),
+                        "Already in borrower page",Toast.LENGTH_SHORT).show();
                 //finish();
 
             }
