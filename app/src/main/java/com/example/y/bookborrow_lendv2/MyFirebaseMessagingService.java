@@ -11,6 +11,10 @@ import android.support.v4.app.NotificationCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+/**
+ * @deprecated this class no longer use
+ */
+
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
