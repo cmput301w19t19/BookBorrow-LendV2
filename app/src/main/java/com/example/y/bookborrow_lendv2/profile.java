@@ -241,6 +241,7 @@ public class profile extends AppCompatActivity {
                 //Update the static object as well
                 Intent intent = new Intent(profile.this, SearchingUserDetail.class);
                 intent.putExtra("profileID",uid);
+                intent.putExtra("flag", "owner");
                 startActivity(intent);
 
 
@@ -278,7 +279,13 @@ public class profile extends AppCompatActivity {
             }
         }
     }
-
+    @Override
+    public void onBackPressed() {
+        Intent intent1 = new Intent(profile.this, SearchingUserDetail.class);
+        intent1.putExtra("profileID",uid);
+        intent1.putExtra("flag", "owner");
+        startActivity(intent1);
+    }
 }
 
 

@@ -231,10 +231,12 @@ public class SearchResultForBook extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 NormalUser u = users.get(position);
-
                 String uid = u.getUid();
+                Log.i("testProcess", "666");
                 Intent i = new Intent(SearchResultForBook.this,SearchingUserDetail.class);
                 i.putExtra("profileID",uid);
+                i.putExtra("flag", "borrower");
+                Log.i("testFlag", "666");
                 startActivity(i);
             }
         });
