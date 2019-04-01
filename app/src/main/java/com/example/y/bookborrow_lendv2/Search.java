@@ -43,6 +43,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * This is our search pages that allow user to enter keayword
+ * @see SearchResultForBook; home_page
+ *
  */
 public class Search extends AppCompatActivity {
 

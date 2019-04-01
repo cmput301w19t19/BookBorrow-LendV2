@@ -41,6 +41,7 @@ import java.util.ArrayList;
 
 /**
  * The type Search person adapter.
+ * @see Search
  */
 public class SearchPersonAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
