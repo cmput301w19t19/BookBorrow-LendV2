@@ -230,7 +230,7 @@ public class PublicBookDetails extends AppCompatActivity {
                                                 final String c_username = user.getName();
                                                 Log.i("testUname",c_username);
                                                 // need to add the image
-                                                StorageReference imageRef = storageRef.child("book/"+c_userID+"/1.jpg");
+                                                StorageReference imageRef = storageRef.child("user/"+c_userID+"/1.jpg");
                                                 final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                                 imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                                     @Override
@@ -478,6 +478,10 @@ public class PublicBookDetails extends AppCompatActivity {
             finish();
         } else if (flag.equals("BorrowBook")){
             Intent back = new Intent(PublicBookDetails.this,BorrowBookList.class);
+            startActivity(back);
+            finish();
+        } else if (flag.equals("homepage")){
+            Intent back = new Intent(PublicBookDetails.this,home_page.class);
             startActivity(back);
             finish();
         }

@@ -121,7 +121,7 @@ public class BorrowerRequest extends AppCompatActivity {
                 ValueEventListener eventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                        acceptedBookList.clear();
                         for(DataSnapshot ds : dataSnapshot.getChildren()){
                             final String bookID = ds.getKey();
                             DbRef = database.getReference("book/"+bookID);
@@ -215,7 +215,7 @@ public class BorrowerRequest extends AppCompatActivity {
                 ValueEventListener eventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                        requestedBookList.clear();
                         for(DataSnapshot ds : dataSnapshot.getChildren()){
                             final String bookID1 = ds.getKey();
                             DbRef = database.getReference("book/"+bookID1);
@@ -276,12 +276,6 @@ public class BorrowerRequest extends AppCompatActivity {
             }
         });
 
-        //these three lines what to do?
-        //defaultBookList = new ArrayList<>();
-        //myBookAdapter = new BorrowerRequestAdapter(this, defaultBookList);
-        //myBookAdapter = new BorrowingBookAdapter(this,defaultBookList);
-        //borrowerRequestbookList.setAdapter(myBookAdapter);
-
 
     }
     @Override
@@ -291,7 +285,6 @@ public class BorrowerRequest extends AppCompatActivity {
     }
 
 
-    //confused by these lines??
     @Override
     protected void onActivityResult(int requestCode,int resultCode ,Intent data){
         super.onActivityResult(requestCode,resultCode,data);
