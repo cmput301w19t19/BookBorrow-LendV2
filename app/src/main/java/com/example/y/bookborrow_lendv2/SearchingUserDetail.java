@@ -223,7 +223,7 @@ public class SearchingUserDetail extends AppCompatActivity {
 
                         // if there is no comment, do not show see more and list view
                     }else{
-                        lenderRateTextView.setText("has not lent any book yet!");
+                        lendBookTimeTextView.setText("has not lent any book yet!");
                         lenderSeeMore.setVisibility(GONE);
                         lenderListView.setVisibility(GONE);
                     }
@@ -268,7 +268,7 @@ public class SearchingUserDetail extends AppCompatActivity {
                     //show the listview if there is at least a comment
                     //show the see more if there is more than one comment
                     if (borrowBookTime == 0){
-                        borrowBookTimeTextView.setText("Has not borrowed any book yet!");
+                        borrowBookTimeTextView.setText(getText(R.string.HasNotBorrowed));
                         borrowerSeeMore.setVisibility(GONE);
                         borrowerListView.setVisibility(GONE);
 
