@@ -23,8 +23,9 @@ package com.example.y.bookborrow_lendv2;
 
 /**
  * This activity handles home_page, allow user select as borrower or owner view and edit profield and
- * log out
+ * and search keyword for book or person. Also a listView display suggested books.
  * @version 1.0
+ * @see SeeImageActivity; OwnerHomeActivity; BorrowerMenu; SearchingUserDetail, PublicBookDetails, SearchResultForBook
  */
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -74,9 +75,11 @@ public class home_page extends AppCompatActivity {
     private ImageButton NA4;
     private ListView myBookList;
 
+
     private bookAdapter myBookAdapter;
 
     private ArrayList<book> displayBooks = new ArrayList<>();
+    private ArrayList<book> Books = new ArrayList<>();
 
     DatabaseReference DbRef = database.getReference();
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -202,7 +205,9 @@ public class home_page extends AppCompatActivity {
 
 
                 if (status.equals("available") ){
-                    displayBooks.add(book1);
+                    if (displayBooks.size()<6){
+                    displayBooks.add(book1);}
+
 
 
                     myBookAdapter.notifyDataSetChanged();
@@ -212,7 +217,8 @@ public class home_page extends AppCompatActivity {
 
                 }
                 if (status.equals("requested")){
-                    displayBooks.add(book1);
+                    if (displayBooks.size()<6){
+                        displayBooks.add(book1);}
 
 
                     myBookAdapter.notifyDataSetChanged();
@@ -222,10 +228,14 @@ public class home_page extends AppCompatActivity {
                 }
 
 
+                Log.i("display Books size","success"+Integer.toString(Books.size()));
 
 
 
-            }}
+
+
+
+                }}
             @Override
             public void onCancelled (@NonNull DatabaseError databaseError1){
 
@@ -290,7 +300,7 @@ public class home_page extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(home_page.this, OwnerHomeActivity.class);
                 startActivity(intent);
-                //finish();
+                finish();
 
             }
         });
@@ -303,7 +313,7 @@ public class home_page extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(home_page.this, BorrowerMenu.class);
                 startActivity(intent);
-                //finish();
+                finish();
 
             }
         });
@@ -318,7 +328,7 @@ public class home_page extends AppCompatActivity {
                 intent.putExtra("profileID",uid);
                 intent.putExtra("flag", "owner");
                 startActivity(intent);
-                //finish();
+                finish();
 
             }
         });
@@ -332,6 +342,7 @@ public class home_page extends AppCompatActivity {
                 intent.putExtra("Id", bookId);
                 intent.putExtra("flag","homepage");
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -354,18 +365,11 @@ public class home_page extends AppCompatActivity {
                     intent.putExtra("key",Keyword);
                     startActivity(intent);
                 }
-
-
-
             }
         });
-
-
-
-
-
-
     }
-
-
+    @Override
+    public void onBackPressed(){
+        return;
+    }
 }
