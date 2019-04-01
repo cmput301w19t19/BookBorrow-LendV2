@@ -113,8 +113,8 @@ public class home_page extends AppCompatActivity {
         //get current logged in user name
 
         DbRef = database.getReference("users/"+uid);
-        //username = (TextView) findViewById(R.id.UserName);
         myBookList = findViewById(R.id.RecommendBook);
+
 
 
         DatabaseReference ref = database.getReference().child("book");
@@ -160,7 +160,6 @@ public class home_page extends AppCompatActivity {
                 });
 
 
-                //.........................
 
 
 
@@ -212,6 +211,7 @@ public class home_page extends AppCompatActivity {
         // First get the LinearLayout object.
 
         LinearLayout borrowerLayout = (LinearLayout)findViewById(R.id.BorrowerLayout);
+
         borrowerLayout.setOnClickListener(new View.OnClickListener() {
 
 

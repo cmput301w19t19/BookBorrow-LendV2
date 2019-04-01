@@ -123,8 +123,7 @@ public class profile extends AppCompatActivity {
         portrait = findViewById(R.id.head);
         uneditableUserName = (TextView) findViewById(R.id.UserName) ;
 
-
-        //load data from firebase and update UI
+        
         DbRef = database.getReference("users/"+uid);
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -180,8 +179,6 @@ public class profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                //intent.setAction(Intent.ACTION_GET_CONTENT);
-                //intent.setType("image/*");
                 intent.setAction(Intent.ACTION_PICK);
                 intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 startActivityForResult(intent,CODE_PHOTO_REQUEST);
