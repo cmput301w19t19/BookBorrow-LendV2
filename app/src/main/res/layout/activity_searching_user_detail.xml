@@ -264,7 +264,7 @@
             android:layout_weight="1"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:text="@string/SearchUserDetailLenderRating"
+            android:text="@string/SearchUserDetailBorrowerRating"
             android:textSize="18sp" />
     </LinearLayout>
 

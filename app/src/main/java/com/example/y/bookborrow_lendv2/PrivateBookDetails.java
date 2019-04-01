@@ -362,6 +362,7 @@ public class PrivateBookDetails extends AppCompatActivity {
 
 
                     startActivity(i);
+                    Toast.makeText(getApplicationContext(),"deleted",Toast.LENGTH_SHORT).show();
                 }
 
 

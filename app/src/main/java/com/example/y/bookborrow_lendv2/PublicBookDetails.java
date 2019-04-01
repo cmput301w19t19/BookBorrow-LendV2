@@ -293,11 +293,12 @@ public class PublicBookDetails extends AppCompatActivity {
          * set the book to the requester's requested list
          */
         requestButton.setOnClickListener(new View.OnClickListener() {
-           NormalUser user1 = new NormalUser();
-
-
             @Override
             public void onClick(View v) {
+                if(b.getStatus().equals("accepted")||b.getStatus().equals("borrowed")){
+                    Toast.makeText(getApplicationContext(),"can't be borrowed",Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 auth = FirebaseAuth.getInstance();
                 FirebaseUser user = auth.getCurrentUser();

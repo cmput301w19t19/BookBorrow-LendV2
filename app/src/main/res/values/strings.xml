@@ -132,4 +132,6 @@
     <string name="SearchUserDetailBorrowBookTimeInput">Missing</string>
     <string name="see_more"><u>see more</u></string>
     <string name="RateToOwnerUserRatePrompt">1-10</string>
+    <string name="HasNotBorrowed">Has Not Borrowed Any Books Yet!</string>
+    <string name="HasNotLent">Has Not Lent Any Books Yet!</string>
 </resources>
