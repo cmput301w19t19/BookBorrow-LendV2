@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
  */
 
 public class userTest {
-
+/*
     NormalUser user1 = new NormalUser("name", null, "password","12345", "email@some.com");
 
     @Test
@@ -52,6 +52,7 @@ public class userTest {
         assertEquals(user1.getPhone(),(Integer)12345);
     }
 */
+/*
     @Test
     public void setPhone(){
         NormalUser user2 = new NormalUser();
@@ -86,7 +87,7 @@ public class userTest {
 
 
 
-
+*/
 
 
 }
