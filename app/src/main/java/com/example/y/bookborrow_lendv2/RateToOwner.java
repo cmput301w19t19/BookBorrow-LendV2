@@ -63,6 +63,7 @@ import static java.lang.Double.parseDouble;
  * and be prompted to enter rate and comment for the lender and the borrowed book.
  * After finishing rating, the page will be back to PublicBookDetail.
  *
+ * @author Yizhou Wen
  * @see check_to_scan
  * @see PublicBookDetails
  */

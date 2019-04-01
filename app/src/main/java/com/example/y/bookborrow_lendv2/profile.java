@@ -63,10 +63,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * the page that shows the user's profile and allow logged in usesr to edit profile
+ * User can only see this activity when he tries to edit book detail
+ * when he is checking his profile in SearchingDetailPage.
  *
- * @author Yuan
+ * This activity will get user name, phoneNumber and user photo
+ *
+ * @author Yuan Tian, Bowei Li,Yizhou Wen
  * @see user
+ * @see lender
+ * @see borrower
+ * @see SearchingUserDetail
  * @since 1.0
  */
 public class profile extends AppCompatActivity {
@@ -97,13 +103,6 @@ public class profile extends AppCompatActivity {
     private lender currentL = new lender();
     private borrower currentB = new borrower();
 
-
-
-
-
-
-
-
     /** Called when the activity is first created. */
 
     @Override
@@ -124,12 +123,7 @@ public class profile extends AppCompatActivity {
         portrait = findViewById(R.id.head);
         uneditableUserName = (TextView) findViewById(R.id.UserName) ;
 
-
-       // BadgeView badge = new BadgeView(this,inputEmail );
-       // badge.setText("1");
-       // badge.show();
-
-        //line 53-78: load data from firebase and update UI
+        
         DbRef = database.getReference("users/"+uid);
         ValueEventListener postListener = new ValueEventListener() {
             @Override
@@ -185,8 +179,6 @@ public class profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                //intent.setAction(Intent.ACTION_GET_CONTENT);
-                //intent.setType("image/*");
                 intent.setAction(Intent.ACTION_PICK);
                 intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 startActivityForResult(intent,CODE_PHOTO_REQUEST);
@@ -221,28 +213,7 @@ public class profile extends AppCompatActivity {
 
                 currentB.setName(userName);
                 currentB.setNameToFireBase(uid,userName);
-                //currentL.setName(userName);
                 currentL.setNameToFireBase(uid,userName);
-
-
-
-               // Map<String, Object> childUpdates = new HashMap<>();
-
-
-                //dbRef.child("users").child(uid).setValue(currentU);
-                //dbRef.child("lenders").child(uid).setValue(currentL);
-                //dbRef.child("borrowers").child(uid).setValue(currentB);
-
-
-
-                //childUpdates.put("users/"+uid+"/name", userName);
-                //borrowerRef.updateChildren(childUpdates);
-
-                //childUpdates.put("users/"+uid+"/name", userName);
-                //lenderRef.updateChildren(childUpdates);
-
-
-
 
                 //Update the static object as well
                 Intent intent = new Intent(profile.this, SearchingUserDetail.class);
@@ -267,9 +238,6 @@ public class profile extends AppCompatActivity {
                 //Bitmap photo = null;
                 try {
                     Uri uri = Data.getData();
-                    Log.i("hello22", "22");
-                    //if (extra != null) {
-                    //  Log.i("hello22","slslsl");
                     photo = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
                     portrait.setImageBitmap(photo);
                     StorageReference storageReference = storageRef.child("user/" + uid + "/" + "1.jpg");

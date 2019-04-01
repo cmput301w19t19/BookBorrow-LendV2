@@ -65,6 +65,7 @@ import static android.view.View.GONE;
  *  The class will allow users to see more comments if the number of comments are more than 1
  *  @see CommentDetail
  *  @see SearchResultForPeople
+ * @version 1.0
  *
  */
 public class SearchingUserDetail extends AppCompatActivity {

@@ -47,6 +47,8 @@ import com.google.firebase.database.FirebaseDatabase;
  * @version 1.0
  * @since 1.0
  * @author Team 19
+ * @see SearchResultForBook; home_page
+ *
  */
 public class Search extends AppCompatActivity {
 

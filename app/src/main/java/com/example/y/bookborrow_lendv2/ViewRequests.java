@@ -62,6 +62,8 @@ import java.util.ArrayList;
  * Owner views new requests in this activity
  * @author Yuan Tian
  * @version 1.0
+ * @see OwnerHomeActivity
+ * @see PrivateBookDetails
  */
 public class ViewRequests extends AppCompatActivity {
 

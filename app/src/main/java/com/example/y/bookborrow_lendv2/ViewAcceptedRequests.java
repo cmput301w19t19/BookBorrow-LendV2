@@ -1,10 +1,12 @@
 /*
+
  * Class ViewAcceptedRequests.java
  *
  * Version 2.0
  *
  * Date 2019.4.1
  *
+
  * Copyright 2019 TEAM19
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -55,11 +57,15 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-/**
- * Borrower views his new accepted requests in this activity
+
+
+
+
+/* * Borrower views his new accepted requests in this activity
  * @author Yuan Tian
  * @version 1.0
  */
+
 public class ViewAcceptedRequests extends AppCompatActivity {
 
     private FirebaseAuth auth;
@@ -86,7 +92,10 @@ public class ViewAcceptedRequests extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
-        Log.i("testnn","111111");
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0a10e223212fa63e16b9bc8b139753b0850396a6
 
         setContentView(R.layout.activity_view_accepted_requests);
         backButton = findViewById(R.id.button4);
@@ -94,9 +103,11 @@ public class ViewAcceptedRequests extends AppCompatActivity {
         text = (TextView) findViewById(R.id.textView2) ;
 
 
+
         FirebaseUser user = auth.getCurrentUser();
         final String uid = user.getUid();
         DatabaseReference rootRef = database.getReference("borrowers").child(uid).child("AcceptedRequests");
+
 
         final ValueEventListener eventListener = new ValueEventListener() {
 
@@ -148,15 +159,13 @@ public class ViewAcceptedRequests extends AppCompatActivity {
                                     imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                         @Override
                                         public void onSuccess(byte[] bytes) {
-                                            Log.i("step","success1");
                                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                             targetBook.setImage(bitmap);
                                             //bookList.add(targetBook);
                                             myBookAdapter.notifyDataSetChanged();
-                                           // Log.i("Result bbokList",Integer.toString(bookIDList.size()));
 
 
-                                            //bookPhoto.setImageBitmap(bitmap);
+
                                         }
 
                                     }).addOnFailureListener(new OnFailureListener() {
@@ -204,10 +213,6 @@ public class ViewAcceptedRequests extends AppCompatActivity {
                 Intent intent = new Intent(ViewAcceptedRequests.this, PublicBookDetails.class);
                 intent.putExtra("Id", bookId);
                 intent.putExtra("flag","View");
-
-
-
-
                 startActivity(intent);
             }
         });
@@ -222,10 +227,10 @@ public class ViewAcceptedRequests extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ViewAcceptedRequests.this, BorrowerMenu.class);
                 startActivity(intent);
-                //finish();
 
             }
         });
+
 
         rootRef.addListenerForSingleValueEvent(eventListener);
 

@@ -64,7 +64,9 @@ import java.util.ArrayList;
  *
  * @author Team 19
  * @version 1.0
- * @see SearchResultForBook, RatingAndComment, CommentDetail
+ * @see SearchResultForBook
+ * @see RatingAndComment
+ * @see CommentDetail
  * @see BorrowerRequest
  */
 public class PublicBookDetails extends AppCompatActivity {
@@ -126,7 +128,7 @@ public class PublicBookDetails extends AppCompatActivity {
         Keyword = intent.getStringExtra("Keyword");
         flag = intent.getStringExtra("flag");
         see_more = (TextView)findViewById(R.id.public_see_more);
-        //booktitle = findViewById(R.id.pBookDetialTitle);
+
         bookNameTV = (TextView)findViewById(R.id.puBookName);
         ISBNTV = (TextView)findViewById(R.id.puBookISBN);
         bookAuthorTV = (TextView)findViewById(R.id.puBookAuthor);
@@ -136,7 +138,7 @@ public class PublicBookDetails extends AppCompatActivity {
         bookDescriptionTV = (TextView)findViewById(R.id.puBookDescription);
         DescriptionTV = (TextView)findViewById(R.id.comment);
         requestButton = (Button)findViewById(R.id.requestTheBook);
-        //returnButton = (Button)findViewById(R.id.puReturnButton);
+
         locationButton = (Button)findViewById(R.id.pubBookLocation);
         bookPhoto = findViewById(R.id.bookPhoto1);
         FirebaseDatabase m = FirebaseDatabase.getInstance();
@@ -333,9 +335,7 @@ public class PublicBookDetails extends AppCompatActivity {
                       public void onDataChange(DataSnapshot dataSnapshot) {
                          // bookOwner = dataSnapshot.getValue(lender.class);
                           requestedBook = dataSnapshot.getValue(book.class);
-                          //title1 = requestedBook.getID();
 
-                          //Log.i("tttttttt","aaaaa"+title1);
                           ownerID = requestedBook.getOwnerID();
 
 
@@ -355,7 +355,6 @@ public class PublicBookDetails extends AppCompatActivity {
                           };
 
                           dbRef.addValueEventListener(PostListener);
-                          Log.i("22222222","bbbbbbbb"+ownerID);
 
                           //add requested book id to book owner's ListOfNewRequests list
                           dbRef.child("ListOfNewRequests").
@@ -364,7 +363,7 @@ public class PublicBookDetails extends AppCompatActivity {
                                   child("checkedByOwner").setValue(false);
                           dbRef.child("ListOfNewRequests").child(bookid).
                                   child("bookID").setValue(bookid);
-                          Log.i("33333333","cccccccc");
+
 
 
 
@@ -378,20 +377,15 @@ public class PublicBookDetails extends AppCompatActivity {
 
 
                   DbRef.addValueEventListener(postListener2);
-                  Log.i("1111111133333","aaaaaaaaa");
 
 
 
             }
         });
-/*
+
         /**
          * Return to the activity which all this one, using flag to distinct caller
          */
-
-
-
-
 
         bookPhoto.setOnClickListener(new View.OnClickListener() {
             @Override

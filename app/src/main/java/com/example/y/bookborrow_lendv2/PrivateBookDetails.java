@@ -65,10 +65,19 @@ import java.util.ArrayList;
 
 /**
  * This Class is to show all the detail of a book to the book owner
- *Owner can delete ,edit and see request of the book, after owner accept the book owner can set location of hte book
+ * Owner can delete ,edit and see request of the book,
+ * after owner accept the book owner can set location to show comfirm meeting address
+ *
+ * User can only see this activity from owner menu and press MyBookList
  * @author team 19
  * @version 2.0
- * @see MyBookList, MapActivityOwnerSetLocation, borrower, RatingAndComment, RequestToOwner, EditBookDetail,
+ * @see MyBookList
+ * @see MapsActivityOwnerSetLocation
+ * @see borrower
+ * @see RatingAndComment
+ * @see RequestToOwner
+ * @see EditBookDetail
+ *
  */
 public class PrivateBookDetails extends AppCompatActivity {
 
@@ -103,7 +112,6 @@ public class PrivateBookDetails extends AppCompatActivity {
     DatabaseReference ISBNRef = database.getReference();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
-    //private static final File USER_ICON = new File(Environment.getExternalStorageDirectory(), "user_icon.jpg");
     private static final int CODE_PHOTO_REQUEST = 5;
     private static final int CODE_CAMERA_REQUEST = 6;
     private static final int CODE_PHOTO_CLIP = 7;
@@ -124,6 +132,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         
         see_more = (TextView)findViewById(R.id.see_more);
         bookDetailTV = (TextView)findViewById(R.id.puBookName);
+
         // bookNameTV contains the borrower name
         bookNameTV = (TextView)findViewById(R.id.pBookName);
         ISBNTV = (TextView)findViewById(R.id.pBookISBN);
@@ -225,7 +234,6 @@ public class PrivateBookDetails extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot3) {
                             if (!dataSnapshot3.exists()){
-                                Log.i("test","Jiuda");
                             }
                             if (dataSnapshot3.exists()) {
                                 for (DataSnapshot ds : dataSnapshot3.getChildren()) {
@@ -241,14 +249,13 @@ public class PrivateBookDetails extends AppCompatActivity {
                                             if (dataSnapshot4.exists()) {
                                                 final NormalUser user = dataSnapshot4.getValue(NormalUser.class);
                                                 final String c_username = user.getName();
-                                                Log.i("testUname",c_username);
+
                                                 // need to add the image
                                                 StorageReference imageRef = storageRef.child("user/"+c_userID+"/1.jpg");
                                                 final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                                 imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                                     @Override
                                                     public void onSuccess(byte[] bytes) {
-                                                        Log.i("step","success1");
 
                                                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                                         user.setPhoto(bitmap);
@@ -315,11 +322,6 @@ public class PrivateBookDetails extends AppCompatActivity {
             }
         });
 
-        /**
-         * Prompt the user to edit book detail if the user want
-         * Go to editBookDetail
-         * @see editBookDetail
-         */
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -585,10 +587,10 @@ public class PrivateBookDetails extends AppCompatActivity {
             bookid = Data.getStringExtra("ID");
         }
 
-        /*return from map activity and
-        toast the location user long click in map view activity
+        /**
+         * return from map activity and
+         * toast the location user long click in map view activity
          */
-
         if (requestCode == pickMapPointRequest){
             LatLng latLng = (LatLng) Data.getParcelableExtra("picked_point");
 
@@ -597,7 +599,6 @@ public class PrivateBookDetails extends AppCompatActivity {
             DatabaseReference r = db.getReference("book/"+bookx.getID());
             r.child("longitude").setValue(latLng.longitude);
             r.child("latitude").setValue(latLng.latitude);
-            //Toast.makeText(this, "Book Location Saved: " + latLng.latitude + " " + latLng.longitude, Toast.LENGTH_LONG).show();
             Toast.makeText(this, "Book Location Saved!", Toast.LENGTH_LONG).show();
 
         }

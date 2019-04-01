@@ -70,6 +70,7 @@ import java.util.ArrayList;
 /**
  * This activity does the book search using keyword and shows the search results
  * @version 1.0
+ *
  */
 public class SearchResultForBook extends AppCompatActivity {
 
@@ -115,8 +116,7 @@ public class SearchResultForBook extends AppCompatActivity {
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference booksRef = rootRef.child("book");
-        //final ArrayList<book> bookLists = new ArrayList<>();
-        Log.i("bbbbbb","hello1");
+
 
         // eventListener for searching book title's keyword
 
@@ -171,17 +171,7 @@ public class SearchResultForBook extends AppCompatActivity {
                             }
                         });
                     }
-                    //check if author contains keyword
-/*
-                    found = author.contains(search);
 
-                    if (found && !stat.equals("accepted") && !stat.equals("borrowed")) {
-                        books.add(bookdFound);
-                    }
-
-*/
-                    //adapter = new SearchBookAdapter(SearchResultForBook.this, books);
-                    //mResultList.setAdapter(adapter);
 
 
                 }

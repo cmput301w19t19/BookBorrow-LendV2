@@ -52,6 +52,9 @@ import com.google.firebase.database.FirebaseDatabase;
  *  A rating is double object BUT THE GETTER FOR RATING RETURNS A STRING FOR SHOING IT IN TEXTVIEW
  *  A comment is a string with any numbers of words inside
  *
+ * @see RateToBorrower
+ * @see RateToOwner
+ *
  */
 public class RatingAndComment {
     private String ID;

@@ -90,6 +90,7 @@ public class BorrowerRequest extends AppCompatActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,7 +104,6 @@ public class BorrowerRequest extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        //Log.i("Info","I am here");
         String uid = user.getUid();
 
         booksID = new ArrayList<>();
@@ -134,10 +134,8 @@ public class BorrowerRequest extends AppCompatActivity {
                                         imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                             @Override
                                             public void onSuccess(byte[] bytes) {
-                                                Log.i("step", "success1");
                                                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                                 targetBook.setImage(bitmap);
-                                                Log.i("testName1", targetBook.getName());
                                                 acceptAdapter.notifyDataSetChanged();
                                                 //bookPhoto.setImageBitmap(bitmap);
                                             }
@@ -145,12 +143,10 @@ public class BorrowerRequest extends AppCompatActivity {
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Log.i("Result", "failed");
                                             }
                                         });
                                         acceptedBookList.add(targetBook);
                                         acceptAdapter.notifyDataSetChanged();
-                                        Log.i("acceptListDataChange", String.valueOf(acceptedBookList.size()));
                                     }
                                 }
 
@@ -171,10 +167,8 @@ public class BorrowerRequest extends AppCompatActivity {
                     }
                 };
                 rootRefA.addListenerForSingleValueEvent(eventListener);
-                //defaultBookList = acceptedBookList;
 
                 acceptAdapter = new BorrowerRequestAdapter(BorrowerRequest.this, acceptedBookList);
-                //acceptAdapter = new BorrowerRequestAdapter(BorrowerRequest.this,acceptedBookList);
                 borrowerRequestbookList.setAdapter(acceptAdapter);
 
             }
@@ -228,10 +222,8 @@ public class BorrowerRequest extends AppCompatActivity {
                                         imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                             @Override
                                             public void onSuccess(byte[] bytes) {
-                                                Log.i("step", "success1");
                                                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                                 targetBook1.setImage(bitmap);
-                                                Log.i("testName1", targetBook1.getName());
                                                 requestAdapter.notifyDataSetChanged();
                                                 //bookPhoto.setImageBitmap(bitmap);
                                             }
@@ -239,14 +231,11 @@ public class BorrowerRequest extends AppCompatActivity {
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Log.i("Result", "failed");
                                             }
                                         });
-                                        Log.i("testName2", targetBook1.getName());
                                         //myBookAdapter.notifyDataSetChanged();
                                         requestedBookList.add(targetBook1);
                                         requestAdapter.notifyDataSetChanged();
-                                        Log.i("requestListDataChange", String.valueOf(requestedBookList.size()));
                                     }
                                 }
 

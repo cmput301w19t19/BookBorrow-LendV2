@@ -1,5 +1,7 @@
 package com.example.y.bookborrow_lendv2;
 
+import android.util.Log;
+
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ import static org.junit.Assert.*;
 public class borrowerTest {
 
 
-/*
+
    @Test
     public void set_getRequestedBookList() {
         borrower borrower1 = new borrower();
@@ -70,18 +72,20 @@ public class borrowerTest {
         assertEquals((Boolean) true, borrower1.getRequestedBookList().isEmpty());
 
     }
-    @Test
-    public void SetRating() {
-        borrower borrower1 = new borrower();
-        borrower1.setBorrowerRating((Double) 3.3);
-        assertEquals((Double) 3.3, borrower1.getBorrowerRating(), (Double) 0.0001);
-    }
+
 
     @Test
-    public void getRating(){
-       borrower borrower1 = new borrower((Double)5.5);
-        assertEquals( borrower1.getBorrowerRating(), (float)5.5, 0.0001);
+    public void set_getAcceptedList_AddAcceptedBook(){
+        borrower borrower1 = new borrower();
+        book book1 = new book();
+        ArrayList<book> list = new ArrayList<book>();
+        borrower1.setAcceptedBookList(list);
+        borrower1.addAcceptedBook(book1);
+        ArrayList<book> list2 = new ArrayList<book>();
+        list2 = borrower1.getAcceptedBookList();
+        assertEquals(list, list2);
+
     }
-*/
+
 
 }
