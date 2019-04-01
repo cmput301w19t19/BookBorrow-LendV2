@@ -264,4 +264,8 @@ public class loginAct extends AppCompatActivity {
 
                 });
     }
+    @Override
+    public void onBackPressed(){
+        return;
+    }
 }
