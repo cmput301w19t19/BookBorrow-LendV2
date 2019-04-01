@@ -1,4 +1,11 @@
 /*
+ * Class BorrowerRequest.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
+ * Copyright 2019 TEAM19
  * Copyright 2019 TEAM19
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -52,6 +59,8 @@ import java.util.ArrayList;
  * Borrower Request activity
  * when user login in as a borrower, there is a bookRequested button
  * and this class be able to let user to view the book he/she requested, and the accepted books
+ * @VERSION 2.0
+ * @SEE PublicBookDetail;
  *
  */
 public class BorrowerRequest extends AppCompatActivity {
@@ -100,12 +109,6 @@ public class BorrowerRequest extends AppCompatActivity {
         booksID = new ArrayList<>();
         rootRefR = database.getReference("borrowers").child(uid).child("requestList");
         rootRefA = database.getReference("borrowers").child(uid).child("AcceptedList");
-
-
-
-
-
-
 
 
         // user click showaccept button, book change to accepted books

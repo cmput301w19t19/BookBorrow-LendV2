@@ -1,4 +1,12 @@
 /*
+
+ * Class ViewAcceptedRequests.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
+
  * Copyright 2019 TEAM19
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -49,11 +57,14 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
-/**
- * allow owner to view the search result
+
+
+
+
+/* * Borrower views his new accepted requests in this activity
+ * @author Yuan Tian
  * @version 1.0
  */
-
 
 public class ViewAcceptedRequests extends AppCompatActivity {
 
@@ -111,7 +122,6 @@ public class ViewAcceptedRequests extends AppCompatActivity {
                                 if (ds1.getKey().equals("checkedByBorrower")) {
                                     if (ds1.getValue().equals(false)) {
                                         bookIDList.add(bookID);
-                                        Log.i("Result bbokIdList",Integer.toString(bookIDList.size()));
 
 
                                     }
@@ -163,8 +173,6 @@ public class ViewAcceptedRequests extends AppCompatActivity {
 
                                 }
                             }
-                            //book targetBook = dataSnapshot1.getValue(book.class);
-
 
                             myBookAdapter.notifyDataSetChanged();
                         }
@@ -197,7 +205,7 @@ public class ViewAcceptedRequests extends AppCompatActivity {
                 dbRef = database.getReference("borrowers").child(uid).child("AcceptedRequests").child(clickedBookId).
                         child("checkedByBorrower");
                 dbRef.setValue("true");
-                Intent intent = new Intent(ViewAcceptedRequests.this, PrivateBookDetails.class);
+                Intent intent = new Intent(ViewAcceptedRequests.this, PublicBookDetails.class);
                 intent.putExtra("Id", bookId);
                 intent.putExtra("flag","View");
 
@@ -223,22 +231,11 @@ public class ViewAcceptedRequests extends AppCompatActivity {
         });
 
 
-
-
         rootRef.addListenerForSingleValueEvent(eventListener);
-
-
 
         myBookAdapter = new bookAdapter(this, bookList);
         BookListView.setAdapter(myBookAdapter);
 
-
-
-
-
-
-
     }
-
 
 }

@@ -1,4 +1,30 @@
-package com.example.y.bookborrow_lendv2;
+/*
+ * Class CommentDetail.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
+ * Copyright 2019 TEAM19
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */package com.example.y.bookborrow_lendv2;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -23,6 +49,12 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * @Version 1.0
+ * @SEE RatingAndComment; SearchUserDetail;
+ */
+
 
 public class CommentDetail extends AppCompatActivity {
     private String commonID;
@@ -165,8 +197,7 @@ public class CommentDetail extends AppCompatActivity {
                                                 Log.i("Result","failed");
                                             }
                                         });
-                                        //comment = new comment(c_username,c_userID, c_rating, c_comment);
-                                        //mDatas.add(comment);
+
                                         mAdapter.notifyDataSetChanged();
                                     }
                                 }

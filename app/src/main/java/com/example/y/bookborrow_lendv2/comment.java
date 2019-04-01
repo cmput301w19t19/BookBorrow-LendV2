@@ -1,4 +1,10 @@
 /*
+ * Class BorroweringBookAdapter.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
  * Copyright 2019 TEAM19
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -27,6 +33,8 @@ package com.example.y.bookborrow_lendv2;
  * class defined as object in Request_Book_MyAdapter
  *
  * @author Yuan Feng
+ *
+ *
  */
 public class comment {
     private String userName;

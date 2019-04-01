@@ -1,4 +1,10 @@
 /*
+ * Class home_page.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
  * Copyright 2019 TEAM19
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,7 +30,7 @@ package com.example.y.bookborrow_lendv2;
 /**
  * This activity handles home_page, allow user select as borrower or owner view and edit profield and
  * and search keyword for book or person. Also a listView display suggested books.
- * @version 1.0
+ * @version 2.0
  * @see SeeImageActivity; OwnerHomeActivity; BorrowerMenu; SearchingUserDetail, PublicBookDetails, SearchResultForBook
  */
 import android.content.Intent;
@@ -111,8 +117,6 @@ public class home_page extends AppCompatActivity {
 
 
 
-
-
         DatabaseReference ref = database.getReference().child("book");
 
         ValueEventListener eventListener = new ValueEventListener() {
@@ -123,7 +127,7 @@ public class home_page extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
 
-                //String search = "Trevor Hastie Robert Tibshirani Jerome Friedman";
+
                 final book book1 = ds.getValue(book.class);
                 String status = book1.getStatus();
                 String bookID = book1.getID();
@@ -140,11 +144,10 @@ public class home_page extends AppCompatActivity {
                         Log.i("step", "success1");
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         book1.setImage(bitmap);
-                        Log.i("testName1", book1.getName());
+//                        Log.i("testName1", book1.getName());
                         //bookList.add(targetBook);
                         myBookAdapter.notifyDataSetChanged();
-                        //bookPhoto.setImageBitmap(bitmap);
-                        //books = bookList;
+
                         Log.i("size0000",Integer.toString(displayBooks.size()));
                     }
 
@@ -208,8 +211,6 @@ public class home_page extends AppCompatActivity {
         // First get the LinearLayout object.
 
         LinearLayout borrowerLayout = (LinearLayout)findViewById(R.id.BorrowerLayout);
-
-
 
         borrowerLayout.setOnClickListener(new View.OnClickListener() {
 

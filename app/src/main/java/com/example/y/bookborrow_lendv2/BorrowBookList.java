@@ -1,4 +1,11 @@
 /*
+ * Class BorrowerBookList.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
+ * Copyright 2019 TEAM19
  * Copyright 2019 TEAM19
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -51,7 +58,8 @@ import java.util.ArrayList;
  * the books which a borrower is borrowing
  *
  * @author BoweiLi
- * @version 1.0
+ * @version 2.0
+ * ＠see PublicBookDetail;
  */
 public class BorrowBookList extends AppCompatActivity {
     private ListView myBorrowBookList;
@@ -102,7 +110,7 @@ public class BorrowBookList extends AppCompatActivity {
         //String userID = "v1rSbJgp2uPgAxf4ZJXcclTgDyv2";
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        //Log.i("Info","I am here");
+
         String userID = user.getUid();
         dbRef = database.getReference("borrowers").child(userID).child("BorrowBookList");
         ValueEventListener postListener = new ValueEventListener() {
@@ -129,7 +137,6 @@ public class BorrowBookList extends AppCompatActivity {
                                     targetBook.setImage(bitmap);
                                     //borrowedBooks.add(targetBook);
                                     BorrowedBookAdapter.notifyDataSetChanged();
-                                    //bookPhoto.setImageBitmap(bitmap);
                                 }
 
                             }).addOnFailureListener(new OnFailureListener() {

@@ -1,3 +1,30 @@
+/*
+ * Class ViewRequests.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
+ * Copyright 2019 TEAM19
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Intent;
@@ -32,7 +59,9 @@ import java.util.ArrayList;
 
 
 /**
- * The type View requests.
+ * Owner views new requests in this activity
+ * @author Yuan Tian
+ * @version 1.0
  */
 public class ViewRequests extends AppCompatActivity {
 
@@ -59,7 +88,6 @@ public class ViewRequests extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
-        Log.i("testnn","111111");
 
         setContentView(R.layout.activity_view_requests);
         backButton = findViewById(R.id.button3);
@@ -67,17 +95,11 @@ public class ViewRequests extends AppCompatActivity {
         TextView textView = findViewById(R.id.ChecktextView);
 
 
-
-
-
-        Log.i("testnn","2222222");
-
         FirebaseUser user = auth.getCurrentUser();
         final String uid = user.getUid();
         DatabaseReference rootRef = database.getReference("lenders").child(uid).child("ListOfNewRequests");
 
-        Log.i("testnn","222");
-
+        // get all book ID
         final ValueEventListener eventListener = new ValueEventListener() {
 
 
@@ -114,7 +136,7 @@ public class ViewRequests extends AppCompatActivity {
                 DbRef = database.getReference("book");
 
 
-
+                // get all books and their images
                 ValueEventListener eventListener1 = new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
@@ -208,8 +230,6 @@ public class ViewRequests extends AppCompatActivity {
         });
 
 
-        //Log.i("testsize3",Integer.toString(booksID.size()));
-
 
         rootRef.addListenerForSingleValueEvent(eventListener);
 
@@ -219,14 +239,7 @@ public class ViewRequests extends AppCompatActivity {
         BookListView.setAdapter(myBookAdapter);
 
 
-
-
-
-
-
     }
-
-
 
 }
 
