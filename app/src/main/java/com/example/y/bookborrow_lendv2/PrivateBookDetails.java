@@ -59,10 +59,10 @@ import java.util.ArrayList;
 
 /**
  * This Class is to show all the detail of a book to the book owner
- *
+ *Owner can delete ,edit and see request of the book, after owner accept the book owner can set location of hte book
  * @author team 19
- * @version1.0
- * @see MyBookList
+ * @version 2.0
+ * @see MyBookList, MapActivityOwnerSetLocation, borrower, RatingAndComment, RequestToOwner, EditBookDetail,
  */
 public class PrivateBookDetails extends AppCompatActivity {
 

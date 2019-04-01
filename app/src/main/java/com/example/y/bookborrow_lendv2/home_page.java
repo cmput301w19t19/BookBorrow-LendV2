@@ -23,8 +23,9 @@ package com.example.y.bookborrow_lendv2;
 
 /**
  * This activity handles home_page, allow user select as borrower or owner view and edit profield and
- * log out
+ * and search keyword for book or person. Also a listView display suggested books.
  * @version 1.0
+ * @see SeeImageActivity; OwnerHomeActivity; BorrowerMenu; SearchingUserDetail, PublicBookDetails, SearchResultForBook
  */
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -35,6 +36,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -298,7 +300,7 @@ public class home_page extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(home_page.this, OwnerHomeActivity.class);
                 startActivity(intent);
-                //finish();
+                finish();
 
             }
         });
@@ -311,7 +313,7 @@ public class home_page extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(home_page.this, BorrowerMenu.class);
                 startActivity(intent);
-                //finish();
+                finish();
 
             }
         });
@@ -326,12 +328,23 @@ public class home_page extends AppCompatActivity {
                 intent.putExtra("profileID",uid);
                 intent.putExtra("flag", "owner");
                 startActivity(intent);
-                //finish();
+                finish();
 
             }
         });
 
-
+        myBookList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                book bookItem = displayBooks.get(position);
+                String bookId = bookItem.getID();
+                Intent intent = new Intent(home_page.this, PublicBookDetails.class);
+                intent.putExtra("Id", bookId);
+                intent.putExtra("flag","homepage");
+                startActivity(intent);
+                finish();
+            }
+        });
 
         final EditText inputKeyword = (EditText) findViewById(R.id.SearchInput);
         Button BookButton= (Button) findViewById(R.id.searchButton3);
@@ -352,18 +365,11 @@ public class home_page extends AppCompatActivity {
                     intent.putExtra("key",Keyword);
                     startActivity(intent);
                 }
-
-
-
             }
         });
-
-
-
-
-
-
     }
-
-
+    @Override
+    public void onBackPressed(){
+        return;
+    }
 }

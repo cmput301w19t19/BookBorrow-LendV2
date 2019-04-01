@@ -56,7 +56,6 @@ public class Search extends AppCompatActivity {
         sBookButton= (Button) findViewById(R.id.See_Result_of_BookButton);
 
         Intent i = getIntent();
-        flag = i.getStringExtra("flag");
         sBookButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -83,13 +82,9 @@ public class Search extends AppCompatActivity {
     }
     @Override
     public void onBackPressed(){
-        if (flag.equals("owner")) {
-            Intent intent1 = new Intent(Search.this, OwnerHomeActivity.class);
-            startActivity(intent1);
-        } else if(flag.equals("borrower")){
-            Intent intent1 = new Intent(Search.this,BorrowerMenu.class);
-            startActivity(intent1);
-        }
+        Intent intent = new Intent(Search.this,home_page.class);
+        startActivity(intent);
+        finish();
     }
 
 

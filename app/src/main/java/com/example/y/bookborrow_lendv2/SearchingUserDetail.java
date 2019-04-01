@@ -71,6 +71,8 @@ public class SearchingUserDetail extends AppCompatActivity {
     private comment comment;
     private comment comment1;
     private String flag;
+    private String type;
+    private String commentID;
     private Button signout;
 
 
@@ -87,14 +89,14 @@ public class SearchingUserDetail extends AppCompatActivity {
         final ImageView userPhoto = (ImageView) findViewById(R.id.userPhoto);
 
         final TextView lendBookTimeTextView = (TextView)findViewById(R.id.searchUserDetaillendBookTimeINput);
-        final TextView lenderRateTextView = (TextView)findViewById(R.id.searchUserDetaiBorrowerRating);
+        final TextView borrowRateTextView = (TextView)findViewById(R.id.searchUserDetaiBorrowerRating);
         final TextView lenderSeeMore = (TextView)findViewById(R.id.see_more2);
         final ListView lenderListView = (ListView)findViewById(R.id.ListViewOwner);
         final ArrayList<comment> lenderCommentList = new ArrayList<comment>();
         final CommentAdapter lenderCommentAdapter = new CommentAdapter(this,lenderCommentList);
 
         final TextView borrowBookTimeTextView = (TextView)findViewById(R.id.searchUserDetailBorrowerBookTimeInput);
-        final TextView borrowRateTextView = (TextView)findViewById(R.id.searchUserDetailOwnerRating);
+        final TextView lenderRateTextView = (TextView)findViewById(R.id.searchUserDetailOwnerRating);
         final TextView borrowerSeeMore = (TextView)findViewById(R.id.see_more3);
         final ListView borrowerListView = (ListView)findViewById(R.id.ListViewBorrower);
         final ArrayList<comment> borrowerCommentList = new ArrayList<>();
@@ -105,8 +107,6 @@ public class SearchingUserDetail extends AppCompatActivity {
         Intent i = getIntent();
         profileID = i.getStringExtra("profileID");
         flag = i.getStringExtra("flag");
-        Log.i("testIntent", flag);
-
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
@@ -114,15 +114,18 @@ public class SearchingUserDetail extends AppCompatActivity {
 
         if (!uid.equals(profileID)){
             editButton.setVisibility(View.GONE);
+            signout.setVisibility(View.GONE);
+        }
+        if (flag.equals("0")) {
+            borrowerSeeMore.setVisibility(GONE);
+            lenderSeeMore.setVisibility(GONE);
         }
 
         try{
-            String flag = i.getStringExtra("flag");
-            if (flag.equals("0")){
-                borrowerSeeMore.setVisibility(GONE);
-                lenderSeeMore.setVisibility(GONE);
-            }
-        }catch (Exception e){
+            commentID = i.getStringExtra("commentID");
+            type = i.getStringExtra("type");
+        }
+        catch (Exception e){
 
         }
         Log.i("test userdetail","profileid"+profileID);
@@ -436,12 +439,16 @@ public class SearchingUserDetail extends AppCompatActivity {
     }
     @Override
     public void onBackPressed(){
+        Log.i("testFlag", flag);
         if (flag.equals("owner")) {
             Intent intent1 = new Intent(SearchingUserDetail.this, home_page.class);
             startActivity(intent1);
         } else if(flag.equals("borrower")){
             Intent intent1 = new Intent(SearchingUserDetail.this,Search.class);
             startActivity(intent1);
+        }
+        else if(flag.equals("0")){
+            finish();
         }
     }
 

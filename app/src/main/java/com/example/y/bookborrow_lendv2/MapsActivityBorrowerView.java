@@ -22,8 +22,10 @@
 
 package com.example.y.bookborrow_lendv2;
 /**
- * relate class : PublicBookDetail, when user click location button on that page,
+ * @See PublicBookDetail, when user click location button on that page,
+ * @version 1.0
  * user can see current book's location on this activity
+ * The type Maps activity borrower view.
  */
 
 import android.Manifest;
@@ -63,9 +65,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * The type Maps activity borrower view.
- */
 public class MapsActivityBorrowerView extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
@@ -184,12 +183,5 @@ public class MapsActivityBorrowerView extends FragmentActivity implements OnMapR
 
         }
 
-
-
-
-        // Add a marker in book location and move the camera
-        //LatLng bookLocation = new LatLng(newLat,newLong);
-        //mMap.addMarker(new MarkerOptions().position(bookLocation).title("Book Location is here"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(bookLocation,15));
     }
 }

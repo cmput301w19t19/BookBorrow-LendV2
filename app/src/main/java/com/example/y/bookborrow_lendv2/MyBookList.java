@@ -180,16 +180,11 @@ public class MyBookList extends AppCompatActivity {
 
                     DbRef.addValueEventListener(eventListener1);
 
-                    //booksID.add(book);
-                    //boolean a = booksID.contains(book);
-                    //Toast.makeText(MyBookList.this,book,Toast.LENGTH_SHORT).show();
-                    //Log.i("testnn",Boolean.toString(a));
+
                 }
 
 
-                //Log.i("testsize3",Integer.toString(book.size()));
-                //myBookAdapter = new bookAdapter(MyBookList.this, books);
-                //myBookList.setAdapter(myBookAdapter);
+
             }
 
             @Override

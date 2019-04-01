@@ -235,6 +235,7 @@ public class BorrowerMenu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(BorrowerMenu.this, home_page.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -246,6 +247,7 @@ public class BorrowerMenu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(BorrowerMenu.this, OwnerHomeActivity.class);
                 startActivity(intent);
+                finish();
 
             }
         });
@@ -258,7 +260,6 @@ public class BorrowerMenu extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(),
                         "Already in borrower page",Toast.LENGTH_SHORT).show();
-                //finish();
 
             }
         });
@@ -273,7 +274,7 @@ public class BorrowerMenu extends AppCompatActivity {
                 intent.putExtra("profileID",uid);
                 intent.putExtra("flag", "owner");
                 startActivity(intent);
-                //finish();
+                finish();
 
             }
         });
