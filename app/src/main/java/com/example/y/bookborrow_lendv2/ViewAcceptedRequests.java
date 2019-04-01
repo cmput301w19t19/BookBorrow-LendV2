@@ -92,6 +92,7 @@ public class ViewAcceptedRequests extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
+
         setContentView(R.layout.activity_view_accepted_requests);
         backButton = findViewById(R.id.button4);
         BookListView = (ListView) findViewById(R.id.RequestedBookList);
