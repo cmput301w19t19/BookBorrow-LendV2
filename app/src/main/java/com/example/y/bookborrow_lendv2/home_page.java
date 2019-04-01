@@ -32,11 +32,15 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +56,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+
 
 public class home_page extends AppCompatActivity {
     private FirebaseAuth auth;
@@ -65,6 +71,11 @@ public class home_page extends AppCompatActivity {
     private ImageButton NA2;
     private ImageButton NA3;
     private ImageButton NA4;
+    private ListView myBookList;
+
+    private bookAdapter myBookAdapter;
+
+    private ArrayList<book> displayBooks = new ArrayList<>();
 
     DatabaseReference DbRef = database.getReference();
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -78,7 +89,7 @@ public class home_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
         auth = FirebaseAuth.getInstance();
-        head = findViewById(R.id.UserHead);
+        //head = findViewById(R.id.UserHead);
         FirebaseUser user = auth.getCurrentUser();
         final String uid = user.getUid();
         NA1 = (ImageButton)findViewById(R.id.NA1);
@@ -92,9 +103,10 @@ public class home_page extends AppCompatActivity {
         //get current logged in user name
 
         DbRef = database.getReference("users/"+uid);
-        username = (TextView) findViewById(R.id.UserName);
+        //username = (TextView) findViewById(R.id.UserName);
+        myBookList = findViewById(R.id.RecommendBook);
 
-        ValueEventListener postListener = new ValueEventListener() {
+       /** ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //username = (TextView) findViewById(R.id.UserName);
@@ -136,39 +148,112 @@ public class home_page extends AppCompatActivity {
             }
         };
 
-        DbRef.addValueEventListener(postListener);
+        DbRef.addValueEventListener(postListener);*/
+
+
+
+        DatabaseReference ref = database.getReference().child("book");
+
+        ValueEventListener eventListener = new ValueEventListener() {
+
+
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                //String search = "Trevor Hastie Robert Tibshirani Jerome Friedman";
+                final book book1 = ds.getValue(book.class);
+                String status = book1.getStatus();
+                String bookID = book1.getID();
+                Log.i("display book size",status);
+
+
+                //load bookImage
+
+                StorageReference imageRef = storageRef.child("book/" + bookID + "/1.jpg");
+                final long ONE_MEGABYTE = 10 * 1024 * 1024;
+                imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                    @Override
+                    public void onSuccess(byte[] bytes) {
+                        Log.i("step", "success1");
+                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                        book1.setImage(bitmap);
+                        Log.i("testName1", book1.getName());
+                        //bookList.add(targetBook);
+                        myBookAdapter.notifyDataSetChanged();
+                        //bookPhoto.setImageBitmap(bitmap);
+                        //books = bookList;
+                        Log.i("size0000",Integer.toString(displayBooks.size()));
+                    }
+
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("Result", "failed");
+
+                    }
+                });
+
+
+                //.........................
+
+
+
+                if (status.equals("available") ){
+                    displayBooks.add(book1);
+
+
+                    myBookAdapter.notifyDataSetChanged();
+                    Log.i("avaliable book size","success"+Integer.toString(displayBooks.size()));
+
+
+
+                }
+                if (status.equals("requested")){
+                    displayBooks.add(book1);
+
+
+                    myBookAdapter.notifyDataSetChanged();
+                    Log.i("display book size","success"+Integer.toString(displayBooks.size()));
+
+
+                }
+
+
+
+
+
+            }}
+            @Override
+            public void onCancelled (@NonNull DatabaseError databaseError1){
+
+            }};
+        ref.addValueEventListener(eventListener);
+
+        displayBooks = new ArrayList<>();
+        myBookAdapter = new bookAdapter(this, displayBooks);
+        myBookList.setAdapter(myBookAdapter);
 
 
 
 
         // First get the LinearLayout object.
-        LinearLayout ownerLayout = (LinearLayout)findViewById(R.id.OwnerLayout);
+
         LinearLayout borrowerLayout = (LinearLayout)findViewById(R.id.BorrowerLayout);
-        LinearLayout ProfileLayout = (LinearLayout)findViewById(R.id.ProfileLayout);
-        LinearLayout logOut = (LinearLayout)findViewById(R.id.SignOutlayout);
+
 
 
 
       //need to modify the intent activities after other activites are done
-        head.setOnClickListener(new View.OnClickListener() {
+      /**  head.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(intent1);
             }
-        });
-
-        ownerLayout.setOnClickListener(new View.OnClickListener() {
+        });*/
 
 
-            //hello
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(home_page.this, OwnerHomeActivity.class);
-                startActivity(intent);
-                //finish();
-
-            }
-        });
 
 
         borrowerLayout.setOnClickListener(new View.OnClickListener() {
@@ -185,32 +270,8 @@ public class home_page extends AppCompatActivity {
         });
 
 
-        ProfileLayout.setOnClickListener(new View.OnClickListener() {
 
 
-            //hello
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(home_page.this, profile.class);
-                startActivity(intent);
-                //finish();
-
-            }
-        });
-
-
-        logOut.setOnClickListener(new View.OnClickListener() {
-
-
-            //hello
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(home_page.this, loginAct.class);
-                startActivity(intent);
-                //finish();
-
-            }
-        });
 
         NA1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -262,6 +323,31 @@ public class home_page extends AppCompatActivity {
         });
 
 
+
+        final EditText inputKeyword = (EditText) findViewById(R.id.SearchInput);
+        Button BookButton= (Button) findViewById(R.id.searchButton3);
+
+        Intent i = getIntent();
+        BookButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                String Keyword = inputKeyword.getText().toString();
+
+                if (TextUtils.isEmpty(Keyword)) {
+                    Toast.makeText(getApplicationContext(), "Please enter a Keyword!", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+
+                    Intent intent= new Intent();
+                    intent.setClass(home_page.this, SearchResultForBook.class);
+                    intent.putExtra("key",Keyword);
+                    startActivity(intent);
+                }
+
+
+
+            }
+        });
 
 
 

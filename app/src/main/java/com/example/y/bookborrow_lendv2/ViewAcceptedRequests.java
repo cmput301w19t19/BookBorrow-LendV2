@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -34,6 +35,7 @@ public class ViewAcceptedRequests extends AppCompatActivity {
     private ListView BookListView2;
     private ListView BookListView;
     private Button backButton;
+    private TextView text;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     DatabaseReference DbRef = database.getReference();
@@ -57,7 +59,7 @@ public class ViewAcceptedRequests extends AppCompatActivity {
         setContentView(R.layout.activity_view_accepted_requests);
         backButton = findViewById(R.id.button4);
         BookListView = (ListView) findViewById(R.id.RequestedBookList);
-
+        text = (TextView) findViewById(R.id.textView2) ;
 
 
 
@@ -92,10 +94,9 @@ public class ViewAcceptedRequests extends AppCompatActivity {
 
 
                                     }
-                                    else{ Log.i("Result ","else2");}
+
                                 }
-                                else{                                        Log.i("Result ","else1");
-                                }
+
                             }
                         }
 

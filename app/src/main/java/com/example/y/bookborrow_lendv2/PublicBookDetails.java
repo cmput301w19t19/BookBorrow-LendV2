@@ -138,7 +138,11 @@ public class PublicBookDetails extends AppCompatActivity {
         final Intent intent1 = new Intent(PublicBookDetails.this, SeeImageActivity.class);
 
         requestButton.setVisibility(View.INVISIBLE);
-        if (!flag.equals("BorrowBook") ) {
+
+        Log.i("flag0",flag);
+        if (! flag.equals("BorrowerRequest" ) && ! flag.equals("BorrowBook" )) {
+            Log.i("flag1",flag);
+
             requestButton.setVisibility(View.VISIBLE);
         }
 

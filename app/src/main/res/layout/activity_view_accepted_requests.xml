@@ -24,6 +24,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ChecktextView1" />
 
     <TextView
+
         android:id="@+id/ChecktextView1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -32,6 +33,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+
         android:text="The new accepted requests you haven't checked:"
         android:textSize="18sp"
         android:textStyle="bold"
