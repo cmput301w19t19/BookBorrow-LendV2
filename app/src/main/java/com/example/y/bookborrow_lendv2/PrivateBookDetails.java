@@ -132,6 +132,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         final Intent intent1 = new Intent(PrivateBookDetails.this,SeeImageActivity.class);
         locationButton = (Button)findViewById(R.id.pBookLocation);
 
+        final Intent mapIntent = getIntent();
 
         /**
          *  Get the information of the book from firebase and show them on the screen
@@ -236,7 +237,7 @@ public class PrivateBookDetails extends AppCompatActivity {
                                                 final String c_username = user.getName();
                                                 Log.i("testUname",c_username);
                                                 // need to add the image
-                                                StorageReference imageRef = storageRef.child("book/"+c_userID+"/1.jpg");
+                                                StorageReference imageRef = storageRef.child("user/"+c_userID+"/1.jpg");
                                                 final long ONE_MEGABYTE = 10 * 1024 * 1024;
                                                 imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                                     @Override
@@ -349,7 +350,8 @@ public class PrivateBookDetails extends AppCompatActivity {
                     requestRef.setValue("true");
                     //deletetBookRequest(bookx);
                     Log.w("test", "delete request functionrun");
-
+                    StorageReference Sref = storage.getReference();
+                    Sref.child("book").child(bookid).delete();
                     auth = FirebaseAuth.getInstance();
                     FirebaseUser user = auth.getCurrentUser();
                     DatabaseReference r = FirebaseDatabase.getInstance().getReference();
@@ -386,7 +388,13 @@ public class PrivateBookDetails extends AppCompatActivity {
         locationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String status = bookx.getStatus();
+                if (status.equals("available")|| status.equals("borrowed")||status.equals("requested")){
+                    Log.w("if accepted/borrowed", "accepted/borrowed");
 
+                    Toast.makeText(getApplicationContext(), "Book is not currently accepted, can't set location!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 //Intent intent = new Intent(getApplicationContext(), MapsActivityOwnerSetLocation.class);
                 //startActivityForResult(new Intent(PrivateBookDetails.this, MapsActivityOwnerSetLocation.class), 4);
                 pickPointOnMap();
@@ -403,29 +411,46 @@ public class PrivateBookDetails extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-/*
-    private void photoClip(Uri uri) {
-        Intent intent = new Intent();
-        intent.setAction("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
-        intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("outputX", 150);
-        intent.putExtra("outputY", 150);
-        intent.putExtra("return-data", true);
-        startActivityForResult(intent, CODE_PHOTO_CLIP);
-    }
 
-    private void setImageToHeadView(Intent intent) {
-        Bundle extras = intent.getExtras();
-        if (extras != null) {
-            Bitmap photo = extras.getParcelable("data");
-            bookPhoto.setImageBitmap(photo);
-        }
+
+        /**
+         * get location code from map Set location activity
+         */
+
+
+/*
+        LatLng latLng = (LatLng) mapIntent.getParcelableExtra("picked_point");
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        DatabaseReference rMap = db.getReference("book/"+bookx.getID());
+        rMap.child("longitude").setValue(latLng.longitude);
+        rMap.child("latitude").setValue(latLng.latitude);
+
+        Toast.makeText(this, "Book Location Saved!", Toast.LENGTH_LONG).show();
+*/
+
     }
-    */
+    /*
+        private void photoClip(Uri uri) {
+            Intent intent = new Intent();
+            intent.setAction("com.android.camera.action.CROP");
+            intent.setDataAndType(uri, "image/*");
+            intent.putExtra("crop", "true");
+            intent.putExtra("aspectX", 1);
+            intent.putExtra("aspectY", 1);
+            intent.putExtra("outputX", 150);
+            intent.putExtra("outputY", 150);
+            intent.putExtra("return-data", true);
+            startActivityForResult(intent, CODE_PHOTO_CLIP);
+        }
+
+        private void setImageToHeadView(Intent intent) {
+            Bundle extras = intent.getExtras();
+            if (extras != null) {
+                Bitmap photo = extras.getParcelable("data");
+                bookPhoto.setImageBitmap(photo);
+            }
+        }
+        */
     @Override
     public void onBackPressed(){
         //Intent intent = new Intent();
@@ -556,6 +581,7 @@ public class PrivateBookDetails extends AppCompatActivity {
         /*return from map activity and
         toast the location user long click in map view activity
          */
+
         if (requestCode == pickMapPointRequest){
             LatLng latLng = (LatLng) Data.getParcelableExtra("picked_point");
 

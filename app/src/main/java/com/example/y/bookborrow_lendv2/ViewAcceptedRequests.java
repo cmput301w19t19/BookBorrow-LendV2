@@ -3,7 +3,6 @@ package com.example.y.bookborrow_lendv2;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -27,14 +25,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-
 import java.util.ArrayList;
 
-
-/**
- * The type View requests.
- */
-public class ViewRequests extends AppCompatActivity {
+public class ViewAcceptedRequests extends AppCompatActivity {
 
     private FirebaseAuth auth;
     private bookAdapter myBookAdapter;
@@ -61,10 +54,9 @@ public class ViewRequests extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         Log.i("testnn","111111");
 
-        setContentView(R.layout.activity_view_requests);
-        backButton = findViewById(R.id.button3);
-        BookListView = (ListView) findViewById(R.id.BookList);
-        TextView textView = findViewById(R.id.ChecktextView);
+        setContentView(R.layout.activity_view_accepted_requests);
+        backButton = findViewById(R.id.button4);
+        BookListView = (ListView) findViewById(R.id.RequestedBookList);
 
 
 
@@ -74,7 +66,7 @@ public class ViewRequests extends AppCompatActivity {
 
         FirebaseUser user = auth.getCurrentUser();
         final String uid = user.getUid();
-        DatabaseReference rootRef = database.getReference("lenders").child(uid).child("ListOfNewRequests");
+        DatabaseReference rootRef = database.getReference("borrowers").child(uid).child("AcceptedRequests");
 
         Log.i("testnn","222");
 
@@ -84,21 +76,25 @@ public class ViewRequests extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                Log.i("testnn","333");
+                Log.i("testnn","go to the onDataChange");
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     final String bookID = ds.getKey();
-                    DatabaseReference dbRef = database.getReference("lenders").child(uid).child("ListOfNewRequests").child(bookID);
+                    DatabaseReference dbRef = database.getReference("borrowers").child(uid).child("AcceptedRequests").child(bookID);
                     ValueEventListener eventListener2 = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (DataSnapshot ds1 : dataSnapshot.getChildren()) {
-                                if (ds1.getKey().equals("checkedByOwner")) {
+                                if (ds1.getKey().equals("checkedByBorrower")) {
                                     if (ds1.getValue().equals(false)) {
                                         bookIDList.add(bookID);
+                                        Log.i("Result bbokIdList",Integer.toString(bookIDList.size()));
 
 
                                     }
+                                    else{ Log.i("Result ","else2");}
+                                }
+                                else{                                        Log.i("Result ","else1");
                                 }
                             }
                         }
@@ -132,6 +128,8 @@ public class ViewRequests extends AppCompatActivity {
                                             targetBook.setImage(bitmap);
                                             //bookList.add(targetBook);
                                             myBookAdapter.notifyDataSetChanged();
+                                           // Log.i("Result bbokList",Integer.toString(bookIDList.size()));
+
 
                                             //bookPhoto.setImageBitmap(bitmap);
                                         }
@@ -149,7 +147,7 @@ public class ViewRequests extends AppCompatActivity {
                             //book targetBook = dataSnapshot1.getValue(book.class);
 
 
-                             myBookAdapter.notifyDataSetChanged();
+                            myBookAdapter.notifyDataSetChanged();
                         }
                     }
                     @Override
@@ -175,13 +173,12 @@ public class ViewRequests extends AppCompatActivity {
                 //TODO: Implement this method
                 book bookItem = bookList.get(position);
                 String clickedBookId = bookIDList.get(position);
-                Toast.makeText(ViewRequests.this,bookItem.getAuthor(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewAcceptedRequests.this,bookItem.getAuthor(),Toast.LENGTH_SHORT).show();
                 String bookId = bookItem.getID();
-                //记得把ViewRequests 里的OnItemCliskListener 点过的 request 的checkByOwner 改成 true，就没有小红点
-                dbRef = database.getReference("lenders").child(uid).child("ListOfNewRequests").child(clickedBookId).
-                        child("checkedByOwner");
+                dbRef = database.getReference("borrowers").child(uid).child("AcceptedRequests").child(clickedBookId).
+                        child("checkedByBorrower");
                 dbRef.setValue("true");
-                Intent intent = new Intent(ViewRequests.this, PrivateBookDetails.class);
+                Intent intent = new Intent(ViewAcceptedRequests.this, PrivateBookDetails.class);
                 intent.putExtra("Id", bookId);
                 intent.putExtra("flag","View");
 
@@ -200,7 +197,7 @@ public class ViewRequests extends AppCompatActivity {
             //hello
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ViewRequests.this, OwnerHomeActivity.class);
+                Intent intent = new Intent(ViewAcceptedRequests.this, BorrowerMenu.class);
                 startActivity(intent);
                 //finish();
 
@@ -227,7 +224,4 @@ public class ViewRequests extends AppCompatActivity {
     }
 
 
-
 }
-
-

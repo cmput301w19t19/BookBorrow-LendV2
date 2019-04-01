@@ -143,11 +143,11 @@ public class RequestToOwner extends AppCompatActivity {
 
 
                                     //mDatas.add(request);
-                                    mAdapter.notifyDataSetChanged();
+                                    //mAdapter.notifyDataSetChanged();
                                     // set the username and rating to the adapter array
                                     //B_request request = new B_request(b_user, 0.0, userID);
                                     //mDatas.add(request);
-                                    //mAdapter.notifyDataSetChanged();
+                                    mAdapter.notifyDataSetChanged();
                                     //Log.i("Yuanproblem2", mDatas.get(0).getUserID());
                                 }
                                 // get the username and rating from the borrower ID
@@ -216,6 +216,12 @@ public class RequestToOwner extends AppCompatActivity {
                     if(bRequest.isSelected()){
                         dbBook.child("book").child(book_ID).child("status").setValue("accepted");
                         SelectedBorrower = bRequest.getUserID();
+
+                        //add accepted request to borrowers acceptedRequests list
+                        DatabaseReference ref = m.getReference().child("borrowers").child(SelectedBorrower).child("AcceptedRequests").
+                                child(book_ID).child("checkedByBorrower");
+                        ref.setValue(false);
+
                         dbBorrower.child("borrowers").child(bRequest.getUserID()).child("AcceptedList").child(book_ID).setValue(true);
                         //dbBorrower = m.getReference();
                          for(int i = 0; i < mDatas.size();i++)
@@ -234,11 +240,13 @@ public class RequestToOwner extends AppCompatActivity {
                         ///////////////////////////////////////////////////need to intend to map/////////////////////////////////////////
                     }
                 }
-                final int pickMapPointRequest = 100;
-                Intent pickPointIntent = new Intent(RequestToOwner.this,MapsActivityOwnerSetLocation.class);
-                startActivityForResult(pickPointIntent, pickMapPointRequest);
-                //Intent intent1 = new Intent(RequestToOwner.this,Map.class);
-                //startActivity(intent1);
+
+                Intent intent1 = new Intent(RequestToOwner.this,MyBookList.class);
+                startActivity(intent1);
+
+                //Intent pickPointIntent = new Intent(RequestToOwner.this,MapsActivityOwnerSetLocation.class);
+                //startActivity(pickPointIntent);
+
             }
         });
 
@@ -313,6 +321,9 @@ public class RequestToOwner extends AppCompatActivity {
 
 
     }
+
+
+
 
 
 }
