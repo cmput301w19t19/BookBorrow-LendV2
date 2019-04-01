@@ -1,4 +1,10 @@
 /*
+ * Class MapActivityOwnerSetLocation.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
  * Copyright 2019 TEAM19
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,6 +30,7 @@ package com.example.y.bookborrow_lendv2;
  * allow owner to view his/her book, user can add book here
  * and user can filter books status by 4 button
  * @version 1.0
+ *
  */
 
 import android.content.DialogInterface;
@@ -106,13 +113,12 @@ public class MyBookList extends AppCompatActivity {
         booksID = new ArrayList<>();
         DatabaseReference rootRef = database.getReference("lenders").child(uid).child("MyBookList");
 
-        Log.i("testnn","222");
 
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 bookList.clear();
-                Log.i("testnn","333");
+
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     final String bookID = ds.getKey();
@@ -121,7 +127,7 @@ public class MyBookList extends AppCompatActivity {
                     ValueEventListener eventListener1 = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
-                            //Log.i("test22", "hello");
+
                             book book1 = dataSnapshot1.getValue(book.class);
                             if (book1 != null) {
                                 String name = book1.getName();
@@ -133,15 +139,14 @@ public class MyBookList extends AppCompatActivity {
                                 imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                     @Override
                                     public void onSuccess(byte[] bytes) {
-                                        Log.i("step", "success1");
+                                        //Log.i("step", "success1");
                                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                         targetBook.setImage(bitmap);
-                                        Log.i("testName1", targetBook.getName());
+                                        //Log.i("testName1", targetBook.getName());
                                         //bookList.add(targetBook);
                                         myBookAdapter.notifyDataSetChanged();
-                                        //bookPhoto.setImageBitmap(bitmap);
-                                        //books = bookList;
-                                        Log.i("size0000",Integer.toString(bookList.size()));
+
+                                        //Log.i("size0000",Integer.toString(bookList.size()));
                                     }
                                     //........................................
                                 }).addOnFailureListener(new OnFailureListener() {

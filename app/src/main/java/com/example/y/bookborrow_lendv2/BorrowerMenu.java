@@ -1,4 +1,10 @@
 /*
+ * Class BorrowerMenu.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
  * Copyright 2019 TEAM19
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -48,7 +54,9 @@ import java.util.ArrayList;
  * user has four option , requested book, booklist. search for book and scan the book
  *
  * @author Team19
- * @version 1.0
+ * @version 2.0
+ * @SEE BorrowerBookList, Search, check_to_scan ;  ViewAcceptedRequests;
+ * @SEE SearchingUserDetail; home_page
  */
 
 
@@ -87,7 +95,7 @@ public class BorrowerMenu extends AppCompatActivity {
         final String uid = user.getUid();
 
         DatabaseReference rootRef = database.getReference("borrowers").child(uid).child("AcceptedRequests");
-        Log.i("ttttttttt3",uid);
+
 
         //set badge view
         final BadgeView badge = new BadgeView(this,acceptedButton );
@@ -110,8 +118,7 @@ public class BorrowerMenu extends AppCompatActivity {
                                 if (ds1.getKey().equals("checkedByBorrower")) {
                                     if (ds1.getValue().equals(false)) {
                                         books.add(bookID);
-                                        Log.i("popopopopo",Integer.toString(books.size()));
-                                        //newRequestListSize = Integer.toString(BookList.size());
+
 
 
 
@@ -122,7 +129,6 @@ public class BorrowerMenu extends AppCompatActivity {
 
 
                             if  (books.size() > 0){
-                                Log.i("llllllll",Integer.toString(books.size()));
 
                                 badge.setText(Integer.toString(books.size()));
 
@@ -156,7 +162,6 @@ public class BorrowerMenu extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {}
         };
 
-        Log.i("testnn","444");
 
         rootRef.addListenerForSingleValueEvent(eventListener);
 
@@ -189,7 +194,6 @@ public class BorrowerMenu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(BorrowerMenu.this, BorrowBookList.class);
                 startActivity(intent);
-                //BorrowerMenu.this.finish();
 
 
             }
@@ -216,7 +220,6 @@ public class BorrowerMenu extends AppCompatActivity {
                 Intent intent = new Intent(BorrowerMenu.this, check_to_scan.class);
                 intent.putExtra("user","borrower");
                 startActivityForResult(intent, 3);
-                //BorrowerMenu.this.finish();
             }
         });
 
@@ -226,7 +229,6 @@ public class BorrowerMenu extends AppCompatActivity {
                 Intent intent = new Intent(BorrowerMenu.this, ViewAcceptedRequests.class);
                 startActivity(intent);
 
-                //BorrowerMenu.this.finish();
             }
         });
 

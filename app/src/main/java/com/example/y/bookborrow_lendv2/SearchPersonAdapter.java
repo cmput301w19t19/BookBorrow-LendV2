@@ -1,4 +1,10 @@
 /*
+ * Class SearchPersonAdapter.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
  * Copyright 2019 TEAM19
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -35,6 +41,7 @@ import java.util.ArrayList;
 
 /**
  * The type Search person adapter.
+ * @see Search
  */
 public class SearchPersonAdapter extends BaseAdapter {
     private LayoutInflater mInflater;

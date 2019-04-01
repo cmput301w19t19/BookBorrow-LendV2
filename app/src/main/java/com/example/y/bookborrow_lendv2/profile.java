@@ -1,4 +1,10 @@
 /*
+ * Class profile.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
  * Copyright 2019 TEAM19
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -95,9 +101,6 @@ public class profile extends AppCompatActivity {
 
 
 
-
-
-
     /** Called when the activity is first created. */
 
     @Override
@@ -119,9 +122,6 @@ public class profile extends AppCompatActivity {
         uneditableUserName = (TextView) findViewById(R.id.UserName) ;
 
 
-       // BadgeView badge = new BadgeView(this,inputEmail );
-       // badge.setText("1");
-       // badge.show();
 
         //line 53-78: load data from firebase and update UI
         DbRef = database.getReference("users/"+uid);
@@ -179,8 +179,6 @@ public class profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                //intent.setAction(Intent.ACTION_GET_CONTENT);
-                //intent.setType("image/*");
                 intent.setAction(Intent.ACTION_PICK);
                 intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 startActivityForResult(intent,CODE_PHOTO_REQUEST);
@@ -217,23 +215,6 @@ public class profile extends AppCompatActivity {
                 currentB.setNameToFireBase(uid,userName);
                 //currentL.setName(userName);
                 currentL.setNameToFireBase(uid,userName);
-
-
-
-               // Map<String, Object> childUpdates = new HashMap<>();
-
-
-                //dbRef.child("users").child(uid).setValue(currentU);
-                //dbRef.child("lenders").child(uid).setValue(currentL);
-                //dbRef.child("borrowers").child(uid).setValue(currentB);
-
-
-
-                //childUpdates.put("users/"+uid+"/name", userName);
-                //borrowerRef.updateChildren(childUpdates);
-
-                //childUpdates.put("users/"+uid+"/name", userName);
-                //lenderRef.updateChildren(childUpdates);
 
 
 

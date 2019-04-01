@@ -1,3 +1,32 @@
+/*
+
+ * Class ViewAcceptedRequests.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
+
+ * Copyright 2019 TEAM19
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package com.example.y.bookborrow_lendv2;
 
 import android.content.Intent;
@@ -28,6 +57,15 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
+
+
+
+
+/* * Borrower views his new accepted requests in this activity
+ * @author Yuan Tian
+ * @version 1.0
+ */
+
 public class ViewAcceptedRequests extends AppCompatActivity {
 
     private FirebaseAuth auth;
@@ -54,7 +92,7 @@ public class ViewAcceptedRequests extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
-        Log.i("testnn","111111");
+
 
         setContentView(R.layout.activity_view_accepted_requests);
         backButton = findViewById(R.id.button4);
@@ -63,14 +101,10 @@ public class ViewAcceptedRequests extends AppCompatActivity {
 
 
 
-
-        Log.i("testnn","2222222");
-
         FirebaseUser user = auth.getCurrentUser();
         final String uid = user.getUid();
         DatabaseReference rootRef = database.getReference("borrowers").child(uid).child("AcceptedRequests");
 
-        Log.i("testnn","222");
 
         final ValueEventListener eventListener = new ValueEventListener() {
 
@@ -78,7 +112,6 @@ public class ViewAcceptedRequests extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                Log.i("testnn","go to the onDataChange");
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     final String bookID = ds.getKey();
@@ -90,7 +123,6 @@ public class ViewAcceptedRequests extends AppCompatActivity {
                                 if (ds1.getKey().equals("checkedByBorrower")) {
                                     if (ds1.getValue().equals(false)) {
                                         bookIDList.add(bookID);
-                                        Log.i("Result bbokIdList",Integer.toString(bookIDList.size()));
 
 
                                     }
@@ -124,15 +156,13 @@ public class ViewAcceptedRequests extends AppCompatActivity {
                                     imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                         @Override
                                         public void onSuccess(byte[] bytes) {
-                                            Log.i("step","success1");
                                             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
                                             targetBook.setImage(bitmap);
                                             //bookList.add(targetBook);
                                             myBookAdapter.notifyDataSetChanged();
-                                           // Log.i("Result bbokList",Integer.toString(bookIDList.size()));
 
 
-                                            //bookPhoto.setImageBitmap(bitmap);
+
                                         }
 
                                     }).addOnFailureListener(new OnFailureListener() {
@@ -145,8 +175,6 @@ public class ViewAcceptedRequests extends AppCompatActivity {
 
                                 }
                             }
-                            //book targetBook = dataSnapshot1.getValue(book.class);
-
 
                             myBookAdapter.notifyDataSetChanged();
                         }
@@ -182,10 +210,6 @@ public class ViewAcceptedRequests extends AppCompatActivity {
                 Intent intent = new Intent(ViewAcceptedRequests.this, PublicBookDetails.class);
                 intent.putExtra("Id", bookId);
                 intent.putExtra("flag","View");
-
-
-
-
                 startActivity(intent);
             }
         });
@@ -200,29 +224,16 @@ public class ViewAcceptedRequests extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(ViewAcceptedRequests.this, BorrowerMenu.class);
                 startActivity(intent);
-                //finish();
 
             }
         });
 
 
-        //Log.i("testsize3",Integer.toString(booksID.size()));
-
-
         rootRef.addListenerForSingleValueEvent(eventListener);
-
-
 
         myBookAdapter = new bookAdapter(this, bookList);
         BookListView.setAdapter(myBookAdapter);
 
-
-
-
-
-
-
     }
-
 
 }

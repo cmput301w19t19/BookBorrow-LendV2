@@ -1,4 +1,10 @@
 /*
+ * Class SearchingUserDetail.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
  * Copyright 2019 TEAM19
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -59,6 +65,7 @@ import static android.view.View.GONE;
  *  The class will allow users to see more comments if the number of comments are more than 1
  *  @see CommentDetail
  *  @see SearchResultForPeople
+ * @version 1.0
  *
  */
 public class SearchingUserDetail extends AppCompatActivity {

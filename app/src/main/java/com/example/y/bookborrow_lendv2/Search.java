@@ -1,4 +1,10 @@
 /*
+ * Class Search.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
  * Copyright 2019 TEAM19
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -37,6 +43,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * This is our search pages that allow user to enter keayword
+ * @see SearchResultForBook; home_page
+ *
  */
 public class Search extends AppCompatActivity {
 

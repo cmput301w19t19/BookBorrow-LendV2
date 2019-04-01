@@ -1,4 +1,10 @@
 /*
+ * Class BorrowerRequestAdapter.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
  * Copyright 2019 TEAM19
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -35,7 +41,8 @@ import java.util.ArrayList;
  * adapter class used for ListView in borrower -> request book list
  *
  * @author Team19
- * @version 1.0
+ * @version 2.0
+ * @SEE BorrowerRequest
  */
 
 public class BorrowerRequestAdapter extends BaseAdapter {

@@ -1,4 +1,10 @@
 /*
+ * Class loginAct.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
  * Copyright 2019 TEAM19
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -87,85 +93,6 @@ public class loginAct extends AppCompatActivity {
                 startActivity(intent);
 
 
-                /**final String email = inputEmail.getText().toString().trim();
-                final String password = inputPassword.getText().toString().trim();
-
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address you want to register with!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password !", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (password.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!",
-                            Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-
-                //create user
-                auth.createUserWithEmailAndPassword(email, password)
-
-                        .addOnCompleteListener(loginAct.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(loginAct.this, "createUserWithEmail:onComplete:"
-                                        + task.isSuccessful(), Toast.LENGTH_SHORT).show();
-
-
-
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-                                if (!task.isSuccessful()) {
-                                    Toast.makeText(loginAct.this, "Authentication failed." + task.getException(),
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                                else{
-                                    //Create a user and store it in firebase database
-                                    FirebaseUser user = auth.getCurrentUser();
-                                    String uid = user.getUid();
-
-                                    NormalUser newUser = new NormalUser();
-                                    borrower newBorrower = new borrower();
-                                    lender newLender = new lender();
-
-                                    mDatabase = FirebaseDatabase.getInstance().getReference();
-
-                                    newUser.setEmail(email);
-                                    newUser.setUid(uid);
-                                    newUser.setPassword(password);
-
-                                    newBorrower.setEmail(email);
-                                    newBorrower.setUid(uid);
-                                    newBorrower.setToFirebase(uid,email);
-
-
-                                    newLender.setEmail(email);
-                                    newLender.setUid(uid);
-                                    newLender.setToFirebase(uid,email);
-
-
-
-
-                                    newUser.setPassword(password);
-                                    String key = uid;
-                                    mDatabase.child("users").child(key).setValue(newUser);
-                                    //mDatabase.child("borrowers").child(key).setValue(newBorrower);
-                                    //mDatabase.child("lenders").child(key).setValue(newLender);
-
-                                    Toast.makeText(loginAct.this, "Authentication success!" + task.getException(),
-                                            Toast.LENGTH_SHORT).show();
-                                    SignIn(email,password);
-                                    //Intent intent = new Intent(loginAct.this, profile.class);
-                                   // startActivity(intent);
-                                }
-                            }});*/
-
             }
         });
 
@@ -200,14 +127,13 @@ public class loginAct extends AppCompatActivity {
         });
 
 
-                                    // On login button click, storing our username into normalUser,lender borrower classes.
-                                    //Singleton Pattern implemented here
-                                    //NormalUser.Instance().setUid(uid);
-                                    //borrower.Instance().setUid(uid);
-                                    //lender.Instance().setUid(uid);
+
+
     }
 
     /**
+     *  On login button click, storing our username into normalUser,lender borrower classes.
+     *    Singleton Pattern implemented here
      * this method is defined for intent test
      * @return loggedin user id
      */
@@ -226,13 +152,7 @@ public class loginAct extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Toast.makeText(getApplicationContext(), "login ", Toast.LENGTH_SHORT).show();
-                        //Intent intent = new Intent(loginAct.this, home_page.class);
 
-                       // startActivity(intent);
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        //progressBar.setVisibility(View.GONE);
                         if (!task.isSuccessful()) {
                             // there was an error
                             Toast.makeText(getApplicationContext(), "login failed", Toast.LENGTH_SHORT).show();

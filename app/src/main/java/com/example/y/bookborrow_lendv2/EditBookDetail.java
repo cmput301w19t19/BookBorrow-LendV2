@@ -1,3 +1,30 @@
+/*
+ * ClassEditBookDetail.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
+ * Copyright 2019 TEAM19
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 package com.example.y.bookborrow_lendv2;
 
 import android.content.DialogInterface;
@@ -39,33 +66,11 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 
-/*
- * Copyright 2019 TEAM19
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
 /**
  * This class is to provide an interface for owner to edit details of one of his book
  *
  * @author Team 19
- * @version 1.0
+ * @version 2.0
  * @see PrivateBookDetails
  * @see MyBookList
  */
@@ -181,7 +186,7 @@ public class EditBookDetail extends AppCompatActivity {
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Log.i("Result","failed");
+                                //Log.i("Result","failed");
                             }
                         });
 
@@ -275,9 +280,7 @@ public class EditBookDetail extends AppCompatActivity {
                 String bookid = b.getID();
                 Intent back = new Intent(EditBookDetail.this,MyBookList.class);
                 startActivity(back);
-                //back.putExtra("ID",bookid);
-                //setResult(1,back);
-                //finish();
+
             }
         });
 
@@ -362,8 +365,7 @@ public class EditBookDetail extends AppCompatActivity {
                 try {
                     Uri uri1 = Data.getData();
                     Log.i("hello22", "22");
-                    //if (extra != null) {
-                    //  Log.i("hello22","slslsl");
+
                     photo = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri1);
                     bookPhoto.setImageBitmap(photo);
                     final StorageReference storageReference = storageRef.child("book/" + id + "/" + "1.jpg");

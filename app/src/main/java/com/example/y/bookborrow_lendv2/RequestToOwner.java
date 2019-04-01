@@ -1,4 +1,10 @@
 /*
+ * Class RequestToOwner.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
  * Copyright 2019 TEAM19
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -52,6 +58,7 @@ import java.util.ArrayList;
  *
  * @author
  * @version 1.0
+ * @see  MyBookList
  */
 public class RequestToOwner extends AppCompatActivity {
 
@@ -165,10 +172,6 @@ public class RequestToOwner extends AppCompatActivity {
                 }
             }
 
-                //ArrayList<String> borrowerID = (ArrayList<String>)dataSnapshot.getValue();
-
-            //setContentView(R.layout.activity_request_to_owner);
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -236,7 +239,7 @@ public class RequestToOwner extends AppCompatActivity {
                         mAdapter.notifyDataSetChanged();
                         //setContentView(R.layout.activity_request_to_owner);
 
-                        //Log.i("Sucess", mDatas.get(j).getUserID());
+
                         ///////////////////////////////////////////////////need to intend to map/////////////////////////////////////////
                     }
                 }
@@ -244,8 +247,6 @@ public class RequestToOwner extends AppCompatActivity {
                 Intent intent1 = new Intent(RequestToOwner.this,MyBookList.class);
                 startActivity(intent1);
 
-                //Intent pickPointIntent = new Intent(RequestToOwner.this,MapsActivityOwnerSetLocation.class);
-                //startActivity(pickPointIntent);
 
             }
         });
@@ -266,12 +267,6 @@ public class RequestToOwner extends AppCompatActivity {
                 }
 
 
-                //setContentView(R.layout.activity_request_to_owner);
-
-
-                // mAdapter.notifyDataSetChanged();
-
-                //refresh();
             }
         });
 
@@ -307,9 +302,7 @@ public class RequestToOwner extends AppCompatActivity {
                 }
 
 
-                //FirebaseUser user = auth.getCurrentUser();
-                //String uid = user.getUid();
-                //dbBorrower.child("lenders").child(uid).child("requestList").child(book_ID).removeValue();
+
                 mDatas.remove(j);
 
                // initData(mDatas);

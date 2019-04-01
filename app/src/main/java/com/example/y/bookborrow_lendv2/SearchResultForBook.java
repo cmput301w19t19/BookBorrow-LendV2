@@ -1,4 +1,10 @@
 /*
+ * Class SearchResultBook.java
+ *
+ * Version 2.0
+ *
+ * Date 2019.4.1
+ *
  * Copyright 2019 TEAM19
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -63,6 +69,7 @@ import java.util.ArrayList;
 
 /**
  * This activity does the book search using keyword and shows the search results
+ *
  */
 public class SearchResultForBook extends AppCompatActivity {
 
@@ -108,8 +115,7 @@ public class SearchResultForBook extends AppCompatActivity {
 
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         DatabaseReference booksRef = rootRef.child("book");
-        //final ArrayList<book> bookLists = new ArrayList<>();
-        Log.i("bbbbbb","hello1");
+
 
         // eventListener for searching book title's keyword
 
@@ -160,17 +166,7 @@ public class SearchResultForBook extends AppCompatActivity {
                             }
                         });
                     }
-                    //check if author contains keyword
-/*
-                    found = author.contains(search);
 
-                    if (found && !stat.equals("accepted") && !stat.equals("borrowed")) {
-                        books.add(bookdFound);
-                    }
-
-*/
-                    //adapter = new SearchBookAdapter(SearchResultForBook.this, books);
-                    //mResultList.setAdapter(adapter);
 
 
                 }
@@ -249,16 +245,6 @@ public class SearchResultForBook extends AppCompatActivity {
         Intent intent = new Intent(SearchResultForBook.this,Search.class);
         startActivity(intent);
     }
-/*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
-        if(requestCode==1&&resultCode==1){
-            adapter.notifyDataSetChanged();
-        }
-    }
-*/
-
 
 
   public void searchPeopleResult(final String Keyword){
@@ -267,9 +253,6 @@ public class SearchResultForBook extends AppCompatActivity {
       userResultList.setAdapter(adapter2);
 
     ValueEventListener eventListener = new ValueEventListener() {
-
-
-
 
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -315,7 +298,7 @@ public class SearchResultForBook extends AppCompatActivity {
                         users.add(SearchedUser);
                         adapter2.notifyDataSetChanged();
 
-                        //check if user's name contains keyword
+
 
                     }
                 }
