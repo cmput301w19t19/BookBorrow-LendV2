@@ -73,9 +73,11 @@ public class home_page extends AppCompatActivity {
     private ImageButton NA4;
     private ListView myBookList;
 
+
     private bookAdapter myBookAdapter;
 
     private ArrayList<book> displayBooks = new ArrayList<>();
+    private ArrayList<book> Books = new ArrayList<>();
 
     DatabaseReference DbRef = database.getReference();
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -204,6 +206,7 @@ public class home_page extends AppCompatActivity {
                     displayBooks.add(book1);
 
 
+
                     myBookAdapter.notifyDataSetChanged();
                     Log.i("avaliable book size","success"+Integer.toString(displayBooks.size()));
 
@@ -220,11 +223,17 @@ public class home_page extends AppCompatActivity {
 
                 }
 
+                if (Books.size()<6){
+                    Books = displayBooks;
+                }
+                Log.i("display Books size","success"+Integer.toString(Books.size()));
 
 
 
 
-            }}
+
+
+                }}
             @Override
             public void onCancelled (@NonNull DatabaseError databaseError1){
 
