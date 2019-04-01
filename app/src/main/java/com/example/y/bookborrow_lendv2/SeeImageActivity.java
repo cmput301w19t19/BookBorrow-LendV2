@@ -7,6 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+/**
+ * User see an image here
+ * @author Bowei
+ * @version 1.0
+ */
 public class SeeImageActivity extends AppCompatActivity {
 
     @Override

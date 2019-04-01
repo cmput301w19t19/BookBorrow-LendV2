@@ -148,6 +148,7 @@ public class check_to_scan extends AppCompatActivity{
                 }
                 else if(user.equals("borrower") && B_status.equals("borrow")){
                     dbHolder = m.getReference("borrowers").child(uid).child("AcceptedList");
+                    Log.i("bookI","hello2222");
                 }
                 else if(user.equals("borrower") && B_status.equals("return")){
                     dbHolder = m.getReference("borrowers").child(uid).child("BorrowBookList");
@@ -158,7 +159,7 @@ public class check_to_scan extends AppCompatActivity{
                         for (DataSnapshot ds : dataSnapshot.getChildren()) {
                             final String bookID = ds.getKey();
                             DbRef = m.getReference("book/" + bookID);
-
+                            Log.i("bookId","hello"+bookID);
                             ValueEventListener eventListener1 = new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {

@@ -32,7 +32,9 @@ import java.util.ArrayList;
 
 
 /**
- * The type View requests.
+ * Owner views new requests in this activity
+ * @author Yuan Tian
+ * @version 1.0
  */
 public class ViewRequests extends AppCompatActivity {
 
@@ -59,7 +61,6 @@ public class ViewRequests extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
-        Log.i("testnn","111111");
 
         setContentView(R.layout.activity_view_requests);
         backButton = findViewById(R.id.button3);
@@ -67,17 +68,11 @@ public class ViewRequests extends AppCompatActivity {
         TextView textView = findViewById(R.id.ChecktextView);
 
 
-
-
-
-        Log.i("testnn","2222222");
-
         FirebaseUser user = auth.getCurrentUser();
         final String uid = user.getUid();
         DatabaseReference rootRef = database.getReference("lenders").child(uid).child("ListOfNewRequests");
 
-        Log.i("testnn","222");
-
+        // get all book ID
         final ValueEventListener eventListener = new ValueEventListener() {
 
 
@@ -114,7 +109,7 @@ public class ViewRequests extends AppCompatActivity {
                 DbRef = database.getReference("book");
 
 
-
+                // get all books and their images
                 ValueEventListener eventListener1 = new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
@@ -208,8 +203,6 @@ public class ViewRequests extends AppCompatActivity {
         });
 
 
-        //Log.i("testsize3",Integer.toString(booksID.size()));
-
 
         rootRef.addListenerForSingleValueEvent(eventListener);
 
@@ -219,14 +212,7 @@ public class ViewRequests extends AppCompatActivity {
         BookListView.setAdapter(myBookAdapter);
 
 
-
-
-
-
-
     }
-
-
 
 }
 
