@@ -179,7 +179,7 @@ public class ViewAcceptedRequests extends AppCompatActivity {
                 dbRef = database.getReference("borrowers").child(uid).child("AcceptedRequests").child(clickedBookId).
                         child("checkedByBorrower");
                 dbRef.setValue("true");
-                Intent intent = new Intent(ViewAcceptedRequests.this, PrivateBookDetails.class);
+                Intent intent = new Intent(ViewAcceptedRequests.this, PublicBookDetails.class);
                 intent.putExtra("Id", bookId);
                 intent.putExtra("flag","View");
 

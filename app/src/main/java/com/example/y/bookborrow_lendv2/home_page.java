@@ -180,7 +180,7 @@ public class home_page extends AppCompatActivity {
                         Log.i("step", "success1");
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         book1.setImage(bitmap);
-                        Log.i("testName1", book1.getName());
+//                        Log.i("testName1", book1.getName());
                         //bookList.add(targetBook);
                         myBookAdapter.notifyDataSetChanged();
                         //bookPhoto.setImageBitmap(bitmap);

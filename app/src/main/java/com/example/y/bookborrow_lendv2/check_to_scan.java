@@ -64,7 +64,6 @@ public class check_to_scan extends AppCompatActivity{
         FirebaseAuth Auth = FirebaseAuth.getInstance();
         FirebaseUser users = Auth.getCurrentUser();
         uid = users.getUid();
-        Log.i("start the app", "fuck this bullshit");
         B_status = "borrow";
 
         Intent intent = getIntent();
