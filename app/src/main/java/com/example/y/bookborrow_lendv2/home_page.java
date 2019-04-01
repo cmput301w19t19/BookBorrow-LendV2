@@ -291,7 +291,7 @@ public class home_page extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(home_page.this, OwnerHomeActivity.class);
                 startActivity(intent);
-                //finish();
+                finish();
 
             }
         });
@@ -304,7 +304,7 @@ public class home_page extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(home_page.this, BorrowerMenu.class);
                 startActivity(intent);
-                //finish();
+                finish();
 
             }
         });
@@ -319,7 +319,7 @@ public class home_page extends AppCompatActivity {
                 intent.putExtra("profileID",uid);
                 intent.putExtra("flag", "owner");
                 startActivity(intent);
-                //finish();
+                finish();
 
             }
         });
@@ -333,6 +333,7 @@ public class home_page extends AppCompatActivity {
                 intent.putExtra("Id", bookId);
                 intent.putExtra("flag","homepage");
                 startActivity(intent);
+                finish();
             }
         });
 
