@@ -271,6 +271,7 @@ public class BorrowerMenu extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(BorrowerMenu.this, SearchingUserDetail.class);
                 intent.putExtra("profileID",uid);
+                intent.putExtra("flag", "owner");
                 startActivity(intent);
                 //finish();
 
