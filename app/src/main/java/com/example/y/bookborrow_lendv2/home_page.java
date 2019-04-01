@@ -315,6 +315,7 @@ public class home_page extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(home_page.this, SearchingUserDetail.class);
                 intent.putExtra("profileID",uid);
+                intent.putExtra("flag", "owner");
                 startActivity(intent);
                 //finish();
 

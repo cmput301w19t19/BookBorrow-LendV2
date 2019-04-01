@@ -29,6 +29,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -69,6 +70,8 @@ public class SearchingUserDetail extends AppCompatActivity {
     private String profileID;
     private comment comment;
     private comment comment1;
+    private String flag;
+    private Button signout;
 
 
     @Override
@@ -96,10 +99,14 @@ public class SearchingUserDetail extends AppCompatActivity {
         final ListView borrowerListView = (ListView)findViewById(R.id.ListViewBorrower);
         final ArrayList<comment> borrowerCommentList = new ArrayList<>();
         final CommentAdapter borrowerCommentAdapter = new CommentAdapter(this,borrowerCommentList);
+        signout = (Button)findViewById(R.id.signOut);
         final Intent intent1 = new Intent(SearchingUserDetail.this,SeeImageActivity.class);
 
         Intent i = getIntent();
         profileID = i.getStringExtra("profileID");
+        flag = i.getStringExtra("flag");
+        Log.i("testIntent", flag);
+
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         FirebaseUser user = auth.getCurrentUser();
@@ -414,9 +421,28 @@ public class SearchingUserDetail extends AppCompatActivity {
             }
         });
 
+        signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SearchingUserDetail.this, loginAct.class);
+                startActivity(intent);
+            }
+        });
+
 
 
 
 
     }
+    @Override
+    public void onBackPressed(){
+        if (flag.equals("owner")) {
+            Intent intent1 = new Intent(SearchingUserDetail.this, home_page.class);
+            startActivity(intent1);
+        } else if(flag.equals("borrower")){
+            Intent intent1 = new Intent(SearchingUserDetail.this,Search.class);
+            startActivity(intent1);
+        }
+    }
+
 }

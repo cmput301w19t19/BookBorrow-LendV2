@@ -65,7 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_Owner"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:src="@drawable/book" />
 
 
     <TextView
@@ -117,7 +117,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_1"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:src="@drawable/search" />
 
     <TextView
         android:id="@+id/select_owner_menu_2"
@@ -167,7 +167,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_2"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        android:src="@drawable/scan" />
 
     <TextView
         android:id="@+id/select_owner_menu_3"

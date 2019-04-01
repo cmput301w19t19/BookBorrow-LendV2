@@ -3,9 +3,7 @@ package com.example.y.bookborrow_lendv2;
 import android.app.Activity;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.view.View;
 
-import com.google.android.gms.maps.MapView;
 import com.robotium.solo.Solo;
 
 import org.junit.Before;
@@ -16,18 +14,18 @@ import org.junit.runner.RunWith;
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 
 @RunWith(AndroidJUnit4.class)
-public class MapsActivityOwnerSetLocationTest extends ActivityTestRule<MapsActivityOwnerSetLocation> {
+public class MapsActivityBorrowerViewTest extends ActivityTestRule<MapsActivityBorrowerView> {
 
     private Solo solo;
-    private View view;
 
-    public MapsActivityOwnerSetLocationTest(){
-        super(MapsActivityOwnerSetLocation.class);
+
+    public MapsActivityBorrowerViewTest(){
+        super(MapsActivityBorrowerView.class);
     }
 
     @Rule
-    public ActivityTestRule<MapsActivityOwnerSetLocation>rule =
-            new ActivityTestRule<>(MapsActivityOwnerSetLocation.class,true,true);
+    public ActivityTestRule<MapsActivityBorrowerView>rule =
+            new ActivityTestRule<>(MapsActivityBorrowerView.class,true,true);
 
     @Before
     public void setUp() throws Exception{
@@ -43,12 +41,9 @@ public class MapsActivityOwnerSetLocationTest extends ActivityTestRule<MapsActiv
     @Test
     public void click(){
 
-        solo.assertCurrentActivity("Wrong Activity",MapsActivityOwnerSetLocation.class);
-        solo.clickOnScreen(100,100);
-        solo.searchText("set here");
+        solo.assertCurrentActivity("Wrong Activity",MapsActivityBorrowerView.class);
 
-        solo.clickLongOnScreen(130,130);
-        //solo.assertCurrentActivity("ac",PrivateBookDetails.class);
+        solo.searchText("red");
     }
 
 }

@@ -83,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_Borrower"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:src="@drawable/book" />
 
     <TextView
         android:id="@+id/select_borrow_menu_1"
@@ -132,7 +132,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/menu_image_1"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:src="@drawable/book2" />
 
     <TextView
         android:id="@+id/select_borrow_menu_2"
@@ -181,7 +181,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/menu_image_2"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        android:src="@drawable/search" />
 
     <TextView
         android:id="@+id/select_borrow_menu_3"
@@ -230,7 +230,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/menu_image_3"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        android:src="@drawable/scan" />
 
     <TextView
         android:id="@+id/select_borrow_menu_4"
@@ -261,5 +261,53 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.079"
         app:srcCompat="@drawable/ic_book_black_24dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <ImageButton
+            android:id="@+id/NA21"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/drawble_home_logo" />
+
+        <ImageButton
+            android:id="@+id/NA22"
+            style="@style/Widget.AppCompat.ImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/ic_book_black_24dp" />
+
+        <ImageButton
+            android:id="@+id/NA23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/ic_bookmark_black_24dp" />
+
+        <ImageButton
+            android:id="@+id/NA24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@android:color/transparent"
+            app:srcCompat="@drawable/ic_info_black_24dp" />
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
