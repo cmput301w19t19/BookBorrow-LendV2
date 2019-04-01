@@ -8,14 +8,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-
-        <android.support.v7.widget.Toolbar
-            android:layout_height="?attr/actionBarSize"
-            android:layout_width="match_parent"
-            app:layout_scrollFlags="scroll|enterAlways"></android.support.v7.widget.Toolbar>
-
-    </android.support.design.widget.AppBarLayout>
+        android:layout_width="match_parent"/>
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
