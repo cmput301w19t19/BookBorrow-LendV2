@@ -65,7 +65,7 @@ import com.google.zxing.integration.android.IntentResult;
  * This class is to provide an interface for owner to edit details of one of his book
  *
  * @author Team 19
- * @version 1.0
+ * @version 2.0
  * @see PrivateBookDetails
  * @see MyBookList
  */
@@ -181,7 +181,7 @@ public class EditBookDetail extends AppCompatActivity {
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Log.i("Result","failed");
+                                //Log.i("Result","failed");
                             }
                         });
 
@@ -275,9 +275,7 @@ public class EditBookDetail extends AppCompatActivity {
                 String bookid = b.getID();
                 Intent back = new Intent(EditBookDetail.this,MyBookList.class);
                 startActivity(back);
-                //back.putExtra("ID",bookid);
-                //setResult(1,back);
-                //finish();
+
             }
         });
 
@@ -362,8 +360,7 @@ public class EditBookDetail extends AppCompatActivity {
                 try {
                     Uri uri1 = Data.getData();
                     Log.i("hello22", "22");
-                    //if (extra != null) {
-                    //  Log.i("hello22","slslsl");
+
                     photo = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri1);
                     bookPhoto.setImageBitmap(photo);
                     final StorageReference storageReference = storageRef.child("book/" + id + "/" + "1.jpg");

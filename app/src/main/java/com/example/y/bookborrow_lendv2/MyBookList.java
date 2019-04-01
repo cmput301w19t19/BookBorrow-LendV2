@@ -106,13 +106,12 @@ public class MyBookList extends AppCompatActivity {
         booksID = new ArrayList<>();
         DatabaseReference rootRef = database.getReference("lenders").child(uid).child("MyBookList");
 
-        Log.i("testnn","222");
 
         ValueEventListener eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 bookList.clear();
-                Log.i("testnn","333");
+
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     final String bookID = ds.getKey();
@@ -121,7 +120,7 @@ public class MyBookList extends AppCompatActivity {
                     ValueEventListener eventListener1 = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
-                            //Log.i("test22", "hello");
+
                             book book1 = dataSnapshot1.getValue(book.class);
                             if (book1 != null) {
                                 String name = book1.getName();
@@ -133,15 +132,14 @@ public class MyBookList extends AppCompatActivity {
                                 imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                     @Override
                                     public void onSuccess(byte[] bytes) {
-                                        Log.i("step", "success1");
+                                        //Log.i("step", "success1");
                                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                                         targetBook.setImage(bitmap);
-                                        Log.i("testName1", targetBook.getName());
+                                        //Log.i("testName1", targetBook.getName());
                                         //bookList.add(targetBook);
                                         myBookAdapter.notifyDataSetChanged();
-                                        //bookPhoto.setImageBitmap(bitmap);
-                                        //books = bookList;
-                                        Log.i("size0000",Integer.toString(bookList.size()));
+
+                                        //Log.i("size0000",Integer.toString(bookList.size()));
                                     }
                                     //........................................
                                 }).addOnFailureListener(new OnFailureListener() {

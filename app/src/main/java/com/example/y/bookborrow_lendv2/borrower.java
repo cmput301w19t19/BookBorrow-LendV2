@@ -34,9 +34,8 @@ import java.util.UUID;
  * borrower object class extends user class
  * contain three ArrayList borrowedBook, requestedList and commentList
  *
- * @param
- * @return none
- * @see user
+ * @version 1.0
+ * @see user ;
  */
 public class borrower extends user {
     private Double totalRate = 0.00000001;

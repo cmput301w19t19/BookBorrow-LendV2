@@ -35,7 +35,8 @@ import java.util.ArrayList;
  * adapter class used for ListView in borrower -> request book list
  *
  * @author Team19
- * @version 1.0
+ * @version 2.0
+ * @SEE BorrowerRequest
  */
 
 public class BorrowerRequestAdapter extends BaseAdapter {

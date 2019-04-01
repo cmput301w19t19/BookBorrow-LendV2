@@ -27,6 +27,8 @@ package com.example.y.bookborrow_lendv2;
  * class defined as object in Request_Book_MyAdapter
  *
  * @author Yuan Feng
+ *
+ *
  */
 public class comment {
     private String userName;

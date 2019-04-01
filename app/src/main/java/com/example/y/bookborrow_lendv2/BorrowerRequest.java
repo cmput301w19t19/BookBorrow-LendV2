@@ -52,6 +52,8 @@ import java.util.ArrayList;
  * Borrower Request activity
  * when user login in as a borrower, there is a bookRequested button
  * and this class be able to let user to view the book he/she requested, and the accepted books
+ * @VERSION 2.0
+ * @SEE PublicBookDetail;
  *
  */
 public class BorrowerRequest extends AppCompatActivity {
@@ -77,9 +79,6 @@ public class BorrowerRequest extends AppCompatActivity {
     private String message;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReference();
-    //private BorrowingBookAdapter myBookAdapter;
-    //private BorrowingBookAdapter requestAdapter;
-    ///private BorrowingBookAdapter acceptAdapter;
 
 
 
@@ -105,18 +104,11 @@ public class BorrowerRequest extends AppCompatActivity {
         rootRefA = database.getReference("borrowers").child(uid).child("AcceptedList");
 
 
-
-
-
-
-
-
         // user click showaccept button, book change to accepted books
         showAccepted.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 message = "accepted";
-                Log.i("acceptButtonClick", "fuxxxxxxxxxxxxk");
                 acceptedBookList = new ArrayList<>();
                 ValueEventListener eventListener = new ValueEventListener() {
                     @Override

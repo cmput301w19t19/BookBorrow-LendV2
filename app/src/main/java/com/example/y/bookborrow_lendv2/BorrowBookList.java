@@ -51,7 +51,8 @@ import java.util.ArrayList;
  * the books which a borrower is borrowing
  *
  * @author BoweiLi
- * @version 1.0
+ * @version 2.0
+ * ＠see PublicBookDetail;
  */
 public class BorrowBookList extends AppCompatActivity {
     private ListView myBorrowBookList;
@@ -102,7 +103,7 @@ public class BorrowBookList extends AppCompatActivity {
         //String userID = "v1rSbJgp2uPgAxf4ZJXcclTgDyv2";
         auth = FirebaseAuth.getInstance();
         user = auth.getCurrentUser();
-        //Log.i("Info","I am here");
+
         String userID = user.getUid();
         dbRef = database.getReference("borrowers").child(userID).child("BorrowBookList");
         ValueEventListener postListener = new ValueEventListener() {
@@ -129,7 +130,6 @@ public class BorrowBookList extends AppCompatActivity {
                                     targetBook.setImage(bitmap);
                                     //borrowedBooks.add(targetBook);
                                     BorrowedBookAdapter.notifyDataSetChanged();
-                                    //bookPhoto.setImageBitmap(bitmap);
                                 }
 
                             }).addOnFailureListener(new OnFailureListener() {
@@ -149,10 +149,7 @@ public class BorrowBookList extends AppCompatActivity {
                     };
                     DbRef.addValueEventListener(eventListener1);
                 }
-                /*borrower targetBorrower = dataSnapshot.getValue(borrower.class);
-                borrowedBooks = targetBorrower.getBorrowedBook();
-                BorrowedBookAdapter.notifyDataSetChanged();
-                */
+
             }
 
 
