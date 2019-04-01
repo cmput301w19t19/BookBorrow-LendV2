@@ -84,7 +84,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_Borrower"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:src="@drawable/book" />
 
     <TextView
         android:id="@+id/select_borrow_menu_1"
@@ -133,7 +133,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/menu_image_1"
-        app:srcCompat="@mipmap/ic_launcher" />
+        android:src="@drawable/book2" />
 
     <TextView
         android:id="@+id/select_borrow_menu_2"
@@ -182,7 +182,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/menu_image_2"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        android:src="@drawable/search" />
 
     <TextView
         android:id="@+id/select_borrow_menu_3"
@@ -231,7 +231,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/menu_image_3"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        android:src="@drawable/scan" />
 
     <TextView
         android:id="@+id/select_borrow_menu_4"
