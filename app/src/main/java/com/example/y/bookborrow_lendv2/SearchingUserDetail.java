@@ -87,14 +87,14 @@ public class SearchingUserDetail extends AppCompatActivity {
         final ImageView userPhoto = (ImageView) findViewById(R.id.userPhoto);
 
         final TextView lendBookTimeTextView = (TextView)findViewById(R.id.searchUserDetaillendBookTimeINput);
-        final TextView lenderRateTextView = (TextView)findViewById(R.id.searchUserDetaiBorrowerRating);
+        final TextView borrowRateTextView = (TextView)findViewById(R.id.searchUserDetaiBorrowerRating);
         final TextView lenderSeeMore = (TextView)findViewById(R.id.see_more2);
         final ListView lenderListView = (ListView)findViewById(R.id.ListViewOwner);
         final ArrayList<comment> lenderCommentList = new ArrayList<comment>();
         final CommentAdapter lenderCommentAdapter = new CommentAdapter(this,lenderCommentList);
 
         final TextView borrowBookTimeTextView = (TextView)findViewById(R.id.searchUserDetailBorrowerBookTimeInput);
-        final TextView borrowRateTextView = (TextView)findViewById(R.id.searchUserDetailOwnerRating);
+        final TextView lenderRateTextView = (TextView)findViewById(R.id.searchUserDetailOwnerRating);
         final TextView borrowerSeeMore = (TextView)findViewById(R.id.see_more3);
         final ListView borrowerListView = (ListView)findViewById(R.id.ListViewBorrower);
         final ArrayList<comment> borrowerCommentList = new ArrayList<>();
