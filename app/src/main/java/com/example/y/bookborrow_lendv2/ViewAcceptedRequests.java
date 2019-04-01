@@ -86,7 +86,7 @@ public class ViewAcceptedRequests extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         auth = FirebaseAuth.getInstance();
-        Log.i("testnn","111111");
+
 
         setContentView(R.layout.activity_view_accepted_requests);
         backButton = findViewById(R.id.button4);
@@ -153,7 +153,7 @@ public class ViewAcceptedRequests extends AppCompatActivity {
                                             targetBook.setImage(bitmap);
                                             //bookList.add(targetBook);
                                             myBookAdapter.notifyDataSetChanged();
-                                           // Log.i("Result bbokList",Integer.toString(bookIDList.size()));
+
 
 
                                             //bookPhoto.setImageBitmap(bitmap);
@@ -204,10 +204,6 @@ public class ViewAcceptedRequests extends AppCompatActivity {
                 Intent intent = new Intent(ViewAcceptedRequests.this, PublicBookDetails.class);
                 intent.putExtra("Id", bookId);
                 intent.putExtra("flag","View");
-
-
-
-
                 startActivity(intent);
             }
         });
