@@ -107,52 +107,9 @@ public class home_page extends AppCompatActivity {
         //get current logged in user name
 
         DbRef = database.getReference("users/"+uid);
-        //username = (TextView) findViewById(R.id.UserName);
         myBookList = findViewById(R.id.RecommendBook);
 
-       /** ValueEventListener postListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //username = (TextView) findViewById(R.id.UserName);
 
-                // Get Post object and use the values to update the UI
-                NormalUser currentUser = dataSnapshot.getValue(NormalUser.class);
-
-
-                String UserName = currentUser.getName();
-
-                username.setText(UserName);
-                StorageReference imageRef = storageRef.child("user/"+uid+"/1.jpg");
-                final long ONE_MEGABYTE = 1024 * 1024;
-                imageRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                    @Override
-                    public void onSuccess(byte[] bytes) {
-                        Log.i("Result","success");
-                        intent1.putExtra("image",bytes);
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                        head.setImageBitmap(bitmap);
-                    }
-
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.i("Result","failed");
-                    }
-                });
-
-
-                // ...
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w( "loadPost:onCancelled", databaseError.toException());
-                // ...
-            }
-        };
-
-        DbRef.addValueEventListener(postListener);*/
 
 
 
@@ -200,7 +157,6 @@ public class home_page extends AppCompatActivity {
                 });
 
 
-                //.........................
 
 
 
@@ -252,18 +208,6 @@ public class home_page extends AppCompatActivity {
         // First get the LinearLayout object.
 
         LinearLayout borrowerLayout = (LinearLayout)findViewById(R.id.BorrowerLayout);
-
-
-
-
-      //need to modify the intent activities after other activites are done
-      /**  head.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(intent1);
-            }
-        });*/
-
 
 
 

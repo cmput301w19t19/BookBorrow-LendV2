@@ -149,10 +149,7 @@ public class BorrowBookList extends AppCompatActivity {
                     };
                     DbRef.addValueEventListener(eventListener1);
                 }
-                /*borrower targetBorrower = dataSnapshot.getValue(borrower.class);
-                borrowedBooks = targetBorrower.getBorrowedBook();
-                BorrowedBookAdapter.notifyDataSetChanged();
-                */
+
             }
 
 
