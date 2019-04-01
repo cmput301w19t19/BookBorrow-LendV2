@@ -224,6 +224,22 @@ public class SearchResultForBook extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        userResultList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                NormalUser u = users.get(position);
+
+                String uid = u.getUid();
+                Intent i = new Intent(SearchResultForBook.this,SearchingUserDetail.class);
+                i.putExtra("profileID",uid);
+                startActivity(i);
+            }
+        });
+
+
+
     }
     @Override
     public void onBackPressed(){
