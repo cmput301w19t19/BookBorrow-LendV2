@@ -81,155 +81,57 @@ public class bookTests {
 
     }
 
-    //@Test
-    //public void setAndGetLongitude
-
-    /*
 
     @Test
-    public void  setISBN(){
-        book book2 = new book();
-        book2.setISBN("123aaa");
-
-        assertEquals(book2.getISBN(),"123aaa");
-
-
-    }
-
-    @Test
-    public void getDescription(){
-
-
-        assertEquals(book1.getDescription(),"description");
-
-    }
-
-
-    @Test
-    public void setDescription(){
-        book book2 = new book();
-        book2.setDescription("des");
-
-        assertEquals(book2.getDescription(),"des");
-
-    }
-
-
-    @Test
-    public void getLongitude(){
-
-
-
-        assertEquals(book1.getLongitude(),(float)100.1,0.0001);
-    }
-
-
-    @Test
-    public void setLongitude(){
+    public void setAndGetLongitude(){
         book book2 = new book();
         book2.setLongitude(99.9);
-
         assertEquals(book2.getLongitude(),99.9,0.000001);
-
-
     }
 
 
     @Test
-    public void getLatitude(){
-
-
-        assertEquals(book1.getLatitude(),100.2,0.000001);
-    }
-
-
-    @Test
-    public void setLatitude(){
+    public void setAndgetLatitude(){
         book book2 = new book();
         book2.setLatitude(99.9);
-
         assertEquals(book2.getLatitude(),99.9,0.000001);
-
-
     }
 
     @Test
-    public void getOwnerID(){
-        assertEquals(book1.getOwnerID(),"ownerName");
+    public void setAndGetOwnerID(){
+        book b2 = new book();
+        String s = "AksxeukvtGMLWJ6Ub6qLCYynXmA3";
+        b2.setOwnerID(s);
+        assertEquals(b2.getOwnerID(),s);
     }
 
     @Test
-    public void setOwnerName(){
+    public void setAndGetName(){
         book book2 = new book();
-        book2.setOwnerName("ownerName");
+        book2.setName("ownerName");
 
-        assertEquals(book2.getOwnerName(),"ownerName");
+        assertEquals(book2.getName(),"ownerName");
     }
 
 
 
     @Test
-    public void getAuthor(){
-
-        assertEquals(book1.getAuthor(),"author");
-    }
-
-    @Test
-    public void setAuthor(){
+    public void setAndGetAuthor(){
         book book2 = new book();
         book2.setAuthor("a");
 
         assertEquals(book2.getAuthor(),"a");
     }
 
-    @Test
-    public void getPhoto(){
-
-        assertEquals(book1.getPhoto(),null);
-    }
-
 
     @Test
-    public void setPhoto(){
-        Image image1 = null;
-        book book2 = new book();
-        book2.setPhoto(image1);
-
-        assertEquals(book2.getPhoto(),image1);
-
-    }
-
-    @Test
-    public void getRequestedList(){
-        borrower borrower1 = new borrower();
+    public void setAndGetAndAddRequestedList(){
+        String request = "bookID";
         ArrayList<String> requests= new ArrayList<>();
         book book2 = new book();
-        book2.addRequested(borrower1.getName());
         book2.setRequestedList(requests);
-
+        book2.addRequested(request);
         assertEquals(book2.getRequestedList(),requests);
-
-
     }
-
-    @Test
-    public void setName(){
-        book book1 = new book();
-        book1.setName("hello");
-        assertEquals(book1.getName(),"hello");
-    }
-
-
-    @Test
-    public void addRequested(){
-        borrower borrower1 = new borrower();
-        book book2 = new book();
-        book2.addRequested(borrower1.getName());
-
-        assertFalse(book2.getRequestedList().isEmpty());
-    }
-
-
-*/
 
 }
