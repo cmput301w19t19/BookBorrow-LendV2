@@ -32,7 +32,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 /**
- * The type Maps activity owner set location.
+ * Owner click location button from Private book detail, set location on map
+ * and return LatLng to PrivateBookDetail and send to fire base
+ * @see PrivateBookDetails;
+ * @version 1.0
+ *
  */
 public class MapsActivityOwnerSetLocation extends FragmentActivity implements OnMapReadyCallback {
 
@@ -129,9 +133,6 @@ public class MapsActivityOwnerSetLocation extends FragmentActivity implements On
 
                 LatLng userLocation = new LatLng(location.getLatitude(), location.getLongitude());
 
-                //CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(userLocation, 13);
-                //mMap.animateCamera(cameraUpdate);
-                //locationManager.removeUpdates(this);
             }
 
             @Override

@@ -157,7 +157,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginLeft="80dp"
         android:layout_marginTop="16dp"
-        android:text="@string/menu_string_3_0"
+        android:text="@string/title_activity_search"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/menu_image_3"
         app:layout_constraintTop_toBottomOf="@+id/menu_string_2_1" />
