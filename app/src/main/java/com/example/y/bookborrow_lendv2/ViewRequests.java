@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -63,6 +64,7 @@ public class ViewRequests extends AppCompatActivity {
         setContentView(R.layout.activity_view_requests);
         backButton = findViewById(R.id.button3);
         BookListView = (ListView) findViewById(R.id.BookList);
+        TextView textView = findViewById(R.id.ChecktextView);
 
 
 
