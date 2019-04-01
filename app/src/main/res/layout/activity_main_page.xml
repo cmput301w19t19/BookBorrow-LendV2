@@ -144,6 +144,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:scaleType="fitCenter"
+            android:backgroundTint="@android:color/transparent"
             app:srcCompat="@drawable/drawble_home_logo" />
 
         <ImageButton
@@ -152,7 +153,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
+            android:backgroundTint="@android:color/transparent"
             app:srcCompat="@drawable/ic_book_black_24dp" />
 
         <ImageButton
@@ -160,7 +161,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
+            android:backgroundTint="@android:color/transparent"
             app:srcCompat="@drawable/ic_bookmark_black_24dp" />
 
         <ImageButton
@@ -168,7 +169,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/common_google_signin_btn_icon_light_normal_background"
+            android:backgroundTint="@android:color/transparent"
             app:srcCompat="@drawable/ic_info_black_24dp" />
 
     </LinearLayout>
